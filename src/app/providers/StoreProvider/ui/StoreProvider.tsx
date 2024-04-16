@@ -7,9 +7,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const StoreProvider = (props: Props): ReactElement => {
-  const {children} = props;
-
+export const StoreProvider = ({children}: Props): ReactElement => {
   return (
     <Provider store={store.instance}>
       <PersistGate loading={undefined} persistor={persistor}>

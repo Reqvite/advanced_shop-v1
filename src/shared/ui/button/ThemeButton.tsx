@@ -9,7 +9,7 @@ export const ThemeButton = (): ReactElement => {
   const dispatch = useAppDispatch();
   const darkMode = useAppSelector(selectTheme);
 
-  const onChangeTheme = () => {
+  const onChangeTheme = (): void => {
     dispatch(actions.toggleTheme());
   };
 

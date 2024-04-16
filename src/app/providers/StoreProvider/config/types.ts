@@ -13,7 +13,7 @@ type RootReducer = {
 };
 
 type ExtraArguments = {
-  // extra arguments if exists
+  key: string;
 };
 
 type StoreInstance = ReturnType<

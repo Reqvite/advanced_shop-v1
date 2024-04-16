@@ -8,8 +8,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const Providers = (props: Props): ReactElement => {
-  const {children} = props;
+export const Providers = ({children}: Props): ReactElement => {
   return (
     <StoreProvider>
       <BrowserRouter>
