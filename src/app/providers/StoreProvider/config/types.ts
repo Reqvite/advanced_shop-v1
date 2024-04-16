@@ -5,15 +5,25 @@ import {
   type UnknownAction
 } from '@reduxjs/toolkit';
 import {PersistPartial} from 'redux-persist/es/persistReducer';
+import {$api, $apiRefresh} from '@/shared/api';
 import {reducer as themeReducer} from '@/slices/theme';
+import {reducer as userReducer} from '@/slices/user';
 import {store} from './store';
 
 type RootReducer = {
   theme: ReturnType<typeof themeReducer> & PersistPartial;
+  user: ReturnType<typeof userReducer> & PersistPartial;
 };
 
 type ExtraArguments = {
-  key: string;
+  $api: typeof $api;
+  $apiRefresh: typeof $apiRefresh;
+};
+
+type AsyncThunkConfig = {
+  state: ReturnType<typeof store.instance.getState>;
+  dispatch: typeof store.instance.dispatch;
+  extra: typeof store.extraArguments;
 };
 
 type StoreInstance = ReturnType<
@@ -32,6 +42,7 @@ type StoreSchema = typeof store.instance.getState;
 type StoreInstanceDispatch = typeof store.instance.dispatch;
 
 export {
+  type AsyncThunkConfig,
   type ExtraArguments,
   type RootReducer,
   type StoreInstance,
