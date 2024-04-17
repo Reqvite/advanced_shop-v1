@@ -1,8 +1,8 @@
 export type User = {
   id: string;
   email: string;
-  fullName: string;
-  createdAt: string;
+  firstName: string;
+  lastName: string;
 };
 
 export type UserRegisterRequestDto = {
@@ -14,6 +14,14 @@ export type UserRegisterRequestDto = {
 export type UserRegisterResponseDto = UserLoginResponseDto;
 
 export type UserLoginResponseDto = {
+  user: User;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};
+
+export type UserRefreshResponseDto = {
   accessToken: string;
   refreshToken: string;
 };

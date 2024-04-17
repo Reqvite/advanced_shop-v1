@@ -5,7 +5,7 @@ import {
   type UnknownAction
 } from '@reduxjs/toolkit';
 import {PersistPartial} from 'redux-persist/es/persistReducer';
-import {$api, $apiRefresh} from '@/shared/api';
+import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {store} from './store';
@@ -16,8 +16,9 @@ type RootReducer = {
 };
 
 type ExtraArguments = {
-  $api: typeof $api;
-  $apiRefresh: typeof $apiRefresh;
+  $protectedApi: typeof $protectedApi;
+  $refreshApi: typeof $refreshApi;
+  $publicApi: typeof $publicApi;
 };
 
 type AsyncThunkConfig = {

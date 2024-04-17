@@ -1,21 +1,26 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {ErrorMessages} from '@/shared/const/errorMessages';
+import {passwordValidationSchema} from '@/shared/const/validation';
 
-const passwordComplexity = yup
-  .string()
-  .min(3, ErrorMessages.MIN_LENGTH({length: 3, label: 'Password'}))
-  .matches(
-    /^(?=.*[a-z].*[a-z])(?=.*[A-Z].*[A-Z])(?=.*\d.*\d)(?=.*[^a-zA-Z0-9].*[^a-zA-Z0-9]).*$/,
-    'Password must contain at least 2 lowercase, 2 uppercase, 2 digits, and 2 special characters'
-  )
-  .required();
+const firstName = 'First name';
+const lastName = 'Last name';
+const minLength = 3;
+const maxLength = 30;
 
-const createUser = yup.object().shape({
-  firstName: yup.string().min(3).max(30).required(),
-  lastName: yup.string().min(3).max(30).required(),
-  email: yup.string().email().required(),
-  password: passwordComplexity,
+export const createUser = yup.object().shape({
+  firstName: yup
+    .string()
+    .min(minLength, ErrorMessages.AT_LEAST_LENGTH(minLength, firstName))
+    .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, firstName))
+    .required(ErrorMessages.IS_REQUIRED(firstName)),
+  lastName: yup
+    .string()
+    .min(minLength, ErrorMessages.AT_LEAST_LENGTH(minLength, lastName))
+    .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, lastName))
+    .required(ErrorMessages.IS_REQUIRED(lastName)),
+  email: yup.string().email(ErrorMessages.INVALID_EMAIL).required(ErrorMessages.EMAIL_REQUIRED),
+  password: passwordValidationSchema,
   phoneNumber: yup.string()
 });
 

@@ -1,4 +1,5 @@
 import {Box, Stack} from '@mui/material';
+import {SxProps} from '@mui/system';
 import {ReactElement} from 'react';
 import {DefaultValues, FieldValues, Resolver, useForm} from 'react-hook-form';
 import {Button} from '@/shared/ui';
@@ -14,6 +15,7 @@ type Props<T> = {
   onSubmit: (data: T) => void;
   transformData?: (data: T) => void;
   isLoading?: boolean;
+  sx?: SxProps;
 };
 
 export const Form = <T extends FieldValues>({
@@ -23,6 +25,7 @@ export const Form = <T extends FieldValues>({
   onSubmit,
   transformData,
   defaultValues,
+  sx,
   isLoading
 }: Props<T>): ReactElement => {
   const {handleSubmit, control, getValues} = useForm<T>({
@@ -40,9 +43,9 @@ export const Form = <T extends FieldValues>({
     <Box>
       {heading && <FormHeader heading={heading} />}
       <Box component="form" onSubmit={handleFormSubmit}>
-        <Stack gap={4}>
+        <Stack gap={3} sx={sx}>
           {options.map((option) => renderFormBlock<T>({option, control}))}
-          <Button type="submit" loading={isLoading}>
+          <Button type="submit" variant="contained" loading={isLoading}>
             Send
           </Button>
         </Stack>

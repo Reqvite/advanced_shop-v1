@@ -1,7 +1,7 @@
 import {configureStore, ReducersMapObject} from '@reduxjs/toolkit';
 import {FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import {$api, $apiRefresh} from '@/shared/api';
+import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {ExtraArguments, RootReducer, StoreInstance, StorePackage} from './types';
@@ -15,7 +15,7 @@ const themePersistConfig = {
 const userPersistConfig = {
   key: 'user',
   storage,
-  blacklist: []
+  blacklist: ['showModal']
 };
 
 class Store implements StorePackage {
@@ -46,8 +46,9 @@ class Store implements StorePackage {
 
   public get extraArguments(): ExtraArguments {
     return {
-      $api,
-      $apiRefresh
+      $protectedApi,
+      $refreshApi,
+      $publicApi
     };
   }
 }

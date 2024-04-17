@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
 import {Control, FieldValues} from 'react-hook-form';
-import {InputWithController} from '@/shared/ui';
+import {InputWithController, PasswordInput} from '@/shared/ui';
 import {FormInputVariantsEnum, FormOption} from './types';
 
 type Props<T extends FieldValues> = {
@@ -15,5 +15,14 @@ export const renderFormBlock = <T extends FieldValues>({
   switch (option.variant) {
     case FormInputVariantsEnum.Input:
       return <InputWithController key={option.id} option={option} control={control} />;
+    case FormInputVariantsEnum.PasswordInput:
+      return (
+        <InputWithController
+          key={option.id}
+          InputComponent={PasswordInput}
+          option={option}
+          control={control}
+        />
+      );
   }
 };

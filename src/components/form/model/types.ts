@@ -1,17 +1,21 @@
 export enum FormInputVariantsEnum {
-  Input = 'input'
+  Input = 'input',
+  PasswordInput = 'password-input'
 }
 
 interface BaseFormOption {
   name: string;
   id: string;
   isRequired?: boolean;
-  type: string;
+  type?: string;
 }
 
 interface FormOptionVariantMapI {
   [FormInputVariantsEnum.Input]: {
     variant: FormInputVariantsEnum.Input;
+  };
+  [FormInputVariantsEnum.PasswordInput]: {
+    variant: FormInputVariantsEnum.PasswordInput;
   };
 }
 

@@ -1,4 +1,5 @@
 import {currentUser, login, refreshToken, register} from './actions.js';
+import {selectAuthShowModal} from './selectors.js';
 import {actions, reducer} from './user.slice.js';
 
 const allActions = {
@@ -9,4 +10,4 @@ const allActions = {
   refreshToken
 };
 
-export {allActions as actions, reducer};
+export {allActions as actions, reducer, selectAuthShowModal};

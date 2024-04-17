@@ -1,24 +1,19 @@
-import {createAsyncThunk, createSlice, isAnyOf} from '@reduxjs/toolkit';
-import {$apiRefresh} from '@/shared/api';
+import {createSlice, isAnyOf} from '@reduxjs/toolkit';
 import {User} from '@/shared/types/user/user';
 import {currentUser, login, refreshToken, register} from './actions';
-
-// Async thunk for refreshing tokens
-export const refreshTokens = createAsyncThunk('auth/refreshTokens', async () => {
-  const response = await $apiRefresh.post(`/users/refresh`);
-  return response.data;
-});
 
 type State = {
   user: User | null;
   accessToken: string | null;
   refreshToken: string | null;
+  showModal: boolean;
 };
 
 const initialState: State = {
   user: null,
   accessToken: null,
-  refreshToken: null
+  refreshToken: null,
+  showModal: false
 };
 
 const {reducer, actions, name} = createSlice({
@@ -30,13 +25,20 @@ const {reducer, actions, name} = createSlice({
     },
     clearCurrentUser(state) {
       state.user = null;
+    },
+    openModal(state) {
+      state.showModal = true;
+    },
+    closeModal(state) {
+      state.showModal = false;
     }
   },
   extraReducers(builder) {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
+        state.user = action.payload.user;
+        state.accessToken = action.payload.tokens.accessToken;
+        state.refreshToken = action.payload.tokens.refreshToken;
       })
       .addCase(currentUser.fulfilled, (state, action) => {
         state.user = action.payload;
@@ -45,11 +47,14 @@ const {reducer, actions, name} = createSlice({
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
       })
-      .addMatcher(isAnyOf(login.rejected, register.rejected, currentUser.rejected), (state) => {
-        state.user = null;
-        state.accessToken = null;
-        state.refreshToken = null;
-      });
+      .addMatcher(
+        isAnyOf(login.rejected, register.rejected, currentUser.rejected, refreshToken.rejected),
+        (state) => {
+          state.user = null;
+          state.accessToken = null;
+          state.refreshToken = null;
+        }
+      );
   }
 });
 

@@ -1,13 +1,13 @@
 enum ApiPathEnum {
-  USERS = '/users'
+  AUTH = '/auth'
 }
 
 enum UsersApiPath {
-  LOG_IN = 'users/login',
-  LOG_OUT = 'users/logout',
-  REGISTER = 'users/register',
-  CURRENT = 'users/current',
-  REFRESH = 'users/refresh'
+  LOG_IN = 'auth/login',
+  LOG_OUT = 'auth/logout',
+  REGISTER = 'auth/register',
+  CURRENT = 'auth/current',
+  REFRESH = 'auth/refresh'
 }
 
 export {ApiPathEnum, UsersApiPath};
