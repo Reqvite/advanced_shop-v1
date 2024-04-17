@@ -16,6 +16,7 @@ type Props<T> = {
   transformData?: (data: T) => void;
   isLoading?: boolean;
   sx?: SxProps;
+  buttonLabel?: string;
 };
 
 export const Form = <T extends FieldValues>({
@@ -26,7 +27,8 @@ export const Form = <T extends FieldValues>({
   transformData,
   defaultValues,
   sx,
-  isLoading
+  isLoading,
+  buttonLabel = 'Submit'
 }: Props<T>): ReactElement => {
   const {handleSubmit, control, getValues} = useForm<T>({
     resolver: formValidationSchema,
@@ -45,8 +47,8 @@ export const Form = <T extends FieldValues>({
       <Box component="form" onSubmit={handleFormSubmit}>
         <Stack gap={3} sx={sx}>
           {options.map((option) => renderFormBlock<T>({option, control}))}
-          <Button type="submit" variant="contained" loading={isLoading}>
-            Send
+          <Button type="submit" variant="contained" isLoading={isLoading}>
+            {buttonLabel}
           </Button>
         </Stack>
       </Box>

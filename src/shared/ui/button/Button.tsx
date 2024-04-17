@@ -1,14 +1,20 @@
-import {LoadingButton, LoadingButtonProps} from '@mui/lab';
+import {Button as MuiButton, ButtonProps, CircularProgress} from '@mui/material';
 import {ReactElement, ReactNode} from 'react';
 
-type Props = LoadingButtonProps & {
+type Props = ButtonProps & {
   children?: ReactNode;
+  isLoading?: boolean;
 };
 
-export const Button = ({variant = 'outlined', children, ...otherProps}: Props): ReactElement => {
+export const Button = ({
+  variant = 'outlined',
+  children,
+  isLoading,
+  ...otherProps
+}: Props): ReactElement => {
   return (
-    <LoadingButton variant={variant} loadingPosition="center" {...otherProps}>
-      <span>{children}</span>
-    </LoadingButton>
+    <MuiButton variant={variant} disabled={isLoading} {...otherProps}>
+      {isLoading ? <CircularProgress size={24} color="inherit" /> : <span>{children}</span>}
+    </MuiButton>
   );
 };

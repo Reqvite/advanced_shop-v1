@@ -1,22 +1,10 @@
 import {configureStore, ReducersMapObject} from '@reduxjs/toolkit';
 import {FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
+import {themePersistConfig, userPersistConfig} from './pesrsistConfig';
 import {ExtraArguments, RootReducer, StoreInstance, StorePackage} from './types';
-
-const themePersistConfig = {
-  key: 'theme',
-  storage,
-  blacklist: []
-};
-
-const userPersistConfig = {
-  key: 'user',
-  storage,
-  blacklist: ['showModal']
-};
 
 class Store implements StorePackage {
   #instance: StoreInstance;
