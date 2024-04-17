@@ -10,20 +10,18 @@ import {actions, selectAuthShowModal} from '@/slices/user';
 import {Modal} from './Modal';
 
 const loginOptions: FormOption<FormInputVariantsEnum>[] = [
-  {id: 'email', variant: FormInputVariantsEnum.Input, name: 'Email', type: 'text'},
+  {id: 'email', variant: FormInputVariantsEnum.Input, name: 'Email'},
   {id: 'password', variant: FormInputVariantsEnum.PasswordInput, name: 'Password'}
 ];
 
 const registerOptions: FormOption<FormInputVariantsEnum>[] = [
-  {id: 'firstName', variant: FormInputVariantsEnum.Input, name: 'First name', type: 'text'},
-  {id: 'lastName', variant: FormInputVariantsEnum.Input, name: 'Last name', type: 'text'},
+  {id: 'firstName', variant: FormInputVariantsEnum.Input, name: 'First name'},
+  {id: 'lastName', variant: FormInputVariantsEnum.Input, name: 'Last name'},
   ...loginOptions,
   {
     id: 'phoneNumber',
     variant: FormInputVariantsEnum.Input,
-    name: 'Phone number',
-    type: 'text',
-    isRequired: false
+    name: 'Phone number'
   }
 ];
 
@@ -36,12 +34,17 @@ export const AuthModal = (): ReactElement => {
     dispatch(actions.closeModal());
   };
 
-  const onChangeAuthMode = () => {
+  const onChangeAuthMode = (): void => {
     setIsLoginMode((mode) => !mode);
   };
 
   const onSubmit = (data: any): void => {
-    console.log(data);
+    const submitAction = isLoginMode ? actions.login(data) : actions.register(data);
+    dispatch(submitAction);
+  };
+
+  const testCurrentUser = () => {
+    dispatch(actions.currentUser());
   };
 
   return (
@@ -66,6 +69,7 @@ export const AuthModal = (): ReactElement => {
         <Button fullWidth variant="outlined" onClick={onChangeAuthMode}>
           {isLoginMode ? 'Don`t have an account? Sign up' : ' Already have an account? Sign in'}
         </Button>
+        <button onClick={testCurrentUser}>test</button>
       </Stack>
     </Modal>
   );

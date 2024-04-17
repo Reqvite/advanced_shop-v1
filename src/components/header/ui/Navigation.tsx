@@ -7,13 +7,13 @@ import {navigationOptions} from '../model/navigationOptions';
 export const Navigation = (): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = (): void => {
     setIsDrawerOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = (): void => {
     setIsDrawerOpen(false);
   };
 
