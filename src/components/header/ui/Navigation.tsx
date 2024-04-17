@@ -9,11 +9,11 @@ export const Navigation = (): ReactElement => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  const handleDrawerOpen = (): void => {
+  const onDrawerOpen = (): void => {
     setIsDrawerOpen(true);
   };
 
-  const handleDrawerClose = (): void => {
+  const onDrawerClose = (): void => {
     setIsDrawerOpen(false);
   };
 
@@ -32,8 +32,8 @@ export const Navigation = (): ReactElement => {
     >
       {isMobile ? (
         <>
-          <MenuButton onClick={handleDrawerOpen} />
-          <Drawer anchor="left" open={isDrawerOpen} onClose={handleDrawerClose}>
+          <MenuButton onClick={onDrawerOpen} />
+          <Drawer anchor="left" open={isDrawerOpen} onClose={onDrawerClose}>
             <Stack sx={{gap: 2, p: 2}}>
               <Typography variant="body1" color="primary">
                 Chat with us
@@ -50,7 +50,7 @@ export const Navigation = (): ReactElement => {
                   component={NavLink}
                   to={link}
                   color="primary"
-                  onClick={handleDrawerClose}
+                  onClick={onDrawerClose}
                 >
                   {label}
                 </Link>
