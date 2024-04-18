@@ -9,11 +9,11 @@ export const NavbarMiddle = (): ReactElement => {
         <Stack width="100%" flexDirection="row" justifyContent="space-between" alignItems="center">
           <Typography color="primary">Logo</Typography>
           <Input placeholder="Search…" />
-          <Box>
+          <Stack flexDirection="row" justifyContent="space-between">
             <AuthButton />
             <CartButton />
             <ThemeButton />
-          </Box>
+          </Stack>
         </Stack>
       </Toolbar>
     </Box>
