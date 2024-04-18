@@ -35,7 +35,7 @@ export const brand = {
 
 export const grey = {
   50: 'hsl(190, 60%, 99%)',
-  100: 'hsl(190, 35%, 94%)',
+  100: 'rgb(209, 209, 209)',
   200: 'hsl(190, 35%, 88%)',
   300: 'hsl(190, 25%, 80%)',
   400: 'hsl(190, 20%, 65%)',
@@ -78,11 +78,11 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         })
       },
       error: {
-        light: red[50],
+        light: red[300],
         main: red[500],
         dark: red[700],
         ...(mode === 'dark' && {
-          light: '#D32F2F',
+          light: red[300],
           main: '#D32F2F',
           dark: '#B22A2A'
         })
@@ -293,7 +293,9 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
             },
             '& .MuiInputBase-input': {
               '&::placeholder': {
-                color: grey[800]
+                paddingLeft: '21px',
+                color: theme.palette.mode === 'dark' ? grey[400] : grey[800],
+                fontSize: theme.typography.body2
               }
             },
             flexGrow: 1,
@@ -324,7 +326,9 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
               },
               '& .MuiInputBase-input': {
                 '&::placeholder': {
-                  color: grey[400]
+                  paddingLeft: '21px',
+                  color: theme.palette.mode === 'dark' ? grey[400] : grey[800],
+                  fontSize: theme.typography.body2
                 }
               },
               borderColor: alpha(grey[700], 0.4),
@@ -387,6 +391,7 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         styleOverrides: {
           root: ({theme}) => ({
             typography: theme.typography.caption,
+            fontWeight: 600,
             marginBottom: 6
           })
         }

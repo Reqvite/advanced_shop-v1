@@ -1,11 +1,13 @@
 import ModeNightRoundedIcon from '@mui/icons-material/ModeNightRounded';
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
-import {IconButton} from '@mui/material';
+import {IconButton, IconButtonProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {useAppDispatch, useAppSelector} from '@/shared/lib/hooks';
 import {actions, selectTheme} from '@/slices/theme';
 
-export const ThemeButton = (): ReactElement => {
+type Props = IconButtonProps;
+
+export const ThemeButton = (props: Props): ReactElement => {
   const dispatch = useAppDispatch();
   const darkMode = useAppSelector(selectTheme);
 
@@ -14,7 +16,7 @@ export const ThemeButton = (): ReactElement => {
   };
 
   return (
-    <IconButton color="primary" aria-label="Theme toggle button" onClick={onChangeTheme}>
+    <IconButton color="primary" aria-label="Theme toggle button" onClick={onChangeTheme} {...props}>
       {darkMode ? (
         <WbSunnyRoundedIcon fontSize="small" />
       ) : (
