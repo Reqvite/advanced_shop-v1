@@ -1,11 +1,11 @@
 import {AppBar} from '@mui/material';
 import {ReactElement} from 'react';
-import {AuthButton} from '@/shared/ui';
+import {Navbar} from './Navbar';
 
 export const Header = (): ReactElement => {
   return (
     <AppBar position="static">
-      <AuthButton />
+      <Navbar />
     </AppBar>
   );
 };

@@ -35,7 +35,7 @@ export const Form = <T extends FieldValues>({
     defaultValues: defaultValues as DefaultValues<T>
   });
 
-  const handleFormSubmit = handleSubmit(() => {
+  const handleFormSubmit = handleSubmit((): void => {
     const formData = getValues();
     const transformedData = transformData ? transformData(formData) : formData;
     onSubmit(transformedData!);
