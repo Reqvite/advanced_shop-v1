@@ -4,12 +4,12 @@ import {ReactElement} from 'react';
 import {DefaultValues, FieldValues, Resolver, useForm} from 'react-hook-form';
 import {Button} from '@/shared/ui';
 import {renderFormBlock} from '../model/renderFormBlock';
-import {FormInputVariantsEnum, FormOption} from '../model/types';
+import {FormOption, FormVariantsEnum} from '../model/types';
 import {FormHeader} from './FormHeader';
 
 type Props<T> = {
   heading?: string;
-  options: FormOption<FormInputVariantsEnum>[];
+  options: FormOption<FormVariantsEnum>[];
   formValidationSchema?: Resolver<any>;
   defaultValues: T;
   onSubmit: (data: T) => void;

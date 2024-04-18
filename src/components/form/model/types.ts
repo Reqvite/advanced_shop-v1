@@ -1,4 +1,4 @@
-export enum FormInputVariantsEnum {
+export enum FormVariantsEnum {
   Input = 'input',
   PasswordInput = 'password-input'
 }
@@ -11,12 +11,12 @@ interface BaseFormOption {
 }
 
 interface FormOptionVariantMapI {
-  [FormInputVariantsEnum.Input]: {
-    variant: FormInputVariantsEnum.Input;
+  [FormVariantsEnum.Input]: {
+    variant: FormVariantsEnum.Input;
   };
-  [FormInputVariantsEnum.PasswordInput]: {
-    variant: FormInputVariantsEnum.PasswordInput;
+  [FormVariantsEnum.PasswordInput]: {
+    variant: FormVariantsEnum.PasswordInput;
   };
 }
 
-export type FormOption<T extends FormInputVariantsEnum> = BaseFormOption & FormOptionVariantMapI[T];
+export type FormOption<T extends FormVariantsEnum> = BaseFormOption & FormOptionVariantMapI[T];

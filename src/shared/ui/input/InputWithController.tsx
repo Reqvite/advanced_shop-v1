@@ -1,11 +1,11 @@
 import {ReactElement} from 'react';
 import {Control, Controller, FieldValues, Path} from 'react-hook-form';
-import {FormInputVariantsEnum, FormOption} from '@/components/form';
+import {FormOption, FormVariantsEnum} from '@/components/form';
 import {Input} from './Input';
 import {PasswordInput} from './PasswordInput';
 
 interface Props<T extends FieldValues> {
-  option: FormOption<FormInputVariantsEnum>;
+  option: FormOption<FormVariantsEnum>;
   control: Control<T>;
   InputComponent?: typeof Input | typeof PasswordInput;
 }

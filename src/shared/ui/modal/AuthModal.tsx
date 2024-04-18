@@ -2,7 +2,7 @@ import {Button} from '@mui/material';
 import Stack from '@mui/material/Stack';
 import {ReactElement, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {Form, FormInputVariantsEnum, FormOption} from '@/components/form';
+import {Form, FormOption, FormVariantsEnum} from '@/components/form';
 import {useAppDispatch} from '@/shared/lib/hooks';
 import {createUserSchema} from '@/shared/lib/yup/createUser.schema';
 import {loginUserUserSchema} from '@/shared/lib/yup/loginUser.schema';
@@ -10,17 +10,17 @@ import {UserLoginRequestDto, UserRegisterRequestDto} from '@/shared/types/user/u
 import {actions, selectAuthIsLoading, selectAuthShowModal} from '@/slices/user';
 import {Modal} from './Modal';
 
-const loginOptions: FormOption<FormInputVariantsEnum>[] = [
-  {id: 'email', variant: FormInputVariantsEnum.Input, name: 'Email'},
-  {id: 'password', variant: FormInputVariantsEnum.PasswordInput, name: 'Password'}
+const loginOptions: FormOption<FormVariantsEnum>[] = [
+  {id: 'email', variant: FormVariantsEnum.Input, name: 'Email'},
+  {id: 'password', variant: FormVariantsEnum.PasswordInput, name: 'Password'}
 ];
-const registerOptions: FormOption<FormInputVariantsEnum>[] = [
-  {id: 'firstName', variant: FormInputVariantsEnum.Input, name: 'First name'},
-  {id: 'lastName', variant: FormInputVariantsEnum.Input, name: 'Last name'},
+const registerOptions: FormOption<FormVariantsEnum>[] = [
+  {id: 'firstName', variant: FormVariantsEnum.Input, name: 'First name'},
+  {id: 'lastName', variant: FormVariantsEnum.Input, name: 'Last name'},
   ...loginOptions,
   {
     id: 'phoneNumber',
-    variant: FormInputVariantsEnum.Input,
+    variant: FormVariantsEnum.Input,
     name: 'Phone number'
   }
 ];
