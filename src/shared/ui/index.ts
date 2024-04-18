@@ -9,3 +9,5 @@ export {InputWithController} from './input/InputWithController.tsx';
 export {PasswordInput} from './input/PasswordInput.tsx';
 export {AuthModal} from './modal/AuthModal.tsx';
 export {Modal} from './modal/Modal.jsx';
+export {MediumProductCard} from './productCard/MediumProductCard.tsx';
+export {Rating} from './rating/Rating.tsx';
