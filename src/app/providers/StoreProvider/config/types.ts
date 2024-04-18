@@ -42,10 +42,13 @@ type StorePackage = {
 type StoreSchema = typeof store.instance.getState;
 type StoreInstanceDispatch = typeof store.instance.dispatch;
 
+type Store = ReturnType<typeof store.instance.getState>;
+
 export {
   type AsyncThunkConfig,
   type ExtraArguments,
   type RootReducer,
+  type Store,
   type StoreInstance,
   type StoreInstanceDispatch,
   type StorePackage,

@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AsyncThunkConfig} from '@/app/providers/StoreProvider/config/types';
-import {UsersApiPath} from '@/shared/types/apiPath';
+import {UsersApiPath} from '@/shared/enums/apiPath.enum';
 import {
   User,
   UserLoginRequestDto,

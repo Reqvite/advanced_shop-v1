@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {MenuButton} from '@/shared/ui';
 import {navigationOptions} from '../model/navigationOptions';
 
-export const Navigation = (): ReactElement => {
+export const HeaderNavigation = (): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);

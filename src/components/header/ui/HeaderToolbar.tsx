@@ -1,8 +1,8 @@
 import {Box, Stack, Toolbar, Typography} from '@mui/material';
 import {ReactElement} from 'react';
-import {AuthButton, CartButton, Input, ThemeButton} from '@/shared/ui';
+import {AuthMenuButton, CartButton, Input, ThemeButton} from '@/shared/ui';
 
-export const NavbarMiddle = (): ReactElement => {
+export const HeaderToolbar = (): ReactElement => {
   return (
     <Box width="100%">
       <Toolbar>
@@ -10,7 +10,7 @@ export const NavbarMiddle = (): ReactElement => {
           <Typography color="primary">Logo</Typography>
           <Input placeholder="Search…" />
           <Stack flexDirection="row" justifyContent="space-between">
-            <AuthButton />
+            <AuthMenuButton />
             <CartButton />
             <ThemeButton />
           </Stack>

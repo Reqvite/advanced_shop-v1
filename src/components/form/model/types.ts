@@ -1,6 +1,5 @@
 export enum FormVariantsEnum {
-  Input = 'input',
-  PasswordInput = 'password-input'
+  Input = 'input'
 }
 
 interface BaseFormOption {
@@ -13,9 +12,6 @@ interface BaseFormOption {
 interface FormOptionVariantMapI {
   [FormVariantsEnum.Input]: {
     variant: FormVariantsEnum.Input;
-  };
-  [FormVariantsEnum.PasswordInput]: {
-    variant: FormVariantsEnum.PasswordInput;
   };
 }
 

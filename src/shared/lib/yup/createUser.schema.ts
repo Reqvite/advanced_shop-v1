@@ -1,7 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {ErrorMessages} from '@/shared/const/errorMessages';
-import {passwordValidationSchema} from '@/shared/const/validation';
+import {ErrorMessages} from '@/shared/const/errorMessages.const';
+import {passwordValidationSchema} from '@/shared/const/validation.const';
 
 const firstName = 'First name';
 const lastName = 'Last name';

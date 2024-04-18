@@ -17,6 +17,8 @@ type Props<T> = {
   isLoading?: boolean;
   sx?: SxProps;
   buttonLabel?: string;
+  withCancel?: boolean;
+  onCancel?: () => void;
 };
 
 export const Form = <T extends FieldValues>({
@@ -28,18 +30,27 @@ export const Form = <T extends FieldValues>({
   defaultValues,
   sx,
   isLoading,
-  buttonLabel = 'Submit'
+  buttonLabel = 'Submit',
+  withCancel,
+  onCancel
 }: Props<T>): ReactElement => {
-  const {handleSubmit, control, getValues} = useForm<T>({
+  const {handleSubmit, reset, control, getValues} = useForm<T>({
     resolver: formValidationSchema,
     defaultValues: defaultValues as DefaultValues<T>
   });
 
-  const handleFormSubmit = handleSubmit((): void => {
+  const handleFormSubmit = handleSubmit(() => {
     const formData = getValues();
     const transformedData = transformData ? transformData(formData) : formData;
     onSubmit(transformedData!);
   });
+
+  const handleCancel = () => {
+    if (onCancel) {
+      onCancel();
+    }
+    reset();
+  };
 
   return (
     <Box>
@@ -47,9 +58,16 @@ export const Form = <T extends FieldValues>({
       <Box component="form" onSubmit={handleFormSubmit}>
         <Stack gap={3} sx={sx}>
           {options.map((option) => renderFormBlock<T>({option, control}))}
-          <Button type="submit" variant="contained" isLoading={isLoading}>
-            {buttonLabel}
-          </Button>
+          <Stack direction="row" spacing={2} sx={{width: '100%'}}>
+            <Button fullWidth type="submit" variant="contained" isLoading={isLoading}>
+              {buttonLabel}
+            </Button>
+            {withCancel && (
+              <Button fullWidth variant="outlined" onClick={handleCancel}>
+                Cancel
+              </Button>
+            )}
+          </Stack>
         </Stack>
       </Box>
     </Box>

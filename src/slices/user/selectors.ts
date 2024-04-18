@@ -1,10 +1,6 @@
-import {store} from '@/app/providers/StoreProvider/config/store';
+import {Store} from '@/app/providers/StoreProvider/config/types';
 
-export const selectAuthUser = (state: ReturnType<typeof store.instance.getState>) =>
-  state.user.user;
-export const selectAuthAccessToken = (state: ReturnType<typeof store.instance.getState>) =>
-  state.user.accessToken;
-export const selectAuthShowModal = (state: ReturnType<typeof store.instance.getState>) =>
-  state.user.showModal;
-export const selectAuthIsLoading = (state: ReturnType<typeof store.instance.getState>) =>
-  state.user.isLoading;
+export const selectAuthUser = (state: Store) => state.user.user;
+export const selectAuthAccessToken = (state: Store) => state.user.accessToken;
+export const selectAuthShowModal = (state: Store) => state.user.showModal;
+export const selectAuthIsLoading = (state: Store) => state.user.isLoading;
