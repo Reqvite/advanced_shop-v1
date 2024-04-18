@@ -63,7 +63,7 @@ const refreshToken = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncTh
 );
 
 const logout = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncThunkConfig>(
-  UsersApiPath.REFRESH,
+  UsersApiPath.LOG_OUT,
   async (_request, {extra: {$protectedApi}, rejectWithValue}) => {
     try {
       const response = await $protectedApi.post(UsersApiPath.LOG_OUT);
