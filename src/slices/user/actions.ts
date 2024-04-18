@@ -9,12 +9,14 @@ import {
   UserRegisterRequestDto,
   UserRegisterResponseDto
 } from '@/shared/types/user/user';
+import {actions} from '.';
 
 const login = createAsyncThunk<UserLoginResponseDto, UserLoginRequestDto, AsyncThunkConfig>(
   UsersApiPath.LOG_IN,
-  async (body, {extra: {$publicApi}, rejectWithValue}) => {
+  async (body, {dispatch, extra: {$publicApi}, rejectWithValue}) => {
     try {
       const response = await $publicApi.post(UsersApiPath.LOG_IN, body);
+      dispatch(actions.closeModal());
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -60,4 +62,16 @@ const refreshToken = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncTh
   }
 );
 
-export {currentUser, login, refreshToken, register};
+const logout = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncThunkConfig>(
+  UsersApiPath.REFRESH,
+  async (_request, {extra: {$protectedApi}, rejectWithValue}) => {
+    try {
+      const response = await $protectedApi.post(UsersApiPath.LOG_OUT);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export {currentUser, login, logout, refreshToken, register};

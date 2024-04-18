@@ -7,7 +7,7 @@ import {useAppDispatch} from '@/shared/lib/hooks';
 import {createUserSchema} from '@/shared/lib/yup/createUser.schema';
 import {loginUserUserSchema} from '@/shared/lib/yup/loginUser.schema';
 import {UserLoginRequestDto, UserRegisterRequestDto} from '@/shared/types/user/user';
-import {actions, selectAuthShowModal} from '@/slices/user';
+import {actions, selectAuthIsLoading, selectAuthShowModal} from '@/slices/user';
 import {Modal} from './Modal';
 
 const loginOptions: FormOption<FormInputVariantsEnum>[] = [
@@ -35,6 +35,7 @@ const defaultValues = registerOptions.reduce(
 export const AuthModal = (): ReactElement => {
   const dispatch = useAppDispatch();
   const isShowModal = useSelector(selectAuthShowModal);
+  const isLoading = useSelector(selectAuthIsLoading);
   const [isLoginMode, setIsLoginMode] = useState<boolean>(false);
 
   const onCloseModal = (): void => {
@@ -64,6 +65,7 @@ export const AuthModal = (): ReactElement => {
           defaultValues={defaultValues}
           onSubmit={onSubmit}
           formValidationSchema={isLoginMode ? loginUserUserSchema : createUserSchema}
+          isLoading={isLoading}
         />
         <Button fullWidth variant="outlined" onClick={onChangeAuthMode}>
           {isLoginMode ? 'Don`t have an account? Sign up' : ' Already have an account? Sign in'}
