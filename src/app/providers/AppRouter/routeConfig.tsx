@@ -3,7 +3,8 @@ import {MainPage} from '@/pages';
 
 export enum AppRoutes {
   MAIN = 'main',
-  NOT_FOUND = 'not-found'
+  NOT_FOUND = 'not-found',
+  PRODUCT_DETAILS = 'product-details'
 }
 
 export type AppRoutesProps = RouteProps & {
@@ -11,6 +12,7 @@ export type AppRoutesProps = RouteProps & {
 };
 
 export const getRouteMain = () => '/';
+export const getRouteProductDetails = (id: string) => `/product/${id}`;
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -19,6 +21,10 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.NOT_FOUND]: {
     path: '*',
+    element: <MainPage />
+  },
+  [AppRoutes.PRODUCT_DETAILS]: {
+    path: getRouteProductDetails(':id'),
     element: <MainPage />
   }
 };

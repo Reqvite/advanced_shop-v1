@@ -10,9 +10,11 @@ import {
 } from '@mui/material';
 import {LabelOptionsI} from '@/shared/types/options';
 import {Button} from '../button/Button';
-import {CharacteristicList} from '../characteristicList/CharacteristicList';
+import {ProductDetailsButton} from '../button/ProductDetailsButton';
 import {Rating} from '../rating/Rating';
-import {PriceText} from '../text/PriceText';
+import {CharacteristicList} from './ui/CharacteristicList';
+import {DeliveryText} from './ui/DeliveryText';
+import {PriceText} from './ui/PriceText';
 
 type Props = CardProps & {
   rating: number;
@@ -63,8 +65,9 @@ export const MediumProductCard = ({
           </Box>
           <Box>
             <PriceText price={price} discount={discount} />
+            <DeliveryText />
             <CardActions>
-              <Button size="small">Share</Button>
+              <ProductDetailsButton id="1" />
               <Button size="small">Learn More</Button>
             </CardActions>
           </Box>
