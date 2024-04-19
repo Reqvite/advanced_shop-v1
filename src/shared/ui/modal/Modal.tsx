@@ -10,7 +10,7 @@ type Props = DialogProps & {
 };
 export const Modal = ({title, children, ...otherProps}: Props): ReactElement => {
   return (
-    <Dialog {...otherProps}>
+    <Dialog fullWidth maxWidth="md" {...otherProps}>
       <ModalStyled>
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{mb: 2}}>
           {title && (

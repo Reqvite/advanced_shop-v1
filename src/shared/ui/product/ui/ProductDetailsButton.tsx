@@ -1,19 +1,23 @@
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import {ButtonProps, LinkProps} from '@mui/material';
 import {Link} from 'react-router-dom';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
-import {Button} from './Button';
+import {Button} from '../../button/Button';
 
-type Props = {
-  id: string;
-};
+type Props = LinkProps &
+  ButtonProps & {
+    id: string;
+  };
 
-export const ProductDetailsButton = ({id}: Props) => {
+export const ProductDetailsButton = ({id, ...otherProps}: Props) => {
   return (
     <Button
       variant="contained"
       component={Link}
       to={getRouteProductDetails(id)}
       RightAddon={NavigateNextIcon}
+      sx={{minWidth: 150}}
+      {...otherProps}
     >
       Product detail
     </Button>

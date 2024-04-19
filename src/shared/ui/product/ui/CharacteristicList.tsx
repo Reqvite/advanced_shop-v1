@@ -9,7 +9,7 @@ type Props = ListProps & {
 export const CharacteristicList = ({characteristics, maxListItems = 10, ...otherProps}: Props) => {
   return (
     <List sx={{display: 'flex', flexDirection: 'column', gap: 1}} {...otherProps}>
-      {characteristics.slice(0, maxListItems).map(({label, value}) => (
+      {characteristics?.slice(0, maxListItems)?.map(({label, value}) => (
         <ListItem key={`${label}-${value}`} sx={{display: 'flex', gap: 2, p: 0}}>
           <Typography
             fontWeight={600}

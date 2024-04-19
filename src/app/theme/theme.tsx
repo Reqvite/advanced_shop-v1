@@ -139,8 +139,8 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
     breakpoints: {
       values: {
         xs: 0,
-        sm: 600,
-        md: 900,
+        sm: 500,
+        md: 795.98,
         lg: 1200,
         xl: 1536
       }

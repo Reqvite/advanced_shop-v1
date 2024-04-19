@@ -12,7 +12,7 @@ export type AppRoutesProps = RouteProps & {
 };
 
 export const getRouteMain = () => '/';
-export const getRouteProductDetails = (id: string) => `/product/${id}`;
+export const getRouteProductDetails = (id: string) => `/products/${id}`;
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
