@@ -33,6 +33,7 @@ export const ProductCard = ({
   price,
   discount,
   variant,
+  img,
   ...otherProps
 }: Props): ReactElement => {
   const theme = useTheme();
@@ -41,12 +42,7 @@ export const ProductCard = ({
   if (variant === 'small' || isMobile) {
     return (
       <Card sx={{width: '100%', maxWidth: 500}} {...otherProps}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="240"
-          image="https://mywowo.net/media/images/cache/dubai_img_worlds_of_adventure_01_presentazione_jpg_1200_630_cover_85.jpg"
-        />
+        <CardMedia component="img" alt={title} height="240" image={img} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
           <ProductHeading title={title} description={description} />
         </CardContent>
@@ -66,8 +62,8 @@ export const ProductCard = ({
         <CardMedia
           component="img"
           sx={{minHeight: '100%', maxWidth: 268, objectFit: 'cover'}}
-          image="https://mywowo.net/media/images/cache/dubai_img_worlds_of_adventure_01_presentazione_jpg_1200_630_cover_85.jpg"
-          title="green iguana"
+          image={img}
+          alt={title}
         />
         <CardContent
           sx={{
