@@ -42,7 +42,7 @@ export const ProductCard = ({
   if (variant === 'small' || isMobile) {
     return (
       <Card sx={{width: '100%', maxWidth: 500}} {...otherProps}>
-        <CardMedia component="img" alt={title} height="240" image={img} />
+        <CardMedia component="img" alt={title} height="240" image={img[0]} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
           <ProductHeading title={title} description={description} />
         </CardContent>
@@ -62,7 +62,7 @@ export const ProductCard = ({
         <CardMedia
           component="img"
           sx={{minHeight: '100%', maxWidth: 268, objectFit: 'cover'}}
-          image={img}
+          image={img[0]}
           alt={title}
         />
         <CardContent

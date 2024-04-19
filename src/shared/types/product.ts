@@ -3,7 +3,7 @@ import {LabelOptionsI} from './options';
 interface ProductI {
   _id: string;
   rating: number;
-  img: string;
+  img: string[];
   title: string;
   description: string;
   characteristics: LabelOptionsI[];
