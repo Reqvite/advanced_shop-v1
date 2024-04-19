@@ -4,11 +4,11 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Stack,
   useMediaQuery,
   useTheme
 } from '@mui/material';
 import {ProductI} from '@/shared/types/product';
+import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {boxStyle} from './styles/styles';
 import {CharacteristicList} from './ui/CharacteristicList';
@@ -17,7 +17,7 @@ import {PriceText} from './ui/PriceText';
 import {ProductDetailsButton} from './ui/ProductDetailsButton';
 import {ProductHeading} from './ui/ProductHeading';
 
-type CardVariants = 'small' | 'medium';
+export type CardVariants = 'small' | 'medium';
 
 type Props = ProductI & {
   variant?: CardVariants;
@@ -61,7 +61,7 @@ export const ProductCard = ({
 
   return (
     <Card sx={{maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'}} {...otherProps}>
-      <Stack sx={{flexDirection: 'row', minHeight: 280}}>
+      <Flex sx={{minHeight: 280}}>
         <CardMedia
           component="img"
           sx={{minHeight: '100%', maxWidth: 268, objectFit: 'cover'}}
@@ -93,7 +93,7 @@ export const ProductCard = ({
             </CardActions>
           </Box>
         </CardContent>
-      </Stack>
+      </Flex>
     </Card>
   );
 };

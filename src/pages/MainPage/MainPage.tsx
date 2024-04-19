@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
 import {ProductI} from '@/shared/types/product';
-import {List, Pagination, ProductCard, StickyContentLayout} from '@/shared/ui';
+import {List, Pagination, ProductCard, ProductCardSkeleton, StickyContentLayout} from '@/shared/ui';
 
 const products: ProductI[] = [
   {
@@ -119,7 +119,14 @@ const MainPage = (): ReactElement => {
             <div>Filter</div>
           </div>
         }
-        content={<List<ProductI> items={products} renderItem={ProductCard} />}
+        content={
+          <List<ProductI>
+            items={products}
+            renderItem={ProductCard}
+            isLoading={false}
+            skeleton={<ProductCardSkeleton />}
+          />
+        }
         bottom={<Pagination total={products.length} />}
       />
     </>

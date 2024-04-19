@@ -8,7 +8,7 @@ type Props = PaginationProps & {
 
 export const Pagination = ({total, ...otherProps}: Props) => {
   return (
-    <Flex sx={{justifyContent: 'space-between', gap: 2}}>
+    <Flex sx={{justifyContent: 'space-between', alignItems: 'center', gap: 2}}>
       <MuiPagination color="primary" {...otherProps} />
       <Button>Show more products</Button>
       {total && (

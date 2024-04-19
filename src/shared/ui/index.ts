@@ -12,5 +12,6 @@ export {List} from './list/List.tsx';
 export {AuthModal} from './modal/AuthModal.tsx';
 export {Modal} from './modal/Modal.jsx';
 export {Pagination} from './pagination/Pagination.tsx';
+export {ProductCardSkeleton} from './product/ProductCard.skeleton.tsx';
 export {ProductCard} from './product/ProductCard.tsx';
 export {Rating} from './rating/Rating.tsx';

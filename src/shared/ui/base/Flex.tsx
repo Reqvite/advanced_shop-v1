@@ -7,7 +7,7 @@ type Props = StackProps & {
 
 export const Flex = ({children, ...otherProps}: Props) => {
   return (
-    <Stack display="flex" flexDirection="row" alignItems="center" {...otherProps}>
+    <Stack display="flex" flexDirection="row" {...otherProps}>
       {children}
     </Stack>
   );
