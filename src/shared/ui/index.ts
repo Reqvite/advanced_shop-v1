@@ -1,4 +1,4 @@
-export {AuthButton} from './button/AuthButton.tsx';
+export {AuthMenuButton} from './button/AuthMenuButton.tsx';
 export {Button} from './button/Button.tsx';
 export {CartButton} from './button/CartButton.tsx';
 export {MenuButton} from './button/MenuButton.tsx';
@@ -7,7 +7,6 @@ export {ThemeButton} from './button/ThemeButton';
 export {Container} from './container/Container.tsx';
 export {Input} from './input/Input.tsx';
 export {InputWithController} from './input/InputWithController.tsx';
-export {PasswordInput} from './input/PasswordInput.tsx';
 export {AuthModal} from './modal/AuthModal.tsx';
 export {Modal} from './modal/Modal.jsx';
 export {MediumProductCard} from './product/MediumProductCard.tsx';

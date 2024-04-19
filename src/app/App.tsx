@@ -13,7 +13,6 @@ function App() {
     if (accessToken) {
       dispatch(userActions.currentUser());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

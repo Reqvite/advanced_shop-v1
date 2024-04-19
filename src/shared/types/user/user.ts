@@ -31,4 +31,4 @@ export type UserLoginRequestDto = {
   password: string;
 };
 
-export type UserWithPassword = User & {password: string};
+export type UserSignUpDto = User & {password: string};

@@ -12,8 +12,9 @@ import {Modal} from './Modal';
 
 const loginOptions: FormOption<FormVariantsEnum>[] = [
   {id: 'email', variant: FormVariantsEnum.Input, name: 'Email'},
-  {id: 'password', variant: FormVariantsEnum.PasswordInput, name: 'Password'}
+  {id: 'password', variant: FormVariantsEnum.Input, name: 'Password', type: 'password'}
 ];
+
 const registerOptions: FormOption<FormVariantsEnum>[] = [
   {id: 'firstName', variant: FormVariantsEnum.Input, name: 'First name'},
   {id: 'lastName', variant: FormVariantsEnum.Input, name: 'Last name'},
@@ -24,6 +25,7 @@ const registerOptions: FormOption<FormVariantsEnum>[] = [
     name: 'Phone number'
   }
 ];
+
 const defaultValues = registerOptions.reduce(
   (acc, option) => {
     acc[option.id] = '';
