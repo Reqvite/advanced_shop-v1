@@ -1,4 +1,5 @@
 import {Box, Rating, Typography} from '@mui/material';
+import {ReactElement} from 'react';
 
 type Props = {
   title: string;
@@ -6,7 +7,7 @@ type Props = {
   rating?: number;
 };
 
-export const ProductHeading = ({title, description, rating}: Props) => {
+export const ProductHeading = ({title, description, rating}: Props): ReactElement => {
   return (
     <Box>
       <Typography gutterBottom variant="h5" component="div">

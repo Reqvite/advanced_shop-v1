@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material';
+import {ReactElement} from 'react';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
@@ -33,7 +34,7 @@ export const ProductCard = ({
   discount,
   variant,
   ...otherProps
-}: Props) => {
+}: Props): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 

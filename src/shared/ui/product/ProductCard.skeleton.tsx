@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material';
+import {ReactElement} from 'react';
 import {Flex} from '../base/Flex';
 import {CardVariants} from './ProductCard';
 import {boxStyle} from './styles/styles';
@@ -15,7 +16,7 @@ type Props = {
   variant?: CardVariants;
 };
 
-export const ProductCardSkeleton = ({variant}: Props) => {
+export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 

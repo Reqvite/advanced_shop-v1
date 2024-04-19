@@ -277,6 +277,14 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
           }
         }
       },
+      MuiChip: {
+        styleOverrides: {
+          root: () => ({
+            backgroundColor: alpha(brand[300], 0.2),
+            color: brand[300]
+          })
+        }
+      },
       MuiOutlinedInput: {
         styleOverrides: {
           notchedOutline: {

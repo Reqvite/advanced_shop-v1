@@ -18,7 +18,7 @@ export const List = <T extends {_id: string}>({
   skeleton,
   skeletonLength = 5,
   ...otherProps
-}: Props<T>) => {
+}: Props<T>): ReactElement => {
   const skeletons = Array.from({length: skeletonLength}).map((_, index) => (
     <ListItem sx={{justifyContent: 'flex-end'}} key={index}>
       {skeleton}
