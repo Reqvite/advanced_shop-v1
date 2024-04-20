@@ -19,7 +19,7 @@ export const Pagination = ({
   return (
     <Flex sx={{justifyContent: 'space-between', alignItems: 'center', gap: 2}}>
       <MuiPagination color="primary" {...otherProps} />
-      {onShowMoreClick && <Button>Show more</Button>}
+      {onShowMoreClick && <Button onClick={onShowMoreClick}>Show more</Button>}
       {total && (
         <Flex gap={1} alignItems="center">
           <Chip label={total} />

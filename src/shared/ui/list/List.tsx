@@ -1,14 +1,13 @@
-import {List as MuiList, ListItem, ListProps} from '@mui/material';
+import {List as MuiList, ListProps} from '@mui/material';
 import {ReactElement, ReactNode} from 'react';
+import {templateService} from '@/shared/services';
 
 type Props<T> = ListProps & {
   items: T[];
   renderItem: (item: T) => ReactNode;
   row?: boolean;
-  skeleton?: ReactElement;
   isLoading?: boolean;
-  skeletonLength?: number;
-};
+} & ({skeleton: ReactElement; skeletonLength: number} | {skeleton?: never; skeletonLength?: never});
 
 export const List = <T extends {_id: string}>({
   items,
@@ -19,21 +18,12 @@ export const List = <T extends {_id: string}>({
   skeletonLength = 5,
   ...otherProps
 }: Props<T>): ReactElement => {
-  const skeletons = Array.from({length: skeletonLength}).map((_, index) => (
-    <ListItem sx={{justifyContent: 'flex-end'}} key={index}>
-      {skeleton}
-    </ListItem>
-  ));
-
   return (
     <MuiList sx={{display: 'flex', flexDirection: row ? 'row' : 'column'}} {...otherProps}>
-      {!isLoading &&
-        items.map((item) => (
-          <ListItem sx={{justifyContent: 'flex-end'}} key={item._id}>
-            {renderItem(item)}
-          </ListItem>
-        ))}
-      {isLoading && skeleton && <>{skeletons}</>}
+      {!isLoading && templateService.renderListItem<T>({items, renderItem})}
+      {isLoading &&
+        skeleton &&
+        templateService.renderListItem<T>({skeleton, length: skeletonLength})}
     </MuiList>
   );
 };

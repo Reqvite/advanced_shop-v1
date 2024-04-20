@@ -150,6 +150,7 @@ const MainPage = (): ReactElement => {
             renderItem={ProductCard}
             isLoading={false}
             skeleton={<ProductCardSkeleton />}
+            skeletonLength={5}
           />
         }
         bottom={<Pagination total={products.length} />}

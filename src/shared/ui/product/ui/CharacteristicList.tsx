@@ -1,4 +1,5 @@
 import {List, ListItem, ListProps, Typography} from '@mui/material';
+import {ReactElement} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
 
 type Props = ListProps & {
@@ -6,7 +7,11 @@ type Props = ListProps & {
   maxListItems?: number;
 };
 
-export const CharacteristicList = ({characteristics, maxListItems = 10, ...otherProps}: Props) => {
+export const CharacteristicList = ({
+  characteristics,
+  maxListItems = 10,
+  ...otherProps
+}: Props): ReactElement => {
   return (
     <List sx={{display: 'flex', flexDirection: 'column', gap: 1}} {...otherProps}>
       {characteristics?.slice(0, maxListItems)?.map(({label, value}) => (

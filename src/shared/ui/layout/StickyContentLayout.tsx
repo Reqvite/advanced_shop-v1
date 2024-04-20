@@ -1,5 +1,5 @@
 import {Grid} from '@mui/material';
-import {ReactNode} from 'react';
+import {ReactElement, ReactNode} from 'react';
 
 interface Props {
   left?: ReactNode;
@@ -7,7 +7,7 @@ interface Props {
   bottom?: ReactNode;
 }
 
-export const StickyContentLayout = ({content, left, bottom}: Props) => {
+export const StickyContentLayout = ({content, left, bottom}: Props): ReactElement => {
   return (
     <>
       <Grid
