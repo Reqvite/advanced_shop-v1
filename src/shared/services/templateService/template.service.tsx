@@ -20,7 +20,7 @@ class TemplateService {
 
     return array.map((item, index) => {
       const renderComponent = item && renderItem ? renderItem(item as any) : skeleton;
-      const id = item._id || index.toString();
+      const id = item._id || `${index}-${new Date().getTime()}`;
 
       return (
         <ListItem sx={{justifyContent: 'flex-end'}} key={id} {...otherProps}>
