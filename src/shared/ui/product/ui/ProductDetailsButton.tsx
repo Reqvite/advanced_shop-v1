@@ -20,7 +20,7 @@ export const ProductDetailsButton = ({id, ...otherProps}: Props): ReactElement =
       sx={{minWidth: 150}}
       {...otherProps}
     >
-      Product detail
+      Product details
     </Button>
   );
 };
