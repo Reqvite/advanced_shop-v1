@@ -6,7 +6,7 @@ type Props = ButtonProps & {
   isLoading?: boolean;
   RightAddon?: ElementType;
   LeftAddon?: ElementType;
-  iconSize?: number;
+  iconSize?: 'inherit' | 'small' | 'large' | 'medium';
   to?: string;
 };
 
@@ -16,15 +16,14 @@ export const Button = ({
   isLoading,
   RightAddon,
   LeftAddon,
-  iconSize,
+  iconSize = 'medium',
   ...otherProps
 }: Props): ReactElement => {
-  const iconSizeStyle = iconSize ? iconSize : 'inherit';
   return (
     <MuiButton variant={variant} disabled={isLoading} {...otherProps}>
-      {!isLoading && LeftAddon && <LeftAddon fontSize={iconSizeStyle} />}
+      {!isLoading && LeftAddon && <LeftAddon fontSize={iconSize} />}
       {isLoading ? <CircularProgress size={24} color="inherit" /> : <span>{children}</span>}
-      {!isLoading && RightAddon && <RightAddon fontSize={iconSizeStyle} />}
+      {!isLoading && RightAddon && <RightAddon fontSize={iconSize} />}
     </MuiButton>
   );
 };

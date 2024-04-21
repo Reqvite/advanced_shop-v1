@@ -11,6 +11,7 @@ import {ReactElement} from 'react';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
+import {WishlistButton} from '../button/WishlistButton';
 import {boxStyle} from './styles/styles';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {DeliveryText} from './ui/DeliveryText';
@@ -84,9 +85,7 @@ export const ProductCard = ({
             </Box>
             <CardActions sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
               <ProductDetailsButton fullWidth id={_id} />
-              <Button fullWidth size="small">
-                Add to wishlist
-              </Button>
+              <WishlistButton fullWidth />
             </CardActions>
           </Box>
         </CardContent>

@@ -1,13 +1,27 @@
-import {Stack, Typography} from '@mui/material';
+import {Stack, Typography, useMediaQuery, useTheme} from '@mui/material';
+import {Outlet, useLocation, useNavigate} from 'react-router-dom';
+import {
+  getRouteProductDetailsDetailsTab,
+  getRouteProductDetailsReviewsTab
+} from '@/app/providers/AppRouter/routeConfig';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
+import {AddToCartButton} from '../button/AddToCartButton';
 import {Button} from '../button/Button';
+import {WishlistButton} from '../button/WishlistButton';
 import {ImageGallery} from '../image/ImageGallery';
+import {Tabs} from '../tabs/Tabs';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {PriceText} from './ui/PriceText';
 import {ProductHeading} from './ui/ProductHeading';
 
 type Props = ProductI;
+
+const tabOptions = [
+  {label: 'Description', value: getRouteProductDetailsDetailsTab()},
+  {label: 'Reviews', value: getRouteProductDetailsReviewsTab()},
+  {label: 'Questions', value: 'questions'}
+];
 
 export const ProductDetails = ({
   rating = 0,
@@ -18,13 +32,22 @@ export const ProductDetails = ({
   discount,
   img
 }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const currentTab = useLocation().pathname.split('/')[3];
+  const navigate = useNavigate();
+
+  const onChangeTab = (route: string): void => {
+    navigate(route);
+  };
+
   return (
-    <Flex gap={4}>
-      <Stack gap={1} width="50%">
-        Tags
+    <Flex gap={4} flexDirection={isMobile ? 'column' : 'row'}>
+      <Stack gap={1} width={isMobile ? '100%' : '50%'}>
+        Tags will be here
         <ImageGallery images={img} />
       </Stack>
-      <Stack gap={4} width="50%">
+      <Stack gap={4} width={isMobile ? '100%' : '50%'}>
         <ProductHeading title={title} rating={rating} />
         <Typography>{description}</Typography>
         <Flex justifyContent="space-between">
@@ -40,12 +63,14 @@ export const ProductDetails = ({
           })}
         >
           <PriceText price={price} discount={discount} />
-          <Flex gap={2}>
+          <Flex gap={2} alignItems="center">
             <Button>Quantity</Button>
-            <Button>Add to cart</Button>
+            <AddToCartButton />
           </Flex>
         </Flex>
-        <Button>Add to wishlist</Button>
+        <WishlistButton />
+        <Tabs options={tabOptions} onChange={onChangeTab} defaultValue={currentTab} />
+        <Outlet />
       </Stack>
     </Flex>
   );

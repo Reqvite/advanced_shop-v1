@@ -7,7 +7,7 @@ type Props = ContainerProps & {
 
 export const Container = ({children, ...otherProps}: Props): ReactElement => {
   return (
-    <MuiContainer sx={{paddingY: 3}} maxWidth="xl" {...otherProps}>
+    <MuiContainer maxWidth="xl" {...otherProps}>
       {children}
     </MuiContainer>
   );

@@ -44,10 +44,10 @@ export const ImageGallery = ({
   };
 
   return (
-    <Grid container direction="column" alignItems="center" spacing={2} sx={{maxWidth: 600}}>
+    <Grid container direction="column" alignItems="center" spacing={2} sx={{width: '100%'}}>
       <Grid item>
         <Card>
-          <CardMedia component="img" src={selectedImage} height="400" />
+          <CardMedia component="img" src={selectedImage} height="400" width="100%" />
         </Card>
       </Grid>
       <Grid item>

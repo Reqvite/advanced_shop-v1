@@ -23,7 +23,7 @@ class TemplateService {
       const id = item._id || `${index}-${new Date().getTime()}`;
 
       return (
-        <ListItem sx={{justifyContent: 'flex-end'}} key={id} {...otherProps}>
+        <ListItem sx={{justifyContent: 'center'}} key={id} {...otherProps}>
           {renderComponent}
         </ListItem>
       );
