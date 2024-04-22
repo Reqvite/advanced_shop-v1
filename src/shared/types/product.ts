@@ -9,6 +9,7 @@ interface ProductI {
   characteristics: LabelOptionsI[];
   price: number;
   discount?: number;
+  tags?: {_id: string; label: string}[];
 }
 
 export {type ProductI};

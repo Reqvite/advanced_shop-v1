@@ -17,4 +17,5 @@ export {Pagination} from './pagination/Pagination.tsx';
 export {ProductCardSkeleton} from './product/ProductCard.skeleton.tsx';
 export {ProductCard} from './product/ProductCard.tsx';
 export {ProductDetails} from './product/ProductDetails.tsx';
+export {RecommendedProductList} from './product/RecommendedProductList.tsx';
 export {Rating} from './rating/Rating.tsx';

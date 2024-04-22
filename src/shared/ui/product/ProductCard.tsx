@@ -8,15 +8,16 @@ import {
   useTheme
 } from '@mui/material';
 import {ReactElement} from 'react';
+import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
+import {NavigateButton} from '../button/NavigateButton';
 import {WishlistButton} from '../button/WishlistButton';
 import {boxStyle} from './styles/styles';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {DeliveryText} from './ui/DeliveryText';
 import {PriceText} from './ui/PriceText';
-import {ProductDetailsButton} from './ui/ProductDetailsButton';
 import {ProductHeading} from './ui/ProductHeading';
 
 export type CardVariants = 'small' | 'medium';
@@ -84,7 +85,7 @@ export const ProductCard = ({
               <DeliveryText />
             </Box>
             <CardActions sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
-              <ProductDetailsButton fullWidth id={_id} />
+              <NavigateButton fullWidth to={getRouteProductDetails(_id)} />
               <WishlistButton fullWidth />
             </CardActions>
           </Box>

@@ -10,7 +10,7 @@ type Props = {
 export const ProductHeading = ({title, description, rating}: Props): ReactElement => {
   return (
     <Box>
-      <Typography gutterBottom variant="h5" component="div">
+      <Typography gutterBottom variant="h5">
         {title}
       </Typography>
       {description && (

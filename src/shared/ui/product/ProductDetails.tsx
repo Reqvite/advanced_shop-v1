@@ -1,4 +1,5 @@
 import {Stack, Typography, useMediaQuery, useTheme} from '@mui/material';
+import {ReactElement} from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router-dom';
 import {
   getRouteProductDetailsDetailsTab,
@@ -9,7 +10,9 @@ import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
 import {Button} from '../button/Button';
 import {WishlistButton} from '../button/WishlistButton';
+import {Chip} from '../chip/Chip';
 import {ImageGallery} from '../image/ImageGallery';
+import {List} from '../list/List';
 import {Tabs} from '../tabs/Tabs';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {PriceText} from './ui/PriceText';
@@ -30,8 +33,9 @@ export const ProductDetails = ({
   characteristics,
   price,
   discount,
-  img
-}: Props) => {
+  img,
+  tags
+}: Props): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const currentTab = useLocation().pathname.split('/')[3];
@@ -44,7 +48,15 @@ export const ProductDetails = ({
   return (
     <Flex gap={4} flexDirection={isMobile ? 'column' : 'row'}>
       <Stack gap={1} width={isMobile ? '100%' : '50%'}>
-        Tags will be here
+        {tags && (
+          <List
+            row
+            items={tags}
+            renderItem={Chip}
+            sx={{display: 'flex', gap: 1}}
+            itemStyle={{width: 'auto', p: 0}}
+          />
+        )}
         <ImageGallery images={img} />
       </Stack>
       <Stack gap={4} width={isMobile ? '100%' : '50%'}>
