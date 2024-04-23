@@ -1,5 +1,4 @@
-import {styled} from '@mui/material';
-import Box from '@mui/material/Box';
+import {Box, styled} from '@mui/material';
 
 export const ModalStyled = styled(Box)(({theme}) => ({
   background: theme.palette.background.paper,
