@@ -1,2 +1,2 @@
 export {priceService} from './priceService/price.service';
-export {templateService} from './templateService/template.service';
+export {renderListItem} from './templateService/renderListItem.service';
