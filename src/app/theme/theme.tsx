@@ -36,7 +36,7 @@ export const brand = {
 export const grey = {
   50: 'hsl(190, 60%, 99%)',
   100: 'rgb(209, 209, 209)',
-  200: 'hsl(190, 35%, 88%)',
+  200: 'rgb(169, 169, 169);',
   300: 'hsl(190, 25%, 80%)',
   400: 'hsl(190, 20%, 65%)',
   500: 'hsl(190, 20%, 42%)',
@@ -139,8 +139,8 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
     breakpoints: {
       values: {
         xs: 0,
-        sm: 600,
-        md: 900,
+        sm: 500,
+        md: 795.98,
         lg: 1200,
         xl: 1536
       }
@@ -275,6 +275,14 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
           root: {
             border: 'none'
           }
+        }
+      },
+      MuiChip: {
+        styleOverrides: {
+          root: () => ({
+            backgroundColor: alpha(brand[300], 0.2),
+            color: brand[300]
+          })
         }
       },
       MuiOutlinedInput: {
