@@ -16,13 +16,11 @@ const navContainerStyles = (theme: Theme) => ({
 });
 
 const navStackStyles = (theme: Theme) => ({
-  display: 'grid',
-  gridTemplateAreas: `"left content"`,
-  gridTemplateColumns: 'min-content 1fr',
-  [theme.breakpoints.down('sm')]: {
-    gridTemplateAreas: `"content" "left"`,
-    gridTemplateColumns: '1fr'
-  }
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column'
+  },
+  flexDirection: 'row',
+  gap: 2
 });
 
 export const HeaderNavigation = (): ReactElement => {

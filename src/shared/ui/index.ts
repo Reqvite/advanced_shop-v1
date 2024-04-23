@@ -1,5 +1,6 @@
 export {AppLink} from './AppLink/AppLink.tsx';
 export {Flex} from './base/Flex.tsx';
+export {PageWrapper} from './box/PageWrapper.tsx';
 export {AuthMenuButton} from './button/AuthMenuButton.tsx';
 export {Button} from './button/Button.tsx';
 export {CartButton} from './button/CartButton.tsx';
@@ -11,6 +12,7 @@ export {Input} from './input/Input.tsx';
 export {InputWithController} from './input/InputWithController.tsx';
 export {StickyContentLayout} from './layout/StickyContentLayout.tsx';
 export {List} from './list/List.tsx';
+export {Loader} from './loader/Loader.tsx';
 export {AuthModal} from './modal/AuthModal.tsx';
 export {Modal} from './modal/Modal.jsx';
 export {Pagination} from './pagination/Pagination.tsx';

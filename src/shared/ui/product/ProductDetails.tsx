@@ -1,6 +1,6 @@
 import {Stack, Typography, useMediaQuery, useTheme} from '@mui/material';
 import {ReactElement} from 'react';
-import {Outlet, useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {
   getRouteProductDetailsDetailsTab,
   getRouteProductDetailsReviewsTab
@@ -18,6 +18,7 @@ import {Tabs} from '../tabs/Tabs';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {PriceText} from './ui/PriceText';
 import {ProductHeading} from './ui/ProductHeading';
+import {TabsRouter} from './ui/tabs/ProductTabsRouter';
 
 type Props = ProductI;
 
@@ -84,7 +85,7 @@ export const ProductDetails = ({
         </Flex>
         <WishlistButton />
         <Tabs options={tabOptions} onChange={onChangeTab} defaultValue={currentTab} />
-        <Outlet />
+        <TabsRouter description={description} />
       </Stack>
     </Flex>
   );

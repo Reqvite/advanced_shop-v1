@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {ProductDetails, RecommendedProductList} from '@/shared/ui';
+import {PageWrapper, ProductDetails, RecommendedProductList} from '@/shared/ui';
 import {useGetProductByIdQuery, useGetProductsQuery} from '@/slices/products';
 
 const ProductDetailsPage = () => {
@@ -8,18 +8,14 @@ const ProductDetailsPage = () => {
     useGetProductsQuery();
   const {data, isLoading} = useGetProductByIdQuery(id);
 
-  if (isLoading) {
-    return null;
-  }
-
   return (
-    <>
+    <PageWrapper isLoading={isLoading}>
       <ProductDetails {...data!} />
       <RecommendedProductList
         products={recommendedProducts?.results || []}
         isLoading={recommendedProductsIsLoading}
       />
-    </>
+    </PageWrapper>
   );
 };
 

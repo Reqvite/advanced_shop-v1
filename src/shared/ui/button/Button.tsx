@@ -1,5 +1,6 @@
-import {Button as MuiButton, ButtonProps, CircularProgress} from '@mui/material';
+import {Button as MuiButton, ButtonProps} from '@mui/material';
 import {ElementType, ReactElement, ReactNode} from 'react';
+import {Loader} from '../loader/Loader';
 
 type Props = ButtonProps & {
   children?: ReactNode;
@@ -22,7 +23,7 @@ export const Button = ({
   return (
     <MuiButton variant={variant} disabled={isLoading} {...otherProps}>
       {!isLoading && LeftAddon && <LeftAddon fontSize={iconSize} />}
-      {isLoading ? <CircularProgress size={24} color="inherit" /> : <span>{children}</span>}
+      {isLoading ? <Loader /> : <span>{children}</span>}
       {!isLoading && RightAddon && <RightAddon fontSize={iconSize} />}
     </MuiButton>
   );

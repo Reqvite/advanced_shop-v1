@@ -1,4 +1,5 @@
 import {List as MuiList, ListProps, SxProps} from '@mui/material';
+import {motion} from 'framer-motion';
 import {ReactElement, ReactNode} from 'react';
 import {renderListItem} from '@/shared/services';
 
@@ -10,6 +11,8 @@ type Props<T> = ListProps & {
   itemStyle?: SxProps;
 } & ({skeleton: ReactElement; skeletonLength: number} | {skeleton?: never; skeletonLength?: never});
 
+const MotionList = motion(MuiList);
+
 export const List = <T extends {_id: string}>({
   items,
   renderItem,
@@ -20,15 +23,14 @@ export const List = <T extends {_id: string}>({
   itemStyle,
   ...otherProps
 }: Props<T>): ReactElement => {
-  if (isLoading && skeleton) {
-    return (
-      <MuiList>{renderListItem<T>({skeleton, length: skeletonLength, sx: itemStyle})}</MuiList>
-    );
-  }
-
   return (
     <MuiList sx={{display: 'flex', flexDirection: row ? 'row' : 'column'}} {...otherProps}>
       {!isLoading && renderListItem<T>({items, renderItem, sx: itemStyle})}
+      {isLoading && skeleton && (
+        <MotionList>
+          {renderListItem<T>({skeleton, length: skeletonLength, sx: itemStyle})}
+        </MotionList>
+      )}
     </MuiList>
   );
 };

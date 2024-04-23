@@ -1,10 +1,11 @@
 import {Suspense, useCallback} from 'react';
 import {Route, Routes} from 'react-router-dom';
+import {Loader} from '@/shared/ui';
 import {AppRoutesProps, routeConfig} from './routeConfig';
 
 export const AppRouter = () => {
   const renderRoute = useCallback((route: AppRoutesProps) => {
-    const element = <Suspense fallback={null}>{route.element}</Suspense>;
+    const element = <Suspense fallback={<Loader fullHeight />}>{route.element}</Suspense>;
 
     return (
       <Route key={route.path} path={route.path} element={element}>

@@ -1,13 +1,13 @@
 import {ReactElement} from 'react';
 import {ProductI} from '@/shared/types/product';
-import {List, Pagination, ProductCard, ProductCardSkeleton, StickyContentLayout} from '@/shared/ui';
+import {List, PageWrapper, Pagination, ProductCard, StickyContentLayout} from '@/shared/ui';
 import {useGetProductsQuery} from '@/slices/products';
 
 const MainPage = (): ReactElement => {
   const {data, isLoading} = useGetProductsQuery();
 
   return (
-    <>
+    <PageWrapper isLoading={isLoading}>
       <StickyContentLayout
         left={
           <div>
@@ -19,18 +19,10 @@ const MainPage = (): ReactElement => {
             <div>Filter</div>
           </div>
         }
-        content={
-          <List<ProductI>
-            items={data?.results || []}
-            renderItem={ProductCard}
-            isLoading={isLoading}
-            skeleton={<ProductCardSkeleton />}
-            skeletonLength={5}
-          />
-        }
+        content={<List<ProductI> items={data?.results || []} renderItem={ProductCard} />}
         bottom={<Pagination defaultPage={1} count={data?.totalPages} total={data?.totalItems} />}
       />
-    </>
+    </PageWrapper>
   );
 };
 
