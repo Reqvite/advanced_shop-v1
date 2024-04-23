@@ -1,6 +1,7 @@
 import {configureStore, ReducersMapObject} from '@reduxjs/toolkit';
 import {FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
+import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {themePersistConfig, userPersistConfig} from './pesrsistConfig';
@@ -16,7 +17,8 @@ class Store implements StorePackage {
   public constructor() {
     const rootReducer: ReducersMapObject<RootReducer> = {
       theme: persistReducer(themePersistConfig, themeReducer),
-      user: persistReducer(userPersistConfig, userReducer)
+      user: persistReducer(userPersistConfig, userReducer),
+      [productsApi.reducerPath]: productsApi.reducer
     };
     this.#instance = configureStore({
       reducer: rootReducer,
@@ -28,7 +30,7 @@ class Store implements StorePackage {
           thunk: {
             extraArgument: this.extraArguments
           }
-        })
+        }).concat(productsApi.middleware)
     });
   }
 

@@ -35,16 +35,15 @@ export const ProductCard = ({
   price,
   discount,
   variant,
-  img,
-  ...otherProps
+  image
 }: Props): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  if (variant === 'small' || isMobile) {
+  if (isMobile || variant === 'small') {
     return (
-      <Card sx={{width: '100%', maxWidth: 500}} {...otherProps}>
-        <CardMedia component="img" alt={title} height="240" image={img[0]} />
+      <Card sx={{width: '100%', maxWidth: 500}}>
+        <CardMedia component="img" alt={title} height="240" image={image[0]} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
           <ProductHeading title={title} description={description} />
         </CardContent>
@@ -59,12 +58,12 @@ export const ProductCard = ({
   }
 
   return (
-    <Card sx={{maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'}} {...otherProps}>
+    <Card sx={{maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'}}>
       <Flex sx={{minHeight: 280}}>
         <CardMedia
           component="img"
           sx={{minHeight: '100%', maxWidth: 268, objectFit: 'cover'}}
-          image={img[0]}
+          image={image[0]}
           alt={title}
         />
         <CardContent

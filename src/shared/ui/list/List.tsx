@@ -4,7 +4,7 @@ import {renderListItem} from '@/shared/services';
 
 type Props<T> = ListProps & {
   items: T[];
-  renderItem: (item: T) => ReactNode;
+  renderItem?: (item: T) => ReactNode;
   row?: boolean;
   isLoading?: boolean;
   itemStyle?: SxProps;
@@ -20,10 +20,15 @@ export const List = <T extends {_id: string}>({
   itemStyle,
   ...otherProps
 }: Props<T>): ReactElement => {
+  if (isLoading && skeleton) {
+    return (
+      <MuiList>{renderListItem<T>({skeleton, length: skeletonLength, sx: itemStyle})}</MuiList>
+    );
+  }
+
   return (
     <MuiList sx={{display: 'flex', flexDirection: row ? 'row' : 'column'}} {...otherProps}>
       {!isLoading && renderListItem<T>({items, renderItem, sx: itemStyle})}
-      {isLoading && skeleton && renderListItem<T>({skeleton, length: skeletonLength})}
     </MuiList>
   );
 };

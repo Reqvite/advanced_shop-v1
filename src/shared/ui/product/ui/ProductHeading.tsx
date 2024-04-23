@@ -1,9 +1,10 @@
 import {Box, Rating, Typography} from '@mui/material';
 import {ReactElement} from 'react';
+import {LabelOptionsI} from '@/shared/types/options';
 
 type Props = {
   title: string;
-  description?: string;
+  description?: LabelOptionsI[];
   rating?: number;
 };
 
@@ -15,7 +16,7 @@ export const ProductHeading = ({title, description, rating}: Props): ReactElemen
       </Typography>
       {description && (
         <Typography variant="body2" color="text.secondary">
-          {description}
+          {description[0].value}
         </Typography>
       )}
       {rating && <Rating value={rating} readOnly />}

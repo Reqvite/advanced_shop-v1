@@ -29,7 +29,7 @@ export const RecommendedProductList = ({
         <NavigateButton label="More products" to={getRouteMain()} />
       </Flex>
       <List
-        items={products.slice(0, 4)}
+        items={products?.slice(0, 4)}
         row
         renderItem={renderProductCard}
         isLoading={isLoading}

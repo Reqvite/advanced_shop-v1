@@ -11,13 +11,19 @@ import {actions, selectAuthIsLoading, selectAuthShowModal} from '@/slices/user';
 import {Modal} from './Modal';
 
 const loginOptions: FormOption<FormVariantsEnum>[] = [
-  {id: 'email', variant: FormVariantsEnum.Input, name: 'Email'},
-  {id: 'password', variant: FormVariantsEnum.Input, name: 'Password', type: 'password'}
+  {id: 'email', variant: FormVariantsEnum.Input, name: 'Email', isRequired: true},
+  {
+    id: 'password',
+    variant: FormVariantsEnum.Input,
+    name: 'Password',
+    type: 'password',
+    isRequired: true
+  }
 ];
 
 const registerOptions: FormOption<FormVariantsEnum>[] = [
-  {id: 'firstName', variant: FormVariantsEnum.Input, name: 'First name'},
-  {id: 'lastName', variant: FormVariantsEnum.Input, name: 'Last name'},
+  {id: 'firstName', variant: FormVariantsEnum.Input, name: 'First name', isRequired: true},
+  {id: 'lastName', variant: FormVariantsEnum.Input, name: 'Last name', isRequired: true},
   ...loginOptions,
   {
     id: 'phoneNumber',

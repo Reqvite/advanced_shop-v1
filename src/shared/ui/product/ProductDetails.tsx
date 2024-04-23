@@ -5,6 +5,7 @@ import {
   getRouteProductDetailsDetailsTab,
   getRouteProductDetailsReviewsTab
 } from '@/app/providers/AppRouter/routeConfig';
+import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
@@ -33,12 +34,13 @@ export const ProductDetails = ({
   characteristics,
   price,
   discount,
-  img,
+  image,
   tags
 }: Props): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const currentTab = useLocation().pathname.split('/')[3];
+  const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
   const navigate = useNavigate();
 
   const onChangeTab = (route: string): void => {
@@ -51,17 +53,17 @@ export const ProductDetails = ({
         {tags && (
           <List
             row
-            items={tags}
+            items={resolvedTags}
             renderItem={Chip}
             sx={{display: 'flex', gap: 1}}
             itemStyle={{width: 'auto', p: 0}}
           />
         )}
-        <ImageGallery images={img} />
+        <ImageGallery images={image} />
       </Stack>
       <Stack gap={4} width={isMobile ? '100%' : '50%'}>
         <ProductHeading title={title} rating={rating} />
-        <Typography>{description}</Typography>
+        <Typography>{description[0]?.value}</Typography>
         <Flex justifyContent="space-between">
           <CharacteristicList characteristics={characteristics.slice(0, 4)} maxListItems={4} />
           <CharacteristicList characteristics={characteristics.slice(4, 8)} maxListItems={4} />

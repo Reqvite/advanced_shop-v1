@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import {PersistPartial} from 'redux-persist/es/persistReducer';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
+import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {store} from './store';
@@ -13,6 +14,7 @@ import {store} from './store';
 type RootReducer = {
   theme: ReturnType<typeof themeReducer> & PersistPartial;
   user: ReturnType<typeof userReducer> & PersistPartial;
+  [productsApi.reducerPath]: ReturnType<typeof productsApi.reducer>;
 };
 
 type ExtraArguments = {

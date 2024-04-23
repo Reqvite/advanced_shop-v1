@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   return (
-    <Box style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       <Header />
       <Container component="main" sx={{flex: '1 0 auto', paddingY: 3}}>
         <AppRouter />

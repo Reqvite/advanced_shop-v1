@@ -3,13 +3,16 @@ import {LabelOptionsI} from './options';
 interface ProductI {
   _id: string;
   rating: number;
-  img: string[];
+  image: string[];
   title: string;
-  description: string;
+  description: LabelOptionsI[];
   characteristics: LabelOptionsI[];
+  subCategory: number;
+  category: number;
+  createdAt: Date;
   price: number;
   discount?: number;
-  tags?: {_id: string; label: string}[];
+  tags?: number[];
 }
 
 export {type ProductI};
