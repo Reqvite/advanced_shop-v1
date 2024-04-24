@@ -1,3 +1,4 @@
+export {Alert} from './alert/Alert.tsx';
 export {Flex} from './base/Flex.tsx';
 export {PageWrapper} from './box/PageWrapper.tsx';
 export {AuthMenuButton} from './button/AuthMenuButton.tsx';

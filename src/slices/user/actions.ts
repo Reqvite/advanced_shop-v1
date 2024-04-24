@@ -13,14 +13,10 @@ import {actions} from '.';
 
 const login = createAsyncThunk<UserLoginResponseDto, UserLoginRequestDto, AsyncThunkConfig>(
   UsersApiPath.LOG_IN,
-  async (body, {dispatch, extra: {$publicApi}, rejectWithValue}) => {
-    try {
-      const response = await $publicApi.post(UsersApiPath.LOG_IN, body);
-      dispatch(actions.closeModal());
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+  async (body, {dispatch, extra: {$publicApi}}) => {
+    const response = await $publicApi.post(UsersApiPath.LOG_IN, body);
+    dispatch(actions.closeModal());
+    return response.data;
   }
 );
 
@@ -28,37 +24,25 @@ const register = createAsyncThunk<
   UserRegisterResponseDto,
   UserRegisterRequestDto,
   AsyncThunkConfig
->(UsersApiPath.REGISTER, async (body, {dispatch, extra: {$publicApi}, rejectWithValue}) => {
-  try {
-    const response = await $publicApi.post(UsersApiPath.REGISTER, body);
-    await dispatch(login(body));
-    return response.data;
-  } catch (error) {
-    return rejectWithValue(error);
-  }
+>(UsersApiPath.REGISTER, async (body, {dispatch, extra: {$publicApi}}) => {
+  const response = await $publicApi.post(UsersApiPath.REGISTER, body);
+  await dispatch(login(body));
+  return response.data;
 });
 
 const currentUser = createAsyncThunk<User, undefined, AsyncThunkConfig>(
   UsersApiPath.CURRENT,
-  async (_request, {extra: {$protectedApi}, rejectWithValue}) => {
-    try {
-      const response = await $protectedApi.get(UsersApiPath.CURRENT);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+  async (_request, {extra: {$protectedApi}}) => {
+    const response = await $protectedApi.get(UsersApiPath.CURRENT);
+    return response.data;
   }
 );
 
 const refreshToken = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncThunkConfig>(
   UsersApiPath.REFRESH,
-  async (_request, {extra: {$refreshApi}, rejectWithValue}) => {
-    try {
-      const response = await $refreshApi.post(UsersApiPath.REFRESH);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+  async (_request, {extra: {$refreshApi}}) => {
+    const response = await $refreshApi.post(UsersApiPath.REFRESH);
+    return response.data;
   }
 );
 
