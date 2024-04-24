@@ -1,8 +1,9 @@
 import {Grid, Typography} from '@mui/material';
+import {ReactElement} from 'react';
 import {AppLink, Chip, Container, List} from '@/shared/ui';
 import {footerColumns, footerTags} from '../model/data';
 
-export const Footer = () => {
+export const Footer = (): ReactElement => {
   return (
     <Container component="footer">
       <Grid container spacing={3}>
@@ -15,7 +16,7 @@ export const Footer = () => {
           </Grid>
         ))}
       </Grid>
-      <Typography variant="h6" fontWeight={600} style={{marginTop: '20px'}}>
+      <Typography variant="h6" fontWeight={600} sx={{marginTop: '20px'}}>
         Product tags
       </Typography>
       <List items={footerTags} row renderItem={Chip} itemStyle={{width: 'auto'}} />

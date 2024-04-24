@@ -50,7 +50,7 @@ export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => 
   };
 
   return (
-    <Box sx={{width: '100%'}}>
+    <Box width="100%">
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
         <MuiTabs value={value} onChange={onChangeTab} aria-label="tabs">
           {options?.map((tab) => (

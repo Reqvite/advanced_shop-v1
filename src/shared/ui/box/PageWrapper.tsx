@@ -19,13 +19,7 @@ export const PageWrapper = ({children, isLoading}: Props): ReactElement => {
   }
 
   return (
-    <MotionBox
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      variants={variants}
-      style={{overflow: 'hidden'}}
-    >
+    <MotionBox initial="hidden" animate="visible" exit="exit" variants={variants}>
       {children}
     </MotionBox>
   );

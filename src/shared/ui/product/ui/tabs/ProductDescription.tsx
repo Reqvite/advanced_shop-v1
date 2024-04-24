@@ -10,4 +10,3 @@ type Props = {
 export const ProductDescription = ({description}: Props): ReactElement => {
   return <List<LabelOptionsWithId> items={description} renderItem={DescriptionBlock} />;
 };
-``;

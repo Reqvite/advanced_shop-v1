@@ -7,6 +7,8 @@ import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
 import {AuthModal, Container} from '@/shared/ui';
 import {actions as userActions} from '@/slices/user';
 
+const mainContainer = {display: 'flex', flexDirection: 'column', minHeight: '100vh'};
+
 function App() {
   const dispatch = useAppDispatch();
   const {accessToken} = useAuth();
@@ -18,9 +20,9 @@ function App() {
   }, []);
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+    <Box sx={mainContainer}>
       <Header />
-      <Container component="main" sx={{flex: '1 0 auto', paddingY: 3}}>
+      <Container component="main">
         <AppRouter />
       </Container>
       <Footer />

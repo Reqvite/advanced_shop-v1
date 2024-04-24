@@ -10,7 +10,7 @@ import {
 import {ReactElement} from 'react';
 import {Flex} from '../base/Flex';
 import {CardVariants} from './ProductCard';
-import {boxStyle} from './styles/styles';
+import {boxStyle, productCardStyles} from './styles/styles';
 
 type Props = {
   variant?: CardVariants;
@@ -22,13 +22,13 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
 
   if (variant === 'small' || isMobile) {
     return (
-      <Card sx={{width: '100%', maxWidth: 500}}>
+      <Card sx={productCardStyles.smallCardContainerStyles}>
         <Skeleton variant="rectangular" width="100%" height={240} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
           <Skeleton width="60%" />
           <Skeleton width="40%" />
         </CardContent>
-        <CardActions sx={{display: 'flex', justifyContent: 'space-between', gap: 2}}>
+        <CardActions sx={productCardStyles.smallCardActionsContainerStyles}>
           <Box>
             <Skeleton width="60px" />
             <Skeleton width="50px" />
@@ -40,17 +40,10 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
   }
 
   return (
-    <Card sx={{maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'}}>
-      <Flex sx={{minHeight: 280}}>
-        <Skeleton variant="rectangular" sx={{height: 280, minWidth: 268, objectFit: 'cover'}} />
-        <CardContent
-          sx={{
-            display: 'flex',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}
-        >
+    <Card sx={productCardStyles.bigCardContainerStyles}>
+      <Flex minHeight="280px">
+        <Skeleton variant="rectangular" sx={productCardStyles.bigCardMediaStyles} />
+        <CardContent sx={productCardStyles.bigCardContentStyles}>
           <Box sx={boxStyle}>
             <Box>
               <Skeleton width="150px" />
@@ -72,7 +65,7 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
               <Skeleton width="50px" />
               <Skeleton width="60px" />
             </Box>
-            <CardActions sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
+            <CardActions sx={productCardStyles.bigCardActionsContainerStyles}>
               <Box>
                 <Skeleton height={60} width="100px" />
                 <Skeleton height={60} width="100px" />
