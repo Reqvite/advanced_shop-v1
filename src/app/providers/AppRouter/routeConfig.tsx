@@ -14,7 +14,7 @@ export type AppRoutesProps = Omit<RouteProps, 'children'> & {
 };
 
 export const getRouteMain = () => '/';
-export const getRouteProductDetails = (id: string) => `/products/${id}/*`;
+export const getRouteProductDetails = (id: string) => `/products/${id}`;
 export const getRouteProductDetailsReviews = (id: string) => `/products/${id}/reviews`;
 export const getRouteProductDetailsReviewsTab = () => 'reviews';
 export const getRouteProductDetailsDetailsTab = () => '';
@@ -29,7 +29,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     element: <MainPage />
   },
   [AppRoutes.PRODUCT_DETAILS]: {
-    path: getRouteProductDetails(':id'),
+    path: `${getRouteProductDetails(':id')}/*`,
     element: <ProductDetailsPage />
   }
 };

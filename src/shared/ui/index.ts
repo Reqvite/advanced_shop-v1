@@ -1,4 +1,4 @@
-export {AppLink} from './AppLink/AppLink.tsx';
+export {AppLink} from './appLink/AppLink.tsx';
 export {Flex} from './base/Flex.tsx';
 export {PageWrapper} from './box/PageWrapper.tsx';
 export {AuthMenuButton} from './button/AuthMenuButton.tsx';

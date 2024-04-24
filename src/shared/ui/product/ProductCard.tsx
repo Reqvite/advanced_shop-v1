@@ -45,7 +45,12 @@ export const ProductCard = ({
       <Card sx={{width: '100%', maxWidth: 500}}>
         <CardMedia component="img" alt={title} height="240" image={image[0]} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
-          <ProductHeading title={title} description={description} />
+          <ProductHeading
+            title={title}
+            description={description}
+            descriptionNoWrap
+            descriptionMaxWidth={160}
+          />
         </CardContent>
         <CardActions sx={{display: 'flex', justifyContent: 'space-between', gap: 2}}>
           <PriceText price={price} discount={discount} />
