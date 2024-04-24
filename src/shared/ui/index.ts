@@ -1,4 +1,3 @@
-export {AppLink} from './appLink/AppLink.tsx';
 export {Flex} from './base/Flex.tsx';
 export {PageWrapper} from './box/PageWrapper.tsx';
 export {AuthMenuButton} from './button/AuthMenuButton.tsx';
@@ -11,6 +10,7 @@ export {Container} from './container/Container.tsx';
 export {Input} from './input/Input.tsx';
 export {InputWithController} from './input/InputWithController.tsx';
 export {StickyContentLayout} from './layout/StickyContentLayout.tsx';
+export {AppLink} from './link/AppLink.tsx';
 export {List} from './list/List.tsx';
 export {Loader} from './loader/Loader.tsx';
 export {AuthModal} from './modal/AuthModal.tsx';
