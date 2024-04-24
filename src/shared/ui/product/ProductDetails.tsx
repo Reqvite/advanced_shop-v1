@@ -5,11 +5,11 @@ import {
   getRouteProductDetailsReviewsTab,
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
+import {Form, FormOption, FormVariantsEnum} from '@/components/form';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
-import {Button} from '../button/Button';
 import {WishlistButton} from '../button/WishlistButton';
 import {Chip} from '../chip/Chip';
 import {ImageGallery} from '../image/ImageGallery';
@@ -26,6 +26,10 @@ const tabOptions = [
   {label: 'Description', value: getRouteProductDetailsTab()},
   {label: 'Reviews', value: getRouteProductDetailsReviewsTab()},
   {label: 'Questions', value: 'questions'}
+];
+
+const formOptions: FormOption<FormVariantsEnum>[] = [
+  {id: 'quantity', variant: FormVariantsEnum.Quantity_Input}
 ];
 
 export const ProductDetails = ({
@@ -46,6 +50,10 @@ export const ProductDetails = ({
 
   const onChangeTab = (route: string): void => {
     navigate(route);
+  };
+
+  const onSubmit = (data: any): void => {
+    console.log(data);
   };
 
   return (
@@ -79,8 +87,13 @@ export const ProductDetails = ({
         >
           <PriceText price={price} discount={discount} />
           <Flex gap={2} alignItems="center">
-            <Button>Quantity</Button>
-            <AddToCartButton />
+            <Form<{quantity: number}>
+              sx={{flexDirection: 'row'}}
+              options={formOptions}
+              defaultValues={{quantity: 1}}
+              onSubmit={onSubmit}
+              ButtonComponent={AddToCartButton}
+            />
           </Flex>
         </Flex>
         <WishlistButton />

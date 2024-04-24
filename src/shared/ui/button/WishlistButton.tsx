@@ -7,12 +7,7 @@ type Props = ButtonProps;
 
 export const WishlistButton = (props: Props): ReactElement => {
   return (
-    <Button
-      variant="outlined"
-      LeftAddon={FavoriteBorderIcon}
-      sx={{width: '100%', maxWidth: 170, gap: 1}}
-      {...props}
-    >
+    <Button variant="outlined" LeftAddon={FavoriteBorderIcon} sx={{maxWidth: 200}} {...props}>
       Add to wishlist
     </Button>
   );

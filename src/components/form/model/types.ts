@@ -1,17 +1,23 @@
 export enum FormVariantsEnum {
-  Input = 'input'
+  Input = 'input',
+  Quantity_Input = 'quantity-input'
 }
 
 interface BaseFormOption {
-  name: string;
+  name?: string;
   id: string;
   isRequired?: boolean;
   type?: string;
+  min?: number;
+  max?: number;
 }
 
 interface FormOptionVariantMapI {
   [FormVariantsEnum.Input]: {
     variant: FormVariantsEnum.Input;
+  };
+  [FormVariantsEnum.Quantity_Input]: {
+    variant: FormVariantsEnum.Quantity_Input;
   };
 }
 

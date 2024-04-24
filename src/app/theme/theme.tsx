@@ -172,11 +172,16 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
       MuiButton: {
         styleOverrides: {
           root: ({theme, ownerState}) => ({
+            [theme.breakpoints.down('md')]: {
+              fontSize: 12
+            },
+            minWidth: 150,
+            gap: 1,
             boxShadow: 'none',
             borderRadius: theme.shape.borderRadius,
             textTransform: 'none',
             ...(ownerState.size === 'medium' && {
-              height: '2.5rem' // 40px
+              height: '2.5rem'
             }),
             ...(ownerState.variant === 'contained' &&
               ownerState.color === 'primary' && {

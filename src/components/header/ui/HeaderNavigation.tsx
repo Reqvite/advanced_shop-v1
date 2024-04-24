@@ -1,8 +1,37 @@
-import {Drawer, Link, Stack, Theme, Typography, useMediaQuery, useTheme} from '@mui/material';
+import {
+  Drawer,
+  Link,
+  Stack,
+  SxProps,
+  Theme,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@mui/material';
 import {ReactElement, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {MenuButton} from '@/shared/ui';
 import {navigationOptions} from '../model/navigationOptions';
+
+export const navBarStyles: Record<string, SxProps<Theme> | undefined> = {
+  notification: (theme: Theme) => ({
+    [theme.breakpoints.down('md')]: {
+      alignItems: 'flex-start',
+      flexDirection: 'column'
+    },
+    p: 2,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row'
+  }),
+  navStackStyles: (theme: Theme) => ({
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column'
+    },
+    flexDirection: 'row',
+    gap: 2
+  })
+};
 
 const navContainerStyles = (theme: Theme) => ({
   [theme.breakpoints.down('md')]: {

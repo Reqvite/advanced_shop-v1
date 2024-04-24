@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
 import {Control, FieldValues} from 'react-hook-form';
-import {InputWithController} from '@/shared/ui';
+import {InputWithController, QuantityInput} from '@/shared/ui';
 import {FormOption, FormVariantsEnum} from './types';
 
 type Props<T extends FieldValues> = {
@@ -15,5 +15,14 @@ export const renderFormBlock = <T extends FieldValues>({
   switch (option.variant) {
     case FormVariantsEnum.Input:
       return <InputWithController key={option.id} option={option} control={control} />;
+    case FormVariantsEnum.Quantity_Input:
+      return (
+        <InputWithController
+          InputComponent={QuantityInput}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
   }
 };
