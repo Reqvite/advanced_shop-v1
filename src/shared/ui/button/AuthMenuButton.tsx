@@ -29,7 +29,12 @@ export const AuthMenuButton = (props: Props): ReactElement => {
 
   return user ? (
     <div>
-      <IconButton aria-label="User menu" aria-haspopup="true" onClick={onOpenMenu} {...props}>
+      <IconButton
+        aria-label="User menu"
+        aria-haspopup="true"
+        onClick={user && onOpenMenu}
+        {...props}
+      >
         <AccountCircleIcon fontSize="inherit" />
       </IconButton>
       <Menu
