@@ -17,7 +17,7 @@ export const getRouteMain = () => '/';
 export const getRouteProductDetails = (id: string) => `/products/${id}`;
 export const getRouteProductDetailsReviews = (id: string) => `/products/${id}/reviews`;
 export const getRouteProductDetailsReviewsTab = () => 'reviews';
-export const getRouteProductDetailsDetailsTab = () => '';
+export const getRouteProductDetailsTab = () => '';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {

@@ -15,7 +15,7 @@ function a11yProps(index: string) {
   };
 }
 
-export const CustomTabPanel = ({children, value, index, ...other}: TabPanelProps) => {
+export const CustomTabPanel = ({children, value, index, ...other}: TabPanelProps): ReactElement => {
   return (
     <div
       role="tabpanel"

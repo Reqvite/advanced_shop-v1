@@ -1,5 +1,6 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import {AxiosError, AxiosRequestConfig, Method} from 'axios';
+import {ErrorMessages} from '../const/errorMessages.const';
 import {$protectedApi} from './protectedApi.instance';
 import {$publicApi} from './publicApi.instance';
 
@@ -34,7 +35,7 @@ export const axiosBaseQuery =
       const err = axiosError as AxiosError<BaseError>;
       const error: BaseError = {
         code: err.response?.data?.code || err.response?.status || '',
-        message: err.response?.data?.message || err?.message || 'Неизвестная ошибка',
+        message: err.response?.data?.message || err?.message || ErrorMessages.ERROR,
         details: err.response?.data?.details || []
       };
       return {error};

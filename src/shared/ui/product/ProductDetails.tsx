@@ -2,8 +2,8 @@ import {Stack, Typography, useMediaQuery, useTheme} from '@mui/material';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {
-  getRouteProductDetailsDetailsTab,
-  getRouteProductDetailsReviewsTab
+  getRouteProductDetailsReviewsTab,
+  getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
 import {ProductI} from '@/shared/types/product';
@@ -23,7 +23,7 @@ import {TabsRouter} from './ui/tabs/ProductTabsRouter';
 type Props = ProductI;
 
 const tabOptions = [
-  {label: 'Description', value: getRouteProductDetailsDetailsTab()},
+  {label: 'Description', value: getRouteProductDetailsTab()},
   {label: 'Reviews', value: getRouteProductDetailsReviewsTab()},
   {label: 'Questions', value: 'questions'}
 ];

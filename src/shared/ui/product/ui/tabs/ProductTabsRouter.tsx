@@ -1,3 +1,4 @@
+import {ReactElement} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {getRouteProductDetailsReviewsTab} from '@/app/providers/AppRouter/routeConfig';
 import {LabelOptionsWithId} from '@/shared/types/options';
@@ -7,7 +8,7 @@ type Props = {
   description: LabelOptionsWithId[];
 };
 
-export const TabsRouter = ({description}: Props) => {
+export const TabsRouter = ({description}: Props): ReactElement => {
   return (
     <Routes>
       <Route path="*" element={<ProductDescription description={description} />} />
