@@ -1,29 +1,26 @@
-import {Suspense, useCallback} from 'react';
+import {ReactElement, Suspense} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {Loader} from '@/shared/ui';
 import {AppRoutesProps, routeConfig} from './routeConfig';
 
-export const AppRouter = () => {
-  const renderRoute = useCallback((route: AppRoutesProps) => {
-    const element = <Suspense fallback={<Loader fullHeight />}>{route.element}</Suspense>;
+export const AppRouter = (): ReactElement => {
+  const renderRouteElement = (route: AppRoutesProps) => (
+    <Route
+      key={route.path}
+      path={route.path}
+      element={<Suspense fallback={<Loader fullHeight />}>{route.element}</Suspense>}
+    >
+      {route.children && <Route>{renderRoutesRecursive(route.children as AppRoutesProps)}</Route>}
+    </Route>
+  );
 
-    return (
-      <Route key={route.path} path={route.path} element={element}>
-        {route.children && (
-          <Route>
-            {route.children.map((childRoute) => (
-              <Route
-                key={childRoute.path}
-                index={childRoute.index}
-                path={childRoute.path}
-                element={childRoute.element}
-              />
-            ))}
-          </Route>
-        )}
-      </Route>
-    );
-  }, []);
+  const renderRoutesRecursive = (routes: AppRoutesProps) => {
+    if (Array.isArray(routes)) {
+      return routes.map((route) => renderRouteElement(route));
+    } else {
+      return renderRouteElement(routes);
+    }
+  };
 
-  return <Routes>{Object.values(routeConfig).map((route) => renderRoute(route))}</Routes>;
+  return <Routes>{Object.values(routeConfig).map((route) => renderRoutesRecursive(route))}</Routes>;
 };
