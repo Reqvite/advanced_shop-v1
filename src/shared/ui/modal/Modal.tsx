@@ -1,18 +1,27 @@
-import {Dialog, DialogProps} from '@mui/material';
+import {Box, Dialog, DialogProps} from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import {ReactElement, ReactNode} from 'react';
-import {ModalStyled} from './styles/styles';
+import {MouseEventHandler, ReactElement, ReactNode} from 'react';
+import {CloseButton} from '../button/CloseButton';
+import {Logo} from '../logo/Logo';
+import {modalStyles} from './styles/styles';
 
 type Props = DialogProps & {
   children: ReactNode;
   title?: string;
 };
-export const Modal = ({title, children, ...otherProps}: Props): ReactElement => {
+export const Modal = ({title, children, onClose, ...otherProps}: Props): ReactElement => {
   return (
-    <Dialog fullWidth maxWidth="md" {...otherProps}>
-      <ModalStyled>
-        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{mb: 2}}>
+    <Dialog fullWidth maxWidth="md" onClose={onClose} {...otherProps}>
+      <Box sx={modalStyles.logo}>
+        <Logo />
+      </Box>
+      <CloseButton
+        sx={modalStyles.closeButton}
+        onClick={onClose as MouseEventHandler<HTMLButtonElement> | undefined}
+      />
+      <Box sx={modalStyles.modal}>
+        <Stack direction="row" justifyContent="center" alignItems="center" sx={{mt: 3}}>
           {title && (
             <Typography component="h1" variant="h5">
               {title}
@@ -20,7 +29,7 @@ export const Modal = ({title, children, ...otherProps}: Props): ReactElement => 
           )}
         </Stack>
         {children && <div>{children}</div>}
-      </ModalStyled>
+      </Box>
     </Dialog>
   );
 };

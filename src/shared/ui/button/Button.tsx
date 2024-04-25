@@ -23,7 +23,7 @@ export const Button = ({
   return (
     <MuiButton variant={variant} disabled={isLoading} {...otherProps}>
       {!isLoading && LeftAddon && <LeftAddon fontSize={iconSize} />}
-      {isLoading ? <Loader /> : <span>{children}</span>}
+      {isLoading ? <Loader /> : children}
       {!isLoading && RightAddon && <RightAddon fontSize={iconSize} />}
     </MuiButton>
   );

@@ -1,4 +1,5 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
 import {Box, IconButton, IconButtonProps, Menu, MenuItem} from '@mui/material';
 import {MouseEvent, ReactElement, useState} from 'react';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
@@ -18,7 +19,7 @@ export const AuthMenuButton = (props: Props): ReactElement => {
     <UserMenu />
   ) : (
     <IconButton aria-label="Auth" onClick={onAuthButtonClick} {...props}>
-      <AccountCircleIcon fontSize="inherit" />
+      <LoginIcon fontSize="inherit" />
     </IconButton>
   );
 };
@@ -59,7 +60,6 @@ function UserMenu(): ReactElement {
         onClose={onCloseMenu}
       >
         <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
         <MenuItem onClick={onLogout}>Logout</MenuItem>
       </Menu>
     </Box>

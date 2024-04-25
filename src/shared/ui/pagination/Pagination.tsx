@@ -18,7 +18,7 @@ export const Pagination = ({
 }: Props): ReactElement => {
   return (
     <Flex sx={{justifyContent: 'space-between', alignItems: 'center', gap: 2}}>
-      <MuiPagination color="primary" {...otherProps} />
+      <MuiPagination {...otherProps} />
       {onShowMoreClick && <Button onClick={onShowMoreClick}>Show more</Button>}
       {total && (
         <Flex gap={1} alignItems="center">

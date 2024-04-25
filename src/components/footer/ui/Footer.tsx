@@ -1,21 +1,22 @@
-import {Grid, Typography} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import {ReactElement} from 'react';
-import {AppLink, Chip, Container, List} from '@/shared/ui';
+import {AppLink, Chip, Container, Flex, List} from '@/shared/ui';
 import {footerColumns, footerTags} from '../model/data';
+import {footerStyles} from '../styles/styles';
 
 export const Footer = (): ReactElement => {
   return (
     <Container component="footer">
-      <Grid container spacing={3}>
+      <Flex spacing={3} sx={footerStyles.flex}>
         {footerColumns.map((column, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Box key={index} sx={footerStyles.flexItem}>
             <Typography fontWeight={600} variant="h6" gutterBottom>
               {column.title}
             </Typography>
-            <List items={column.links} renderItem={AppLink} itemStyle={{width: 'auto'}} />
-          </Grid>
+            <List items={column.links} renderItem={AppLink} itemStyle={{p: 1}} />
+          </Box>
         ))}
-      </Grid>
+      </Flex>
       <Typography variant="h6" fontWeight={600} sx={{marginTop: '20px'}}>
         Product tags
       </Typography>

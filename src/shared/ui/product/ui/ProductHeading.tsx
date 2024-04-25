@@ -26,7 +26,7 @@ export const ProductHeading = ({
       {description && (
         <TruncatedTypography
           variant="body2"
-          color="text.secondary"
+          color="text.primary"
           maxWidth={descriptionMaxWidth}
           noWrap={descriptionNoWrap}
         >
