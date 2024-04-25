@@ -1,6 +1,7 @@
 import {Box, Rating, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
+import {TruncatedTypography} from '../../typography/TruncatedTypography';
 
 type Props = {
   title: string;
@@ -15,7 +16,7 @@ export const ProductHeading = ({
   description,
   rating,
   descriptionNoWrap,
-  descriptionMaxWidth = 220
+  descriptionMaxWidth
 }: Props): ReactElement => {
   return (
     <Box>
@@ -23,14 +24,14 @@ export const ProductHeading = ({
         {title}
       </Typography>
       {description && (
-        <Typography
+        <TruncatedTypography
           variant="body2"
           color="text.secondary"
           maxWidth={descriptionMaxWidth}
           noWrap={descriptionNoWrap}
         >
           {description[0].value}
-        </Typography>
+        </TruncatedTypography>
       )}
       {rating && <Rating value={rating} readOnly />}
     </Box>

@@ -45,12 +45,7 @@ export const ProductCard = ({
       <Card sx={productCardStyles.smallCardContainerStyles}>
         <CardMedia component="img" alt={title} height="240" image={image[0]} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
-          <ProductHeading
-            title={title}
-            description={description}
-            descriptionNoWrap
-            descriptionMaxWidth={160}
-          />
+          <ProductHeading title={title} description={description} descriptionMaxWidth={220} />
         </CardContent>
         <CardActions sx={productCardStyles.smallCardActionsContainerStyles}>
           <PriceText price={price} discount={discount} />
@@ -73,8 +68,18 @@ export const ProductCard = ({
         />
         <CardContent sx={productCardStyles.bigCardContentStyles}>
           <Box sx={boxStyle}>
-            <ProductHeading title={title} description={description} rating={rating} />
-            <CharacteristicList characteristics={characteristics} maxListItems={4} />
+            <ProductHeading
+              title={title}
+              description={description}
+              descriptionMaxWidth={250}
+              rating={rating}
+            />
+            <CharacteristicList
+              characteristics={characteristics}
+              maxListItems={4}
+              noWrap
+              descriptionMaxWidth={100}
+            />
           </Box>
           <Box sx={boxStyle}>
             <Box>

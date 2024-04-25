@@ -73,8 +73,8 @@ export const ProductDetails = ({
       <Stack gap={4} width={isMobile ? '100%' : '50%'}>
         <ProductHeading title={title} rating={rating} />
         <Typography>{description[0]?.value}</Typography>
-        <Flex justifyContent="space-between">
-          <CharacteristicList characteristics={characteristics.slice(0, 4)} maxListItems={4} />
+        <Flex justifyContent="space-between" flexWrap="wrap" gap={1}>
+          <CharacteristicList characteristics={characteristics} maxListItems={4} />
           <CharacteristicList characteristics={characteristics.slice(4, 8)} maxListItems={4} />
         </Flex>
         <Flex
