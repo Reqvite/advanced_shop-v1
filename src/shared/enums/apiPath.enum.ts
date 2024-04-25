@@ -1,5 +1,6 @@
 enum ApiPathEnum {
-  AUTH = '/auth'
+  AUTH = '/auth',
+  PRODUCTS = '/products'
 }
 
 enum UsersApiPath {
@@ -10,4 +11,9 @@ enum UsersApiPath {
   REFRESH = 'auth/refresh'
 }
 
-export {ApiPathEnum, UsersApiPath};
+enum ProductsApiPath {
+  BY_ID = '/:id',
+  EMPTY = '/'
+}
+
+export {ApiPathEnum, ProductsApiPath, UsersApiPath};

@@ -1,8 +1,27 @@
-import {Drawer, Link, Stack, Typography, useMediaQuery, useTheme} from '@mui/material';
+import {Drawer, Link, Stack, Theme, Typography, useMediaQuery, useTheme} from '@mui/material';
 import {ReactElement, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {MenuButton} from '@/shared/ui';
 import {navigationOptions} from '../model/navigationOptions';
+
+const navContainerStyles = (theme: Theme) => ({
+  [theme.breakpoints.down('md')]: {
+    alignItems: 'flex-start',
+    flexDirection: 'column'
+  },
+  p: 2,
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  flexDirection: 'row'
+});
+
+const navStackStyles = (theme: Theme) => ({
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column'
+  },
+  flexDirection: 'row',
+  gap: 2
+});
 
 export const HeaderNavigation = (): ReactElement => {
   const theme = useTheme();
@@ -18,18 +37,7 @@ export const HeaderNavigation = (): ReactElement => {
   };
 
   return (
-    <Stack
-      sx={(theme) => ({
-        [theme.breakpoints.down('md')]: {
-          alignItems: 'flex-start',
-          flexDirection: 'column'
-        },
-        p: 2,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-      })}
-    >
+    <Stack sx={navContainerStyles}>
       {isMobile ? (
         <>
           <MenuButton onClick={handleDrawerOpen} />
@@ -60,15 +68,7 @@ export const HeaderNavigation = (): ReactElement => {
         </>
       ) : (
         <>
-          <Stack
-            sx={(theme) => ({
-              [theme.breakpoints.down('md')]: {
-                flexDirection: 'column'
-              },
-              flexDirection: 'row',
-              gap: 2
-            })}
-          >
+          <Stack sx={navStackStyles}>
             <Typography variant="body1" color="primary">
               Chat with us
             </Typography>
@@ -79,15 +79,7 @@ export const HeaderNavigation = (): ReactElement => {
               info@freshnesecom.com
             </Link>
           </Stack>
-          <Stack
-            sx={(theme) => ({
-              [theme.breakpoints.down('md')]: {
-                flexDirection: 'column'
-              },
-              flexDirection: 'row',
-              gap: 2
-            })}
-          >
+          <Stack sx={navStackStyles}>
             {navigationOptions.map(({label, link}) => (
               <Link key={label} component={NavLink} to={link} color="primary">
                 {label}

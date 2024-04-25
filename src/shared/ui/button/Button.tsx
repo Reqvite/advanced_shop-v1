@@ -1,12 +1,13 @@
-import {Button as MuiButton, ButtonProps, CircularProgress} from '@mui/material';
+import {Button as MuiButton, ButtonProps, IconProps} from '@mui/material';
 import {ElementType, ReactElement, ReactNode} from 'react';
+import {Loader} from '../loader/Loader';
 
 type Props = ButtonProps & {
   children?: ReactNode;
   isLoading?: boolean;
   RightAddon?: ElementType;
   LeftAddon?: ElementType;
-  iconSize?: number;
+  iconSize?: IconProps['fontSize'];
   to?: string;
 };
 
@@ -16,15 +17,14 @@ export const Button = ({
   isLoading,
   RightAddon,
   LeftAddon,
-  iconSize,
+  iconSize = 'medium',
   ...otherProps
 }: Props): ReactElement => {
-  const iconSizeStyle = iconSize ? iconSize : 'inherit';
   return (
     <MuiButton variant={variant} disabled={isLoading} {...otherProps}>
-      {!isLoading && LeftAddon && <LeftAddon fontSize={iconSizeStyle} />}
-      {isLoading ? <CircularProgress size={24} color="inherit" /> : <span>{children}</span>}
-      {!isLoading && RightAddon && <RightAddon fontSize={iconSizeStyle} />}
+      {!isLoading && LeftAddon && <LeftAddon fontSize={iconSize} />}
+      {isLoading ? <Loader /> : <span>{children}</span>}
+      {!isLoading && RightAddon && <RightAddon fontSize={iconSize} />}
     </MuiButton>
   );
 };

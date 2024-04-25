@@ -6,7 +6,7 @@ class PriceService {
   }
 
   getDiscountPrice({discount, price}: PriceI): number {
-    return this.getFixedPrice((price * discount) / 100);
+    return this.getFixedPrice(price - (price * discount) / 100);
   }
 }
 

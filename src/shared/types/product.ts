@@ -1,14 +1,18 @@
-import {LabelOptionsI} from './options';
+import {LabelOptionsWithId} from './options';
 
 interface ProductI {
   _id: string;
   rating: number;
-  img: string[];
+  image: string[];
   title: string;
-  description: string;
-  characteristics: LabelOptionsI[];
+  description: LabelOptionsWithId[];
+  characteristics: LabelOptionsWithId[];
+  subCategory: number;
+  category: number;
+  createdAt: Date;
   price: number;
   discount?: number;
+  tags?: number[];
 }
 
 export {type ProductI};

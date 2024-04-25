@@ -8,14 +8,16 @@ import {
   useTheme
 } from '@mui/material';
 import {ReactElement} from 'react';
+import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
+import {NavigateButton} from '../button/NavigateButton';
+import {WishlistButton} from '../button/WishlistButton';
 import {boxStyle} from './styles/styles';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {DeliveryText} from './ui/DeliveryText';
 import {PriceText} from './ui/PriceText';
-import {ProductDetailsButton} from './ui/ProductDetailsButton';
 import {ProductHeading} from './ui/ProductHeading';
 
 export type CardVariants = 'small' | 'medium';
@@ -33,18 +35,22 @@ export const ProductCard = ({
   price,
   discount,
   variant,
-  img,
-  ...otherProps
+  image
 }: Props): ReactElement => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  if (variant === 'small' || isMobile) {
+  if (isMobile || variant === 'small') {
     return (
-      <Card sx={{width: '100%', maxWidth: 500}} {...otherProps}>
-        <CardMedia component="img" alt={title} height="240" image={img[0]} />
+      <Card sx={{width: '100%', maxWidth: 500}}>
+        <CardMedia component="img" alt={title} height="240" image={image[0]} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
-          <ProductHeading title={title} description={description} />
+          <ProductHeading
+            title={title}
+            description={description}
+            descriptionNoWrap
+            descriptionMaxWidth={160}
+          />
         </CardContent>
         <CardActions sx={{display: 'flex', justifyContent: 'space-between', gap: 2}}>
           <PriceText price={price} discount={discount} />
@@ -57,12 +63,12 @@ export const ProductCard = ({
   }
 
   return (
-    <Card sx={{maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'}} {...otherProps}>
+    <Card sx={{maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'}}>
       <Flex sx={{minHeight: 280}}>
         <CardMedia
           component="img"
           sx={{minHeight: '100%', maxWidth: 268, objectFit: 'cover'}}
-          image={img[0]}
+          image={image[0]}
           alt={title}
         />
         <CardContent
@@ -83,10 +89,8 @@ export const ProductCard = ({
               <DeliveryText />
             </Box>
             <CardActions sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
-              <ProductDetailsButton fullWidth id={_id} />
-              <Button fullWidth size="small">
-                Add to wishlist
-              </Button>
+              <NavigateButton fullWidth to={getRouteProductDetails(_id)} />
+              <WishlistButton fullWidth />
             </CardActions>
           </Box>
         </CardContent>

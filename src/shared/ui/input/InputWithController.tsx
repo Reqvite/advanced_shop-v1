@@ -18,6 +18,7 @@ export const InputWithController = <T extends FieldValues>({
       name={option.id as Path<T>}
       render={({field, fieldState: {error}}) => (
         <Input
+          required={option.isRequired}
           key={option.id}
           type={option.type}
           label={option.name}
