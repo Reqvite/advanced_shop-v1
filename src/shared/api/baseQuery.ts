@@ -10,6 +10,19 @@ interface BaseError {
   details: string[];
 }
 
+const handleAxiosError = (axiosError: AxiosError<BaseError>): {error: BaseError} => {
+  const code = axiosError.response?.data?.code || axiosError.response?.status || '';
+  const message = axiosError.response?.data?.message || axiosError?.message || ErrorMessages.ERROR;
+  const details = axiosError.response?.data?.details || [];
+  const error: BaseError = {
+    code,
+    message,
+    details
+  };
+
+  return {error};
+};
+
 export const axiosBaseQuery =
   (
     {baseUrl}: {baseUrl: string} = {baseUrl: import.meta.env.VITE_API_URL}
@@ -30,14 +43,11 @@ export const axiosBaseQuery =
         ? $protectedApi({url: baseUrl + url, method, data, params})
         : $publicApi({url: baseUrl + url, method, data, params});
       const result = await instance;
+
       return {data: result.data};
     } catch (axiosError: any) {
-      const err = axiosError as AxiosError<BaseError>;
-      const error: BaseError = {
-        code: err.response?.data?.code || err.response?.status || '',
-        message: err.response?.data?.message || err?.message || ErrorMessages.ERROR,
-        details: err.response?.data?.details || []
-      };
-      return {error};
+      const error = axiosError as AxiosError<BaseError>;
+
+      return handleAxiosError(error);
     }
   };

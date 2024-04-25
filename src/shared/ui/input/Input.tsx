@@ -15,11 +15,24 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {variant = 'outlined', error, label, helperText, type = 'text', required, ...otherProps},
     ref
-  ): ReactElement => {
+  ) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
       setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
+    const renderEndAdornment = (): ReactElement | null => {
+      if (type === 'password') {
+        return (
+          <InputAdornment position="end">
+            <IconButton aria-label="toggle password visibility" onClick={togglePasswordVisibility}>
+              {showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </InputAdornment>
+        );
+      }
+      return null;
     };
 
     return (
@@ -31,22 +44,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             inputRef={ref}
             type={showPassword ? 'text' : type}
             {...otherProps}
-            InputProps={
-              type === 'password'
-                ? {
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={togglePasswordVisibility}
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    )
-                  }
-                : undefined
-            }
+            InputProps={{
+              endAdornment: renderEndAdornment()
+            }}
           />
           {helperText && <FormHelperText>{helperText}</FormHelperText>}
           <Box height="6px" mt="1px">

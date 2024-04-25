@@ -3,6 +3,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Card, CardMedia, Grid, GridProps, IconButton, useMediaQuery, useTheme} from '@mui/material';
 import {ReactElement, useState} from 'react';
 import {Flex} from '../base/Flex';
+import {ImageGalleryItem} from './ImageGalleryItem';
 
 type Props = GridProps & {
   images: string[];
@@ -57,9 +58,8 @@ export const ImageGallery = ({
               <ArrowBackIcon />
             </IconButton>
             {images.slice(startIndex, startIndex + maxSliderImages).map((image, index) => (
-              <CardMedia
-                key={startIndex + index}
-                component="img"
+              <ImageGalleryItem
+                key={`${startIndex}-${index}-${image}`}
                 src={image}
                 sx={{
                   maxWidth: 60,
@@ -80,18 +80,17 @@ export const ImageGallery = ({
         ) : (
           <Grid container spacing={2}>
             {images.map((image, index) => (
-              <Grid key={index} item xs={6}>
-                <CardMedia
-                  component="img"
-                  src={image}
-                  sx={{
-                    height: 218,
-                    width: '100%',
-                    ...baseImageStyle
-                  }}
-                  onClick={() => onThumbnailClick(image)}
-                />
-              </Grid>
+              <ImageGalleryItem
+                key={`${startIndex}-${index}-${image}`}
+                src={image}
+                sx={{
+                  height: 218,
+                  width: '100%',
+                  ...baseImageStyle
+                }}
+                alt={`${title} ${startIndex + index}`}
+                onClick={() => onThumbnailClick(image)}
+              />
             ))}
           </Grid>
         )}

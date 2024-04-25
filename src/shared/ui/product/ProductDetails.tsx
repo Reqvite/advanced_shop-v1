@@ -12,7 +12,7 @@ import {AddToCartButton} from '../button/AddToCartButton';
 import {Button} from '../button/Button';
 import {WishlistButton} from '../button/WishlistButton';
 import {Chip} from '../chip/Chip';
-import {ImageGallery} from '../image/ImageGallery';
+import {ImageGallery} from '../imageGallery/ImageGallery';
 import {List} from '../list/List';
 import {Tabs} from '../tabs/Tabs';
 import {CharacteristicList} from './ui/CharacteristicList';

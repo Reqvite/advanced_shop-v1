@@ -1,8 +1,9 @@
 import {Grid, Typography} from '@mui/material';
+import {ReactElement} from 'react';
 import {AppLink, Chip, Container, List} from '@/shared/ui';
 import {footerColumns, footerTags} from '../model/data';
 
-export const Footer = () => {
+export const Footer = (): ReactElement => {
   return (
     <Container component="footer">
       <Grid container spacing={3}>

@@ -8,7 +8,10 @@ interface TabPanelProps {
   value: number;
 }
 
-function a11yProps(index: string) {
+function a11yProps(index: string): {
+  id: string;
+  'aria-controls': string;
+} {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`
@@ -40,9 +43,9 @@ type Props = {
 };
 
 export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => {
-  const [value, setValue] = useState(defaultValue ? defaultValue : options[0].value);
+  const [value, setValue] = useState(defaultValue || options[0].value);
 
-  const onChangeTab = (_: SyntheticEvent, value: string): void => {
+  const onChangeTab = (event: SyntheticEvent, value: string): void => {
     if (onChange) {
       onChange(value);
     }
