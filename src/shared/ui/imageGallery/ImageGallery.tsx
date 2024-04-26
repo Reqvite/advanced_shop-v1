@@ -1,8 +1,10 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {Card, CardMedia, Grid, GridProps, IconButton, useMediaQuery, useTheme} from '@mui/material';
+import {Card, CardMedia, Grid, GridProps, IconButton} from '@mui/material';
 import {ReactElement, useState} from 'react';
+import {useMediaQuery} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
+import {ImageGalleryItem} from './ImageGalleryItem';
 import {imageGalleryStyles} from './styles/styles';
 
 type Props = GridProps & {
@@ -18,8 +20,7 @@ export const ImageGallery = ({
   title = 'Img title',
   maxSliderImages = 3
 }: Props): ReactElement => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md')) || withSlider;
+  const isMobile = useMediaQuery('md') || withSlider;
   const [selectedImage, setSelectedImage] = useState<string>(images[0]);
   const [startIndex, setStartIndex] = useState<number>(0);
 
@@ -49,9 +50,8 @@ export const ImageGallery = ({
               <ArrowBackIcon />
             </IconButton>
             {images.slice(startIndex, startIndex + maxSliderImages).map((image, index) => (
-              <CardMedia
-                key={startIndex + index}
-                component="img"
+              <ImageGalleryItem
+                key={`${startIndex}-${index}-${image}`}
                 src={image}
                 sx={imageGalleryStyles.smallImg}
                 alt={`${title} ${startIndex + index}`}
@@ -68,14 +68,13 @@ export const ImageGallery = ({
         ) : (
           <Grid container spacing={2}>
             {images.map((image, index) => (
-              <Grid key={index} item xs={6}>
-                <CardMedia
-                  component="img"
-                  src={image}
-                  sx={imageGalleryStyles.bigImg}
-                  onClick={() => onThumbnailClick(image)}
-                />
-              </Grid>
+              <ImageGalleryItem
+                key={`${startIndex}-${index}-${image}`}
+                src={image}
+                sx={imageGalleryStyles.bigImg}
+                alt={`${title} ${startIndex + index}`}
+                onClick={() => onThumbnailClick(image)}
+              />
             ))}
           </Grid>
         )}

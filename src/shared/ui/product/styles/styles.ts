@@ -14,7 +14,8 @@ export const productCardStyles = {
     display: 'flex',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    gap: 1
   },
   bigCardActionsContainerStyles: {display: 'flex', flexDirection: 'column', gap: 2}
 };

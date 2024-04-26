@@ -1,13 +1,6 @@
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  Skeleton,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
+import {Box, Card, CardActions, CardContent, Skeleton} from '@mui/material';
 import {ReactElement} from 'react';
+import {useMediaQuery} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
 import {CardVariants} from './ProductCard';
 import {boxStyle, productCardStyles} from './styles/styles';
@@ -17,8 +10,7 @@ type Props = {
 };
 
 export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery('md');
 
   if (variant === 'small' || isMobile) {
     return (

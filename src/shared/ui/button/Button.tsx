@@ -1,4 +1,4 @@
-import {Button as MuiButton, ButtonProps} from '@mui/material';
+import {Button as MuiButton, ButtonProps, IconProps} from '@mui/material';
 import {ElementType, ReactElement, ReactNode} from 'react';
 import {Loader} from '../loader/Loader';
 
@@ -7,7 +7,8 @@ type Props = ButtonProps & {
   isLoading?: boolean;
   RightAddon?: ElementType;
   LeftAddon?: ElementType;
-  iconSize?: 'inherit' | 'small' | 'large' | 'medium';
+  iconSize?: IconProps['fontSize'];
+  iconColor?: string;
   to?: string;
 };
 
@@ -17,14 +18,15 @@ export const Button = ({
   isLoading,
   RightAddon,
   LeftAddon,
+  iconColor = 'inherit',
   iconSize = 'medium',
   ...otherProps
 }: Props): ReactElement => {
   return (
     <MuiButton variant={variant} disabled={isLoading} {...otherProps}>
-      {!isLoading && LeftAddon && <LeftAddon fontSize={iconSize} />}
-      {isLoading ? <Loader /> : <span>{children}</span>}
-      {!isLoading && RightAddon && <RightAddon fontSize={iconSize} />}
+      {!isLoading && LeftAddon && <LeftAddon sx={{color: iconColor}} fontSize={iconSize} />}
+      {isLoading ? <Loader /> : children}
+      {!isLoading && RightAddon && <RightAddon sx={{color: iconColor}} fontSize={iconSize} />}
     </MuiButton>
   );
 };

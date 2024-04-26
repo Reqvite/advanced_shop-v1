@@ -21,16 +21,16 @@ declare module '@mui/material/styles/createPalette' {
 }
 
 export const brand = {
-  50: 'hsl(210, 100%, 96%)',
-  100: 'hsl(210, 100%, 90%)',
-  200: 'hsl(210, 100%, 80%)',
-  300: 'hsl(210, 100%, 65%)',
-  400: 'hsl(210, 100%, 48%)',
-  500: 'hsl(210, 100%, 40%)',
-  600: 'hsl(210, 100%, 55%)',
-  700: 'hsl(210, 100%, 35%)',
-  800: 'hsl(210, 100%, 16%)',
-  900: 'hsl(210, 100%, 21%)'
+  50: 'rgb(106, 152, 70)',
+  100: 'rgb(244, 248, 236)',
+  200: 'rgba(106, 152, 70, 70%)',
+  300: 'rgba(106, 152, 60, 40%)',
+  400: 'rgba(106, 152, 70, 50%)',
+  500: 'rgb(107, 152, 60)',
+  600: 'rgba(106, 152, 60, 70%)',
+  700: 'rgba(106, 152, 60, 80%)',
+  800: 'rgba(106, 152, 60, 50%)',
+  900: 'rgba(106, 152, 60, 20%)'
 };
 
 export const grey = {
@@ -43,7 +43,7 @@ export const grey = {
   600: 'hsl(190, 25%, 35%)',
   700: 'hsl(190, 25%, 25%)',
   800: 'hsl(190, 25%, 10%)',
-  900: 'hsl(190, 30%, 5%)'
+  900: 'rgb(249, 249, 249)'
 };
 
 export const red = {
@@ -108,11 +108,17 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
     typography: {
       fontFamily: ['"Montserrat", "sans-serif"'].join(','),
       h1: {
+        [modernThemeCustom.breakpoints.down('md')]: {
+          fontSize: modernThemeCustom.typography.pxToRem(45)
+        },
         fontSize: modernThemeCustom.typography.pxToRem(60),
         lineHeight: 1.2
       },
       h5: {
-        fontSize: modernThemeCustom.typography.pxToRem(20),
+        [modernThemeCustom.breakpoints.down('md')]: {
+          fontSize: modernThemeCustom.typography.pxToRem(14)
+        },
+        fontSize: modernThemeCustom.typography.pxToRem(18),
         fontWeight: 600
       },
       subtitle1: {
@@ -126,6 +132,9 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         fontWeight: 400
       },
       body2: {
+        [modernThemeCustom.breakpoints.down('md')]: {
+          fontSize: modernThemeCustom.typography.pxToRem(12)
+        },
         fontSize: modernThemeCustom.typography.pxToRem(14),
         fontWeight: 400
       },
@@ -172,10 +181,10 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
       MuiButton: {
         styleOverrides: {
           root: ({theme, ownerState}) => ({
-            [theme.breakpoints.down('md')]: {
-              fontSize: 12
+            [modernThemeCustom.breakpoints.down('md')]: {
+              fontSize: 10
             },
-            minWidth: 150,
+            minWidth: 100,
             gap: 1,
             boxShadow: 'none',
             borderRadius: theme.shape.borderRadius,
@@ -186,8 +195,7 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
             ...(ownerState.variant === 'contained' &&
               ownerState.color === 'primary' && {
                 color: 'white',
-                backgroundColor: brand[300],
-                backgroundImage: `linear-gradient(to bottom, ${alpha(brand[400], 0.8)}, ${brand[500]})`,
+                backgroundColor: brand[50],
                 boxShadow: `inset 0 2px 0 ${alpha(brand[200], 0.2)}, inset 0 -2px 0 ${alpha(brand[700], 0.4)}`,
                 border: `1px solid ${brand[500]}`,
                 '&:hover': {
@@ -285,8 +293,16 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
       MuiChip: {
         styleOverrides: {
           root: () => ({
-            backgroundColor: alpha(brand[300], 0.2),
-            color: brand[300]
+            backgroundColor: brand[100],
+            color: brand[50]
+          })
+        }
+      },
+      MuiPaginationItem: {
+        styleOverrides: {
+          root: () => ({
+            backgroundColor: 'none',
+            color: brand[50]
           })
         }
       },
@@ -371,7 +387,7 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         },
         styleOverrides: {
           root: ({theme}) => ({
-            color: brand[700],
+            color: brand[50],
             position: 'relative',
             textDecoration: 'none',
             '&::before': {

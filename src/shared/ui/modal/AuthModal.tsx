@@ -75,8 +75,8 @@ export const AuthModal = (): ReactElement => {
           formValidationSchema={isLoginMode ? loginUserUserSchema : createUserSchema}
           isLoading={isLoading}
         />
-        <Button fullWidth variant="outlined" onClick={onChangeAuthMode}>
-          {isLoginMode ? 'Don`t have an account? Sign up' : ' Already have an account? Sign in'}
+        <Button sx={{marginLeft: 'auto'}} variant="text" onClick={onChangeAuthMode}>
+          {isLoginMode ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
         </Button>
       </Stack>
     </Modal>

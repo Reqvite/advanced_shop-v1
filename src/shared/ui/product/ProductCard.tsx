@@ -1,14 +1,7 @@
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
+import {Box, Card, CardActions, CardContent, CardMedia} from '@mui/material';
 import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
+import {useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
@@ -37,20 +30,14 @@ export const ProductCard = ({
   variant,
   image
 }: Props): ReactElement => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery('md');
 
   if (isMobile || variant === 'small') {
     return (
       <Card sx={productCardStyles.smallCardContainerStyles}>
         <CardMedia component="img" alt={title} height="240" image={image[0]} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
-          <ProductHeading
-            title={title}
-            description={description}
-            descriptionNoWrap
-            descriptionMaxWidth={160}
-          />
+          <ProductHeading title={title} description={description} descriptionMaxWidth={220} />
         </CardContent>
         <CardActions sx={productCardStyles.smallCardActionsContainerStyles}>
           <PriceText price={price} discount={discount} />
@@ -73,8 +60,18 @@ export const ProductCard = ({
         />
         <CardContent sx={productCardStyles.bigCardContentStyles}>
           <Box sx={boxStyle}>
-            <ProductHeading title={title} description={description} rating={rating} />
-            <CharacteristicList characteristics={characteristics} maxListItems={4} />
+            <ProductHeading
+              title={title}
+              description={description}
+              descriptionMaxWidth={220}
+              rating={rating}
+            />
+            <CharacteristicList
+              characteristics={characteristics}
+              maxListItems={4}
+              noWrap
+              descriptionMaxWidth={80}
+            />
           </Box>
           <Box sx={boxStyle}>
             <Box>
