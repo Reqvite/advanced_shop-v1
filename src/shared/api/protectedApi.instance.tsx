@@ -39,9 +39,11 @@ $protectedApi.interceptors.response.use(
       } catch (error: any) {
         notificationService.error(error.response.data.message);
       }
-    } else {
-      notificationService.error(error.response.data.message);
     }
+    if (!accessToken) {
+      return Promise.reject(error);
+    }
+    notificationService.error(error.response.data.message);
     return Promise.reject(error);
   }
 );
