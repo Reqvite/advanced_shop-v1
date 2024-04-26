@@ -1,7 +1,12 @@
 import {ReactElement} from 'react';
 import {Control, FieldValues} from 'react-hook-form';
-import {InputWithController, QuantityInput} from '@/shared/ui';
-import {FormOption, FormVariantsEnum} from './types';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
+import {
+  CheckboxGroupWithController,
+  InputWithController,
+  PriceRangeInput,
+  QuantityInput
+} from '@/shared/ui';
 
 type Props<T extends FieldValues> = {
   option: FormOption<FormVariantsEnum>;
@@ -24,5 +29,18 @@ export const renderFormBlock = <T extends FieldValues>({
           control={control}
         />
       );
+    case FormVariantsEnum.Select:
+      return <InputWithController key={option.id} option={option} control={control} />;
+    case FormVariantsEnum.PriceRange:
+      return (
+        <InputWithController
+          InputComponent={PriceRangeInput}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
+    case FormVariantsEnum.CheckboxGroup:
+      return <CheckboxGroupWithController key={option.id} option={option} control={control} />;
   }
 };

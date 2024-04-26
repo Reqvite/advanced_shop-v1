@@ -2,9 +2,9 @@ import {Box, Stack} from '@mui/material';
 import {SxProps} from '@mui/system';
 import {ElementType, ReactElement} from 'react';
 import {DefaultValues, FieldValues, Resolver, useForm} from 'react-hook-form';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Button} from '@/shared/ui';
-import {renderFormBlock} from '../model/renderFormBlock';
-import {FormOption, FormVariantsEnum} from '../model/types';
+import {renderFormBlock} from '../../../shared/services/templateService/renderFormBlock.service';
 import {FormHeader} from './FormHeader';
 
 type Props<T> = {

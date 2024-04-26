@@ -1,6 +1,6 @@
 import {ElementType, ReactElement} from 'react';
 import {Control, Controller, FieldValues, Path} from 'react-hook-form';
-import {FormOption, FormVariantsEnum} from '@/components/form';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Input} from './Input';
 
 interface Props<T extends FieldValues> {

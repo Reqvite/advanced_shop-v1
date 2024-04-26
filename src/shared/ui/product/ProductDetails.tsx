@@ -5,9 +5,10 @@ import {
   getRouteProductDetailsReviewsTab,
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
-import {Form, FormOption, FormVariantsEnum} from '@/components/form';
+import {Form} from '@/components/form';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
 import {useMediaQuery} from '@/shared/lib/hooks';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
