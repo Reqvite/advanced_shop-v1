@@ -8,7 +8,7 @@ interface TabPanelProps {
   value: number;
 }
 
-function a11yProps(index: string): {
+function appyProps(index: string): {
   id: string;
   'aria-controls': string;
 } {
@@ -45,7 +45,7 @@ type Props = {
 export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => {
   const [value, setValue] = useState(defaultValue || options[0].value);
 
-  const onChangeTab = (event: SyntheticEvent, value: string): void => {
+  const onChangeTab = (_: SyntheticEvent, value: string): void => {
     if (onChange) {
       onChange(value);
     }
@@ -57,7 +57,7 @@ export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => 
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
         <MuiTabs value={value} onChange={onChangeTab} aria-label="tabs">
           {options?.map((tab) => (
-            <Tab key={tab.label} value={tab.value} label={tab.label} {...a11yProps(tab.label)} />
+            <Tab key={tab.label} value={tab.value} label={tab.label} {...appyProps(tab.label)} />
           ))}
         </MuiTabs>
       </Box>

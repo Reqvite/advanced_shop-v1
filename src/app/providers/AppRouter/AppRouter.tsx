@@ -1,10 +1,10 @@
-import {ReactElement, Suspense} from 'react';
+import {ReactElement, ReactNode, Suspense} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {Loader} from '@/shared/ui';
 import {AppRoutesProps, routeConfig} from './routeConfig';
 
 export const AppRouter = (): ReactElement => {
-  const renderRouteElement = (route: AppRoutesProps) => (
+  const renderRouteElement = (route: AppRoutesProps): ReactElement => (
     <Route
       key={route.path}
       path={route.path}
@@ -14,7 +14,7 @@ export const AppRouter = (): ReactElement => {
     </Route>
   );
 
-  const renderRoutesRecursive = (routes: AppRoutesProps) => {
+  const renderRoutesRecursive = (routes: AppRoutesProps): ReactNode => {
     if (Array.isArray(routes)) {
       return routes.map((route) => renderRouteElement(route));
     } else {
