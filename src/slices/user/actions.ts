@@ -9,13 +9,13 @@ import {
   UserRegisterRequestDto,
   UserRegisterResponseDto
 } from '@/shared/types/user/user';
-import {actions} from '.';
+import {actions as modalActions} from '../modal';
 
 const login = createAsyncThunk<UserLoginResponseDto, UserLoginRequestDto, AsyncThunkConfig>(
   UsersApiPath.LOG_IN,
   async (body, {dispatch, extra: {$publicApi}}) => {
     const response = await $publicApi.post(UsersApiPath.LOG_IN, body);
-    dispatch(actions.closeModal());
+    dispatch(modalActions.closeModal());
     return response.data;
   }
 );

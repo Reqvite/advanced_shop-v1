@@ -1,34 +1,32 @@
-import {Box, Dialog, DialogProps} from '@mui/material';
+import {Box, Dialog} from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import {MouseEventHandler, ReactElement, ReactNode} from 'react';
+import {MouseEventHandler, ReactElement} from 'react';
+import {useAppDispatch, useAppSelector} from '@/shared/lib/hooks';
+import {actions as modalActions, selectModalContent, selectShowModal} from '@/slices/modal';
 import {CloseButton} from '../button/CloseButton';
 import {Logo} from '../logo/Logo';
 import {modalStyles} from './styles/styles';
 
-type Props = DialogProps & {
-  children: ReactNode;
-  title?: string;
-};
-export const Modal = ({title, children, onClose, ...otherProps}: Props): ReactElement => {
+export const Modal = (): ReactElement => {
+  const dispatch = useAppDispatch();
+  const content = useAppSelector(selectModalContent);
+  const isOpen = useAppSelector(selectShowModal);
+  const onCloseModal = (): void => {
+    dispatch(modalActions.closeModal());
+  };
+
   return (
-    <Dialog fullWidth maxWidth="md" onClose={onClose} {...otherProps}>
+    <Dialog fullWidth maxWidth="md" open={isOpen} onClose={onCloseModal}>
       <Box sx={modalStyles.logo}>
         <Logo />
       </Box>
       <CloseButton
         sx={modalStyles.closeButton}
-        onClick={onClose as MouseEventHandler<HTMLButtonElement>}
+        onClick={onCloseModal as MouseEventHandler<HTMLButtonElement>}
       />
       <Box sx={modalStyles.modal}>
-        <Stack direction="row" justifyContent="center" alignItems="center" sx={{mt: 3}}>
-          {title && (
-            <Typography component="h1" variant="h5">
-              {title}
-            </Typography>
-          )}
-        </Stack>
-        {children && <div>{children}</div>}
+        <Stack mt={3} />
+        {content && content}
       </Box>
     </Dialog>
   );

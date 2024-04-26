@@ -1,7 +1,9 @@
 import axios from 'axios';
 import {store} from '@/app/providers/StoreProvider/config/store';
+import {actions as modalActions} from '@/slices/modal';
 import {actions as userActions} from '@/slices/user';
 import {notificationService} from '../services';
+import {AuthForm} from '../ui';
 
 const $protectedApi = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`
@@ -13,7 +15,7 @@ $protectedApi.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     } else {
-      store.instance.dispatch(userActions.openModal());
+      store.instance.dispatch(modalActions.openModal(<AuthForm />));
     }
     return config;
   },
