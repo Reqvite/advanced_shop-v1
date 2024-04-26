@@ -4,7 +4,6 @@ import {AppRouter} from '@/app/providers/AppRouter/AppRouter';
 import {Footer} from '@/components/footer';
 import {Header} from '@/components/header';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
-import {Alert, AuthModal, Container} from '@/shared/ui';
 import {Alert, AuthModal, Breadcrumbs, Container} from '@/shared/ui';
 import {actions as userActions} from '@/slices/user';
 
