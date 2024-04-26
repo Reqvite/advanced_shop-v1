@@ -1,21 +1,14 @@
 import {ArrowDropDown} from '@mui/icons-material';
-import {Typography} from '@mui/material';
-import React, {MouseEvent, ReactElement} from 'react';
+import {MouseEvent, ReactElement, useState} from 'react';
+import {PopoverItemI} from '@/shared/types/popover';
 import {Button} from '../../button/Button';
 import {PopoverMenu} from '../popoverMenu/PopoverMenu';
+import {SubNavItem} from './PopoverSubNavItem';
 
-type Props = {
-  _id: string;
-  label?: string;
-  children: {
-    _id: string;
-    label?: string;
-    href?: string;
-  }[];
-};
+type Props = PopoverItemI;
 
 export const PopoverListItem = ({label, children}: Props): ReactElement => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const onClick = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -48,22 +41,6 @@ export const PopoverListItem = ({label, children}: Props): ReactElement => {
           renderItem={SubNavItem}
         />
       )}
-    </>
-  );
-};
-
-type SubNavItemProps = {
-  _id: string;
-  label?: string;
-  href?: string;
-};
-
-const SubNavItem = ({label}: SubNavItemProps): ReactElement => {
-  return (
-    <>
-      <Typography variant="body1" color="primary.text" component="div">
-        {label}
-      </Typography>
     </>
   );
 };

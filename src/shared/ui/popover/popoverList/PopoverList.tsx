@@ -1,23 +1,16 @@
 import {Box} from '@mui/material';
 import {ReactElement} from 'react';
+import {PopoverItemI} from '@/shared/types/popover';
 import {PopoverListItem} from './PopoverListItem';
 
 type Props = {
-  links: {
-    _id: string;
-    label?: string;
-    children: {
-      _id: string;
-      label?: string;
-      href?: string;
-    }[];
-  }[];
+  items: PopoverItemI[];
 };
 
-export const PopoverList = ({links}: Props): ReactElement => {
+export const PopoverList = ({items}: Props): ReactElement => {
   return (
     <Box style={{display: 'flex', gap: '16px'}}>
-      {links?.map((navItem) => <PopoverListItem key={navItem._id} {...navItem} />)}
+      {items?.map((item) => <PopoverListItem key={item._id} {...item} />)}
     </Box>
   );
 };
