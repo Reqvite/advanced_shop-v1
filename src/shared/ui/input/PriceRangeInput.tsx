@@ -8,45 +8,49 @@ interface Props extends SliderProps {
 }
 
 type Value = [number, number];
+type onChangeInputValue = (value: Value) => void;
 
 export const PriceRangeInput = forwardRef<HTMLSpanElement, Props>(
   ({min = 1, max = 1000, onChange, ...otherProps}, ref): ReactElement => {
-    const [minNum] = useState(min);
-    const [maxNum] = useState(max);
+    const [minNum] = useState<number>(min);
+    const [maxNum] = useState<number>(max);
     const [priceRangeValue, setPriceRangeValue] = useState<Value>(
       (otherProps.value as Value) || [min, max]
     );
 
-    const handleSliderChange = (event: Event, newValue: Value | number) => {
+    const handleSliderChange = (event: Event, newValue: number | number[]) => {
       setPriceRangeValue(newValue as Value);
       if (onChange) onChange(event, newValue, 0);
     };
 
-    const onMinPriceChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const onPriceChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
       const value = Number(event.target.value);
-      if (value <= minNum) {
-        setPriceRangeValue([Number(minNum), priceRangeValue[1]]);
-      } else if (value >= maxNum) {
-        setPriceRangeValue([Number(maxNum), priceRangeValue[1]]);
-      } else {
-        setPriceRangeValue([Number(value), priceRangeValue[1]]);
-      }
-      if (onChange) {
-        onChange([Number(value), priceRangeValue[1]], 0);
-      }
-    };
+      const isMin = event.target.name === 'min';
+      let newPriceRangeValue: Value;
 
-    const onMaxPriceChange = (event: ChangeEvent<HTMLInputElement>): void => {
-      const value = Number(event.target.value);
-      if (value <= minNum) {
-        setPriceRangeValue([priceRangeValue[0], Number(minNum)]);
-      } else if (value >= maxNum) {
-        setPriceRangeValue([priceRangeValue[0], Number(maxNum)]);
+      if (isMin) {
+        if (value <= minNum) {
+          newPriceRangeValue = [minNum, priceRangeValue[1]];
+        } else if (value >= maxNum) {
+          newPriceRangeValue = [maxNum, priceRangeValue[1]];
+        } else {
+          newPriceRangeValue = [value, priceRangeValue[1]];
+        }
       } else {
-        setPriceRangeValue([priceRangeValue[0], Number(value)]);
+        if (value <= minNum) {
+          newPriceRangeValue = [priceRangeValue[0], minNum];
+        } else if (value >= maxNum) {
+          newPriceRangeValue = [priceRangeValue[0], maxNum];
+        } else {
+          newPriceRangeValue = [priceRangeValue[0], value];
+        }
       }
-      if (onChange) {
-        onChange([priceRangeValue[0], Number(value)], 0);
+
+      setPriceRangeValue(newPriceRangeValue);
+
+      const onChangeInput = onChange as unknown as onChangeInputValue;
+      if (onChangeInput) {
+        onChangeInput(newPriceRangeValue);
       }
     };
 
@@ -67,14 +71,14 @@ export const PriceRangeInput = forwardRef<HTMLSpanElement, Props>(
             sx={{width: '90px'}}
             name="min"
             value={priceRangeValue[0]}
-            onChange={onMinPriceChange}
+            onChange={(event) => onPriceChange(event)}
           />
           <Typography variant="body2">-</Typography>
           <Input
             sx={{width: '90px'}}
             name="max"
             value={priceRangeValue[1]}
-            onChange={onMaxPriceChange}
+            onChange={(event) => onPriceChange(event)}
           />
         </Stack>
       </Stack>
