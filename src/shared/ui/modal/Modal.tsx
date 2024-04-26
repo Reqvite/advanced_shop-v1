@@ -18,7 +18,7 @@ export const Modal = ({title, children, onClose, ...otherProps}: Props): ReactEl
       </Box>
       <CloseButton
         sx={modalStyles.closeButton}
-        onClick={onClose as MouseEventHandler<HTMLButtonElement> | undefined}
+        onClick={onClose as MouseEventHandler<HTMLButtonElement>}
       />
       <Box sx={modalStyles.modal}>
         <Stack direction="row" justifyContent="center" alignItems="center" sx={{mt: 3}}>
