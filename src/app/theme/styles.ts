@@ -69,14 +69,10 @@ export const imageGalleryStyles = {
 };
 
 export const stickyContentLayoutStyles = {
-  gridContainer: (theme: Theme) => ({
+  gridContainer: () => ({
     display: 'grid',
     gridTemplateAreas: `"left content"`,
-    gridTemplateColumns: 'min-content 1fr',
-    [theme.breakpoints.down('sm')]: {
-      gridTemplateAreas: `"content" "left"`,
-      gridTemplateColumns: '1fr'
-    }
+    gridTemplateColumns: 'min-content 1fr'
   }),
   leftGridItem: {
     gridArea: 'left',
