@@ -2,6 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Card, CardMedia, Grid, GridProps, IconButton, useMediaQuery, useTheme} from '@mui/material';
 import {ReactElement, useState} from 'react';
+import {imageGalleryStyles} from '@/app/theme/styles';
 import {Flex} from '../base/Flex';
 import {ImageGalleryItem} from './ImageGalleryItem';
 
@@ -10,15 +11,6 @@ type Props = GridProps & {
   withSlider?: boolean;
   title?: string;
   maxSliderImages?: number;
-};
-
-const baseImageStyle = {
-  cursor: 'pointer',
-  borderRadius: 1,
-  transition: 'transform 0.3s ease',
-  '&:hover': {
-    transform: 'scale(1.02)'
-  }
 };
 
 export const ImageGallery = ({
@@ -45,7 +37,7 @@ export const ImageGallery = ({
   };
 
   return (
-    <Grid container direction="column" alignItems="center" spacing={2} sx={{width: '100%'}}>
+    <Grid container direction="column" alignItems="center" spacing={2} width="100%">
       <Grid item>
         <Card>
           <CardMedia component="img" src={selectedImage} height="400" width="100%" />
@@ -61,11 +53,7 @@ export const ImageGallery = ({
               <ImageGalleryItem
                 key={`${startIndex}-${index}-${image}`}
                 src={image}
-                sx={{
-                  maxWidth: 60,
-                  height: 60,
-                  ...baseImageStyle
-                }}
+                sx={imageGalleryStyles.smallImg}
                 alt={`${title} ${startIndex + index}`}
                 onClick={() => onThumbnailClick(image)}
               />
@@ -83,11 +71,7 @@ export const ImageGallery = ({
               <ImageGalleryItem
                 key={`${startIndex}-${index}-${image}`}
                 src={image}
-                sx={{
-                  height: 218,
-                  width: '100%',
-                  ...baseImageStyle
-                }}
+                sx={imageGalleryStyles.bigImg}
                 alt={`${title} ${startIndex + index}`}
                 onClick={() => onThumbnailClick(image)}
               />

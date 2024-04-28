@@ -1,6 +1,6 @@
 import {Box, Stack} from '@mui/material';
 import {SxProps} from '@mui/system';
-import {ReactElement} from 'react';
+import {ElementType, ReactElement} from 'react';
 import {DefaultValues, FieldValues, Resolver, useForm} from 'react-hook-form';
 import {Button} from '@/shared/ui';
 import {renderFormBlock} from '../model/renderFormBlock';
@@ -19,6 +19,7 @@ type Props<T> = {
   buttonLabel?: string;
   withCancel?: boolean;
   onCancel?: () => void;
+  ButtonComponent?: ElementType;
 };
 
 export const Form = <T extends FieldValues>({
@@ -32,7 +33,8 @@ export const Form = <T extends FieldValues>({
   isLoading,
   buttonLabel = 'Submit',
   withCancel,
-  onCancel
+  onCancel,
+  ButtonComponent
 }: Props<T>): ReactElement => {
   const {handleSubmit, reset, control, getValues} = useForm<T>({
     resolver: formValidationSchema,
@@ -58,10 +60,14 @@ export const Form = <T extends FieldValues>({
       <Box component="form" onSubmit={handleFormSubmit}>
         <Stack gap={3} sx={sx}>
           {options.map((option) => renderFormBlock<T>({option, control}))}
-          <Stack direction="row" spacing={2} sx={{width: '100%'}}>
-            <Button fullWidth type="submit" variant="contained" isLoading={isLoading}>
-              {buttonLabel}
-            </Button>
+          <Stack direction="row" spacing={2}>
+            {ButtonComponent ? (
+              <ButtonComponent type="submit" isLoading={isLoading} />
+            ) : (
+              <Button fullWidth type="submit" variant="contained" isLoading={isLoading}>
+                {buttonLabel}
+              </Button>
+            )}
             {withCancel && (
               <Button fullWidth variant="outlined" onClick={handleCancel}>
                 Cancel

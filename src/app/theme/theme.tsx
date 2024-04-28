@@ -108,11 +108,17 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
     typography: {
       fontFamily: ['"Montserrat", "sans-serif"'].join(','),
       h1: {
+        [modernThemeCustom.breakpoints.down('md')]: {
+          fontSize: modernThemeCustom.typography.pxToRem(45)
+        },
         fontSize: modernThemeCustom.typography.pxToRem(60),
         lineHeight: 1.2
       },
       h5: {
-        fontSize: modernThemeCustom.typography.pxToRem(20),
+        [modernThemeCustom.breakpoints.down('md')]: {
+          fontSize: modernThemeCustom.typography.pxToRem(14)
+        },
+        fontSize: modernThemeCustom.typography.pxToRem(18),
         fontWeight: 600
       },
       subtitle1: {
@@ -126,6 +132,9 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         fontWeight: 400
       },
       body2: {
+        [modernThemeCustom.breakpoints.down('md')]: {
+          fontSize: modernThemeCustom.typography.pxToRem(12)
+        },
         fontSize: modernThemeCustom.typography.pxToRem(14),
         fontWeight: 400
       },
@@ -172,11 +181,16 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
       MuiButton: {
         styleOverrides: {
           root: ({theme, ownerState}) => ({
+            [modernThemeCustom.breakpoints.down('md')]: {
+              fontSize: 10
+            },
+            minWidth: 100,
+            gap: 1,
             boxShadow: 'none',
             borderRadius: theme.shape.borderRadius,
             textTransform: 'none',
             ...(ownerState.size === 'medium' && {
-              height: '2.5rem' // 40px
+              height: '2.5rem'
             }),
             ...(ownerState.variant === 'contained' &&
               ownerState.color === 'primary' && {

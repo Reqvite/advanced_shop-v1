@@ -16,7 +16,7 @@ export const Footer = (): ReactElement => {
           </Grid>
         ))}
       </Grid>
-      <Typography variant="h6" fontWeight={600} style={{marginTop: '20px'}}>
+      <Typography variant="h6" fontWeight={600} sx={{marginTop: '20px'}}>
         Product tags
       </Typography>
       <List items={footerTags} row renderItem={Chip} itemStyle={{width: 'auto'}} />

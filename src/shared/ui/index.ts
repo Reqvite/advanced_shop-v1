@@ -9,6 +9,7 @@ export {Chip} from './chip/Chip.tsx';
 export {Container} from './container/Container.tsx';
 export {Input} from './input/Input.tsx';
 export {InputWithController} from './input/InputWithController.tsx';
+export {QuantityInput} from './input/QuantityInput.tsx';
 export {StickyContentLayout} from './layout/StickyContentLayout.tsx';
 export {AppLink} from './link/AppLink.tsx';
 export {List} from './list/List.tsx';

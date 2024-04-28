@@ -1,5 +1,5 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {IconButton, IconButtonProps, Menu, MenuItem} from '@mui/material';
+import {Box, IconButton, IconButtonProps, Menu, MenuItem} from '@mui/material';
 import {MouseEvent, ReactElement, useState} from 'react';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
 import {actions as userActions} from '@/slices/user';
@@ -8,12 +8,24 @@ type Props = IconButtonProps;
 
 export const AuthMenuButton = (props: Props): ReactElement => {
   const dispatch = useAppDispatch();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const {user} = useAuth();
 
   const onAuthButtonClick = (): void => {
     dispatch(userActions.openModal());
   };
+
+  return user ? (
+    <UserMenu />
+  ) : (
+    <IconButton aria-label="Auth" onClick={onAuthButtonClick} {...props}>
+      <AccountCircleIcon fontSize="inherit" />
+    </IconButton>
+  );
+};
+
+function UserMenu(): ReactElement {
+  const dispatch = useAppDispatch();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const onOpenMenu = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -27,9 +39,9 @@ export const AuthMenuButton = (props: Props): ReactElement => {
     dispatch(userActions.logout());
   };
 
-  return user ? (
-    <div>
-      <IconButton aria-label="User menu" aria-haspopup="true" onClick={onOpenMenu} {...props}>
+  return (
+    <Box>
+      <IconButton aria-label="User menu" aria-haspopup="true" onClick={onOpenMenu}>
         <AccountCircleIcon fontSize="inherit" />
       </IconButton>
       <Menu
@@ -50,10 +62,6 @@ export const AuthMenuButton = (props: Props): ReactElement => {
         <MenuItem>My account</MenuItem>
         <MenuItem onClick={onLogout}>Logout</MenuItem>
       </Menu>
-    </div>
-  ) : (
-    <IconButton aria-label="Auth" onClick={onAuthButtonClick}>
-      <AccountCircleIcon fontSize="inherit" />
-    </IconButton>
+    </Box>
   );
-};
+}

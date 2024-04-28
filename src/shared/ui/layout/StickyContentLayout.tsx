@@ -1,5 +1,6 @@
-import {Grid, Theme} from '@mui/material';
+import {Grid} from '@mui/material';
 import {ReactElement, ReactNode} from 'react';
+import {stickyContentLayoutStyles} from '@/app/theme/styles';
 
 interface Props {
   left?: ReactNode;
@@ -7,39 +8,16 @@ interface Props {
   bottom?: ReactNode;
 }
 
-const gridContainerStyles = (theme: Theme) => ({
-  display: 'grid',
-  gridTemplateAreas: `"left content"`,
-  gridTemplateColumns: 'min-content 1fr',
-  [theme.breakpoints.down('sm')]: {
-    gridTemplateAreas: `"content" "left"`,
-    gridTemplateColumns: '1fr'
-  }
-});
-const leftGridItemStyles = {
-  gridArea: 'left',
-  position: 'sticky',
-  top: 32,
-  height: 'fit-content'
-};
-const contentGridItemStyles = {
-  gridArea: 'content',
-  maxWidth: 1200,
-  justifySelf: 'right',
-  padding: 2,
-  width: '100%'
-};
-
 export const StickyContentLayout = ({content, left, bottom}: Props): ReactElement => {
   return (
     <>
-      <Grid container sx={gridContainerStyles}>
+      <Grid container sx={stickyContentLayoutStyles.gridContainer}>
         {left && (
-          <Grid item sx={leftGridItemStyles}>
+          <Grid item sx={stickyContentLayoutStyles.leftGridItem}>
             {left}
           </Grid>
         )}
-        <Grid item sx={contentGridItemStyles}>
+        <Grid item sx={stickyContentLayoutStyles.contentGridItem}>
           {content}
         </Grid>
       </Grid>

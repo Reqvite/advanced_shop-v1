@@ -5,11 +5,11 @@ import {
   getRouteProductDetailsReviewsTab,
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
+import {Form, FormOption, FormVariantsEnum} from '@/components/form';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
-import {Button} from '../button/Button';
 import {WishlistButton} from '../button/WishlistButton';
 import {Chip} from '../chip/Chip';
 import {ImageGallery} from '../imageGallery/ImageGallery';
@@ -26,6 +26,10 @@ const tabOptions = [
   {label: 'Description', value: getRouteProductDetailsTab()},
   {label: 'Reviews', value: getRouteProductDetailsReviewsTab()},
   {label: 'Questions', value: 'questions'}
+];
+
+const formOptions: FormOption<FormVariantsEnum>[] = [
+  {id: 'quantity', variant: FormVariantsEnum.Quantity_Input}
 ];
 
 export const ProductDetails = ({
@@ -48,6 +52,10 @@ export const ProductDetails = ({
     navigate(route);
   };
 
+  const onSubmit = (data: any): void => {
+    console.log(data);
+  };
+
   return (
     <Flex gap={4} flexDirection={isMobile ? 'column' : 'row'}>
       <Stack gap={1} width={isMobile ? '100%' : '50%'}>
@@ -65,8 +73,8 @@ export const ProductDetails = ({
       <Stack gap={4} width={isMobile ? '100%' : '50%'}>
         <ProductHeading title={title} rating={rating} />
         <Typography>{description[0]?.value}</Typography>
-        <Flex justifyContent="space-between">
-          <CharacteristicList characteristics={characteristics.slice(0, 4)} maxListItems={4} />
+        <Flex justifyContent="space-between" flexWrap="wrap" gap={1}>
+          <CharacteristicList characteristics={characteristics} maxListItems={4} />
           <CharacteristicList characteristics={characteristics.slice(4, 8)} maxListItems={4} />
         </Flex>
         <Flex
@@ -79,8 +87,13 @@ export const ProductDetails = ({
         >
           <PriceText price={price} discount={discount} />
           <Flex gap={2} alignItems="center">
-            <Button>Quantity</Button>
-            <AddToCartButton />
+            <Form<{quantity: number}>
+              sx={{flexDirection: 'row'}}
+              options={formOptions}
+              defaultValues={{quantity: 1}}
+              onSubmit={onSubmit}
+              ButtonComponent={AddToCartButton}
+            />
           </Flex>
         </Flex>
         <WishlistButton />

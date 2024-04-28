@@ -11,7 +11,7 @@ type Props = {
 export const PriceText = ({price, discount, currency = 'USD'}: Props): ReactElement => {
   return (
     <Box>
-      <Typography fontWeight={600}>
+      <Typography variant="h5">
         {discount
           ? priceService.getDiscountPrice({price, discount})
           : priceService.getFixedPrice(price)}{' '}
