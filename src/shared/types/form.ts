@@ -5,7 +5,8 @@ export enum FormVariantsEnum {
   Quantity_Input = 'quantity-input',
   Select = 'select',
   CheckboxGroup = 'checkbox_group',
-  PriceRange = 'price_range'
+  PriceRange = 'price_range',
+  Checkbox = 'checkbox'
 }
 
 interface BaseFormOption {
@@ -26,14 +27,17 @@ interface FormOptionVariantMapI {
   };
   [FormVariantsEnum.Select]: {
     variant: FormVariantsEnum.Select;
-    options: LabelOptionsI[];
+    options?: LabelOptionsI[];
   };
   [FormVariantsEnum.CheckboxGroup]: {
     variant: FormVariantsEnum.CheckboxGroup;
-    options: {label: string; value: number}[];
+    options?: {label: string; value: number}[];
   };
   [FormVariantsEnum.PriceRange]: {
     variant: FormVariantsEnum.PriceRange;
+  };
+  [FormVariantsEnum.Checkbox]: {
+    variant: FormVariantsEnum.Checkbox;
   };
 }
 

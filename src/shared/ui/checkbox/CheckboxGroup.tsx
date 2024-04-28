@@ -4,7 +4,8 @@ import {
   FormControlLabel,
   FormGroup,
   FormHelperText,
-  FormLabel
+  FormLabel,
+  Typography
 } from '@mui/material';
 import {forwardRef, ReactElement} from 'react';
 import {Control, FieldError, useController, useWatch} from 'react-hook-form';
@@ -15,13 +16,12 @@ interface Props {
   name: string;
   row?: boolean;
   helperText?: string;
-  className?: string;
   isDisabled?: boolean;
   control: Control<any>;
 }
 
 export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
-  ({label, options, name, row, isDisabled, className, control}, ref): ReactElement => {
+  ({label, options, name, row, isDisabled, control}, ref): ReactElement => {
     const {
       field: {value, onChange, ...inputProps},
       formState: {errors}
@@ -47,7 +47,7 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
 
     return (
       <>
-        <FormControl className={className}>
+        <FormControl>
           {label && <FormLabel>{label}</FormLabel>}
           <FormGroup row={row}>
             {options.map((option) => (
@@ -62,7 +62,7 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
                     {...inputProps}
                   />
                 }
-                label={<p className="body2">{option.label}</p>}
+                label={<Typography className="body2">{option.label}</Typography>}
               />
             ))}
           </FormGroup>

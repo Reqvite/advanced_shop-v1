@@ -1,17 +1,18 @@
-import {Slider, SliderProps, Stack, Typography} from '@mui/material';
+import {FormLabel, Slider, SliderProps, Stack, Typography} from '@mui/material';
 import {ChangeEvent, forwardRef, ReactElement, useState} from 'react';
 import {Input} from './Input';
 
 interface Props extends SliderProps {
   min?: number;
   max?: number;
+  label?: string;
 }
 
 type Value = [number, number];
 type onChangeInputValue = (value: Value) => void;
 
 export const PriceRangeInput = forwardRef<HTMLSpanElement, Props>(
-  ({min = 1, max = 1000, onChange, ...otherProps}, ref): ReactElement => {
+  ({min = 1, max = 1000, onChange, label, ...otherProps}, ref): ReactElement => {
     const [minNum] = useState<number>(min);
     const [maxNum] = useState<number>(max);
     const [priceRangeValue, setPriceRangeValue] = useState<Value>(
@@ -56,6 +57,7 @@ export const PriceRangeInput = forwardRef<HTMLSpanElement, Props>(
 
     return (
       <Stack spacing={2} direction="column">
+        {label && <FormLabel>{label}</FormLabel>}
         <Slider
           {...otherProps}
           ref={ref}

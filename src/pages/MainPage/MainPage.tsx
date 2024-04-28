@@ -8,12 +8,11 @@ import {useGetProductsQuery} from '@/slices/products';
 const options: FormOption<FormVariantsEnum>[] = [
   // {id: 'note', variant: FilterVariantsEnum.Input, name: 'Note'},
   {id: 'price', variant: FormVariantsEnum.PriceRange, name: 'Range'},
-  // {
-  //   id: 'sort',
-  //   variant: FilterVariantsEnum.Select,
-  //   name: 'Sort',
-  //   options: sortOptions
-  // },
+  {
+    id: 'check',
+    variant: FormVariantsEnum.Checkbox,
+    name: 'check'
+  },
   {
     id: 'group',
     variant: FormVariantsEnum.CheckboxGroup,
@@ -38,6 +37,7 @@ const MainPage = (): ReactElement => {
           <Filter
             options={options}
             defaultValues={{
+              check: false,
               note: '',
               sort: 1,
               group: [1, 2],
