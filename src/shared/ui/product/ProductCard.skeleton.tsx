@@ -1,9 +1,9 @@
 import {Box, Card, CardActions, CardContent, Skeleton} from '@mui/material';
 import {ReactElement} from 'react';
+import {productCardStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
 import {CardVariants} from './ProductCard';
-import {boxStyle, productCardStyles} from './styles/styles';
 
 type Props = {
   variant?: CardVariants;
@@ -14,13 +14,13 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
 
   if (variant === 'small' || isMobile) {
     return (
-      <Card sx={productCardStyles.smallCardContainerStyles}>
+      <Card sx={productCardStyles.smallCardContainer}>
         <Skeleton variant="rectangular" width="100%" height={240} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
           <Skeleton width="60%" />
           <Skeleton width="40%" />
         </CardContent>
-        <CardActions sx={productCardStyles.smallCardActionsContainerStyles}>
+        <CardActions sx={productCardStyles.smallCardActionsContainer}>
           <Box>
             <Skeleton width="60px" />
             <Skeleton width="50px" />
@@ -32,11 +32,11 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
   }
 
   return (
-    <Card sx={productCardStyles.bigCardContainerStyles}>
+    <Card sx={productCardStyles.bigCardContainer}>
       <Flex minHeight="280px">
-        <Skeleton variant="rectangular" sx={productCardStyles.bigCardMediaStyles} />
-        <CardContent sx={productCardStyles.bigCardContentStyles}>
-          <Box sx={boxStyle}>
+        <Skeleton variant="rectangular" sx={productCardStyles.bigCardMedia} />
+        <CardContent sx={productCardStyles.bigCardContent}>
+          <Box sx={productCardStyles.box}>
             <Box>
               <Skeleton width="150px" />
               <Skeleton width="250px" />
@@ -48,7 +48,7 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
               <Skeleton width="100px" />
             </Box>
           </Box>
-          <Box sx={boxStyle}>
+          <Box sx={productCardStyles.box}>
             <Box>
               <Skeleton width="50px" />
               <Skeleton width="40px" />
@@ -57,7 +57,7 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
               <Skeleton width="50px" />
               <Skeleton width="60px" />
             </Box>
-            <CardActions sx={productCardStyles.bigCardActionsContainerStyles}>
+            <CardActions sx={productCardStyles.bigCardActionsContainer}>
               <Box>
                 <Skeleton height={60} width="100px" />
                 <Skeleton height={60} width="100px" />

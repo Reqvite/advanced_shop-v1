@@ -1,8 +1,8 @@
 import {Box, Typography} from '@mui/material';
 import {ReactElement} from 'react';
+import {footerStyles} from '@/app/theme/styles';
 import {AppLink, Chip, Container, Flex, List} from '@/shared/ui';
 import {footerColumns, footerTags} from '../model/data';
-import {footerStyles} from '../styles/styles';
 
 export const Footer = (): ReactElement => {
   return (

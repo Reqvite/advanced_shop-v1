@@ -1,10 +1,10 @@
 import {Drawer, Link, Stack, Typography} from '@mui/material';
 import {ReactElement, useState} from 'react';
 import {NavLink} from 'react-router-dom';
+import {headerStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
 import {Flex, MobileMenuButton} from '@/shared/ui';
 import {navigationOptions} from '../model/navigationOptions';
-import {headerStyles} from '../styles/styles';
 
 const navLeftElements = (
   <>

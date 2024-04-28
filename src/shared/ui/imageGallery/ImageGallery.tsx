@@ -2,10 +2,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Card, CardMedia, Grid, GridProps, IconButton} from '@mui/material';
 import {ReactElement, useState} from 'react';
+import {imageGalleryStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
 import {ImageGalleryItem} from './ImageGalleryItem';
-import {imageGalleryStyles} from './styles/styles';
 
 type Props = GridProps & {
   images: string[];

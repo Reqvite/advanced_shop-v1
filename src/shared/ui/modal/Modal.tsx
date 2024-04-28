@@ -1,11 +1,11 @@
 import {Box, Dialog} from '@mui/material';
 import Stack from '@mui/material/Stack';
 import {MouseEventHandler, ReactElement} from 'react';
+import {modalStyles} from '@/app/theme/styles';
 import {useAppDispatch, useAppSelector} from '@/shared/lib/hooks';
 import {actions as modalActions, selectModalContent, selectShowModal} from '@/slices/modal';
 import {CloseButton} from '../button/CloseButton';
 import {Logo} from '../logo/Logo';
-import {modalStyles} from './styles/styles';
 
 export const Modal = (): ReactElement => {
   const dispatch = useAppDispatch();
