@@ -1,7 +1,7 @@
 import {AppBar, Container, Stack} from '@mui/material';
 import {ReactElement} from 'react';
+import {headerStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
-import {headerStyles} from '../styles/styles';
 import {HeaderCategories} from './HeaderCategories';
 import {HeaderNavigation} from './HeaderNavigation';
 import {HeaderToolbar} from './HeaderToolbar';
