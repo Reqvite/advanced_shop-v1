@@ -1,7 +1,6 @@
 import {Container as MuiContainer, ContainerProps} from '@mui/material';
 import {ReactElement, ReactNode} from 'react';
-
-const container = {flex: '1 0 auto', paddingY: 3};
+import {containerStyles} from '@/app/theme/styles';
 
 type Props = ContainerProps & {
   children: ReactNode;
@@ -9,7 +8,7 @@ type Props = ContainerProps & {
 
 export const Container = ({children, ...otherProps}: Props): ReactElement => {
   return (
-    <MuiContainer maxWidth="xl" sx={container} {...otherProps}>
+    <MuiContainer maxWidth="xl" sx={containerStyles.container} {...otherProps}>
       {children}
     </MuiContainer>
   );

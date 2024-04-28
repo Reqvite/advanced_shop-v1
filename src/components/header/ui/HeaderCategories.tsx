@@ -1,8 +1,8 @@
 import {Box} from '@mui/material';
 import {ReactElement} from 'react';
+import {headerStyles} from '@/app/theme/styles';
 import {PopoverItemI} from '@/shared/types/popover';
 import {PopoverList} from '@/shared/ui/popover/popoverList/PopoverList';
-import {headerStyles} from '../styles/styles';
 
 const categoriesItems: PopoverItemI[] = [
   {
