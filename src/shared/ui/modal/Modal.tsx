@@ -2,9 +2,9 @@ import {Box, Dialog, DialogProps} from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import {MouseEventHandler, ReactElement, ReactNode} from 'react';
+import {modalStyles} from '@/app/theme/styles';
 import {CloseButton} from '../button/CloseButton';
 import {Logo} from '../logo/Logo';
-import {modalStyles} from './styles/styles';
 
 type Props = DialogProps & {
   children: ReactNode;

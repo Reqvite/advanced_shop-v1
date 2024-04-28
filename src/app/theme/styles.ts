@@ -113,3 +113,32 @@ export const productCardStyles = {
     justifyContent: 'space-between'
   }
 };
+
+export const footerStyles = {
+  flex: (theme: Theme) => ({
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  }),
+  flexItem: {
+    minWidth: '200px',
+    justifyContent: 'center'
+  }
+};
+
+export const modalStyles = {
+  modal: (theme: Theme) => ({
+    background: theme.palette.background.paper,
+    boxShadow: theme.shadows[19],
+    padding: theme.spacing(5)
+  }),
+  logo: {position: 'absolute', left: 10, top: 8},
+  closeButton: {
+    position: 'absolute',
+    right: 10,
+    top: 8
+  }
+};
