@@ -9,12 +9,12 @@ import {
 } from '@mui/material';
 import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
+import {productCardStyles} from '@/app/theme/styles';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {NavigateButton} from '../button/NavigateButton';
 import {WishlistButton} from '../button/WishlistButton';
-import {boxStyle, productCardStyles} from './styles/styles';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {DeliveryText} from './ui/DeliveryText';
 import {PriceText} from './ui/PriceText';
@@ -42,12 +42,12 @@ export const ProductCard = ({
 
   if (isMobile || variant === 'small') {
     return (
-      <Card sx={productCardStyles.smallCardContainerStyles}>
+      <Card sx={productCardStyles.smallCardContainer}>
         <CardMedia component="img" alt={title} height="240" image={image[0]} />
         <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
           <ProductHeading title={title} description={description} descriptionMaxWidth={220} />
         </CardContent>
-        <CardActions sx={productCardStyles.smallCardActionsContainerStyles}>
+        <CardActions sx={productCardStyles.smallCardActionsContainer}>
           <PriceText price={price} discount={discount} />
           <Button variant="contained" size="small">
             Buy now
@@ -58,16 +58,16 @@ export const ProductCard = ({
   }
 
   return (
-    <Card sx={productCardStyles.bigCardContainerStyles}>
+    <Card sx={productCardStyles.bigCardContainer}>
       <Flex minHeight="280px">
         <CardMedia
           component="img"
-          sx={productCardStyles.bigCardMediaStyles}
+          sx={productCardStyles.bigCardMedia}
           image={image[0]}
           alt={title}
         />
-        <CardContent sx={productCardStyles.bigCardContentStyles}>
-          <Box sx={boxStyle}>
+        <CardContent sx={productCardStyles.bigCardContent}>
+          <Box sx={productCardStyles.box}>
             <ProductHeading
               title={title}
               description={description}
@@ -81,12 +81,12 @@ export const ProductCard = ({
               descriptionMaxWidth={100}
             />
           </Box>
-          <Box sx={boxStyle}>
+          <Box sx={productCardStyles.box}>
             <Box>
               <PriceText price={price} discount={discount} />
               <DeliveryText />
             </Box>
-            <CardActions sx={productCardStyles.bigCardActionsContainerStyles}>
+            <CardActions sx={productCardStyles.bigCardActionsContainer}>
               <NavigateButton fullWidth to={getRouteProductDetails(_id)} />
               <WishlistButton fullWidth />
             </CardActions>

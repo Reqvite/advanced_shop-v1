@@ -45,7 +45,7 @@ type Props = {
 export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => {
   const [value, setValue] = useState(defaultValue || options[0].value);
 
-  const onChangeTab = (event: SyntheticEvent, value: string): void => {
+  const onChangeTab = (_: SyntheticEvent, value: string): void => {
     if (onChange) {
       onChange(value);
     }

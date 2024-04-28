@@ -1,6 +1,6 @@
 import {AppBar, Stack} from '@mui/material';
 import {ReactElement} from 'react';
-import {headerStyles} from '../styles/styles';
+import {headerStyles} from '@/app/theme/styles';
 import {HeaderNavigation} from './HeaderNavigation';
 import {HeaderToolbar} from './HeaderToolbar';
 

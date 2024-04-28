@@ -1,9 +1,9 @@
 import {Drawer, Link, Stack, Typography, useMediaQuery, useTheme} from '@mui/material';
 import {ReactElement, useState} from 'react';
 import {NavLink} from 'react-router-dom';
+import {headerStyles} from '@/app/theme/styles';
 import {MenuButton} from '@/shared/ui';
 import {navigationOptions} from '../model/navigationOptions';
-import {headerStyles} from '../styles/styles';
 
 export const HeaderNavigation = (): ReactElement => {
   const theme = useTheme();
@@ -19,7 +19,7 @@ export const HeaderNavigation = (): ReactElement => {
   };
 
   return (
-    <Stack sx={headerStyles.navContainerStyles}>
+    <Stack sx={headerStyles.navContainer}>
       {isMobile ? (
         <>
           <MenuButton onClick={handleDrawerOpen} />
@@ -50,7 +50,7 @@ export const HeaderNavigation = (): ReactElement => {
         </>
       ) : (
         <>
-          <Stack sx={headerStyles.navStackStyles}>
+          <Stack sx={headerStyles.navStack}>
             <Typography variant="body1" color="primary">
               Chat with us
             </Typography>
@@ -61,7 +61,7 @@ export const HeaderNavigation = (): ReactElement => {
               info@freshnesecom.com
             </Link>
           </Stack>
-          <Stack sx={headerStyles.navStackStyles}>
+          <Stack sx={headerStyles.navStack}>
             {navigationOptions.map(({label, link}) => (
               <Link key={label} component={NavLink} to={link} color="primary">
                 {label}
