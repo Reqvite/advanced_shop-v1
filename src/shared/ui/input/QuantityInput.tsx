@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {Box, FormHelperText, IconButton, InputLabel, TextField, Typography} from '@mui/material';
-import React, {forwardRef, ReactElement} from 'react';
+import {ChangeEvent, forwardRef, ReactElement} from 'react';
 import {Flex} from '../base/Flex';
 import {InputProps} from './Input';
 
@@ -34,7 +34,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
       }
     };
 
-    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const onInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
       const inputValue = event.target.value;
       const numericValue = Number(inputValue);
 
@@ -63,7 +63,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
           </IconButton>
           <TextField
             type="number"
-            value={value === '' ? '' : String(value)}
+            value={value ?? String(value)}
             onChange={onInputChange}
             inputRef={ref}
             sx={{minWidth: 60, maxWidth: 80}}
