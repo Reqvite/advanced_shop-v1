@@ -1,3 +1,4 @@
+import {CategoriesEnum} from '@/shared/enums/categories.enum';
 import {TagsEnum} from '@/shared/enums/tags.enum';
 
 export const enumLabelResolver = {
@@ -13,13 +14,12 @@ export const enumLabelResolver = {
     [TagsEnum.Sweet_treats]: 'Sweet Treats',
     [TagsEnum.Accessories]: 'Accessories',
     [TagsEnum.Aquariums]: 'Aquariums'
+  },
+  categories: {
+    [CategoriesEnum.Dog]: 'Dogs',
+    [CategoriesEnum.Cat]: 'Cats',
+    [CategoriesEnum.Bird]: 'Birds',
+    [CategoriesEnum.Small_Pet]: 'Small Pets',
+    [CategoriesEnum.Aquatic]: 'Dry Food'
   }
 };
-
-const tagOptions = Object.entries(enumLabelResolver.tag).map(([value, label]) => ({
-  label,
-  value: Number(value),
-  _id: value
-}));
-
-export {tagOptions};

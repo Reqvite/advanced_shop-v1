@@ -12,4 +12,9 @@ const userPersistConfig = {
   blacklist: ['showModal']
 };
 
-export {themePersistConfig, userPersistConfig};
+const filterPersistConfig = {
+  key: 'filter',
+  storage
+};
+
+export {filterPersistConfig, themePersistConfig, userPersistConfig};

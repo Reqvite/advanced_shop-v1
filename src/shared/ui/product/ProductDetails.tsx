@@ -6,7 +6,7 @@ import {
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
 import {Form} from '@/components/form';
-import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
+import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useMediaQuery} from '@/shared/lib/hooks';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
