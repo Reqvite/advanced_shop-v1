@@ -17,7 +17,7 @@ export const AuthMenuButton = (props: Props): ReactElement => {
   const {user} = useAuth();
 
   const onAuthButtonClick = (): void => {
-    dispatch(modalActions.openModal(<AuthForm />));
+    dispatch(modalActions.openModal({children: <AuthForm />}));
   };
 
   return user ? (

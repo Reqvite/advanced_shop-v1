@@ -1,13 +1,13 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {Box, FormHelperText, IconButton, InputLabel, TextField, Typography} from '@mui/material';
-import {ChangeEvent, forwardRef, ReactElement} from 'react';
+import {ChangeEvent, forwardRef, ReactElement, SetStateAction} from 'react';
 import {Flex} from '../base/Flex';
 import {InputProps} from './Input';
 
 type Props = InputProps & {
   value: number | '';
-  onChange: (value: number | '') => void;
+  onChange: (callback: SetStateAction<number | string>) => void;
   label?: string;
   helperText?: string;
   error?: string;
@@ -23,14 +23,14 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
     const numberValue = Number(value);
 
     const onIncrement = (): void => {
-      if (max === undefined || numberValue < max) {
-        onChange(numberValue + 1);
+      if (numberValue < max) {
+        onChange((prev) => Number(prev) + 1);
       }
     };
 
     const onDecrement = (): void => {
-      if (min === undefined || numberValue > min) {
-        onChange(numberValue - 1);
+      if (numberValue > min) {
+        onChange((prev) => Number(prev) - 1);
       }
     };
 
@@ -39,14 +39,11 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
       const numericValue = Number(inputValue);
 
       if (!isNaN(numericValue)) {
-        if (
-          (min === undefined || numericValue >= min) &&
-          (max === undefined || numericValue <= max)
-        ) {
+        if (numericValue >= min && numericValue <= max) {
           onChange(numericValue);
         }
       } else {
-        onChange('');
+        onChange(min);
       }
     };
 
@@ -54,11 +51,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
       <Box display="flex" alignItems="center">
         {label && <InputLabel required={required}>{label}</InputLabel>}
         <Flex gap={1} alignItems="center">
-          <IconButton
-            size="small"
-            onClick={onDecrement}
-            disabled={min !== undefined && numberValue <= min}
-          >
+          <IconButton size="small" onClick={onDecrement} disabled={numberValue <= min}>
             <RemoveIcon fontSize="small" />
           </IconButton>
           <TextField
@@ -69,11 +62,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
             sx={{minWidth: 60, maxWidth: 80}}
             {...otherProps}
           />
-          <IconButton
-            size="small"
-            onClick={onIncrement}
-            disabled={max !== undefined && numberValue >= max}
-          >
+          <IconButton size="small" onClick={onIncrement} disabled={numberValue >= max}>
             <AddIcon fontSize="small" />
           </IconButton>
         </Flex>

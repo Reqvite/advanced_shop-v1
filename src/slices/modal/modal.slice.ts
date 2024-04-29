@@ -1,9 +1,15 @@
+import {DialogProps} from '@mui/material';
 import {createSlice} from '@reduxjs/toolkit';
 import {ReactNode} from 'react';
 
 type State = {
   showModal: boolean;
-  content: ReactNode;
+  content: {
+    children: ReactNode;
+    props?: {
+      maxWidth: DialogProps['maxWidth'];
+    };
+  } | null;
 };
 
 const initialState: State = {

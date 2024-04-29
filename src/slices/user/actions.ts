@@ -16,6 +16,7 @@ const login = createAsyncThunk<UserLoginResponseDto, UserLoginRequestDto, AsyncT
   async (body, {dispatch, extra: {$publicApi}}) => {
     const response = await $publicApi.post(UsersApiPath.LOG_IN, body);
     dispatch(modalActions.closeModal());
+
     return response.data;
   }
 );
@@ -27,6 +28,7 @@ const register = createAsyncThunk<
 >(UsersApiPath.REGISTER, async (body, {dispatch, extra: {$publicApi}}) => {
   const response = await $publicApi.post(UsersApiPath.REGISTER, body);
   await dispatch(login(body));
+
   return response.data;
 });
 
@@ -34,6 +36,7 @@ const currentUser = createAsyncThunk<User, undefined, AsyncThunkConfig>(
   UsersApiPath.CURRENT,
   async (_request, {extra: {$protectedApi}}) => {
     const response = await $protectedApi.get(UsersApiPath.CURRENT);
+
     return response.data;
   }
 );
@@ -42,19 +45,17 @@ const refreshToken = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncTh
   UsersApiPath.REFRESH,
   async (_request, {extra: {$refreshApi}}) => {
     const response = await $refreshApi.post(UsersApiPath.REFRESH);
+
     return response.data;
   }
 );
 
 const logout = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncThunkConfig>(
   UsersApiPath.LOG_OUT,
-  async (_request, {extra: {$protectedApi}, rejectWithValue}) => {
-    try {
-      const response = await $protectedApi.post(UsersApiPath.LOG_OUT);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+  async (_request, {extra: {$protectedApi}}) => {
+    const response = await $protectedApi.post(UsersApiPath.LOG_OUT);
+
+    return response.data;
   }
 );
 

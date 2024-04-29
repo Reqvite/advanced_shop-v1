@@ -14,6 +14,7 @@ export {Chip} from './chip/Chip.tsx';
 export {Container} from './container/Container.tsx';
 export {Drawer} from './drawer/Drawer.tsx';
 export {AuthForm} from './forms/AuthForm.tsx';
+export {ConfirmationForm} from './forms/ConfirmationForm.tsx';
 export {Input} from './input/Input.tsx';
 export {InputWithController} from './input/InputWithController.tsx';
 export {PriceRangeInput} from './input/PriceRangeInput.tsx';
