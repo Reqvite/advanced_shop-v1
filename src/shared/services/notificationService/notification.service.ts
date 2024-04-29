@@ -1,6 +1,6 @@
 import {toast} from 'react-toastify';
-import {NotificationEnum} from './lib/enums/enums';
-import {NotificationService} from './lib/types/types';
+import {NotificationEnum} from './model/enums';
+import {NotificationService} from './model/types';
 
 const DEFAULT_MESSAGE = 'Unexpected error';
 
