@@ -10,13 +10,14 @@ import {Logo} from '../logo/Logo';
 export const Modal = (): ReactElement => {
   const dispatch = useAppDispatch();
   const content = useAppSelector(selectModalContent);
+  const {maxWidth = 'md'} = content?.props || {};
   const isOpen = useAppSelector(selectShowModal);
   const onCloseModal = (): void => {
     dispatch(modalActions.closeModal());
   };
 
   return (
-    <Dialog fullWidth maxWidth="md" open={isOpen} onClose={onCloseModal}>
+    <Dialog fullWidth maxWidth={maxWidth} open={isOpen} onClose={onCloseModal}>
       <Box sx={modalStyles.logo}>
         <Logo />
       </Box>
@@ -26,7 +27,7 @@ export const Modal = (): ReactElement => {
       />
       <Box sx={modalStyles.modal}>
         <Stack mt={3} />
-        {content && content}
+        {content?.children && content.children}
       </Box>
     </Dialog>
   );

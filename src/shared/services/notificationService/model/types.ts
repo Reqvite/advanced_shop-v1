@@ -1,4 +1,4 @@
-import {type NotificationEnum} from '../enums/enums.js';
+import {type NotificationEnum} from './enums.js';
 
 type NotificationService = {
   [K in ValueOf<typeof NotificationEnum>]: (message?: string) => void;

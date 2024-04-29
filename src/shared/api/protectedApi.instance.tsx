@@ -15,7 +15,7 @@ $protectedApi.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     } else {
-      store.instance.dispatch(modalActions.openModal(<AuthForm />));
+      store.instance.dispatch(modalActions.openModal({children: <AuthForm />}));
     }
     return config;
   },
