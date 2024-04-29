@@ -1,6 +1,7 @@
 import {Theme} from '@mui/material';
 
 export const headerStyles = {
+  appBar: {boxShadow: 'none'},
   headerContainer: (theme: Theme) => ({
     [theme.breakpoints.down('md')]: {
       flexDirection: 'row',
@@ -9,24 +10,36 @@ export const headerStyles = {
     flexDirection: 'column',
     alignItems: 'none'
   }),
-  navContainer: (theme: Theme) => ({
-    [theme.breakpoints.down('md')]: {
-      alignItems: 'flex-start',
-      flexDirection: 'column'
+  navContainerStyles: (theme: Theme) => ({
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    [theme.breakpoints.up('md')]: {
+      borderBottom: `1px solid ${theme.palette.grey[100]}`,
+      alignItems: 'center',
+      flexDirection: 'row'
     },
     p: 2,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
+    justifyContent: 'center'
   }),
-  navStack: (theme: Theme) => ({
+  navStackStyles: (theme: Theme) => ({
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column'
     },
     flexDirection: 'row',
     gap: 2
   }),
-  navDrawerContainer: {gap: 2, p: 2}
+  navDrawerContainer: {gap: 2, p: 2},
+  categoriesContainer: (theme: Theme) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 55,
+    backgroundColor: theme.palette.grey[900]
+  }),
+  navMaxWidth: {
+    width: '100%',
+    maxWidth: 1500
+  }
 };
 
 export const containerStyles = {
@@ -98,5 +111,34 @@ export const productCardStyles = {
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'space-between'
+  }
+};
+
+export const footerStyles = {
+  flex: (theme: Theme) => ({
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  }),
+  flexItem: {
+    minWidth: '200px',
+    justifyContent: 'center'
+  }
+};
+
+export const modalStyles = {
+  modal: (theme: Theme) => ({
+    background: theme.palette.background.paper,
+    boxShadow: theme.shadows[19],
+    padding: theme.spacing(5)
+  }),
+  logo: {position: 'absolute', left: 10, top: 8},
+  closeButton: {
+    position: 'absolute',
+    right: 10,
+    top: 8
   }
 };

@@ -4,7 +4,7 @@ import {ReactElement} from 'react';
 
 type Props = IconButtonProps;
 
-export const MenuButton = (props: Props): ReactElement => {
+export const MobileMenuButton = (props: Props): ReactElement => {
   return (
     <IconButton aria-label="open drawer" edge="start" sx={{display: {md: 'none'}}} {...props}>
       <MenuIcon fontSize="inherit" />

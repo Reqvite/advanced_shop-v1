@@ -1,4 +1,4 @@
-import {Stack, Typography, useMediaQuery, useTheme} from '@mui/material';
+import {Stack, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {
@@ -7,6 +7,7 @@ import {
 } from '@/app/providers/AppRouter/routeConfig';
 import {Form, FormOption, FormVariantsEnum} from '@/components/form';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
+import {useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
@@ -42,8 +43,7 @@ export const ProductDetails = ({
   image,
   tags
 }: Props): ReactElement => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
   const navigate = useNavigate();
