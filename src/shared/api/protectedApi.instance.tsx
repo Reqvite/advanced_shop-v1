@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {store} from '@/app/providers/StoreProvider/config/store';
 import {actions as modalActions} from '@/slices/modal';
 import {actions as userActions} from '@/slices/user';
@@ -36,8 +36,11 @@ $protectedApi.interceptors.response.use(
       try {
         await store.instance.dispatch(userActions.refreshToken());
         return $protectedApi(request);
-      } catch (error: any) {
-        notificationService.error(error.response.data.message);
+      } catch (axiosError: any) {
+        const error = axiosError as AxiosError<{
+          message: string;
+        }>;
+        notificationService.error(error?.response?.data?.message);
       }
     }
     if (!accessToken) {
