@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 type State = {
-  data: any;
+  data: {[key: string]: string | number | number[] | string[]};
 };
 
 const initialState: State = {

@@ -1,5 +1,5 @@
 import {FormControl, Stack} from '@mui/material';
-import {ReactElement, useState} from 'react';
+import {ReactElement} from 'react';
 import {DefaultValues, FieldValues, useForm, useWatch} from 'react-hook-form';
 import {useSearchParams} from 'react-router-dom';
 import {encodeSearchParams} from '@/shared/lib/helpers/searchParams';
@@ -15,26 +15,17 @@ interface Props<T> {
   onChange?: () => void;
 }
 
-export const Filter = <T extends FieldValues>({
-  defaultValues,
-  options,
-  onChange
-}: Props<T>): ReactElement => {
+export const Filter = <T extends FieldValues>({defaultValues, options}: Props<T>): ReactElement => {
   const dispatch = useAppDispatch();
-  const [isFirstRender, setIsFirstRender] = useState(true);
   const isMobile = useMediaQuery('md');
   const {control} = useForm<T>({defaultValues: defaultValues as DefaultValues<T>});
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const data = useWatch({control});
 
   useDebounceEffect(
     () => {
       setSearchParams(encodeSearchParams(data));
       dispatch(filterActions.setFilter(data));
-      if (!isFirstRender && onChange) {
-        onChange();
-      }
-      setIsFirstRender(false);
     },
     [data],
     500

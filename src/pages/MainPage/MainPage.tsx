@@ -12,17 +12,26 @@ import {
   Pagination,
   ProductCard,
   ProductCardSkeleton,
+  Rating,
   StickyContentLayout
 } from '@/shared/ui';
 import {selectFilter} from '@/slices/filter';
 import {useGetProductsQuery} from '@/slices/products';
 
 const options: FormOption<FormVariantsEnum>[] = [
-  {id: 'price', variant: FormVariantsEnum.PriceRange, name: 'Price'},
   {
-    id: 'category',
+    id: 'rating',
+    variant: FormVariantsEnum.Slider,
+    name: 'Rating',
+    min: 1,
+    max: 5,
+    component: Rating
+  },
+  {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: 50000},
+  {
+    id: 'brand',
     variant: FormVariantsEnum.CheckboxGroup,
-    name: 'Category',
+    name: 'Brand',
     options: categoriesOptions
   }
 ];
@@ -31,16 +40,17 @@ const MainPage = (): ReactElement => {
   const [searchParams] = useSearchParams();
   const filter = useAppSelector(selectFilter);
   const decodeParams = decodeSearchParams(searchParams);
-  const {data, isLoading, isFetching, refetch} = useGetProductsQuery(filter);
+  const {data, isLoading, isFetching} = useGetProductsQuery(filter);
   const defaultValues = {
     category: decodeParams.category || [],
-    price: decodeParams.price || [1, 50000]
+    price: decodeParams.price || [1, 50000],
+    rating: decodeParams.rating || 1
   };
 
   return (
     <PageWrapper isLoading={isLoading}>
       <StickyContentLayout
-        left={<Filter options={options} defaultValues={defaultValues} onChange={refetch} />}
+        left={<Filter options={options} defaultValues={defaultValues} />}
         content={
           <List<ProductI>
             items={data?.results || []}

@@ -1,3 +1,4 @@
+import {ComponentType} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
 
 export enum FormVariantsEnum {
@@ -5,7 +6,8 @@ export enum FormVariantsEnum {
   Quantity_Input = 'quantity-input',
   Select = 'select',
   CheckboxGroup = 'checkbox_group',
-  PriceRange = 'price_range',
+  SliderWithInput = 'slider-with-input',
+  Slider = 'slider',
   Checkbox = 'checkbox'
 }
 
@@ -33,8 +35,12 @@ interface FormOptionVariantMapI {
     variant: FormVariantsEnum.CheckboxGroup;
     options?: {label: string; value: number}[];
   };
-  [FormVariantsEnum.PriceRange]: {
-    variant: FormVariantsEnum.PriceRange;
+  [FormVariantsEnum.Slider]: {
+    component?: ComponentType;
+    variant: FormVariantsEnum.Slider;
+  };
+  [FormVariantsEnum.SliderWithInput]: {
+    variant: FormVariantsEnum.SliderWithInput;
   };
   [FormVariantsEnum.Checkbox]: {
     variant: FormVariantsEnum.Checkbox;

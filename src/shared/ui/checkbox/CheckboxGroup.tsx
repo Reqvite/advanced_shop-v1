@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -9,6 +8,7 @@ import {
 } from '@mui/material';
 import {forwardRef, ReactElement} from 'react';
 import {Control, FieldError, useController, useWatch} from 'react-hook-form';
+import {Checkbox} from './Checkbox';
 
 interface Props {
   label?: string;
@@ -62,7 +62,7 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
                     {...inputProps}
                   />
                 }
-                label={<Typography className="body2">{option.label}</Typography>}
+                label={<Typography variant="body2">{option.label}</Typography>}
               />
             ))}
           </FormGroup>

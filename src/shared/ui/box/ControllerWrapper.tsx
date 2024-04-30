@@ -14,6 +14,8 @@ export const ControllerWrapper = <T extends FieldValues>({
   control,
   InputComponent = Input
 }: Props<T>): ReactElement => {
+  const variant = option.variant;
+
   return (
     <Controller
       control={control}
@@ -29,7 +31,8 @@ export const ControllerWrapper = <T extends FieldValues>({
           error={error?.message}
           max={option.max}
           min={option.min}
-          options={option?.options}
+          options={variant === FormVariantsEnum.CheckboxGroup ? option?.options : null}
+          iconComponent={variant === FormVariantsEnum.Slider ? option?.component : null}
           {...field}
         />
       )}

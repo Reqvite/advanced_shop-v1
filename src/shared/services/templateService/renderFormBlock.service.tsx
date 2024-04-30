@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
 import {Control, FieldValues} from 'react-hook-form';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
-import {Checkbox, PriceRangeInput, QuantityInput} from '@/shared/ui';
+import {Checkbox, QuantityInput, Slider, SliderWithInput} from '@/shared/ui';
 import {ControllerWrapper} from '@/shared/ui/box/ControllerWrapper';
 import {CheckboxGroup} from '@/shared/ui/checkbox/CheckboxGroup';
 
@@ -28,10 +28,19 @@ export const renderFormBlock = <T extends FieldValues>({
       );
     case FormVariantsEnum.Select:
       return <ControllerWrapper key={option.id} option={option} control={control} />;
-    case FormVariantsEnum.PriceRange:
+    case FormVariantsEnum.Slider:
       return (
         <ControllerWrapper
-          InputComponent={PriceRangeInput}
+          InputComponent={Slider}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
+    case FormVariantsEnum.SliderWithInput:
+      return (
+        <ControllerWrapper
+          InputComponent={SliderWithInput}
           key={option.id}
           option={option}
           control={control}
