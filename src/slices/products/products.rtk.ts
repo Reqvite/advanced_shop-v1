@@ -5,6 +5,8 @@ import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {encodeSearchParams} from '@/shared/lib/helpers';
 import {ProductI} from '@/shared/types/product';
 
+type GetProductsQuery = {[key: string]: string | number | number[] | string[]} | void;
+
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: axiosBaseQuery(),
@@ -12,11 +14,14 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query<
       {results: ProductI[]; totalPages: number; totalItems: number},
-      {[key: string]: string | number | number[] | string[]}
+      GetProductsQuery
     >({
       query: (params) => {
-        const newParams = encodeSearchParams(params);
-        return {url: ApiPathEnum.PRODUCTS, params: newParams};
+        if (params) {
+          const newParams = encodeSearchParams(params);
+          return {url: ApiPathEnum.PRODUCTS, params: newParams};
+        }
+        return {url: ApiPathEnum.PRODUCTS};
       },
       providesTags: [RtkApiTagsEnum.Products]
     }),
