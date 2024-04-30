@@ -15,7 +15,7 @@ export const ControllerWrapper = <T extends FieldValues>({
   InputComponent = Input
 }: Props<T>): ReactElement => {
   const variant = option.variant;
-  let baseProps = {
+  let baseProps: any = {
     required: option.isRequired,
     key: option.id,
     type: option.type,
@@ -25,12 +25,11 @@ export const ControllerWrapper = <T extends FieldValues>({
     min: option.min
   };
 
-  if (variant === FormVariantsEnum.Slider || FormVariantsEnum.SliderWithInput) {
-    baseProps = {...baseProps, iconComponent: option?.component, control};
-    delete baseProps['type'];
+  if (variant === FormVariantsEnum.Slider) {
+    baseProps = {...baseProps, iconComponent: option.component, control};
   }
   if (variant === FormVariantsEnum.CheckboxGroup) {
-    baseProps = {...baseProps, options: option?.options, control};
+    baseProps = {...baseProps, options: option.options, control};
   }
   if (variant === FormVariantsEnum.Checkbox) {
     delete baseProps['type'];
