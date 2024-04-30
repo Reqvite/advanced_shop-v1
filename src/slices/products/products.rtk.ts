@@ -12,7 +12,7 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query<
       {results: ProductI[]; totalPages: number; totalItems: number},
-      {[key: string]: string | number | number[] | string[]}
+      URLSearchParams
     >({
       query: (params) => {
         const newParams = encodeSearchParams(params);

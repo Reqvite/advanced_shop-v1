@@ -29,11 +29,9 @@ export const ControllerWrapper = <T extends FieldValues>({
     baseProps = {...baseProps, iconComponent: option?.component, control};
     delete baseProps['type'];
   }
-
   if (variant === FormVariantsEnum.CheckboxGroup) {
     baseProps = {...baseProps, options: option?.options, control};
   }
-
   if (variant === FormVariantsEnum.Checkbox) {
     delete baseProps['type'];
   }
