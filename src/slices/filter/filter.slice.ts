@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 type State = {
-  data: {[key: string]: string | number | number[] | string[]};
+  keys: {[key: string]: string | number | number[] | string[]};
 };
 
 const initialState: State = {
-  data: {}
+  keys: {}
 };
 
 const {reducer, actions, name} = createSlice({
@@ -13,7 +13,10 @@ const {reducer, actions, name} = createSlice({
   initialState,
   reducers: {
     setFilter(state, action) {
-      state.data = action.payload;
+      state.keys = action.payload;
+    },
+    resetFilter(state) {
+      state.keys = {};
     }
   }
 });

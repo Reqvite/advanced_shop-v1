@@ -6,6 +6,7 @@ export {Breadcrumbs} from './breadCrumbs/BreadCrumbs.tsx';
 export {AuthMenuButton} from './button/AuthMenuButton.tsx';
 export {Button} from './button/Button.tsx';
 export {CartButton} from './button/CartButton.tsx';
+export {FilterButton} from './button/FilterButton.tsx';
 export {MobileMenuButton} from './button/MobileMenuButton.tsx';
 export {ThemeButton} from './button/ThemeButton';
 export {Checkbox} from './checkbox/Checkbox.tsx';

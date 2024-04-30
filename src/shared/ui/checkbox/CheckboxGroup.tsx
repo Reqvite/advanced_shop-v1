@@ -67,6 +67,7 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
             <AnimatePresence>
               {renderOptions.map((option) => (
                 <MotionFormControlLabel
+                  sx={{ml: 0}}
                   key={option.value}
                   {...animation}
                   control={

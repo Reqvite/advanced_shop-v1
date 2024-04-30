@@ -1,9 +1,7 @@
 import {ReactElement} from 'react';
-import {useSearchParams} from 'react-router-dom';
 import {Filter} from '@/components/filter';
-import {decodeSearchParams} from '@/shared/lib/helpers';
 import {brandsOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
-import {useAppSelector} from '@/shared/lib/hooks';
+import {useFilter} from '@/shared/lib/hooks';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
 import {
@@ -15,7 +13,6 @@ import {
   Rating,
   StickyContentLayout
 } from '@/shared/ui';
-import {selectFilter} from '@/slices/filter';
 import {useGetProductsQuery} from '@/slices/products';
 
 const options: FormOption<FormVariantsEnum>[] = [
@@ -37,10 +34,8 @@ const options: FormOption<FormVariantsEnum>[] = [
 ];
 
 const MainPage = (): ReactElement => {
-  const [searchParams] = useSearchParams();
-  const filter = useAppSelector(selectFilter);
-  const decodeParams = decodeSearchParams(searchParams);
-  const {data, isLoading, isFetching} = useGetProductsQuery(filter);
+  const {filterKeys, decodeParams} = useFilter();
+  const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
   const defaultValues = {
     brand: decodeParams.brand || [],
     price: decodeParams.price || [1, 50000],

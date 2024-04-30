@@ -31,13 +31,7 @@ export const Slider = forwardRef<HTMLSpanElement, Props>(
           )}
           {Component && <Component value={value} />}
         </Flex>
-        <MuiSlider
-          value={value}
-          ref={ref}
-          valueLabelDisplay="auto"
-          aria-labelledby="range-slider"
-          {...otherProps}
-        />
+        <MuiSlider value={value} ref={ref} valueLabelDisplay="auto" {...otherProps} />
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
         <Box height="6px" mt="1px">
           {error && (

@@ -15,26 +15,35 @@ export const ControllerWrapper = <T extends FieldValues>({
   InputComponent = Input
 }: Props<T>): ReactElement => {
   const variant = option.variant;
+  let baseProps = {
+    required: option.isRequired,
+    key: option.id,
+    type: option.type,
+    label: option.name,
+    placeholder: option.name,
+    max: option.max,
+    min: option.min
+  };
+
+  if (variant === FormVariantsEnum.Slider || FormVariantsEnum.SliderWithInput) {
+    baseProps = {...baseProps, iconComponent: option?.component, control};
+    delete baseProps['type'];
+  }
+
+  if (variant === FormVariantsEnum.CheckboxGroup) {
+    baseProps = {...baseProps, options: option?.options, control};
+  }
+
+  if (variant === FormVariantsEnum.Checkbox) {
+    delete baseProps['type'];
+  }
 
   return (
     <Controller
       control={control}
       name={option.id as Path<T>}
       render={({field, fieldState: {error}}) => (
-        <InputComponent
-          control={control}
-          required={option.isRequired}
-          key={option.id}
-          type={option.type}
-          label={option.name}
-          placeholder={option.name}
-          error={error?.message}
-          max={option.max}
-          min={option.min}
-          options={variant === FormVariantsEnum.CheckboxGroup ? option?.options : null}
-          iconComponent={variant === FormVariantsEnum.Slider ? option?.component : null}
-          {...field}
-        />
+        <InputComponent error={error?.message} {...baseProps} {...field} />
       )}
     />
   );

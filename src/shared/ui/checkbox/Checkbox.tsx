@@ -17,8 +17,6 @@ type Props = CheckboxProps & {
 
 export const Checkbox = forwardRef<HTMLInputElement, Props>(
   ({helperText, label, ...otherProps}, ref): ReactElement => {
-    delete otherProps['type'];
-
     return (
       <FormControl>
         {label && <FormLabel>{label}</FormLabel>}
