@@ -6,7 +6,6 @@ type State = {
   user: User | null;
   accessToken: string | null;
   refreshToken: string | null;
-  showModal: boolean;
   isLoading: boolean;
 };
 
@@ -14,7 +13,6 @@ const initialState: State = {
   user: null,
   accessToken: null,
   refreshToken: null,
-  showModal: false,
   isLoading: false
 };
 
@@ -27,12 +25,6 @@ const {reducer, actions, name} = createSlice({
     },
     clearCurrentUser(state) {
       state.user = null;
-    },
-    openModal(state) {
-      state.showModal = true;
-    },
-    closeModal(state) {
-      state.showModal = false;
     }
   },
   extraReducers(builder) {

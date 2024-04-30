@@ -1,4 +1,4 @@
-import {Button} from '@mui/material';
+import {Button, Typography} from '@mui/material';
 import Stack from '@mui/material/Stack';
 import {ReactElement, useState} from 'react';
 import {useSelector} from 'react-redux';
@@ -7,8 +7,7 @@ import {useAppDispatch} from '@/shared/lib/hooks';
 import {createUserSchema} from '@/shared/lib/yup/createUser.schema';
 import {loginUserUserSchema} from '@/shared/lib/yup/loginUser.schema';
 import {UserLoginRequestDto, UserRegisterRequestDto} from '@/shared/types/user/user';
-import {actions, selectAuthIsLoading, selectAuthShowModal} from '@/slices/user';
-import {Modal} from './Modal';
+import {actions, selectAuthIsLoading} from '@/slices/user';
 
 const loginOptions: FormOption<FormVariantsEnum>[] = [
   {id: 'email', variant: FormVariantsEnum.Input, name: 'Email', isRequired: true},
@@ -40,15 +39,10 @@ const defaultValues = registerOptions.reduce(
   {} as {[key: string]: string}
 );
 
-export const AuthModal = (): ReactElement => {
+export const AuthForm = (): ReactElement => {
   const dispatch = useAppDispatch();
-  const isShowModal = useSelector(selectAuthShowModal);
   const isLoading = useSelector(selectAuthIsLoading);
   const [isLoginMode, setIsLoginMode] = useState<boolean>(false);
-
-  const onCloseModal = (): void => {
-    dispatch(actions.closeModal());
-  };
 
   const onChangeAuthMode = (): void => {
     setIsLoginMode((mode) => !mode);
@@ -62,23 +56,20 @@ export const AuthModal = (): ReactElement => {
   };
 
   return (
-    <Modal
-      open={isShowModal}
-      title={isLoginMode ? 'Sign in to your account' : 'Sign up your account'}
-      onClose={onCloseModal}
-    >
-      <Stack direction="column" gap={2}>
-        <Form
-          options={isLoginMode ? loginOptions : registerOptions}
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          formValidationSchema={isLoginMode ? loginUserUserSchema : createUserSchema}
-          isLoading={isLoading}
-        />
-        <Button sx={{marginLeft: 'auto'}} variant="text" onClick={onChangeAuthMode}>
-          {isLoginMode ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
-        </Button>
-      </Stack>
-    </Modal>
+    <Stack direction="column" gap={2}>
+      <Typography component="h5" variant="h5" textAlign="center">
+        {isLoginMode ? 'Sign in to your account' : 'Sign up your account'}
+      </Typography>
+      <Form
+        options={isLoginMode ? loginOptions : registerOptions}
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        formValidationSchema={isLoginMode ? loginUserUserSchema : createUserSchema}
+        isLoading={isLoading}
+      />
+      <Button sx={{marginLeft: 'auto'}} variant="text" onClick={onChangeAuthMode}>
+        {isLoginMode ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+      </Button>
+    </Stack>
   );
 };

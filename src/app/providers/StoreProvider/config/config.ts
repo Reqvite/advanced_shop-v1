@@ -1,6 +1,7 @@
 import {configureStore, ReducersMapObject} from '@reduxjs/toolkit';
-import {FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
+import {persistReducer} from 'redux-persist';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
+import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
@@ -18,15 +19,14 @@ class Store implements StorePackage {
     const rootReducer: ReducersMapObject<RootReducer> = {
       theme: persistReducer(themePersistConfig, themeReducer),
       user: persistReducer(userPersistConfig, userReducer),
+      modal: modalReducer,
       [productsApi.reducerPath]: productsApi.reducer
     };
     this.#instance = configureStore({
       reducer: rootReducer,
       middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-          serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-          },
+          serializableCheck: false,
           thunk: {
             extraArgument: this.extraArguments
           }
