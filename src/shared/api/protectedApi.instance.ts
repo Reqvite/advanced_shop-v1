@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {store} from '@/app/providers/StoreProvider/config/store';
 import {actions as userActions} from '@/slices/user';
+import {notificationService} from '../services';
 
 const $protectedApi = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`
@@ -33,10 +34,17 @@ $protectedApi.interceptors.response.use(
       try {
         await store.instance.dispatch(userActions.refreshToken());
         return $protectedApi(request);
-      } catch (error) {
-        console.error('Failed to refresh tokens:', error);
+      } catch (axiosError: any) {
+        const error = axiosError as AxiosError<{
+          message: string;
+        }>;
+        notificationService.error(error?.response?.data?.message);
       }
     }
+    if (!accessToken) {
+      return Promise.reject(error);
+    }
+    notificationService.error(error.response.data.message);
     return Promise.reject(error);
   }
 );
