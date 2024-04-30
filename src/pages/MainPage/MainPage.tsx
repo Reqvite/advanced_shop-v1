@@ -2,7 +2,7 @@ import {ReactElement} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {Filter} from '@/components/filter';
 import {decodeSearchParams} from '@/shared/lib/helpers';
-import {categoriesOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
+import {brandsOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useAppSelector} from '@/shared/lib/hooks';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
@@ -32,7 +32,7 @@ const options: FormOption<FormVariantsEnum>[] = [
     id: 'brand',
     variant: FormVariantsEnum.CheckboxGroup,
     name: 'Brand',
-    options: categoriesOptions
+    options: brandsOptions
   }
 ];
 
@@ -42,7 +42,7 @@ const MainPage = (): ReactElement => {
   const decodeParams = decodeSearchParams(searchParams);
   const {data, isLoading, isFetching} = useGetProductsQuery(filter);
   const defaultValues = {
-    category: decodeParams.category || [],
+    brand: decodeParams.brand || [],
     price: decodeParams.price || [1, 50000],
     rating: decodeParams.rating || 1
   };

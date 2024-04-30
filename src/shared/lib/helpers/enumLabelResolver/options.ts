@@ -12,4 +12,10 @@ const categoriesOptions = Object.entries(enumLabelResolver.categories).map(([val
   _id: value
 }));
 
-export {categoriesOptions, tagOptions};
+const brandsOptions = Object.entries(enumLabelResolver.brands).map(([value, label]) => ({
+  label,
+  value: Number(value),
+  _id: value
+}));
+
+export {brandsOptions, categoriesOptions, tagOptions};

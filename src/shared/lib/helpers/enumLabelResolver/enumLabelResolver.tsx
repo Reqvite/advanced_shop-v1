@@ -1,3 +1,4 @@
+import {BrandsEnum} from '@/shared/enums/brands.enum';
 import {CategoriesEnum} from '@/shared/enums/categories.enum';
 import {TagsEnum} from '@/shared/enums/tags.enum';
 
@@ -21,5 +22,14 @@ export const enumLabelResolver = {
     [CategoriesEnum.Bird]: 'Birds',
     [CategoriesEnum.Small_Pet]: 'Small Pets',
     [CategoriesEnum.Aquatic]: 'Dry Food'
+  },
+  brands: {
+    [BrandsEnum.Savory]: 'Savory',
+    [BrandsEnum.Brit_Care]: 'Brit Care',
+    [BrandsEnum.Brit_Premium]: 'Brit Premium',
+    [BrandsEnum.Pro_Plan]: 'Pro Plan',
+    [BrandsEnum.Hills]: 'Hills',
+    [BrandsEnum.Oven_Baked]: 'Oven-Baked',
+    [BrandsEnum.Comfy]: 'Comfy'
   }
 };
