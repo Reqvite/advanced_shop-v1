@@ -1,13 +1,13 @@
-import {useDispatch} from 'react-redux';
 import {ConfirmationForm} from '@/shared/ui';
 import {actions as modalActions} from '@/slices/modal';
+import {useAppDispatch} from './useAppDispatch.hook';
 
 export const useConfirm = ({
   message = 'Please, confirm your action.'
 }: {
   message?: string;
 }): (() => void) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const confirm = async () => {
     await new Promise((resolve, reject) => {
