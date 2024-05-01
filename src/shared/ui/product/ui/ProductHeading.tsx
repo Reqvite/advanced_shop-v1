@@ -33,7 +33,7 @@ export const ProductHeading = ({
           {description[0].value}
         </TruncatedTypography>
       )}
-      {rating && <Rating value={rating} readOnly />}
+      <Rating value={rating} readOnly />
     </Box>
   );
 };

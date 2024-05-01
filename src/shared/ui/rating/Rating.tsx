@@ -3,7 +3,7 @@ import {ReactElement} from 'react';
 
 type Props = RatingProps;
 
-const defaultValue = 5;
+const defaultValue = 0;
 
 export const Rating = ({
   value = defaultValue,
