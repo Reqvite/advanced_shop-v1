@@ -25,11 +25,11 @@ export const ControllerWrapper = <T extends FieldValues>({
     min: option.min
   };
 
-  if (variant === FormVariantsEnum.Slider) {
-    baseProps = {...baseProps, iconComponent: option.component, control};
-  }
   if (variant === FormVariantsEnum.CheckboxGroup) {
     baseProps = {...baseProps, options: option.options, control};
+  }
+  if (variant === FormVariantsEnum.Slider) {
+    baseProps = {...baseProps, iconComponent: option.component};
   }
   if (variant === FormVariantsEnum.Checkbox) {
     delete baseProps['type'];
