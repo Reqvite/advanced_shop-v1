@@ -14,7 +14,6 @@ import {
   StickyContentLayout
 } from '@/shared/ui';
 import {useGetProductsQuery} from '@/slices/products';
-import {TestForm} from './Test';
 
 const defaultPrice = [1, 50000];
 const defaultRating = [1, 5];
@@ -62,7 +61,6 @@ const MainPage = (): ReactElement => {
         }
         bottom={<Pagination defaultPage={1} count={data?.totalPages} total={data?.totalItems} />}
       />
-      <TestForm />
     </PageWrapper>
   );
 };
