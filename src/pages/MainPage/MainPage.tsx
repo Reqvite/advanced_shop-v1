@@ -16,7 +16,7 @@ import {
 import {useGetProductsQuery} from '@/slices/products';
 
 const defaultPrice = [1, 50000];
-const defaultRating = [1, 5];
+const defaultRating = [0, 5];
 const skeletonLength = 5;
 
 const options: FormOption<FormVariantsEnum>[] = [
@@ -43,7 +43,7 @@ const MainPage = (): ReactElement => {
   const defaultValues = {
     brand: decodeParams.brand || [],
     price: decodeParams.price || defaultPrice,
-    rating: decodeParams.rating || defaultRating[0]
+    rating: decodeParams.rating ?? defaultRating[1]
   };
 
   return (
