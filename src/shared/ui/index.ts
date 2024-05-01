@@ -1,6 +1,6 @@
 export {Alert} from './alert/Alert.tsx';
 export {Flex} from './base/Flex.tsx';
-export {ControllerWrapper} from './box/ControllerWrapper.tsx';
+export {ControllerWrapper} from './box/ControllerWrapper/ControllerWrapper.tsx';
 export {PageWrapper} from './box/PageWrapper.tsx';
 export {Breadcrumbs} from './breadCrumbs/BreadCrumbs.tsx';
 export {AuthMenuButton} from './button/AuthMenuButton.tsx';
@@ -33,4 +33,4 @@ export {ProductDetails} from './product/ProductDetails.tsx';
 export {RecommendedProductList} from './product/RecommendedProductList.tsx';
 export {Rating} from './rating/Rating.tsx';
 export {Slider} from './slider/Slider.tsx';
-export {SliderWithInput} from './slider/SliderWithInputs.tsx';
+export {SliderWithInput} from './slider/SliderWithInputs/SliderWithInputs.tsx';

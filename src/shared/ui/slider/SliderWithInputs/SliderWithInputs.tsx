@@ -1,7 +1,9 @@
 import {SliderProps, Stack, Typography} from '@mui/material';
 import {ChangeEvent, forwardRef, ReactElement, useState} from 'react';
-import {Input} from '../input/Input';
-import {Slider} from '../slider/Slider';
+import {Input} from '../../input/Input';
+import {Slider} from '../Slider';
+import {calculateNewRangeValue} from './model/calculateNewRangeValue';
+import {Value} from './model/types';
 
 interface Props extends SliderProps {
   min?: number;
@@ -9,13 +11,13 @@ interface Props extends SliderProps {
   label?: string;
 }
 
-type Value = [number, number];
 type onChangeInputValue = (value: Value) => void;
 
+const defaultMin = 1;
+const defaultMax = 1000;
+
 export const SliderWithInput = forwardRef<HTMLSpanElement, Props>(
-  ({min = 1, max = 1000, onChange, label, ...otherProps}, ref): ReactElement => {
-    const [minNum] = useState<number>(min);
-    const [maxNum] = useState<number>(max);
+  ({min = defaultMin, max = defaultMax, onChange, label, ...otherProps}, ref): ReactElement => {
     const [rangeValue, setRangeValue] = useState<Value>((otherProps.value as Value) || [min, max]);
 
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
@@ -25,30 +27,15 @@ export const SliderWithInput = forwardRef<HTMLSpanElement, Props>(
 
     const onInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
       const value = Number(event.target.value);
-      const isMin = event.target.name === 'min';
-      let newRangeValue: Value;
-
-      if (isMin) {
-        if (value <= minNum) {
-          newRangeValue = [minNum, rangeValue[1]];
-        } else if (value >= maxNum) {
-          newRangeValue = [maxNum, rangeValue[1]];
-        } else {
-          newRangeValue = [value, rangeValue[1]];
-        }
-      } else {
-        if (value <= minNum) {
-          newRangeValue = [rangeValue[0], minNum];
-        } else if (value >= maxNum) {
-          newRangeValue = [rangeValue[0], maxNum];
-        } else {
-          newRangeValue = [rangeValue[0], value];
-        }
+      if (!value) {
+        return;
       }
+      const isMin = event.target.name === 'min';
+      const newRangeValue = calculateNewRangeValue({value, isMin, min, max, rangeValue});
 
       setRangeValue(newRangeValue);
-
       const onChangeInput = onChange as unknown as onChangeInputValue;
+
       if (onChangeInput) {
         onChangeInput(newRangeValue);
       }
@@ -61,8 +48,8 @@ export const SliderWithInput = forwardRef<HTMLSpanElement, Props>(
           ref={ref}
           value={rangeValue}
           onChange={handleSliderChange}
-          min={minNum}
-          max={maxNum}
+          min={min}
+          max={max}
           label={label}
         />
         <Stack direction="row" spacing={2} alignItems="center">

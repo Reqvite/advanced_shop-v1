@@ -18,7 +18,7 @@ type Props = SliderProps & {
 
 export const Slider = forwardRef<HTMLSpanElement, Props>(
   (
-    {label, required, helperText, error, value, iconComponent: Component, ...otherProps},
+    {label, required, helperText, error, value, iconComponent: Component, onChange, ...otherProps},
     ref
   ): ReactElement => {
     return (
@@ -31,7 +31,13 @@ export const Slider = forwardRef<HTMLSpanElement, Props>(
           )}
           {Component && <Component value={value} />}
         </Flex>
-        <MuiSlider value={value} ref={ref} valueLabelDisplay="auto" {...otherProps} />
+        <MuiSlider
+          value={value}
+          ref={ref}
+          valueLabelDisplay="auto"
+          onChange={onChange}
+          {...otherProps}
+        />
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
         <Box height="6px" mt="1px">
           {error && (

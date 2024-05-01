@@ -18,8 +18,8 @@ interface Props<T> {
 export const Filter = <T extends FieldValues>({defaultValues, options}: Props<T>): ReactElement => {
   const dispatch = useAppDispatch();
   const isMobile = useMediaQuery('md');
-  const [isFirstRender, setIsFirstRender] = useState(false);
-  const {control} = useForm<T>({defaultValues: defaultValues as DefaultValues<T>});
+  const [isFirstRender, setIsFirstRender] = useState<boolean>(false);
+  const {control, handleSubmit} = useForm<T>({defaultValues: defaultValues as DefaultValues<T>});
   const [, setSearchParams] = useSearchParams();
   const data = useWatch({control});
 
@@ -35,8 +35,12 @@ export const Filter = <T extends FieldValues>({defaultValues, options}: Props<T>
     500
   );
 
+  const submit = (data: any) => {
+    console.log(data);
+  };
+
   const filter = (
-    <FormControl component="form">
+    <FormControl component="form" onChange={handleSubmit(submit)}>
       <Stack gap={3}>{options.map((option) => renderFormBlock<T>({option, control}))}</Stack>
     </FormControl>
   );

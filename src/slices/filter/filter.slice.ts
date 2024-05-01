@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {FilterKeys} from '@/shared/types/filter';
 
 type State = {
-  keys: {[key: string]: string | number | number[] | string[]};
+  keys: FilterKeys;
 };
 
 const initialState: State = {

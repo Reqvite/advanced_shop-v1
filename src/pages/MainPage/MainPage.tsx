@@ -14,17 +14,22 @@ import {
   StickyContentLayout
 } from '@/shared/ui';
 import {useGetProductsQuery} from '@/slices/products';
+import {TestForm} from './Test';
+
+const defaultPrice = [1, 50000];
+const defaultRating = [1, 5];
+const skeletonLength = 5;
 
 const options: FormOption<FormVariantsEnum>[] = [
   {
     id: 'rating',
     variant: FormVariantsEnum.Slider,
     name: 'Rating',
-    min: 1,
-    max: 5,
+    min: defaultRating[0],
+    max: defaultRating[1],
     component: Rating
   },
-  {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: 50000},
+  {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]},
   {
     id: 'brand',
     variant: FormVariantsEnum.CheckboxGroup,
@@ -38,8 +43,8 @@ const MainPage = (): ReactElement => {
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
   const defaultValues = {
     brand: decodeParams.brand || [],
-    price: decodeParams.price || [1, 50000],
-    rating: decodeParams.rating || 1
+    price: decodeParams.price || defaultPrice,
+    rating: decodeParams.rating || defaultRating[0]
   };
 
   return (
@@ -51,12 +56,13 @@ const MainPage = (): ReactElement => {
             items={data?.results || []}
             renderItem={ProductCard}
             skeleton={<ProductCardSkeleton />}
-            skeletonLength={5}
+            skeletonLength={skeletonLength}
             isLoading={isFetching}
           />
         }
         bottom={<Pagination defaultPage={1} count={data?.totalPages} total={data?.totalItems} />}
       />
+      <TestForm />
     </PageWrapper>
   );
 };

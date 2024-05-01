@@ -2,7 +2,7 @@ import {ReactElement} from 'react';
 import {Control, FieldValues} from 'react-hook-form';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Checkbox, QuantityInput, Slider, SliderWithInput} from '@/shared/ui';
-import {ControllerWrapper} from '@/shared/ui/box/ControllerWrapper';
+import {ControllerWrapper} from '@/shared/ui/box/ControllerWrapper/ControllerWrapper';
 import {CheckboxGroup} from '@/shared/ui/checkbox/CheckboxGroup';
 
 type Props<T extends FieldValues> = {
