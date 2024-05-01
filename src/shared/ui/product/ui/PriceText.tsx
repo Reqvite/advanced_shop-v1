@@ -9,7 +9,6 @@ type Props = {
 };
 
 export const PriceText = ({price, discount = 0, currency = 'USD'}: Props): ReactElement => {
-  console.log(discount);
   return (
     <Box>
       <Typography variant="h5">
