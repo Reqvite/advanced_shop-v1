@@ -11,6 +11,7 @@ export enum AppRoutes {
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
   needAuth?: boolean;
   children?: {index?: boolean; path: string; element: ReactNode}[];
+  breadcrumbName?: string;
 };
 
 export const getRouteMain = () => '/';
@@ -22,7 +23,8 @@ export const getRouteProductDetailsTab = () => '';
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
     path: getRouteMain(),
-    element: <MainPage />
+    element: <MainPage />,
+    breadcrumbName: 'Home'
   },
   [AppRoutes.NOT_FOUND]: {
     path: '*',
@@ -30,6 +32,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.PRODUCT_DETAILS]: {
     path: `${getRouteProductDetails(':id')}/*`,
-    element: <ProductDetailsPage />
+    element: <ProductDetailsPage />,
+    breadcrumbName: 'Product details'
   }
 };
