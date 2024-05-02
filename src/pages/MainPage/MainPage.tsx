@@ -1,10 +1,10 @@
 import {ReactElement} from 'react';
-import {Filter} from '@/components/filter';
 import {brandsOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useFilter} from '@/shared/lib/hooks';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
 import {
+  Filter,
   List,
   PageWrapper,
   Pagination,
@@ -15,16 +15,20 @@ import {
 } from '@/shared/ui';
 import {useGetProductsQuery} from '@/slices/products';
 
+const defaultPrice = [1, 50000];
+const defaultRating = [0, 5];
+const skeletonLength = 5;
+
 const options: FormOption<FormVariantsEnum>[] = [
   {
     id: 'rating',
     variant: FormVariantsEnum.Slider,
     name: 'Rating',
-    min: 1,
-    max: 5,
+    min: defaultRating[0],
+    max: defaultRating[1],
     component: Rating
   },
-  {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: 50000},
+  {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]},
   {
     id: 'brand',
     variant: FormVariantsEnum.CheckboxGroup,
@@ -38,8 +42,8 @@ const MainPage = (): ReactElement => {
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
   const defaultValues = {
     brand: decodeParams.brand || [],
-    price: decodeParams.price || [1, 50000],
-    rating: decodeParams.rating || 1
+    price: decodeParams.price || defaultPrice,
+    rating: decodeParams.rating ?? defaultRating[1]
   };
 
   return (
@@ -51,7 +55,7 @@ const MainPage = (): ReactElement => {
             items={data?.results || []}
             renderItem={ProductCard}
             skeleton={<ProductCardSkeleton />}
-            skeletonLength={5}
+            skeletonLength={skeletonLength}
             isLoading={isFetching}
           />
         }

@@ -1,6 +1,8 @@
+import {FilterKeys} from '@/shared/types/filter';
+
 const duplicateKeyRegex = /^(\w+)(\d+)$/;
 
-export const decodeSearchParams = (searchParams: URLSearchParams) => {
+export const decodeSearchParams = (searchParams: URLSearchParams): FilterKeys => {
   const decodedParams: Record<string, any> = {};
 
   [...searchParams.entries()].forEach(([key, val]) => {
@@ -19,19 +21,18 @@ export const decodeSearchParams = (searchParams: URLSearchParams) => {
   return decodedParams;
 };
 
-export const encodeSearchParams = (params: Record<string, any>) => {
+export const encodeSearchParams = (params: Record<string, any>): URLSearchParams => {
   const searchParams = new URLSearchParams();
 
-  for (const key in params) {
-    const value = params[key];
+  Object.entries(params).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      value.forEach((v, index) => {
-        searchParams.append(`${key}${index}`, v);
+      value.forEach((param, index) => {
+        searchParams.append(`${key}${index}`, param);
       });
     } else {
       searchParams.set(key, value);
     }
-  }
+  });
 
   return searchParams;
 };

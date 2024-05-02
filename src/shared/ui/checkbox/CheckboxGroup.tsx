@@ -9,12 +9,13 @@ import {
 import {AnimatePresence, motion} from 'framer-motion';
 import {forwardRef, ReactElement, useState} from 'react';
 import {Control, FieldError, useController, useWatch} from 'react-hook-form';
+import {LabelOptionsI} from '@/shared/types/options';
 import {Button} from '../button/Button';
 import {Checkbox} from './Checkbox';
 
 interface Props {
   label?: string;
-  options: {label: string; value: number}[];
+  options: LabelOptionsI[];
   name: string;
   row?: boolean;
   helperText?: string;
@@ -42,19 +43,18 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
       control
     });
     const [showMore, setShowMore] = useState<boolean>(false);
-    const checkboxIds = useWatch({control, name: name}) || [];
+    const checkboxIds = useWatch({control, name}) || [];
 
     const handleChange = (value: number): void => {
       const newArray = [...checkboxIds];
-      const item = value;
-      if (newArray.includes(item)) {
-        const index = newArray.findIndex((index) => Number(index) === item);
+      if (newArray.includes(value)) {
+        const index = newArray.findIndex((index) => index === value);
         newArray.splice(index, 1);
       } else {
-        newArray.push(item);
+        newArray.push(value);
       }
 
-      onChange(newArray.map((el) => Number(el)));
+      onChange(newArray.map(Number));
     };
 
     const renderOptions = showMore ? options : options.slice(0, max);
