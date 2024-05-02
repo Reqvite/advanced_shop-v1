@@ -3,12 +3,12 @@ import {ReactElement, ReactNode} from 'react';
 
 type RenderListItemsProps<T> = ListItemProps & {
   items?: T[];
-  renderItem?: (item: T) => ReactNode;
+  renderItem?: any;
 } & ({skeleton: ReactElement; length: number} | {skeleton?: never; length?: never});
 
 export function renderListItem<T extends {_id: string}>({
   items,
-  renderItem,
+  renderItem: Component,
   length = 5,
   skeleton,
   ...otherProps
@@ -16,12 +16,11 @@ export function renderListItem<T extends {_id: string}>({
   const array = items ? items : Array.from({length}, (_, index) => ({_id: String(index)}));
 
   return array.map((item, index) => {
-    const renderComponent = item && renderItem ? renderItem(item as any) : skeleton;
     const id = item._id || `${index}-${new Date().getTime()}`;
 
     return (
       <ListItem sx={{justifyContent: 'flex-end'}} key={id} {...otherProps}>
-        {renderComponent}
+        {Component ? <Component {...item} /> : skeleton}
       </ListItem>
     );
   });

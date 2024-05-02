@@ -1,11 +1,12 @@
 import {configureStore, ReducersMapObject} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
+import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
-import {themePersistConfig, userPersistConfig} from './pesrsistConfig';
+import {filterPersistConfig, themePersistConfig, userPersistConfig} from './pesrsistConfig';
 import {ExtraArguments, RootReducer, StoreInstance, StorePackage} from './types';
 
 class Store implements StorePackage {
@@ -19,6 +20,7 @@ class Store implements StorePackage {
     const rootReducer: ReducersMapObject<RootReducer> = {
       theme: persistReducer(themePersistConfig, themeReducer),
       user: persistReducer(userPersistConfig, userReducer),
+      filter: persistReducer(filterPersistConfig, filterReducer),
       modal: modalReducer,
       [productsApi.reducerPath]: productsApi.reducer
     };

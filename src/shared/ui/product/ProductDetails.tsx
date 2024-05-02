@@ -5,14 +5,15 @@ import {
   getRouteProductDetailsReviewsTab,
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
-import {Form, FormOption, FormVariantsEnum} from '@/components/form';
-import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/enumLabelResolver';
+import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useMediaQuery} from '@/shared/lib/hooks';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
 import {WishlistButton} from '../button/WishlistButton';
 import {Chip} from '../chip/Chip';
+import {Form} from '../form';
 import {ImageGallery} from '../imageGallery/ImageGallery';
 import {List} from '../list/List';
 import {Tabs} from '../tabs/Tabs';

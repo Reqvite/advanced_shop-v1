@@ -1,9 +1,9 @@
 import axios, {AxiosError} from 'axios';
 import {store} from '@/app/providers/StoreProvider/config/store';
+import {AuthForm} from '@/components/modalContent';
 import {actions as modalActions} from '@/slices/modal';
 import {actions as userActions} from '@/slices/user';
 import {notificationService} from '../services';
-import {AuthForm} from '../ui';
 
 const $protectedApi = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`

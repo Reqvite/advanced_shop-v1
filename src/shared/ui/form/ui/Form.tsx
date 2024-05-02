@@ -2,9 +2,9 @@ import {Box, Stack} from '@mui/material';
 import {SxProps} from '@mui/system';
 import {ElementType, ReactElement} from 'react';
 import {DefaultValues, FieldValues, Resolver, useForm} from 'react-hook-form';
+import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Button} from '@/shared/ui';
-import {renderFormBlock} from '../model/renderFormBlock';
-import {FormOption, FormVariantsEnum} from '../model/types';
 import {FormHeader} from './FormHeader';
 
 type Props<T> = {
@@ -32,7 +32,6 @@ export const Form = <T extends FieldValues>({
   sx,
   isLoading,
   buttonLabel = 'Submit',
-  withCancel,
   onCancel,
   ButtonComponent
 }: Props<T>): ReactElement => {
@@ -68,7 +67,7 @@ export const Form = <T extends FieldValues>({
                 {buttonLabel}
               </Button>
             )}
-            {withCancel && (
+            {onCancel && (
               <Button fullWidth variant="outlined" onClick={handleCancel}>
                 Cancel
               </Button>

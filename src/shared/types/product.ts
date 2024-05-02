@@ -15,4 +15,10 @@ interface ProductI {
   tags?: number[];
 }
 
-export {type ProductI};
+interface GetProductsResponse {
+  results: ProductI[];
+  totalPages: number;
+  totalItems: number;
+}
+
+export {type GetProductsResponse, type ProductI};

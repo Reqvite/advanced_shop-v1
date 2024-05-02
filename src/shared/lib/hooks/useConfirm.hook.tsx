@@ -1,4 +1,4 @@
-import {ConfirmationForm} from '@/shared/ui';
+import {ConfirmationForm} from '@/components/modalContent';
 import {actions as modalActions} from '@/slices/modal';
 import {useAppDispatch} from './useAppDispatch.hook';
 

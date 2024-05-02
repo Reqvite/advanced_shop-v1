@@ -1,3 +1,5 @@
+import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
+
 export const footerColumns = [
   {
     title: 'Get in touch',
@@ -38,17 +40,4 @@ export const footerColumns = [
   }
 ];
 
-export const footerTags = [
-  {_id: '1', label: 'React'},
-  {_id: '2', label: 'Redux'},
-  {_id: '3', label: 'JavaScript'},
-  {_id: '4', label: 'HTML'},
-  {_id: '5', label: 'CSS'},
-  {_id: '6', label: 'TypeScript'},
-  {_id: '7', label: 'Node.js'},
-  {_id: '8', label: 'Express.js'},
-  {_id: '9', label: 'MongoDB'},
-  {_id: '10', label: 'GraphQL'},
-  {_id: '11', label: 'REST API'},
-  {_id: '12', label: 'WebSocket'}
-];
+export const footerTags = tagOptions;

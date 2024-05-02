@@ -1,3 +1,5 @@
+import {BrandsEnum} from '@/shared/enums/brands.enum';
+import {CategoriesEnum} from '@/shared/enums/categories.enum';
 import {TagsEnum} from '@/shared/enums/tags.enum';
 
 export const enumLabelResolver = {
@@ -13,13 +15,25 @@ export const enumLabelResolver = {
     [TagsEnum.Sweet_treats]: 'Sweet Treats',
     [TagsEnum.Accessories]: 'Accessories',
     [TagsEnum.Aquariums]: 'Aquariums'
+  },
+  categories: {
+    [CategoriesEnum.Dog]: 'Dogs',
+    [CategoriesEnum.Cat]: 'Cats',
+    [CategoriesEnum.Bird]: 'Birds',
+    [CategoriesEnum.Small_Pet]: 'Small Pets',
+    [CategoriesEnum.Aquatic]: 'Dry Food'
+  },
+  brands: {
+    [BrandsEnum.Savory]: 'Savory',
+    [BrandsEnum.Brit_Care]: 'Brit Care',
+    [BrandsEnum.Brit_Premium]: 'Brit Premium',
+    [BrandsEnum.Pro_Plan]: 'Pro Plan',
+    [BrandsEnum.Hills]: 'Hills',
+    [BrandsEnum.Oven_Baked]: 'Oven-Baked',
+    [BrandsEnum.Comfy]: 'Comfy',
+    [BrandsEnum.Half_and_Half]: 'Half and Half',
+    [BrandsEnum.Home_Food]: 'Home Food',
+    [BrandsEnum.Trixie]: 'Trixie',
+    [BrandsEnum.FURminator]: 'FURminator'
   }
 };
-
-const tagOptions = Object.entries(enumLabelResolver.tag).map(([value, label]) => ({
-  label,
-  value: Number(value),
-  _id: value
-}));
-
-export {tagOptions};

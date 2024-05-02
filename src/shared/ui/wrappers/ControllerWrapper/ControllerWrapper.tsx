@@ -1,7 +1,8 @@
 import {ElementType, ReactElement} from 'react';
 import {Control, Controller, FieldValues, Path} from 'react-hook-form';
-import {FormOption, FormVariantsEnum} from '@/components/form';
-import {Input} from './Input';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
+import {Input} from '../../input/Input';
+import {getProps} from './model/getProps';
 
 interface Props<T extends FieldValues> {
   option: FormOption<FormVariantsEnum>;
@@ -9,7 +10,7 @@ interface Props<T extends FieldValues> {
   InputComponent?: ElementType;
 }
 
-export const InputWithController = <T extends FieldValues>({
+export const ControllerWrapper = <T extends FieldValues>({
   option,
   control,
   InputComponent = Input
@@ -19,17 +20,7 @@ export const InputWithController = <T extends FieldValues>({
       control={control}
       name={option.id as Path<T>}
       render={({field, fieldState: {error}}) => (
-        <InputComponent
-          required={option.isRequired}
-          key={option.id}
-          type={option.type}
-          label={option.name}
-          placeholder={option.name}
-          error={error?.message}
-          max={option.max}
-          min={option.min}
-          {...field}
-        />
+        <InputComponent error={error?.message} {...getProps<T>({option, control})} {...field} />
       )}
     />
   );

@@ -1,10 +1,10 @@
 import {List as MuiList, ListProps, SxProps} from '@mui/material';
-import {ReactElement, ReactNode} from 'react';
+import {ComponentType, ReactElement} from 'react';
 import {renderListItem} from '@/shared/services';
 
 type Props<T> = ListProps & {
   items: T[];
-  renderItem?: (item: T) => ReactNode;
+  renderItem: ComponentType<T>;
   row?: boolean;
   isLoading?: boolean;
   itemStyle?: SxProps;
