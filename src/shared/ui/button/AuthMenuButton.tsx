@@ -2,11 +2,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginIcon from '@mui/icons-material/Login';
 import {Box, IconButton, IconButtonProps} from '@mui/material';
 import {MouseEvent, ReactElement, useState} from 'react';
+import {AuthForm} from '@/components/modalContent';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
 import {PopoverItemI} from '@/shared/types/popover';
 import {actions as modalActions} from '@/slices/modal';
 import {actions as userActions} from '@/slices/user';
-import {AuthForm} from '../forms/AuthForm';
 import {SubNavItem} from '../popover/popoverList/PopoverSubNavItem';
 import {PopoverMenu} from '../popover/popoverMenu/PopoverMenu';
 

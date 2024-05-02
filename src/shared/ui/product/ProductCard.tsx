@@ -63,6 +63,7 @@ export const ProductCard = ({
             <ProductHeading
               title={title}
               description={description}
+              titleMaxWidth={250}
               descriptionMaxWidth={220}
               rating={rating}
             />

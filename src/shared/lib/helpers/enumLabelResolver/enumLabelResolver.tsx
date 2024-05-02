@@ -30,6 +30,10 @@ export const enumLabelResolver = {
     [BrandsEnum.Pro_Plan]: 'Pro Plan',
     [BrandsEnum.Hills]: 'Hills',
     [BrandsEnum.Oven_Baked]: 'Oven-Baked',
-    [BrandsEnum.Comfy]: 'Comfy'
+    [BrandsEnum.Comfy]: 'Comfy',
+    [BrandsEnum.Half_and_Half]: 'Half and Half',
+    [BrandsEnum.Home_Food]: 'Home Food',
+    [BrandsEnum.Trixie]: 'Trixie',
+    [BrandsEnum.FURminator]: 'FURminator'
   }
 };

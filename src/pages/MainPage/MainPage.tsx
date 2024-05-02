@@ -1,10 +1,10 @@
 import {ReactElement} from 'react';
-import {Filter} from '@/components/filter';
 import {brandsOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useFilter} from '@/shared/lib/hooks';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
 import {
+  Filter,
   List,
   PageWrapper,
   Pagination,

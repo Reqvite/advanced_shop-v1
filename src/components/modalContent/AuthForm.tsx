@@ -2,12 +2,12 @@ import {Button, Typography} from '@mui/material';
 import Stack from '@mui/material/Stack';
 import {ReactElement, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {Form} from '@/components/form';
 import {useAppDispatch} from '@/shared/lib/hooks';
 import {createUserSchema} from '@/shared/lib/yup/createUser.schema';
 import {loginUserUserSchema} from '@/shared/lib/yup/loginUser.schema';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {UserLoginRequestDto, UserRegisterRequestDto} from '@/shared/types/user/user';
+import {Form} from '@/shared/ui';
 import {actions, selectAuthIsLoading} from '@/slices/user';
 
 const loginOptions: FormOption<FormVariantsEnum>[] = [
