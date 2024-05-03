@@ -2,7 +2,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import {Box} from '@mui/material';
-import {ComponentType} from 'react';
+import {ComponentType, ReactElement} from 'react';
 import {Swiper, SwiperProps, SwiperSlide} from 'swiper/react';
 import {carouselStyles} from '@/app/theme/styles';
 import {Flex} from '../base/Flex';
@@ -13,14 +13,14 @@ interface ItemWithId {
 
 type Props<T extends ItemWithId> = SwiperProps & {
   items: T[];
-  component: ComponentType<any>;
+  component: ComponentType<T>;
 };
 
 export const Carousel = <T extends ItemWithId>({
   items,
   component: Component,
   ...otherProps
-}: Props<T>) => {
+}: Props<T>): ReactElement => {
   return (
     <Box>
       <Swiper style={carouselStyles.swiper} {...otherProps}>

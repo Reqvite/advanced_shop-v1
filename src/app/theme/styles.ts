@@ -64,6 +64,7 @@ export const imageGalleryStyles = {
   bigImg: {
     height: 218,
     width: '100%',
+    maxWidth: 200,
     ...baseImageStyle
   }
 };

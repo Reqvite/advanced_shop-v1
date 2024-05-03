@@ -1,6 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {Card, CardMedia, Grid, GridProps, IconButton} from '@mui/material';
+import {CardMedia, Grid, GridProps, IconButton} from '@mui/material';
 import {ReactElement, useState} from 'react';
 import {imageGalleryStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
@@ -39,9 +39,7 @@ export const ImageGallery = ({
   return (
     <Grid container direction="column" alignItems="center" spacing={2} width="100%">
       <Grid item>
-        <Card>
-          <CardMedia component="img" src={selectedImage} height="400" width="100%" />
-        </Card>
+        <CardMedia component="img" src={selectedImage} height="400" width="100%" />
       </Grid>
       <Grid item>
         {isMobile ? (

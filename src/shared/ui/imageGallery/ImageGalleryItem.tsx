@@ -6,7 +6,7 @@ type Props = CardMediaProps & {
 
 export const ImageGalleryItem = ({alt, ...otherProps}: Props) => {
   return (
-    <Grid item xs={6}>
+    <Grid item xs={6} maxWidth={200}>
       <CardMedia component="img" alt={alt} {...otherProps} />
     </Grid>
   );
