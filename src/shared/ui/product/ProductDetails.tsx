@@ -59,7 +59,7 @@ export const ProductDetails = ({
 
   return (
     <Flex gap={4} flexDirection={isMobile ? 'column' : 'row'}>
-      <Stack gap={1} width={isMobile ? '100%' : '50%'}>
+      <Stack gap={1} width={isMobile ? '100%' : '40%'}>
         {tags && (
           <List
             row
@@ -71,7 +71,7 @@ export const ProductDetails = ({
         )}
         <ImageGallery images={image} />
       </Stack>
-      <Stack gap={4} width={isMobile ? '100%' : '50%'}>
+      <Stack gap={4} width={isMobile ? '100%' : '60%'}>
         <ProductHeading title={title} rating={rating} />
         <Typography>{description[0]?.value}</Typography>
         <Flex justifyContent="space-between" flexWrap="wrap" gap={1}>

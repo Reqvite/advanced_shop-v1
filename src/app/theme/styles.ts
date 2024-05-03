@@ -64,6 +64,7 @@ export const imageGalleryStyles = {
   bigImg: {
     height: 218,
     width: '100%',
+    maxWidth: 200,
     ...baseImageStyle
   }
 };
@@ -90,7 +91,15 @@ export const stickyContentLayoutStyles = {
 };
 
 export const productCardStyles = {
-  smallCardContainer: {width: '100%', maxWidth: 500},
+  smallCardContainer: {
+    width: '100%',
+    height: 'auto',
+    maxWidth: 300,
+    p: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
   smallCardActionsContainer: {display: 'flex', justifyContent: 'space-between', gap: 2},
   bigCardContainer: {maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'},
   bigCardMedia: {minHeight: '100%', maxWidth: 268, objectFit: 'cover'},
@@ -136,5 +145,16 @@ export const modalStyles = {
     position: 'absolute',
     right: 10,
     top: 8
+  }
+};
+
+export const carouselStyles = {
+  swiper: {
+    paddingTop: '10px',
+    paddingBottom: '10px'
+  },
+  swiperSlide: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 };

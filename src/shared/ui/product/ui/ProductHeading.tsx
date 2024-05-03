@@ -10,6 +10,7 @@ type Props = {
   descriptionNoWrap?: boolean;
   descriptionMaxWidth?: number;
   titleMaxWidth?: number;
+  withRating?: boolean;
 };
 
 export const ProductHeading = ({
@@ -18,7 +19,8 @@ export const ProductHeading = ({
   rating,
   descriptionNoWrap,
   descriptionMaxWidth,
-  titleMaxWidth
+  titleMaxWidth,
+  withRating = true
 }: Props): ReactElement => {
   return (
     <Box>
@@ -35,7 +37,7 @@ export const ProductHeading = ({
           {description[0].value}
         </TruncatedTypography>
       )}
-      <Rating value={rating} readOnly />
+      {withRating && <Rating value={rating} readOnly />}
     </Box>
   );
 };

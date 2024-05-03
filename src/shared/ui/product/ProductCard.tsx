@@ -1,4 +1,4 @@
-import {Box, Card, CardActions, CardContent, CardMedia} from '@mui/material';
+import {Box, Card, CardActions, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
@@ -17,6 +17,7 @@ export type CardVariants = 'small' | 'medium';
 
 type Props = ProductI & {
   variant?: CardVariants;
+  sx?: SxProps;
 };
 
 export const ProductCard = ({
@@ -28,23 +29,31 @@ export const ProductCard = ({
   price,
   discount,
   variant,
-  image
+  image,
+  sx
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
 
   if (isMobile || variant === 'small') {
     return (
-      <Card sx={productCardStyles.smallCardContainer}>
-        <CardMedia component="img" alt={title} height="240" image={image[0]} />
-        <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
-          <ProductHeading title={title} description={description} descriptionMaxWidth={220} />
-        </CardContent>
-        <CardActions sx={productCardStyles.smallCardActionsContainer}>
-          <PriceText price={price} discount={discount} />
-          <Button variant="contained" size="small">
-            Buy now
-          </Button>
-        </CardActions>
+      <Card sx={{...productCardStyles.smallCardContainer, ...sx} as SxProps}>
+        <CardMedia component="img" alt={title} height="180" image={image[0]} />
+        <Stack>
+          <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
+            <ProductHeading
+              title={title}
+              description={description}
+              descriptionMaxWidth={220}
+              withRating={false}
+            />
+          </CardContent>
+          <CardActions sx={productCardStyles.smallCardActionsContainer}>
+            <PriceText price={price} discount={discount} />
+            <Button variant="contained" size="small">
+              Buy now
+            </Button>
+          </CardActions>
+        </Stack>
       </Card>
     );
   }
