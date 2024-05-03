@@ -1,7 +1,6 @@
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import {Box} from '@mui/material';
 import {ComponentType, ReactElement} from 'react';
 import {Swiper, SwiperProps, SwiperSlide} from 'swiper/react';
 import {carouselStyles} from '@/app/theme/styles';
@@ -22,16 +21,14 @@ export const Carousel = <T extends ItemWithId>({
   ...otherProps
 }: Props<T>): ReactElement => {
   return (
-    <Box>
-      <Swiper style={carouselStyles.swiper} {...otherProps}>
-        <Flex gap={1}>
-          {items.map((item) => (
-            <SwiperSlide style={carouselStyles.swiperSlide} key={item._id}>
-              <Component {...item} />
-            </SwiperSlide>
-          ))}
-        </Flex>
-      </Swiper>
-    </Box>
+    <Swiper style={carouselStyles.swiper} {...otherProps}>
+      <Flex gap={1}>
+        {items.map((item) => (
+          <SwiperSlide style={carouselStyles.swiperSlide} key={item._id}>
+            <Component {...item} />
+          </SwiperSlide>
+        ))}
+      </Flex>
+    </Swiper>
   );
 };
