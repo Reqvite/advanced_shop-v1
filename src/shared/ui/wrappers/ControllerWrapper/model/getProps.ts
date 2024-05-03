@@ -13,6 +13,7 @@ interface BasePropsI<T extends FieldValues> {
   min?: number;
   options?: LabelOptionsI[];
   control?: Control<T>;
+  styleVariant?: string;
   iconComponent?: ElementType;
 }
 
@@ -34,6 +35,9 @@ export const getProps = <T extends FieldValues>({
     min: option.min
   };
 
+  if (variant === FormVariantsEnum.Select) {
+    baseProps = {...baseProps, options: option.options, styleVariant: option.styleVariant};
+  }
   if (variant === FormVariantsEnum.CheckboxGroup) {
     baseProps = {...baseProps, options: option.options, control};
   }

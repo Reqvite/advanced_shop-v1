@@ -19,5 +19,6 @@ export {Pagination} from './pagination/Pagination.tsx';
 export * from './popover';
 export * from './product';
 export {Rating} from './rating/Rating.tsx';
+export * from './select';
 export * from './slider';
 export * from './wrappers';
