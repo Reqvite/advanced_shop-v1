@@ -1,6 +1,6 @@
 import {getRouteMain, MatchedRoute, routeConfig} from '@/app/providers/AppRouter/routeConfig';
 
-export const onMatchedRoutes = (matchedRoutes: MatchedRoute[]) => {
+export const onMatchedRoutes = (matchedRoutes: MatchedRoute[]): MatchedRoute[] => {
   if (!matchedRoutes) return [];
   const routes = matchedRoutes.map((matchRoute) => {
     return {
@@ -9,6 +9,7 @@ export const onMatchedRoutes = (matchedRoutes: MatchedRoute[]) => {
       route: matchRoute.route
     };
   });
+
   const homeBreadcrumbExists = routes.some((route) => route.pathname === getRouteMain());
   if (!homeBreadcrumbExists) {
     routes.unshift({

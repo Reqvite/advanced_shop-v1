@@ -15,7 +15,7 @@ export type AppRoutesProps = Omit<RouteProps, 'children'> & {
 };
 
 export type MatchedRoute = {
-  params: Record<string, string>;
+  params?: Record<string, string>;
   pathname: string;
   pathnameBase: string;
   route: AppRoutesProps;
