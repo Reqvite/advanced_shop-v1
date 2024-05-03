@@ -16,24 +16,28 @@ export const Breadcrumbs = (props: Props): ReactElement => {
   const matchedRoutes = matchRoutes(Object.values(routeConfig) as Route[], pathname);
   const routes = onMatchedRoutes(matchedRoutes as MatchedRoute[]);
 
+  const renderBreadcrumb = (matchedRoute: MatchedRoute) => {
+    const {
+      pathname: matchedRoutePathname,
+      pathnameBase: matchedRouteBasename,
+      route: {breadcrumbName}
+    } = matchedRoute;
+    const isActive = matchedRoutePathname === pathname;
+    const isNestedRoute = pathname !== matchedRouteBasename;
+    const link = isNestedRoute ? matchedRouteBasename : matchedRoutePathname;
+
+    return isActive && !isNestedRoute ? (
+      <Typography key={matchedRoute.pathname}>{breadcrumbName}</Typography>
+    ) : (
+      <AppLink key={matchedRoute.pathname} to={link}>
+        {breadcrumbName}
+      </AppLink>
+    );
+  };
+
   return (
     <MuiBreadCrumbs aria-label="breadcrumb" {...props}>
-      {routes.map((matchedRoute, i) => {
-        const matchedRoutePathname = matchedRoute.pathname;
-        const matchedRouteBasename = matchedRoute.pathnameBase;
-        const breadcrumbName = matchedRoute.route.breadcrumbName;
-        const isActive = matchedRoutePathname === pathname;
-        const isNestedRoute = pathname !== matchedRouteBasename;
-        const link = isNestedRoute ? matchedRouteBasename : matchedRoutePathname;
-
-        return isActive && !isNestedRoute ? (
-          <Typography key={i}>{breadcrumbName}</Typography>
-        ) : (
-          <AppLink key={i} to={link}>
-            {breadcrumbName}
-          </AppLink>
-        );
-      })}
+      {routes.map((matchedRoute) => renderBreadcrumb(matchedRoute))}
     </MuiBreadCrumbs>
   );
 };
