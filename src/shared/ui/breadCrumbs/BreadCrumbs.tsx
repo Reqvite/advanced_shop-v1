@@ -16,7 +16,7 @@ export const Breadcrumbs = (props: Props): ReactElement => {
   const matchedRoutes = matchRoutes(Object.values(routeConfig) as Route[], pathname);
   const routes = onMatchedRoutes(matchedRoutes as MatchedRoute[]);
 
-  const renderBreadcrumb = (matchedRoute: MatchedRoute) => {
+  const renderBreadcrumb = (matchedRoute: MatchedRoute): ReactElement => {
     const {
       pathname: matchedRoutePathname,
       pathnameBase: matchedRouteBasename,
