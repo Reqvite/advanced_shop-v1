@@ -8,7 +8,7 @@ export class ProductFilterModel {
 
   constructor(model?: ProductFilterModel) {
     this.sort = model?.sort || defaultSort;
-    this.rating = defaultRating[1];
+    this.rating = model?.rating || defaultRating[1];
     this.price = model?.price || defaultPrice;
     this.brand = model?.brand || [];
   }
