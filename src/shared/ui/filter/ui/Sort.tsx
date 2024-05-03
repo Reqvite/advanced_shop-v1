@@ -1,7 +1,6 @@
 import {Box, BoxProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {FieldValues} from 'react-hook-form';
-import {useMediaQuery} from '@/shared/lib/hooks';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Filter} from './Filter';
 
@@ -15,11 +14,7 @@ export const Sort = <T extends FieldValues>({
   options,
   defaultValues,
   ...otherProps
-}: Props<T>): ReactElement | null => {
-  const isMobile = useMediaQuery('md');
-
-  if (isMobile) return null;
-
+}: Props<T>): ReactElement => {
   return (
     <Box pb="40px" {...otherProps}>
       <Filter withDrawer={false} options={options} defaultValues={defaultValues} />

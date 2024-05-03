@@ -6,7 +6,7 @@ interface Option {
   _id: string;
 }
 
-const sortOptions = Object.entries(enumLabelResolver.sortBy).map(([value, label]) => ({
+const sortOptions: Option[] = Object.entries(enumLabelResolver.sortBy).map(([value, label]) => ({
   label,
   value: Number(value),
   _id: value

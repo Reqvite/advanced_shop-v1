@@ -25,7 +25,7 @@ const MainPage = (): ReactElement => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
+      {!isMobile && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
       <StickyContentLayout
         left={<Filter options={mainFilterOptions} defaultValues={defaultValues} />}
         content={

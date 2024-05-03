@@ -9,7 +9,12 @@ import {GetProductsResponse, ProductI} from '@/shared/types/product';
 
 type GetProductsQuery = FilterKeys | void;
 
-const getProducts = (params: GetProductsQuery) => {
+const getProducts = (
+  params: GetProductsQuery
+): {
+  url: ApiPathEnum;
+  params?: URLSearchParams;
+} => {
   if (params) {
     const paramsCopy = {...params};
     if (params.sort) {
