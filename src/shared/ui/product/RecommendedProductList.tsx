@@ -15,7 +15,7 @@ type Props = StackProps & {
   isLoading?: boolean;
 };
 
-const getSwiperConfig = (isMobile: boolean): SwiperProps => {
+const getCarouselConfig = (isMobile: boolean): SwiperProps => {
   const desktopProps = {
     speed: 20000
   };
@@ -65,7 +65,7 @@ export const RecommendedProductList = ({
         <NavigateButton label="More products" to={getRouteMain()} />
       </Flex>
       {!isLoading && (
-        <Carousel {...getSwiperConfig(isMobile)} items={products} component={renderProductCard} />
+        <Carousel {...getCarouselConfig(isMobile)} items={products} component={renderProductCard} />
       )}
     </Stack>
   );
