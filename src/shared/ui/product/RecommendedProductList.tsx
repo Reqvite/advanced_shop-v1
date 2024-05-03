@@ -31,15 +31,15 @@ const getCarouselConfig = (isMobile: boolean): SwiperProps => {
     breakpoints: {
       640: {
         slidesPerView: 2,
-        spaceBetween: 30
+        spaceBetween: 20
       },
       1000: {
         slidesPerView: 3,
-        spaceBetween: 30
+        spaceBetween: 20
       },
       1260: {
         slidesPerView: 4,
-        spaceBetween: 30
+        spaceBetween: 20
       }
     },
     freeMode: true,
