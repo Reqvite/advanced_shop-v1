@@ -1,5 +1,5 @@
 import {ReactElement} from 'react';
-import {skeletonLength} from '@/shared/const/product.const';
+import {defaultPage, skeletonLength} from '@/shared/const/product.const';
 import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {ProductI} from '@/shared/types/product';
@@ -28,7 +28,7 @@ const MainPage = (): ReactElement => {
     <PageWrapper isLoading={isLoading}>
       {!isMobile && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
       <StickyContentLayout
-        left={<Filter options={mainFilterOptions} defaultValues={defaultValues} />}
+        left={<Filter resetPage options={mainFilterOptions} defaultValues={defaultValues} />}
         content={
           <List<ProductI>
             items={data?.results || []}
@@ -38,7 +38,13 @@ const MainPage = (): ReactElement => {
             isLoading={isFetching}
           />
         }
-        bottom={<Pagination defaultPage={1} count={data?.totalPages} total={data?.totalItems} />}
+        bottom={
+          <Pagination
+            page={(decodeParams.page as number) || defaultPage}
+            count={data?.totalPages}
+            total={data?.totalItems}
+          />
+        }
       />
     </PageWrapper>
   );
