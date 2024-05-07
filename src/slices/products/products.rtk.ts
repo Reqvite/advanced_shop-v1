@@ -2,35 +2,15 @@ import {createApi} from '@reduxjs/toolkit/query/react';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
-import {encodeSearchParams} from '@/shared/lib/helpers';
-import {getSortOption} from '@/shared/lib/helpers/enumLabelResolver/sortValueResolver';
 import {FilterKeys} from '@/shared/types/filter';
-import {GetProductsResponse, ProductI} from '@/shared/types/product';
+import {
+  GetProductsQuantityByCategories,
+  GetProductsResponse,
+  ProductI
+} from '@/shared/types/product';
+import {getProducts, getProductsQuantityByCategories} from './apiHelpers';
 
-type GetProductsQuery = FilterKeys | void;
-
-const getProducts = (
-  params: GetProductsQuery
-): {
-  url: ApiPathEnum;
-  params?: URLSearchParams;
-} => {
-  if (params) {
-    const paramsCopy = {...params};
-    if (params.sort) {
-      const sortValue = getSortOption(params.sort as number);
-      if (sortValue) {
-        paramsCopy.orderBy = sortValue.option.orderBy;
-        paramsCopy.order = sortValue.option.order;
-      }
-    }
-    const newParams = encodeSearchParams(paramsCopy);
-
-    return {url: ApiPathEnum.PRODUCTS, params: newParams};
-  }
-
-  return {url: ApiPathEnum.PRODUCTS};
-};
+export type GetProductsQuery = FilterKeys | void;
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
@@ -41,6 +21,12 @@ export const productsApi = createApi({
       query: (params) => getProducts(params),
       providesTags: [RtkApiTagsEnum.Products]
     }),
+    getProductsQuantityByCategories: builder.query<
+      GetProductsQuantityByCategories[],
+      GetProductsQuery
+    >({
+      query: (params) => getProductsQuantityByCategories(params)
+    }),
     getProductById: builder.query<ProductI, string | undefined>({
       query: (id) => ({
         url: `${ApiPathEnum.PRODUCTS}/${id}`
@@ -50,4 +36,8 @@ export const productsApi = createApi({
   })
 });
 
-export const {useGetProductsQuery, useGetProductByIdQuery} = productsApi;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useGetProductsQuantityByCategoriesQuery
+} = productsApi;

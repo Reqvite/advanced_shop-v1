@@ -21,4 +21,9 @@ interface GetProductsResponse {
   totalItems: number;
 }
 
-export {type GetProductsResponse, type ProductI};
+interface GetProductsQuantityByCategories {
+  _id: number;
+  quantity: number;
+}
+
+export {type GetProductsQuantityByCategories, type GetProductsResponse, type ProductI};

@@ -13,7 +13,8 @@ enum UsersApiPath {
 
 enum ProductsApiPath {
   BY_ID = '/:id',
-  EMPTY = '/'
+  EMPTY = '/',
+  PRODUCTS_QUANTITY = '/categories/quantity'
 }
 
 export {ApiPathEnum, ProductsApiPath, UsersApiPath};

@@ -13,15 +13,16 @@ import {
   Sort,
   StickyContentLayout
 } from '@/shared/ui';
-import {useGetProductsQuery} from '@/slices/products';
-import {filterAndSortOptions, options, sortFilterOptions} from './model/options';
+import {useGetProductsQuantityByCategoriesQuery, useGetProductsQuery} from '@/slices/products';
+import {filterOptions, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
   const {filterKeys, decodeParams} = useFilter();
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
+  const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
   const isMobile = useMediaQuery('md');
   const defaultValues = new ProductFilterModel(decodeParams as unknown as ProductFilterModel);
-  const mainFilterOptions = isMobile ? filterAndSortOptions : options;
+  const mainFilterOptions = filterOptions({categoriesQuantity, isMobile});
 
   return (
     <PageWrapper isLoading={isLoading}>

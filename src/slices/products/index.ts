@@ -1,1 +1,6 @@
-export {productsApi, useGetProductByIdQuery, useGetProductsQuery} from './products.rtk';
+export {
+  productsApi,
+  useGetProductByIdQuery,
+  useGetProductsQuantityByCategoriesQuery,
+  useGetProductsQuery
+} from './products.rtk';
