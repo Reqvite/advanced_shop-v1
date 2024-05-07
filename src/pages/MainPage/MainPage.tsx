@@ -36,6 +36,7 @@ const MainPage = (): ReactElement => {
             skeleton={<ProductCardSkeleton />}
             skeletonLength={skeletonLength}
             isLoading={isFetching}
+            itemStyle={{justifyContent: 'center'}}
           />
         }
         bottom={
