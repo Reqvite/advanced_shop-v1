@@ -37,6 +37,7 @@ const MainPage = (): ReactElement => {
             skeletonLength={skeletonLength}
             isLoading={isFetching}
             itemStyle={{justifyContent: 'center'}}
+            shouldScroll
           />
         }
         bottom={

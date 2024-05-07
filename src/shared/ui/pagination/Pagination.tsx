@@ -29,8 +29,11 @@ export const Pagination = ({
   };
 
   return (
-    <Flex sx={{justifyContent: 'space-between', alignItems: 'center', gap: 2, paddingTop: '40px'}}>
-      <MuiPagination onChange={onChangePage} {...otherProps} />
+    <Flex justifyContent="space-between" alignItems="center" gap={2} paddingTop="40px">
+      <Flex alignItems="center">
+        <Typography>Page:</Typography>
+        <MuiPagination onChange={onChangePage} {...otherProps} />
+      </Flex>
       {onShowMoreClick && <Button onClick={onShowMoreClick}>Show more</Button>}
       {total && (
         <Flex gap={1} alignItems="center">

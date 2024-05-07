@@ -9,7 +9,7 @@ const ProductDetailsPage = () => {
   const {data, isLoading} = useGetProductByIdQuery(id);
 
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper isLoading={isLoading} scrollOnce>
       <ProductDetails {...data!} />
       <RecommendedProductList
         products={recommendedProducts?.results || []}
