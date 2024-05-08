@@ -18,16 +18,6 @@ export const getCategoriesOptions = ({
   return categoryOptions;
 };
 
-export const getFilterDefaultValues = ({
-  defaultValues,
-  isMobile
-}: {
-  defaultValues: ProductFilterModel;
-  isMobile: boolean;
-}) => {
-  if (isMobile) {
-    return defaultValues;
-  } else {
-    return Object.fromEntries(Object.entries(defaultValues).filter(([key]) => key !== 'sort'));
-  }
+export const getFilterDefaultValues = ({defaultValues}: {defaultValues: ProductFilterModel}) => {
+  return Object.fromEntries(Object.entries(defaultValues).filter(([key]) => key !== 'sort'));
 };

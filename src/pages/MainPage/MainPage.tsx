@@ -14,6 +14,7 @@ import {
   StickyContentLayout
 } from '@/shared/ui';
 import {useGetProductsQuantityByCategoriesQuery, useGetProductsQuery} from '@/slices/products';
+import {getFilterDefaultValues} from './model/helpers';
 import {filterOptions, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
@@ -27,7 +28,10 @@ const MainPage = (): ReactElement => {
       <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       <StickyContentLayout
         left={
-          <Filter options={filterOptions({categoriesQuantity})} defaultValues={defaultValues} />
+          <Filter
+            options={filterOptions({categoriesQuantity})}
+            defaultValues={getFilterDefaultValues({defaultValues})}
+          />
         }
         content={
           <List<ProductI>
