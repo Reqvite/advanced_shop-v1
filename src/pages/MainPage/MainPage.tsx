@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
-import {defaultPage, skeletonLength} from '@/shared/const/product.const';
-import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
+import {skeletonLength} from '@/shared/const/product.const';
+import {useFilter} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {ProductI} from '@/shared/types/product';
 import {
@@ -14,21 +14,26 @@ import {
   StickyContentLayout
 } from '@/shared/ui';
 import {useGetProductsQuantityByCategoriesQuery, useGetProductsQuery} from '@/slices/products';
+import {getFilterDefaultValues} from './model/helpers';
 import {filterOptions, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
-  const {filterKeys, decodeParams} = useFilter();
+  const {filterKeys, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
-  const isMobile = useMediaQuery('md');
-  const defaultValues = new ProductFilterModel(decodeParams as unknown as ProductFilterModel);
-  const mainFilterOptions = filterOptions({categoriesQuantity, isMobile});
+  const defaultValues = new ProductFilterModel(decodeParams);
 
   return (
     <PageWrapper isLoading={isLoading}>
-      {!isMobile && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
+      <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       <StickyContentLayout
-        left={<Filter resetPage options={mainFilterOptions} defaultValues={defaultValues} />}
+        left={
+          <Filter
+            options={filterOptions({categoriesQuantity})}
+            defaultValues={getFilterDefaultValues({defaultValues})}
+            resetPage
+          />
+        }
         content={
           <List<ProductI>
             items={data?.results || []}
@@ -42,7 +47,7 @@ const MainPage = (): ReactElement => {
         }
         bottom={
           <Pagination
-            page={(decodeParams.page as number) || defaultPage}
+            page={decodeParams.page || defaultValues.page}
             count={data?.totalPages}
             total={data?.totalItems}
           />

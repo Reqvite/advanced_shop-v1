@@ -15,11 +15,16 @@ type Props = PaginationProps & {
 export const Pagination = ({
   onShowMoreClick,
   total,
+  count,
   label = 'Products',
   onChange,
   ...otherProps
-}: Props): ReactElement => {
+}: Props): ReactElement | null => {
   const {onUpdateFilter} = useFilter();
+
+  if (count === 0) {
+    return null;
+  }
 
   const onChangePage = (_: ChangeEvent<unknown>, page: number): void => {
     onUpdateFilter({data: {page}});
@@ -32,7 +37,7 @@ export const Pagination = ({
     <Flex justifyContent="space-between" alignItems="center" gap={2} paddingTop="40px">
       <Flex alignItems="center">
         <Typography>Page:</Typography>
-        <MuiPagination onChange={onChangePage} {...otherProps} />
+        <MuiPagination onChange={onChangePage} count={count} {...otherProps} />
       </Flex>
       {onShowMoreClick && <Button onClick={onShowMoreClick}>Show more</Button>}
       {total && (

@@ -16,23 +16,20 @@ const sortFilterOptions: FormOption<FormVariantsEnum>[] = [
 ];
 
 const filterOptions = ({
-  categoriesQuantity = [],
-  isMobile
+  categoriesQuantity = []
 }: {
   categoriesQuantity: GetProductsQuantityByCategories[];
-  isMobile: boolean;
 }): FormOption<FormVariantsEnum>[] => {
   return [
-    ...(!isMobile ? [] : sortFilterOptions),
     {
-      id: 'category',
+      id: 'categories',
       variant: FormVariantsEnum.CheckboxGroup,
       name: 'Categories',
       options: getCategoriesOptions({categoriesQuantity}),
       showCheckbox: false
     },
     {
-      id: 'brand',
+      id: 'brands',
       variant: FormVariantsEnum.CheckboxGroup,
       name: 'Brand',
       options: brandsOptions
@@ -45,7 +42,7 @@ const filterOptions = ({
       max: defaultRating[1],
       component: Rating
     },
-    {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]}
+    {id: 'prices', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]}
   ];
 };
 

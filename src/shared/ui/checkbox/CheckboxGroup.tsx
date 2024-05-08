@@ -9,6 +9,7 @@ import {
 import {AnimatePresence, motion} from 'framer-motion';
 import {forwardRef, ReactElement, useState} from 'react';
 import {Control, FieldError, useController, useWatch} from 'react-hook-form';
+import {checkboxGroupStyles} from '@/app/theme/styles';
 import {LabelOptionsI} from '@/shared/types/options';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
@@ -50,14 +51,7 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
     });
     const [showMore, setShowMore] = useState<boolean>(false);
     const checkboxIds = useWatch({control, name}) || [];
-    const styles = {
-      formGroup: {
-        gap: showCheckbox ? 0 : 1
-      },
-      checkbox: {
-        display: showCheckbox ? 'flex' : 'none'
-      }
-    };
+    const styles = checkboxGroupStyles(showCheckbox);
 
     const handleChange = (value: number): void => {
       const newArray = [...checkboxIds];

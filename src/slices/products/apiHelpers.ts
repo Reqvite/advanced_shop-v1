@@ -3,27 +3,20 @@ import {encodeSearchParams} from '@/shared/lib/helpers';
 import {getSortOption} from '@/shared/lib/helpers/enumLabelResolver/sortValueResolver';
 import {GetProductsQuery} from './products.rtk';
 
-const getProducts = (
-  params: GetProductsQuery
-): {
-  url: ApiPathEnum;
-  params?: URLSearchParams;
-} => {
-  if (params) {
-    const paramsCopy = {...params};
-    if (params.sort) {
-      const sortValue = getSortOption(params.sort as number);
-      if (sortValue) {
-        paramsCopy.orderBy = sortValue.option.orderBy;
-        paramsCopy.order = sortValue.option.order;
-      }
-    }
-    const newParams = encodeSearchParams(paramsCopy);
-
-    return {url: ApiPathEnum.PRODUCTS, params: newParams};
+const getProducts = (params: GetProductsQuery): {url: ApiPathEnum; params?: URLSearchParams} => {
+  if (!params) {
+    return {url: ApiPathEnum.PRODUCTS};
   }
 
-  return {url: ApiPathEnum.PRODUCTS};
+  const paramsCopy = {...params};
+  const sortValue = getSortOption(params.sort as number);
+
+  if (sortValue) {
+    paramsCopy.orderBy = sortValue.option.orderBy;
+    paramsCopy.order = sortValue.option.order;
+  }
+
+  return {url: ApiPathEnum.PRODUCTS, params: encodeSearchParams(paramsCopy)};
 };
 
 const getProductsQuantityByCategories = (

@@ -1,11 +1,13 @@
 import {categoriesOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
+import {ProductFilterModel} from '@/shared/models/productFilterModel';
+import {LabelOptionsI} from '@/shared/types/options';
 import {GetProductsQuantityByCategories} from '@/shared/types/product';
 
 export const getCategoriesOptions = ({
   categoriesQuantity = []
 }: {
   categoriesQuantity: GetProductsQuantityByCategories[];
-}) => {
+}): LabelOptionsI[] => {
   const categoryOptions = categoriesOptions?.map((category) => {
     const matchedQuantity = categoriesQuantity?.find((item) => item._id === Number(category._id));
 
@@ -15,4 +17,14 @@ export const getCategoriesOptions = ({
     };
   });
   return categoryOptions;
+};
+
+export const getFilterDefaultValues = ({
+  defaultValues
+}: {
+  defaultValues: ProductFilterModel;
+}): Omit<ProductFilterModel, 'sort | page'> => {
+  return Object.fromEntries(
+    Object.entries(defaultValues).filter(([key]) => key !== 'sort' && key !== 'page')
+  ) as ProductFilterModel;
 };

@@ -158,3 +158,12 @@ export const carouselStyles = {
     justifyContent: 'center'
   }
 };
+
+export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, any> => ({
+  formGroup: {
+    gap: showCheckbox ? 0 : 1
+  },
+  checkbox: {
+    display: showCheckbox ? 'flex' : 'none'
+  }
+});
