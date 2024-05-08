@@ -5,7 +5,7 @@ import {useDebouncedCallback, useFilter, useMediaQuery} from '@/shared/lib/hooks
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
 import {FilterKeys} from '@/shared/types/filter';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
-import {Drawer, FilterButton} from '@/shared/ui';
+import {Button, Drawer, FilterButton} from '@/shared/ui';
 
 interface Props<T> {
   options: FormOption<FormVariantsEnum>[];
@@ -22,10 +22,10 @@ export const Filter = <T extends FieldValues>({
   resetPage
 }: Props<T>): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const {control, handleSubmit, watch} = useForm<T>({
-    defaultValues: defaultValues as DefaultValues<T>
+  const {control, handleSubmit, watch, reset} = useForm<T>({
+    defaultValues: {...defaultValues} as DefaultValues<T>
   });
-  const {onUpdateFilter} = useFilter();
+  const {onUpdateFilter, onResetFilter} = useFilter();
 
   const onSubmit = useDebouncedCallback(
     useCallback(
@@ -45,6 +45,15 @@ export const Filter = <T extends FieldValues>({
   const filter = (
     <FormControl component="form">
       <Stack gap={3}>{options?.map((option) => renderFormBlock<T>({option, control}))}</Stack>
+      <Button
+        sx={{mt: 2}}
+        onClick={() => {
+          reset(defaultValues);
+          onResetFilter();
+        }}
+      >
+        Reset
+      </Button>
     </FormControl>
   );
 

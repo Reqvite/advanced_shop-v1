@@ -11,6 +11,7 @@ interface UseFilterReturn {
   filterKeys: FilterKeys;
   decodeParams: FilterKeys;
   onUpdateFilter: ({data, resetPage}: {data: Record<string, unknown>; resetPage?: boolean}) => void;
+  onResetFilter: () => void;
 }
 
 export const useFilter = (): UseFilterReturn => {
@@ -31,5 +32,10 @@ export const useFilter = (): UseFilterReturn => {
     dispatch(filterActions.setFilter({...filterKeys, ...data, ...(resetPage ? {page: 1} : {})}));
   };
 
-  return {searchParams, filterKeys, decodeParams, onUpdateFilter};
+  const onResetFilter = (): void => {
+    setSearchParams();
+    filterActions.resetFilter();
+  };
+
+  return {searchParams, filterKeys, decodeParams, onUpdateFilter, onResetFilter};
 };
