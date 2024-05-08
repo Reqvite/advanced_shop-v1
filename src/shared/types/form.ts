@@ -1,5 +1,6 @@
 import {ComponentType} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
+import {SelectStyleVariants} from '../ui';
 
 export enum FormVariantsEnum {
   Input = 'input',
@@ -29,7 +30,8 @@ interface FormOptionVariantMapI {
   };
   [FormVariantsEnum.Select]: {
     variant: FormVariantsEnum.Select;
-    options?: LabelOptionsI[];
+    options: LabelOptionsI[];
+    styleVariant: SelectStyleVariants;
   };
   [FormVariantsEnum.CheckboxGroup]: {
     variant: FormVariantsEnum.CheckboxGroup;

@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
-import {brandsOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
-import {useFilter} from '@/shared/lib/hooks';
-import {FormOption, FormVariantsEnum} from '@/shared/types/form';
+import {skeletonLength} from '@/shared/const/product.const';
+import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
+import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {ProductI} from '@/shared/types/product';
 import {
   Filter,
@@ -10,46 +10,24 @@ import {
   Pagination,
   ProductCard,
   ProductCardSkeleton,
-  Rating,
+  Sort,
   StickyContentLayout
 } from '@/shared/ui';
 import {useGetProductsQuery} from '@/slices/products';
-
-const defaultPrice = [1, 50000];
-const defaultRating = [0, 5];
-const skeletonLength = 5;
-
-const options: FormOption<FormVariantsEnum>[] = [
-  {
-    id: 'rating',
-    variant: FormVariantsEnum.Slider,
-    name: 'Rating',
-    min: defaultRating[0],
-    max: defaultRating[1],
-    component: Rating
-  },
-  {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]},
-  {
-    id: 'brand',
-    variant: FormVariantsEnum.CheckboxGroup,
-    name: 'Brand',
-    options: brandsOptions
-  }
-];
+import {filterAndSortOptions, options, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
-  const {filterKeys, decodeParams} = useFilter();
+  const {filterKeys, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
-  const defaultValues = {
-    brand: decodeParams.brand || [],
-    price: decodeParams.price || defaultPrice,
-    rating: decodeParams.rating ?? defaultRating[1]
-  };
+  const isMobile = useMediaQuery('md');
+  const defaultValues = new ProductFilterModel(decodeParams);
+  const mainFilterOptions = isMobile ? filterAndSortOptions : options;
 
   return (
     <PageWrapper isLoading={isLoading}>
+      {!isMobile && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
       <StickyContentLayout
-        left={<Filter options={options} defaultValues={defaultValues} />}
+        left={<Filter options={mainFilterOptions} defaultValues={defaultValues} />}
         content={
           <List<ProductI>
             items={data?.results || []}

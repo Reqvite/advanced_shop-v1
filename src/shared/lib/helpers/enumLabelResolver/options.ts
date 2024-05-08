@@ -6,6 +6,12 @@ interface Option {
   _id: string;
 }
 
+const sortOptions: Option[] = Object.entries(enumLabelResolver.sortBy).map(([value, label]) => ({
+  label,
+  value: Number(value),
+  _id: value
+}));
+
 const tagOptions: Option[] = Object.entries(enumLabelResolver.tag).map(([value, label]) => ({
   label,
   value: Number(value),
@@ -26,4 +32,4 @@ const brandsOptions: Option[] = Object.entries(enumLabelResolver.brands).map(([v
   _id: value
 }));
 
-export {brandsOptions, categoriesOptions, tagOptions};
+export {brandsOptions, categoriesOptions, sortOptions, tagOptions};

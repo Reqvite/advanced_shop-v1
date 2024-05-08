@@ -1,7 +1,14 @@
 import {ReactElement} from 'react';
 import {Control, FieldValues} from 'react-hook-form';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
-import {Checkbox, ControllerWrapper, QuantityInput, Slider, SliderWithInput} from '@/shared/ui';
+import {
+  Checkbox,
+  ControllerWrapper,
+  QuantityInput,
+  Select,
+  Slider,
+  SliderWithInput
+} from '@/shared/ui';
 import {CheckboxGroup} from '@/shared/ui/checkbox/CheckboxGroup';
 
 type Props<T extends FieldValues> = {
@@ -26,7 +33,14 @@ export const renderFormBlock = <T extends FieldValues>({
         />
       );
     case FormVariantsEnum.Select:
-      return <ControllerWrapper key={option.id} option={option} control={control} />;
+      return (
+        <ControllerWrapper
+          InputComponent={Select}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
     case FormVariantsEnum.Slider:
       return (
         <ControllerWrapper
