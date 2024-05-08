@@ -1,6 +1,10 @@
+const minRating = 0;
+const maxRating = 5;
+const minPrice = 1;
+const maxPrice = 500;
 const defaultSort = 0;
-const defaultPrice = [1, 50000];
-const defaultRating = [0, 5];
+const defaultPrice = [minPrice, maxPrice];
+const defaultRating = [minRating, maxRating];
 const skeletonLength = 5;
 const defaultPage = 1;
 

@@ -2,6 +2,7 @@ import {List as MuiList, ListProps, SxProps} from '@mui/material';
 import {ComponentType, ReactElement, RefObject} from 'react';
 import {useScrollToTop} from '@/shared/lib/hooks';
 import {renderListItem} from '@/shared/services';
+import {MessageBox} from '../base/MessageBox';
 
 type Props<T> = ListProps & {
   items: T[];
@@ -27,6 +28,10 @@ export const List = <T extends {_id: string}>({
     shouldScroll,
     dependencies: [items]
   }) as RefObject<HTMLUListElement>;
+
+  if (items.length === 0) {
+    return <MessageBox title="No products found matching your search." />;
+  }
 
   return (
     <MuiList

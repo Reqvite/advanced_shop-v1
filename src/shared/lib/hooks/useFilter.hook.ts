@@ -6,20 +6,19 @@ import {decodeSearchParams, encodeSearchParams} from '../helpers';
 import {useAppDispatch} from './useAppDispatch.hook';
 import {useAppSelector} from './useAppSelector.hook';
 
-interface UseFilterReturn {
+interface UseFilterReturn<T> {
   searchParams: URLSearchParams;
   filterKeys: FilterKeys;
-  decodeParams: FilterKeys;
   onUpdateFilter: ({data, resetPage}: {data: Record<string, unknown>; resetPage?: boolean}) => void;
   onResetFilter: () => void;
+  decodeParams: T;
 }
 
-export const useFilter = (): UseFilterReturn => {
+export const useFilter = <T>(): UseFilterReturn<T> => {
   const dispatch = useAppDispatch();
-  const [searchParams] = useSearchParams();
   const filterKeys = useAppSelector(selectFilter);
-  const decodeParams = decodeSearchParams(searchParams);
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const decodeParams = decodeSearchParams(searchParams) as T;
 
   useEffect(() => {
     if (searchParams.size === 0) {
