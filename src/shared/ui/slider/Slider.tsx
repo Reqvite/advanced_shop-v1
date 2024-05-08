@@ -29,7 +29,7 @@ export const Slider = forwardRef<HTMLSpanElement, Props>(
               {label}
             </FormLabel>
           )}
-          {Component && <Component value={value} />}
+          {Component && <Component readOnly value={value} />}
         </Flex>
         <MuiSlider
           value={value}

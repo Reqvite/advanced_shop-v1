@@ -31,7 +31,9 @@ const MainPage = (): ReactElement => {
           <Filter
             options={filterOptions({categoriesQuantity})}
             defaultValues={getFilterDefaultValues({defaultValues})}
+            resetValues={getFilterDefaultValues({defaultValues: new ProductFilterModel()})}
             resetPage
+            withResetButton
           />
         }
         content={

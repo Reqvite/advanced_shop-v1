@@ -10,7 +10,7 @@ interface UseFilterReturn<T> {
   searchParams: URLSearchParams;
   filterKeys: FilterKeys;
   onUpdateFilter: ({data, resetPage}: {data: Record<string, unknown>; resetPage?: boolean}) => void;
-  onResetFilter: () => void;
+  onResetFilter: (resetValues: T) => void;
   decodeParams: T;
 }
 
@@ -24,16 +24,27 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     if (searchParams.size === 0) {
       dispatch(filterActions.resetFilter());
     }
-  }, []);
+  }, [dispatch, searchParams]);
 
   const onUpdateFilter = ({data, resetPage}: {data: object; resetPage?: boolean}): void => {
     setSearchParams(encodeSearchParams({...filterKeys, ...data, ...(resetPage ? {page: 1} : {})}));
     dispatch(filterActions.setFilter({...filterKeys, ...data, ...(resetPage ? {page: 1} : {})}));
   };
 
-  const onResetFilter = (): void => {
-    setSearchParams();
-    filterActions.resetFilter();
+  const onResetFilter = (resetValues: T): void => {
+    const resetParams = encodeSearchParams(resetValues as any);
+    for (const key of resetParams.keys()) {
+      searchParams.delete(key);
+    }
+
+    setSearchParams(searchParams);
+    const copy = {...filterKeys};
+    for (const key in resetValues) {
+      if (Object.prototype.hasOwnProperty.call(resetValues, key)) {
+        delete copy[key];
+      }
+    }
+    dispatch(filterActions.setFilter(copy));
   };
 
   return {searchParams, filterKeys, decodeParams, onUpdateFilter, onResetFilter};
