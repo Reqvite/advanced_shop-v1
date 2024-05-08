@@ -26,7 +26,7 @@ export const getProps = <T extends FieldValues>({
   control: Control<T>;
 }) => {
   const variant = option.variant;
-  let baseProps: BasePropsI<T> = {
+  const baseProps: BasePropsI<T> = {
     required: option.isRequired,
     key: option.id,
     type: option.type,
@@ -38,25 +38,15 @@ export const getProps = <T extends FieldValues>({
 
   switch (variant) {
     case FormVariantsEnum.Select:
-      baseProps = {...baseProps, options: option.options, styleVariant: option.styleVariant};
-      break;
+      return {...baseProps, options: option.options, styleVariant: option.styleVariant};
     case FormVariantsEnum.CheckboxGroup:
-      baseProps = {
-        ...baseProps,
-        options: option.options,
-        showCheckbox: option.showCheckbox,
-        control
-      };
-      break;
+      return {...baseProps, options: option.options, control, showCheckbox: option.showCheckbox};
     case FormVariantsEnum.Slider:
-      baseProps = {...baseProps, iconComponent: option.component};
-      break;
+      return {...baseProps, iconComponent: option.component};
     case FormVariantsEnum.Checkbox:
       delete baseProps['type'];
-      break;
+      return baseProps;
     default:
-      break;
+      return baseProps;
   }
-
-  return baseProps;
 };

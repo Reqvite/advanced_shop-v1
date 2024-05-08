@@ -16,14 +16,11 @@ const sortFilterOptions: FormOption<FormVariantsEnum>[] = [
 ];
 
 const filterOptions = ({
-  categoriesQuantity = [],
-  isMobile
+  categoriesQuantity = []
 }: {
   categoriesQuantity: GetProductsQuantityByCategories[];
-  isMobile: boolean;
 }): FormOption<FormVariantsEnum>[] => {
   return [
-    ...(!isMobile ? [] : sortFilterOptions),
     {
       id: 'categories',
       variant: FormVariantsEnum.CheckboxGroup,

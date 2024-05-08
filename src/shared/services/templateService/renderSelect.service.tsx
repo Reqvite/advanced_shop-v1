@@ -4,7 +4,7 @@ import {SelectVariantsEnum} from '@/shared/types/select';
 import {SelectStyleVariants} from '@/shared/ui';
 import {CustomBox, CustomSelectFormLabel, CustomSelectStyle} from '@/shared/ui/select/CustomSelect';
 
-type Props = {
+type Params = {
   styleVariant?: SelectStyleVariants;
   options?: ReactNode;
   label: ReactNode;
@@ -16,14 +16,14 @@ export const renderSelect = ({
   options,
   label,
   ref,
-  ...otherProps
-}: Props): ReactElement => {
+  ...otherParams
+}: Params): ReactElement => {
   switch (styleVariant) {
     case SelectVariantsEnum.Select_With_Label_Inside:
       return (
         <CustomBox>
           <CustomSelectFormLabel>{label}</CustomSelectFormLabel>
-          <MuiSelect label={label} inputRef={ref} input={<CustomSelectStyle />} {...otherProps}>
+          <MuiSelect label={label} inputRef={ref} input={<CustomSelectStyle />} {...otherParams}>
             {options}
           </MuiSelect>
         </CustomBox>
@@ -32,7 +32,7 @@ export const renderSelect = ({
       return (
         <>
           {label && <FormLabel>{label}</FormLabel>}
-          <MuiSelect label={label} inputRef={ref} {...otherProps}>
+          <MuiSelect label={label} inputRef={ref} {...otherParams}>
             {options}
           </MuiSelect>
         </>
