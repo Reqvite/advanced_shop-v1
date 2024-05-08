@@ -35,17 +35,21 @@ export const getProps = <T extends FieldValues>({
     min: option.min
   };
 
-  if (variant === FormVariantsEnum.Select) {
-    baseProps = {...baseProps, options: option.options, styleVariant: option.styleVariant};
-  }
-  if (variant === FormVariantsEnum.CheckboxGroup) {
-    baseProps = {...baseProps, options: option.options, control};
-  }
-  if (variant === FormVariantsEnum.Slider) {
-    baseProps = {...baseProps, iconComponent: option.component};
-  }
-  if (variant === FormVariantsEnum.Checkbox) {
-    delete baseProps['type'];
+  switch (variant) {
+    case FormVariantsEnum.Select:
+      baseProps = {...baseProps, options: option.options, styleVariant: option.styleVariant};
+      break;
+    case FormVariantsEnum.CheckboxGroup:
+      baseProps = {...baseProps, options: option.options, control};
+      break;
+    case FormVariantsEnum.Slider:
+      baseProps = {...baseProps, iconComponent: option.component};
+      break;
+    case FormVariantsEnum.Checkbox:
+      delete baseProps['type'];
+      break;
+    default:
+      break;
   }
 
   return baseProps;

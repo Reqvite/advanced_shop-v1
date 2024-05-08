@@ -12,9 +12,9 @@ const options: FormOption<FormVariantsEnum>[] = [
     max: defaultRating[1],
     component: Rating
   },
-  {id: 'price', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]},
+  {id: 'prices', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]},
   {
-    id: 'brand',
+    id: 'brands',
     variant: FormVariantsEnum.CheckboxGroup,
     name: 'Brand',
     options: brandsOptions

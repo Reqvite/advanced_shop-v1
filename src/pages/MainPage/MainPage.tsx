@@ -17,10 +17,10 @@ import {useGetProductsQuery} from '@/slices/products';
 import {filterAndSortOptions, options, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
-  const {filterKeys, decodeParams} = useFilter();
+  const {filterKeys, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
   const isMobile = useMediaQuery('md');
-  const defaultValues = new ProductFilterModel(decodeParams as unknown as ProductFilterModel);
+  const defaultValues = new ProductFilterModel(decodeParams);
   const mainFilterOptions = isMobile ? filterAndSortOptions : options;
 
   return (

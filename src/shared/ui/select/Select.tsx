@@ -1,16 +1,7 @@
-import {
-  Box,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  MenuItem,
-  Select as MuiSelect,
-  SelectProps,
-  Typography
-} from '@mui/material';
+import {Box, FormControl, FormHelperText, MenuItem, SelectProps, Typography} from '@mui/material';
 import {forwardRef, ReactElement} from 'react';
+import {renderSelect} from '@/shared/services/templateService/renderSelect.service';
 import {LabelOptionsI} from '@/shared/types/options';
-import {CustomBox, CustomSelectFormLabel, CustomSelectStyle} from './CustomSelect';
 
 export type SelectStyleVariants = 'withLabelInside';
 
@@ -29,29 +20,9 @@ export const Select = forwardRef<HTMLSelectElement, Props>(
       </MenuItem>
     ));
 
-    let select = (
-      <>
-        {label && <FormLabel>{label}</FormLabel>}
-        <MuiSelect label={label} inputRef={ref} {...otherProps}>
-          {renderOptions}
-        </MuiSelect>
-      </>
-    );
-
-    if (styleVariant === 'withLabelInside') {
-      select = (
-        <CustomBox>
-          <CustomSelectFormLabel>{label}</CustomSelectFormLabel>
-          <MuiSelect label={label} inputRef={ref} input={<CustomSelectStyle />} {...otherProps}>
-            {renderOptions}
-          </MuiSelect>
-        </CustomBox>
-      );
-    }
-
     return (
       <FormControl fullWidth>
-        {select}
+        {renderSelect({styleVariant, options: renderOptions, label, ref, ...otherProps})}
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
         <Box height="6px" mt="1px">
           {error && (
