@@ -103,7 +103,7 @@ export const productCardStyles = {
   },
   smallCardActionsContainer: {display: 'flex', justifyContent: 'space-between', gap: 2},
   bigCardContainer: {maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'},
-  bigCardMedia: {minHeight: '100%', maxWidth: 268, objectFit: 'cover'},
+  bigCardMedia: {minHeight: '100%', minWidth: 150, maxWidth: 268, objectFit: 'cover'},
   bigCardContent: {
     display: 'flex',
     width: '100%',

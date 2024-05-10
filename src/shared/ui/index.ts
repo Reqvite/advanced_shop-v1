@@ -1,5 +1,6 @@
 export {Alert} from './alert/Alert.tsx';
 export {Flex} from './base/Flex.tsx';
+export {NoContentBox} from './base/MessageBox.tsx';
 export {Breadcrumbs} from './breadCrumbs/BreadCrumbs.tsx';
 export * from './button';
 export * from './checkbox';

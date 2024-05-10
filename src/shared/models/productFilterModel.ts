@@ -1,6 +1,7 @@
-import {defaultPrice, defaultRating, defaultSort} from '../const/product.const';
+import {defaultPage, defaultPrice, defaultRating, defaultSort} from '../const/product.const';
 
 export class ProductFilterModel {
+  public page?: number;
   public sort?: number;
   public rating: number;
   public categories: number[];
@@ -8,6 +9,7 @@ export class ProductFilterModel {
   public brands: number[];
 
   constructor(model?: ProductFilterModel) {
+    this.page = model?.sort || defaultPage;
     this.sort = model?.sort || defaultSort;
     this.rating = model?.rating || defaultRating[1];
     this.categories = model?.categories || [];

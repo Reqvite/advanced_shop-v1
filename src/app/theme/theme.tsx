@@ -155,6 +155,13 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
       }
     },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: () => ({
+          html: {
+            scrollBehavior: 'smooth'
+          }
+        })
+      },
       MuiAppBar: {
         styleOverrides: {
           root: {

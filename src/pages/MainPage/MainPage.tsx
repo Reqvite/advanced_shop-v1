@@ -35,7 +35,9 @@ const MainPage = (): ReactElement => {
     <PageWrapper isLoading={isLoading}>
       <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       <StickyContentLayout
-        left={<Filter options={memoizedFilterOptions} defaultValues={memoizedDefaultValues} />}
+        left={
+          <Filter options={memoizedFilterOptions} defaultValues={memoizedDefaultValues} resetPage />
+        }
         content={
           <List<ProductI>
             items={data?.results || []}
@@ -43,9 +45,16 @@ const MainPage = (): ReactElement => {
             skeleton={<ProductCardSkeleton />}
             skeletonLength={skeletonLength}
             isLoading={isFetching}
+            itemStyle={{justifyContent: 'center'}}
           />
         }
-        bottom={<Pagination defaultPage={1} count={data?.totalPages} total={data?.totalItems} />}
+        bottom={
+          <Pagination
+            page={decodeParams.page || defaultValues.page}
+            count={data?.totalPages}
+            total={data?.totalItems}
+          />
+        }
       />
     </PageWrapper>
   );

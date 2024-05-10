@@ -1,47 +1,38 @@
 import {FormControl, Stack} from '@mui/material';
 import {ReactElement, useCallback, useEffect} from 'react';
 import {DefaultValues, FieldValues, useForm} from 'react-hook-form';
-import {useSearchParams} from 'react-router-dom';
-import {encodeSearchParams} from '@/shared/lib/helpers';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useDebouncedCallback,
-  useMediaQuery
-} from '@/shared/lib/hooks';
+import {useDebouncedCallback, useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
 import {FilterKeys} from '@/shared/types/filter';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Drawer, FilterButton} from '@/shared/ui';
-import {actions as filterActions, selectFilter} from '@/slices/filter';
 
 interface Props<T> {
   options: FormOption<FormVariantsEnum>[];
   defaultValues: T;
   onChange?: () => void;
   withDrawer?: boolean;
+  resetPage?: boolean;
 }
 
 export const Filter = <T extends FieldValues>({
   withDrawer = true,
   defaultValues,
-  options
+  options,
+  resetPage
 }: Props<T>): ReactElement => {
-  const dispatch = useAppDispatch();
   const isMobile = useMediaQuery('md');
   const {control, handleSubmit, watch} = useForm<T>({
     defaultValues: defaultValues as DefaultValues<T>
   });
-  const filterKeys = useAppSelector(selectFilter);
-  const [, setSearchParams] = useSearchParams();
+  const {onUpdateFilter} = useFilter();
 
   const onSubmit = useDebouncedCallback(
     useCallback(
       (data: FilterKeys) => {
-        setSearchParams(encodeSearchParams({...filterKeys, ...data}));
-        dispatch(filterActions.setFilter({...filterKeys, ...data}));
+        onUpdateFilter({data, resetPage});
       },
-      [dispatch, filterKeys, setSearchParams]
+      [onUpdateFilter, resetPage]
     ),
     500
   );
