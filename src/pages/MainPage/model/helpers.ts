@@ -24,7 +24,7 @@ export const getFilterDefaultValues = ({
 }: {
   defaultValues: ProductFilterModel;
 }): Omit<ProductFilterModel, 'sort'> => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {sort, ...rest} = defaultValues;
-  return rest;
+  const defaultValuesCopy = {...defaultValues};
+  delete defaultValuesCopy['sort'];
+  return defaultValuesCopy;
 };

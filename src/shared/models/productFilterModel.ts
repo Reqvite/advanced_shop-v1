@@ -1,7 +1,7 @@
 import {defaultPrice, defaultRating, defaultSort} from '../const/product.const';
 
 export class ProductFilterModel {
-  public sort: number;
+  public sort?: number;
   public rating: number;
   public categories: number[];
   public prices: number[];
