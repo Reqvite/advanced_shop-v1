@@ -1,14 +1,25 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {ButtonProps} from '@mui/material';
 import {ReactElement} from 'react';
+import {red} from '@/app/theme/theme';
 import {Button} from './Button';
 
-type Props = ButtonProps;
+type Props = ButtonProps & {
+  isLoading?: boolean;
+  isLiked?: boolean;
+};
 
-export const WishlistButton = (props: Props): ReactElement => {
+export const WishlistButton = ({isLiked, ...otherProps}: Props): ReactElement => {
+  const buttonText = isLiked ? 'Remove' : 'Add to Wishlist';
   return (
-    <Button variant="outlined" LeftAddon={FavoriteBorderIcon} sx={{maxWidth: 200}} {...props}>
-      Add to wishlist
+    <Button
+      iconColor={isLiked ? red[300] : 'inherit'}
+      LeftAddon={isLiked ? FavoriteIcon : FavoriteBorderIcon}
+      sx={{maxWidth: 200}}
+      {...otherProps}
+    >
+      {buttonText}
     </Button>
   );
 };

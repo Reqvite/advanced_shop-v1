@@ -1,5 +1,5 @@
-import {createSlice, isAnyOf} from '@reduxjs/toolkit';
-import {User} from '@/shared/types/user/user';
+import {createSlice, isAnyOf, PayloadAction} from '@reduxjs/toolkit';
+import {User, UserWishlistType} from '@/shared/types/user/user';
 import {currentUser, login, logout, refreshToken, register} from './actions';
 
 type State = {
@@ -20,8 +20,13 @@ const {reducer, actions, name} = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCurrentUser(state, action) {
+    setCurrentUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
+    },
+    setWishlist(state, action: PayloadAction<UserWishlistType>) {
+      if (state.user) {
+        state.user = {...state.user, wishlist: action.payload};
+      }
     },
     clearCurrentUser(state) {
       state.user = null;
