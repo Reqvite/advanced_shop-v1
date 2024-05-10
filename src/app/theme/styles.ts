@@ -64,7 +64,9 @@ export const imageGalleryStyles = {
   bigImg: {
     height: 218,
     width: '100%',
+    minWidth: 180,
     maxWidth: 200,
+    objectFit: 'contain',
     ...baseImageStyle
   }
 };
@@ -94,6 +96,7 @@ export const productCardStyles = {
   smallCardContainer: {
     width: '100%',
     height: 'auto',
+    minWidth: 180,
     maxWidth: 300,
     p: 1,
     display: 'flex',

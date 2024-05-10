@@ -14,7 +14,8 @@ const userPersistConfig = {
 
 const filterPersistConfig = {
   key: 'filter',
-  storage
+  storage,
+  blacklist: ['showMore', 'showMoreInitialPage']
 };
 
 export {filterPersistConfig, themePersistConfig, userPersistConfig};

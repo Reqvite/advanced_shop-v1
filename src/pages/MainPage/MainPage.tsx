@@ -18,8 +18,8 @@ import {getFilterDefaultValues} from './model/helpers';
 import {filterOptions, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
-  const {filterKeys, decodeParams} = useFilter<ProductFilterModel>();
-  const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
+  const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
+  const {data, isLoading, isFetching} = useGetProductsQuery(requestParams);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
   const defaultValues = new ProductFilterModel(decodeParams);
 
@@ -44,14 +44,15 @@ const MainPage = (): ReactElement => {
             skeletonLength={skeletonLength}
             isLoading={isFetching}
             itemStyle={{justifyContent: 'center'}}
-            shouldScroll
+            // shouldScroll
           />
         }
         bottom={
           <Pagination
             page={decodeParams.page || defaultValues.page}
             count={data?.totalPages}
-            total={data?.totalItems}
+            total={data?.results.length}
+            isLastPage={data?.totalPages === decodeParams.page}
           />
         }
       />
