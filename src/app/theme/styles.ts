@@ -1,4 +1,5 @@
 import {Theme} from '@mui/material';
+import {CSSProperties} from 'react';
 
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
@@ -158,3 +159,12 @@ export const carouselStyles = {
     justifyContent: 'center'
   }
 };
+
+export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSProperties> => ({
+  formGroup: {
+    gap: showCheckbox ? 0 : 1
+  },
+  checkbox: {
+    display: showCheckbox ? 'flex' : 'none'
+  }
+});

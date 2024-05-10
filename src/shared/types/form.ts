@@ -35,7 +35,8 @@ interface FormOptionVariantMapI {
   };
   [FormVariantsEnum.CheckboxGroup]: {
     variant: FormVariantsEnum.CheckboxGroup;
-    options: {label: string; value: number}[];
+    options: LabelOptionsI[];
+    showCheckbox?: boolean;
   };
   [FormVariantsEnum.Slider]: {
     component?: ComponentType;

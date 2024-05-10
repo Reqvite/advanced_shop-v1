@@ -2,24 +2,8 @@ import {Rating} from '@mui/material';
 import {defaultPrice, defaultRating} from '@/shared/const/product.const';
 import {brandsOptions, sortOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
-
-const options: FormOption<FormVariantsEnum>[] = [
-  {
-    id: 'rating',
-    variant: FormVariantsEnum.Slider,
-    name: 'Rating',
-    min: defaultRating[0],
-    max: defaultRating[1],
-    component: Rating
-  },
-  {id: 'prices', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]},
-  {
-    id: 'brands',
-    variant: FormVariantsEnum.CheckboxGroup,
-    name: 'Brand',
-    options: brandsOptions
-  }
-];
+import {GetProductsQuantityByCategories} from '@/shared/types/product';
+import {getCategoriesOptions} from './helpers';
 
 const sortFilterOptions: FormOption<FormVariantsEnum>[] = [
   {
@@ -31,6 +15,35 @@ const sortFilterOptions: FormOption<FormVariantsEnum>[] = [
   }
 ];
 
-const filterAndSortOptions = [...sortFilterOptions, ...options];
+const filterOptions = ({
+  categoriesQuantity = []
+}: {
+  categoriesQuantity: GetProductsQuantityByCategories[];
+}): FormOption<FormVariantsEnum>[] => {
+  return [
+    {
+      id: 'categories',
+      variant: FormVariantsEnum.CheckboxGroup,
+      name: 'Categories',
+      options: getCategoriesOptions({categoriesQuantity}),
+      showCheckbox: false
+    },
+    {
+      id: 'brands',
+      variant: FormVariantsEnum.CheckboxGroup,
+      name: 'Brand',
+      options: brandsOptions
+    },
+    {
+      id: 'rating',
+      variant: FormVariantsEnum.Slider,
+      name: 'Rating',
+      min: defaultRating[0],
+      max: defaultRating[1],
+      component: Rating
+    },
+    {id: 'prices', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]}
+  ];
+};
 
-export {filterAndSortOptions, options, sortFilterOptions};
+export {filterOptions, sortFilterOptions};

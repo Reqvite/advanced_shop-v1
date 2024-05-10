@@ -1,6 +1,6 @@
-import {ReactElement} from 'react';
+import {ReactElement, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
-import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
+import {useFilter} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {ProductI} from '@/shared/types/product';
 import {
@@ -13,21 +13,29 @@ import {
   Sort,
   StickyContentLayout
 } from '@/shared/ui';
-import {useGetProductsQuery} from '@/slices/products';
-import {filterAndSortOptions, options, sortFilterOptions} from './model/options';
+import {useGetProductsQuantityByCategoriesQuery, useGetProductsQuery} from '@/slices/products';
+import {getFilterDefaultValues} from './model/helpers';
+import {filterOptions, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
   const {filterKeys, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
-  const isMobile = useMediaQuery('md');
-  const defaultValues = new ProductFilterModel(decodeParams);
-  const mainFilterOptions = isMobile ? filterAndSortOptions : options;
+  const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
+  const defaultValues = useMemo(() => new ProductFilterModel(decodeParams), [decodeParams]);
+  const memoizedFilterOptions = useMemo(
+    () => filterOptions({categoriesQuantity}),
+    [categoriesQuantity]
+  );
+  const memoizedDefaultValues = useMemo(
+    () => getFilterDefaultValues({defaultValues}),
+    [defaultValues]
+  );
 
   return (
     <PageWrapper isLoading={isLoading}>
-      {!isMobile && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
+      <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       <StickyContentLayout
-        left={<Filter options={mainFilterOptions} defaultValues={defaultValues} />}
+        left={<Filter options={memoizedFilterOptions} defaultValues={memoizedDefaultValues} />}
         content={
           <List<ProductI>
             items={data?.results || []}
