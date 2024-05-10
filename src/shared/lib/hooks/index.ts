@@ -5,4 +5,3 @@ export {useConfirm} from './useConfirm.hook.js';
 export {useDebouncedCallback} from './useDebouncedCallback.hook.js';
 export {useFilter} from './useFilter.hook.js';
 export {useMediaQuery} from './useMediaQuery.hook.js';
-export {useScrollToTop} from './useScrollToTop.js';

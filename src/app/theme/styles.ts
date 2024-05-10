@@ -1,4 +1,5 @@
 import {Theme} from '@mui/material';
+import {CSSProperties} from 'react';
 
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
@@ -162,7 +163,7 @@ export const carouselStyles = {
   }
 };
 
-export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, any> => ({
+export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSProperties> => ({
   formGroup: {
     gap: showCheckbox ? 0 : 1
   },
@@ -170,3 +171,18 @@ export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, any> 
     display: showCheckbox ? 'flex' : 'none'
   }
 });
+
+export const yellowSliderStyles = {
+  '& .MuiSlider-thumb': {
+    color: '#faaf00'
+  },
+  '& .MuiSlider-track': {
+    color: '#faaf00'
+  },
+  '& .MuiSlider-rail': {
+    color: 'primary.main'
+  },
+  '& .MuiSlider-active': {
+    color: 'primary.main'
+  }
+};

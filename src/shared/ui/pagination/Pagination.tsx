@@ -2,10 +2,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Pagination as MuiPagination, PaginationProps, Typography} from '@mui/material';
 import {ChangeEvent, ReactElement, useEffect, useRef} from 'react';
 import {defaultPage} from '@/shared/const/product.const';
+import {scrollToTop} from '@/shared/lib/helpers';
 import {useFilter} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {Chip} from '../chip/Chip';
+import {toggleActiveClass} from './model/toggleActiveClass';
 
 type Props = PaginationProps & {
   total?: number;
@@ -28,20 +30,14 @@ export const Pagination = ({
   const ref = useRef<HTMLElement>();
 
   useEffect(() => {
-    const buttons = ref?.current?.querySelectorAll<HTMLButtonElement>('nav > ul > li > button');
-
-    buttons?.forEach((button) => {
-      const buttonValue = Number(button.textContent);
-      const isSelected =
-        showMoreInitialPage !== null && buttonValue >= showMoreInitialPage && buttonValue <= page;
-      if (showMore && isSelected) {
-        button.classList.add('Mui-selected');
-      } else {
-        if (buttonValue !== page) {
-          button.classList.remove('Mui-selected');
-        }
-      }
-    });
+    if (ref?.current) {
+      toggleActiveClass({
+        buttons: ref?.current?.querySelectorAll<HTMLButtonElement>('nav > ul > li > button'),
+        initialPage: showMoreInitialPage,
+        endPage: page,
+        showMore
+      });
+    }
   }, [page, showMore, showMoreInitialPage]);
 
   if (count === 0) {
@@ -50,13 +46,10 @@ export const Pagination = ({
 
   const onChangePage = (_: ChangeEvent<unknown>, page: number): void => {
     onUpdateFilter({data: {page}});
+    scrollToTop();
     if (onChange) {
       onChange;
     }
-  };
-
-  const onChangeLimitPage = (): void => {
-    onShowMore();
   };
 
   return (
@@ -72,7 +65,7 @@ export const Pagination = ({
         />
       </Flex>
       {!isLastPage && (
-        <Button variant="contained" onClick={onChangeLimitPage} RightAddon={KeyboardArrowDownIcon}>
+        <Button variant="contained" onClick={onShowMore} RightAddon={KeyboardArrowDownIcon}>
           Show more
         </Button>
       )}

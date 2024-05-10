@@ -1,3 +1,4 @@
+import {SxProps} from '@mui/material';
 import {ComponentType} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
 import {SelectStyleVariants} from '../ui';
@@ -19,6 +20,7 @@ interface BaseFormOption {
   type?: string;
   min?: number;
   max?: number;
+  sx?: SxProps;
 }
 
 interface FormOptionVariantMapI {

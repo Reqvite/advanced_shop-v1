@@ -40,8 +40,10 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   }, [dispatch, searchParams]);
 
   const onUpdateFilter = ({data, resetPage}: {data: object; resetPage?: boolean}): void => {
-    setSearchParams(encodeSearchParams({...filterKeys, ...data, ...(resetPage ? {page: 1} : {})}));
-    dispatch(filterActions.setFilter({...filterKeys, ...data, ...(resetPage ? {page: 1} : {})}));
+    const newData = resetPage ? {...data, page: 1} : data;
+    const updatedFilter = {...filterKeys, ...newData};
+    setSearchParams(encodeSearchParams(updatedFilter));
+    dispatch(filterActions.setFilter(updatedFilter));
     dispatch(filterActions.disableShowMore());
   };
 
