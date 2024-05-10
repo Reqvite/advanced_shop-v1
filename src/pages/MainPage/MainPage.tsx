@@ -1,4 +1,4 @@
-import {ReactElement} from 'react';
+import {ReactElement, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
 import {useFilter} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
@@ -21,7 +21,15 @@ const MainPage = (): ReactElement => {
   const {filterKeys, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
-  const defaultValues = new ProductFilterModel(decodeParams);
+  const defaultValues = useMemo(() => new ProductFilterModel(decodeParams), [decodeParams]);
+  const memoizedFilterOptions = useMemo(
+    () => filterOptions({categoriesQuantity}),
+    [categoriesQuantity]
+  );
+  const memoizedDefaultValues = useMemo(
+    () => getFilterDefaultValues({defaultValues}),
+    [defaultValues]
+  );
 
   return (
     <PageWrapper isLoading={isLoading}>
@@ -29,9 +37,9 @@ const MainPage = (): ReactElement => {
       <StickyContentLayout
         left={
           <Filter
-            options={filterOptions({categoriesQuantity})}
-            defaultValues={getFilterDefaultValues({defaultValues})}
+            options={memoizedFilterOptions}
             resetValues={getFilterDefaultValues({defaultValues: new ProductFilterModel()})}
+            defaultValues={memoizedDefaultValues}
             resetPage
             withResetButton
           />
@@ -44,7 +52,6 @@ const MainPage = (): ReactElement => {
             skeletonLength={skeletonLength}
             isLoading={isFetching}
             itemStyle={{justifyContent: 'center'}}
-            shouldScroll
           />
         }
         bottom={

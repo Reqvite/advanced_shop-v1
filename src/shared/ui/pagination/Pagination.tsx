@@ -1,5 +1,6 @@
 import {Pagination as MuiPagination, PaginationProps, Typography} from '@mui/material';
 import {ChangeEvent, ReactElement} from 'react';
+import {scrollToTop} from '@/shared/lib/helpers';
 import {useFilter} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
@@ -28,6 +29,7 @@ export const Pagination = ({
 
   const onChangePage = (_: ChangeEvent<unknown>, page: number): void => {
     onUpdateFilter({data: {page}});
+    scrollToTop();
     if (onChange) {
       onChange;
     }

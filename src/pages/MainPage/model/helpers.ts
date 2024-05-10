@@ -23,8 +23,9 @@ export const getFilterDefaultValues = ({
   defaultValues
 }: {
   defaultValues: ProductFilterModel;
-}): Omit<ProductFilterModel, 'sort | page'> => {
-  return Object.fromEntries(
-    Object.entries(defaultValues).filter(([key]) => key !== 'sort' && key !== 'page')
-  ) as ProductFilterModel;
+}): Omit<ProductFilterModel, 'sort' | 'page'> => {
+  const defaultValuesCopy = {...defaultValues};
+  delete defaultValuesCopy['sort'];
+  delete defaultValuesCopy['page'];
+  return defaultValuesCopy;
 };
