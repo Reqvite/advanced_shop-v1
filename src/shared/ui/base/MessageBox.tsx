@@ -5,7 +5,7 @@ type Props = StackProps & {
   title?: string;
 };
 
-export const MessageBox = ({title = 'Not found', ...otherProps}: Props): ReactElement => {
+export const NoContentBox = ({title = 'Not found', ...otherProps}: Props): ReactElement => {
   return (
     <Stack gap={2} height="100%" justifyContent="center" alignItems="center" {...otherProps}>
       <CardMedia component="img" image={EmptyImg} alt="Not found" sx={{width: 200, height: 200}} />
