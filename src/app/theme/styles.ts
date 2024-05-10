@@ -1,4 +1,5 @@
 import {Theme} from '@mui/material';
+import {CSSProperties} from 'react';
 
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
@@ -159,7 +160,7 @@ export const carouselStyles = {
   }
 };
 
-export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, any> => ({
+export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSProperties> => ({
   formGroup: {
     gap: showCheckbox ? 0 : 1
   },

@@ -1,6 +1,5 @@
 import {List as MuiList, ListProps, SxProps} from '@mui/material';
-import {ComponentType, ReactElement, RefObject} from 'react';
-import {useScrollToTop} from '@/shared/lib/hooks';
+import {ComponentType, ReactElement} from 'react';
 import {renderListItem} from '@/shared/services';
 import {MessageBox} from '../base/MessageBox';
 
@@ -10,7 +9,7 @@ type Props<T> = ListProps & {
   row?: boolean;
   isLoading?: boolean;
   itemStyle?: SxProps;
-  shouldScroll?: boolean;
+  scrollOnTop?: boolean;
 } & ({skeleton: ReactElement; skeletonLength: number} | {skeleton?: never; skeletonLength?: never});
 
 export const List = <T extends {_id: string}>({
@@ -21,21 +20,14 @@ export const List = <T extends {_id: string}>({
   skeleton,
   skeletonLength = 5,
   itemStyle,
-  shouldScroll,
   ...otherProps
 }: Props<T>): ReactElement => {
-  const ref = useScrollToTop<HTMLUListElement>({
-    shouldScroll,
-    dependencies: [items]
-  }) as RefObject<HTMLUListElement>;
-
   if (items.length === 0) {
     return <MessageBox title="No products found matching your search." />;
   }
 
   return (
     <MuiList
-      ref={ref}
       sx={{display: 'flex', flexWrap: 'wrap', flexDirection: row ? 'row' : 'column'}}
       {...otherProps}
     >
