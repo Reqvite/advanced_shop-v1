@@ -11,10 +11,10 @@ enum UsersApiPath {
   REFRESH = 'auth/refresh'
 }
 
-enum ProductsApiPath {
-  BY_ID = '/:id',
-  EMPTY = '/',
-  PRODUCTS_QUANTITY = '/categories/quantity'
-}
+const ProductsApiPath = {
+  BY_ID: '/:id',
+  EMPTY: '/',
+  PRODUCTS_QUANTITY: '/categories/quantity'
+};
 
 export {ApiPathEnum, ProductsApiPath, UsersApiPath};
