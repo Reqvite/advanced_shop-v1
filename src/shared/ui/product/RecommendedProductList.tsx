@@ -5,6 +5,7 @@ import {SwiperProps} from 'swiper/react';
 import {getRouteMain} from '@/app/providers/AppRouter/routeConfig';
 import {useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI} from '@/shared/types/product';
+import {useUpdateWishlistMutation} from '@/slices/products';
 import {Flex} from '../base/Flex';
 import {NavigateButton} from '../button/NavigateButton';
 import {Carousel} from '../carousel/Carousel';
