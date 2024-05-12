@@ -1,4 +1,4 @@
-import {Box, Card, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
+import {Box, Card, CardActions, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
@@ -59,17 +59,20 @@ export const ProductCard = ({
               withRating={false}
             />
           </CardContent>
-          <Box sx={productCardStyles.smallCardActionsContainer}>
+          <CardActions sx={productCardStyles.smallCardActionsContainer}>
             <PriceText price={price} discount={discount} />
-            <WishlistButton
-              isLiked={auth.user?.wishlist.includes(_id)}
-              isLoading={isLoading}
-              onClick={() => onClickWishlist(_id)}
-            />
-            <Button variant="contained" size="small">
-              Buy now
-            </Button>
-          </Box>
+            <Box>
+              <WishlistButton
+                isSmall
+                isLiked={auth.user?.wishlist.includes(_id)}
+                isLoading={isLoading}
+                onClick={() => onClickWishlist(_id)}
+              />
+              <Button variant="contained" size="small">
+                Buy now
+              </Button>
+            </Box>
+          </CardActions>
         </Stack>
       </Card>
     );

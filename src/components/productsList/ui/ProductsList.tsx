@@ -16,7 +16,6 @@ import {
 } from '@/shared/ui';
 import {
   useGetProductsQuantityByCategoriesQuery,
-  useGetProductsQuery,
   useUpdateWishlistMutation
 } from '@/slices/products';
 import {getFilterDefaultValues} from '../model/helpers';
@@ -24,11 +23,21 @@ import {filterOptions, sortFilterOptions} from '../model/options';
 
 type Props = {
   title?: string;
+  useGetProducts?: any;
+  withFilter?: boolean;
+  withSort?: boolean;
+  withPagination?: boolean;
 };
 
-export const ProductsList = ({title = 'All products'}: Props): ReactElement => {
+export const ProductsList = ({
+  title = 'All products',
+  useGetProducts,
+  withFilter,
+  withSort,
+  withPagination
+}: Props): ReactElement => {
   const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
-  const {data, isLoading, isFetching} = useGetProductsQuery(requestParams);
+  const {data, isLoading, isFetching} = useGetProducts(requestParams);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
   const defaultValues = useMemo(() => new ProductFilterModel(decodeParams), [decodeParams]);
   const memoizedFilterOptions = useMemo(
@@ -45,16 +54,18 @@ export const ProductsList = ({title = 'All products'}: Props): ReactElement => {
       <Typography variant="h2" mb={3}>
         {title}
       </Typography>
-      <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
+      {withSort && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
       <StickyContentLayout
         left={
-          <Filter
-            options={memoizedFilterOptions}
-            resetValues={getFilterDefaultValues({defaultValues: new ProductFilterModel()})}
-            defaultValues={memoizedDefaultValues}
-            resetPage
-            withResetButton
-          />
+          withFilter && (
+            <Filter
+              options={memoizedFilterOptions}
+              resetValues={getFilterDefaultValues({defaultValues: new ProductFilterModel()})}
+              defaultValues={memoizedDefaultValues}
+              resetPage
+              withResetButton
+            />
+          )
         }
         content={
           <List<ProductI>
@@ -69,12 +80,14 @@ export const ProductsList = ({title = 'All products'}: Props): ReactElement => {
           />
         }
         bottom={
-          <Pagination
-            page={decodeParams.page || defaultValues.page}
-            count={data?.totalPages}
-            total={data?.results.length}
-            isLastPage={data?.totalPages === decodeParams.page}
-          />
+          withPagination && (
+            <Pagination
+              page={decodeParams.page || defaultValues.page}
+              count={data?.totalPages}
+              total={data?.results.length}
+              isLastPage={data?.totalPages === decodeParams.page}
+            />
+          )
         }
       />
     </PageWrapper>

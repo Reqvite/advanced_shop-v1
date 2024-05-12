@@ -26,7 +26,8 @@ const onQueryStartedToast = async (
     notificationService.success(message);
   } catch (error: unknown) {
     const {error: customError} = error as any;
-    notificationService.error(customError.data.error);
+    if (customError.code === 401) return;
+    notificationService.error(customError?.data?.error);
   }
 };
 

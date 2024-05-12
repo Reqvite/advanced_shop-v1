@@ -48,9 +48,7 @@ export const Filter = <T extends FieldValues>({
 
   useEffect(() => {
     const subscription = watch((_, action) => {
-      if (!action.type) {
-        return;
-      }
+      if (!action.type) return;
       return handleSubmit(onSubmit)();
     });
     return () => subscription.unsubscribe();

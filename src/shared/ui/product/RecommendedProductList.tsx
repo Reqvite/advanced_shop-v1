@@ -13,6 +13,7 @@ import {ProductCard} from './ProductCard';
 type Props = StackProps & {
   products: ProductI[];
   isLoading?: boolean;
+  onUpdateWishlist: typeof useUpdateWishlistMutation;
 };
 
 const getCarouselConfig = (isMobile: boolean): SwiperProps => {
@@ -51,11 +52,19 @@ const getCarouselConfig = (isMobile: boolean): SwiperProps => {
 export const RecommendedProductList = ({
   products,
   isLoading,
+  onUpdateWishlist,
   ...otherProps
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
   const renderProductCard = (product: ProductI): ReactElement => {
-    return <ProductCard variant="small" sx={{height: 350}} {...product} />;
+    return (
+      <ProductCard
+        onUpdateWishlist={onUpdateWishlist}
+        variant="small"
+        sx={{height: 350}}
+        {...product}
+      />
+    );
   };
 
   return (

@@ -1,6 +1,10 @@
 import {useParams} from 'react-router-dom';
 import {PageWrapper, ProductDetails, RecommendedProductList} from '@/shared/ui';
-import {useGetProductByIdQuery, useGetProductsQuery} from '@/slices/products';
+import {
+  useGetProductByIdQuery,
+  useGetProductsQuery,
+  useUpdateWishlistMutation
+} from '@/slices/products';
 
 const ProductDetailsPage = () => {
   const {id} = useParams();
@@ -12,6 +16,7 @@ const ProductDetailsPage = () => {
     <PageWrapper isLoading={isLoading}>
       <ProductDetails {...data!} />
       <RecommendedProductList
+        onUpdateWishlist={useUpdateWishlistMutation}
         products={recommendedProducts?.results || []}
         isLoading={recommendedProductsIsLoading}
       />
