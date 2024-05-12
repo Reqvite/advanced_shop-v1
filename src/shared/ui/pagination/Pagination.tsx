@@ -26,7 +26,7 @@ export const Pagination = ({
   page = defaultPage,
   ...otherProps
 }: Props): ReactElement | null => {
-  const {onUpdateFilter, onShowMore, showMoreInitialPage, showMore} = useFilter();
+  const {onUpdateFilter, onShowMore, showMoreInitialPage} = useFilter();
   const ref = useRef<HTMLElement>();
 
   useEffect(() => {
@@ -34,11 +34,10 @@ export const Pagination = ({
       toggleActiveClass({
         buttons: ref?.current?.querySelectorAll<HTMLButtonElement>('nav > ul > li > button'),
         initialPage: showMoreInitialPage,
-        endPage: page,
-        showMore
+        endPage: page
       });
     }
-  }, [page, showMore, showMoreInitialPage]);
+  }, [page, showMoreInitialPage]);
 
   if (count === 0) {
     return null;

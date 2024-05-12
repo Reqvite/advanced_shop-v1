@@ -20,7 +20,6 @@ interface UseFilterReturn<T> {
   onResetFilter: (resetValues: Record<string, unknown>) => void;
   onShowMore: () => void;
   decodeParams: T;
-  showMore: boolean;
 }
 
 export const useFilter = <T>(): UseFilterReturn<T> => {
@@ -76,7 +75,6 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     onUpdateFilter,
     onResetFilter,
     onShowMore,
-    showMoreInitialPage,
-    showMore
+    showMoreInitialPage
   };
 };
