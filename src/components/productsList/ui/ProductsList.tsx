@@ -39,10 +39,18 @@ export const ProductsList = ({
   const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProducts(requestParams);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
-  const defaultValues = useMemo(() => new ProductFilterModel(decodeParams), [decodeParams]);
+  const defaultValues = useMemo(
+    () => new ProductFilterModel(decodeParams, data?.minMaxPrices),
+    [data?.minMaxPrices, decodeParams]
+  );
   const memoizedFilterOptions = useMemo(
-    () => filterOptions({categoriesQuantity}),
-    [categoriesQuantity]
+    () =>
+      filterOptions({
+        categoriesQuantity,
+        minPrice: data?.minMaxPrices[0],
+        maxPrice: data?.minMaxPrices[1]
+      }),
+    [categoriesQuantity, data?.minMaxPrices]
   );
   const memoizedDefaultValues = useMemo(
     () => getFilterDefaultValues({defaultValues}),

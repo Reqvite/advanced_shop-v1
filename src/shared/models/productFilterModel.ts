@@ -8,12 +8,12 @@ export class ProductFilterModel {
   public prices: number[];
   public brands: number[];
 
-  constructor(model?: ProductFilterModel) {
+  constructor(model?: ProductFilterModel, minMaxPrices = defaultPrice) {
     this.page = model?.sort || defaultPage;
     this.sort = model?.sort || defaultSort;
     this.rating = model?.rating || defaultRating;
     this.categories = model?.categories || [];
-    this.prices = model?.prices || defaultPrice;
+    this.prices = model?.prices || minMaxPrices;
     this.brands = model?.brands || [];
   }
 }
