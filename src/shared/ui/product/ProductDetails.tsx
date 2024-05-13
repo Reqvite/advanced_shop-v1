@@ -6,9 +6,10 @@ import {
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
-import {useMediaQuery} from '@/shared/lib/hooks';
+import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {ProductI} from '@/shared/types/product';
+import {useUpdateWishlistMutation} from '@/slices/products';
 import {Flex} from '../base/Flex';
 import {AddToCartButton} from '../button/AddToCartButton';
 import {WishlistButton} from '../button/WishlistButton';
@@ -22,7 +23,9 @@ import {PriceText} from './ui/PriceText';
 import {ProductHeading} from './ui/ProductHeading';
 import {TabsRouter} from './ui/tabs/ProductTabsRouter';
 
-type Props = ProductI;
+type Props = ProductI & {
+  onUpdateWishlist: typeof useUpdateWishlistMutation;
+};
 
 const tabOptions = [
   {label: 'Description', value: getRouteProductDetailsTab()},
@@ -35,6 +38,7 @@ const formOptions: FormOption<FormVariantsEnum>[] = [
 ];
 
 export const ProductDetails = ({
+  _id,
   rating = 0,
   title,
   description,
@@ -42,12 +46,16 @@ export const ProductDetails = ({
   price,
   discount,
   image,
-  tags
+  tags,
+  onUpdateWishlist
 }: Props): ReactElement => {
+  const auth = useAuth();
+  const navigate = useNavigate();
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
+  const [onClickWishlist, {isLoading}] = onUpdateWishlist();
+
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
-  const navigate = useNavigate();
 
   const onChangeTab = (route: string): void => {
     navigate(route);
@@ -97,7 +105,12 @@ export const ProductDetails = ({
             />
           </Flex>
         </Flex>
-        <WishlistButton />
+        <WishlistButton
+          isLiked={auth.user?.wishlist.includes(_id)}
+          fullWidth
+          isLoading={isLoading}
+          onClick={() => onClickWishlist(_id)}
+        />
         <Tabs options={tabOptions} onChange={onChangeTab} defaultValue={currentTab} />
         <TabsRouter description={description} />
       </Stack>

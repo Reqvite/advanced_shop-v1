@@ -14,7 +14,7 @@ const ProductDetailsPage = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <ProductDetails {...data!} />
+      <ProductDetails onUpdateWishlist={useUpdateWishlistMutation} {...data!} />
       <RecommendedProductList
         onUpdateWishlist={useUpdateWishlistMutation}
         products={recommendedProducts?.results || []}
