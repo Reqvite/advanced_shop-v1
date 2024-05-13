@@ -19,7 +19,26 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query<GetProductsResponse, GetProductsQuery>({
       query: (params) => getProducts(params),
-      providesTags: [RtkApiTagsEnum.Products]
+      providesTags: [RtkApiTagsEnum.Products],
+      transformResponse: (response: GetProductsResponse) => {
+        return response;
+      },
+      serializeQueryArgs: ({endpointName}) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems, {arg}) => {
+        if (arg?.showMore) {
+          return {
+            ...currentCache,
+            results: [...currentCache.results, ...newItems.results]
+          };
+        }
+
+        return newItems;
+      },
+      forceRefetch({currentArg, previousArg}) {
+        return currentArg !== previousArg;
+      }
     }),
     getProductsQuantityByCategories: builder.query<
       GetProductsQuantityByCategories[],

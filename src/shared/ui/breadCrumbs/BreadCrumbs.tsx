@@ -2,6 +2,7 @@ import {Breadcrumbs as MuiBreadCrumbs, BreadcrumbsProps, Typography} from '@mui/
 import {ReactElement} from 'react';
 import {matchRoutes, useLocation} from 'react-router-dom';
 import {MatchedRoute, routeConfig} from '@/app/providers/AppRouter/routeConfig';
+import {grey} from '@/app/theme/theme';
 import {AppLink} from '../link/AppLink';
 import {onMatchedRoutes} from './model/onMatchedRoutes';
 
@@ -27,7 +28,9 @@ export const Breadcrumbs = (props: Props): ReactElement => {
     const link = isNestedRoute ? matchedRouteBasename : matchedRoutePathname;
 
     return isActive && !isNestedRoute ? (
-      <Typography key={matchedRoute.pathname}>{breadcrumbName}</Typography>
+      <Typography color={grey[200]} key={matchedRoute.pathname}>
+        {breadcrumbName}
+      </Typography>
     ) : (
       <AppLink key={matchedRoute.pathname} to={link}>
         {breadcrumbName}

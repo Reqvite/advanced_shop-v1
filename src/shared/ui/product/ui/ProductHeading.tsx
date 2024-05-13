@@ -2,6 +2,7 @@ import {Box, Rating} from '@mui/material';
 import {ReactElement} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
 import {TruncatedTypography} from '../../typography/TruncatedTypography';
+import {CardVariants} from '../ProductCard';
 
 type Props = {
   title: string;
@@ -11,9 +12,11 @@ type Props = {
   descriptionMaxWidth?: number;
   titleMaxWidth?: number;
   withRating?: boolean;
+  variant?: CardVariants;
 };
 
 export const ProductHeading = ({
+  variant = 'small',
   title,
   description,
   rating,
@@ -24,7 +27,11 @@ export const ProductHeading = ({
 }: Props): ReactElement => {
   return (
     <Box>
-      <TruncatedTypography gutterBottom variant="h5" maxWidth={titleMaxWidth}>
+      <TruncatedTypography
+        gutterBottom
+        variant={variant === 'small' ? 'h5' : 'h2'}
+        maxWidth={titleMaxWidth}
+      >
         {title}
       </TruncatedTypography>
       {description && (

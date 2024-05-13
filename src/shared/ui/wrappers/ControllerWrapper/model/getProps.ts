@@ -1,3 +1,4 @@
+import {SxProps} from '@mui/material';
 import {ElementType} from 'react';
 import {Control, FieldValues} from 'react-hook-form';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
@@ -16,6 +17,7 @@ interface BasePropsI<T extends FieldValues> {
   styleVariant?: string;
   showCheckbox?: boolean;
   iconComponent?: ElementType;
+  sx?: SxProps;
 }
 
 export const getProps = <T extends FieldValues>({
@@ -33,7 +35,8 @@ export const getProps = <T extends FieldValues>({
     label: option.name,
     placeholder: option.name,
     max: option.max,
-    min: option.min
+    min: option.min,
+    sx: option.sx
   };
 
   switch (variant) {

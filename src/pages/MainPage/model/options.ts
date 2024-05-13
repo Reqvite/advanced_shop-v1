@@ -1,4 +1,4 @@
-import {Rating} from '@mui/material';
+import {yellowSliderStyles} from '@/app/theme/styles';
 import {defaultPrice, defaultRating} from '@/shared/const/product.const';
 import {brandsOptions, sortOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
@@ -40,7 +40,7 @@ const filterOptions = ({
       name: 'Rating',
       min: defaultRating[0],
       max: defaultRating[1],
-      component: Rating
+      sx: yellowSliderStyles
     },
     {id: 'prices', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]}
   ];

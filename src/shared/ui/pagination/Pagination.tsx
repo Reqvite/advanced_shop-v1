@@ -1,27 +1,43 @@
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Pagination as MuiPagination, PaginationProps, Typography} from '@mui/material';
-import {ChangeEvent, ReactElement} from 'react';
+import {ChangeEvent, ReactElement, useEffect, useRef} from 'react';
+import {defaultPage} from '@/shared/const/product.const';
 import {scrollToTop} from '@/shared/lib/helpers';
 import {useFilter} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {Chip} from '../chip/Chip';
+import {toggleActiveClass} from './model/toggleActiveClass';
 
 type Props = PaginationProps & {
   total?: number;
   label?: string;
-  onShowMoreClick?: () => void;
+  onShowMore?: boolean;
   onChange?: () => void;
+  isLastPage?: boolean;
 };
 
 export const Pagination = ({
-  onShowMoreClick,
   total,
   count,
   label = 'Products',
   onChange,
+  isLastPage,
+  page = defaultPage,
   ...otherProps
 }: Props): ReactElement | null => {
-  const {onUpdateFilter} = useFilter();
+  const {onUpdateFilter, onShowMore, showMoreInitialPage} = useFilter();
+  const ref = useRef<HTMLElement>();
+
+  useEffect(() => {
+    if (ref?.current) {
+      toggleActiveClass({
+        buttons: ref?.current?.querySelectorAll<HTMLButtonElement>('nav > ul > li > button'),
+        initialPage: showMoreInitialPage,
+        endPage: page
+      });
+    }
+  }, [page, showMoreInitialPage]);
 
   if (count === 0) {
     return null;
@@ -39,9 +55,19 @@ export const Pagination = ({
     <Flex justifyContent="space-between" alignItems="center" gap={2} paddingTop="40px">
       <Flex alignItems="center">
         <Typography>Page:</Typography>
-        <MuiPagination onChange={onChangePage} count={count} {...otherProps} />
+        <MuiPagination
+          ref={ref}
+          onChange={onChangePage}
+          count={count}
+          page={page}
+          {...otherProps}
+        />
       </Flex>
-      {onShowMoreClick && <Button onClick={onShowMoreClick}>Show more</Button>}
+      {!isLastPage && (
+        <Button variant="contained" onClick={onShowMore} RightAddon={KeyboardArrowDownIcon}>
+          Show more
+        </Button>
+      )}
       {total && (
         <Flex gap={1} alignItems="center">
           <Chip label={total} />

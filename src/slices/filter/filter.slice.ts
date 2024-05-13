@@ -3,10 +3,14 @@ import {FilterKeys} from '@/shared/types/filter';
 
 type State = {
   filters: FilterKeys;
+  showMore: boolean;
+  showMoreInitialPage: number | null;
 };
 
 const initialState: State = {
-  filters: {}
+  filters: {},
+  showMore: false,
+  showMoreInitialPage: null
 };
 
 const {reducer, actions, name} = createSlice({
@@ -18,6 +22,14 @@ const {reducer, actions, name} = createSlice({
     },
     resetFilter(state) {
       state.filters = {};
+    },
+    enableShowMore(state, action) {
+      state.showMore = true;
+      state.showMoreInitialPage ||= action.payload;
+    },
+    disableShowMore(state) {
+      state.showMore = false;
+      state.showMoreInitialPage = null;
     },
     removeKeys(state, action) {
       const keysToRemove = action.payload;

@@ -37,7 +37,13 @@ export const ProductCard = ({
   if (isMobile || variant === 'small') {
     return (
       <Card sx={{...productCardStyles.smallCardContainer, ...sx} as SxProps}>
-        <CardMedia component="img" alt={title} height="180" image={image[0]} />
+        <CardMedia
+          component="img"
+          alt={title}
+          height="180"
+          sx={{objectFit: 'contain'}}
+          image={image[0]}
+        />
         <Stack>
           <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
             <ProductHeading

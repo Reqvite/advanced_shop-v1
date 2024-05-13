@@ -1,3 +1,4 @@
+import {Typography} from '@mui/material';
 import {ReactElement, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
 import {useFilter} from '@/shared/lib/hooks';
@@ -18,8 +19,8 @@ import {getFilterDefaultValues} from './model/helpers';
 import {filterOptions, sortFilterOptions} from './model/options';
 
 const MainPage = (): ReactElement => {
-  const {filterKeys, decodeParams} = useFilter<ProductFilterModel>();
-  const {data, isLoading, isFetching} = useGetProductsQuery(filterKeys);
+  const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
+  const {data, isLoading, isFetching} = useGetProductsQuery(requestParams);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
   const defaultValues = useMemo(() => new ProductFilterModel(decodeParams), [decodeParams]);
   const memoizedFilterOptions = useMemo(
@@ -33,6 +34,9 @@ const MainPage = (): ReactElement => {
 
   return (
     <PageWrapper isLoading={isLoading}>
+      <Typography variant="h2" mb={3}>
+        All products
+      </Typography>
       <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       <StickyContentLayout
         left={
@@ -58,7 +62,8 @@ const MainPage = (): ReactElement => {
           <Pagination
             page={decodeParams.page || defaultValues.page}
             count={data?.totalPages}
-            total={data?.totalItems}
+            total={data?.results.length}
+            isLastPage={data?.totalPages === decodeParams.page}
           />
         }
       />

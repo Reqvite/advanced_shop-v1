@@ -1,1 +1,1 @@
-export type FilterKeys = {[key: string]: string | number | number[] | string[]};
+export type FilterKeys = {[key: string]: string | number | number[] | string[] | boolean};

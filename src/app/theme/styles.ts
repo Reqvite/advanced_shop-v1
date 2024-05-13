@@ -65,7 +65,9 @@ export const imageGalleryStyles = {
   bigImg: {
     height: 218,
     width: '100%',
+    minWidth: 180,
     maxWidth: 200,
+    objectFit: 'contain',
     ...baseImageStyle
   }
 };
@@ -95,6 +97,7 @@ export const productCardStyles = {
   smallCardContainer: {
     width: '100%',
     height: 'auto',
+    minWidth: 180,
     maxWidth: 300,
     p: 1,
     display: 'flex',
@@ -168,3 +171,18 @@ export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSPr
     display: showCheckbox ? 'flex' : 'none'
   }
 });
+
+export const yellowSliderStyles = {
+  '& .MuiSlider-thumb': {
+    color: '#faaf00'
+  },
+  '& .MuiSlider-track': {
+    color: '#faaf00'
+  },
+  '& .MuiSlider-rail': {
+    color: 'primary.main'
+  },
+  '& .MuiSlider-active': {
+    color: 'primary.main'
+  }
+};
