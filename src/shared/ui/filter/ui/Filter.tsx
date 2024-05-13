@@ -41,16 +41,14 @@ export const Filter = <T extends FieldValues>({
     500
   );
 
-  const resetFilter = () => {
+  const resetFilter = (): void => {
     onResetFilter(getValues());
     reset(resetValues);
   };
 
   useEffect(() => {
     const subscription = watch((_, action) => {
-      if (!action.type) {
-        return;
-      }
+      if (!action.type) return;
       return handleSubmit(onSubmit)();
     });
     return () => subscription.unsubscribe();

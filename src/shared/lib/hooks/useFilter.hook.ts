@@ -59,13 +59,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     }
 
     setSearchParams(searchParams);
-
-    const copy = {...filterKeys};
-    for (const key of Object.keys(resetValues)) {
-      delete copy[key];
-    }
-
-    dispatch(filterActions.setFilter(copy));
+    dispatch(filterActions.removeKeys(Object.keys(resetValues)));
   };
 
   return {

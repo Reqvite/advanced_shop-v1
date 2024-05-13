@@ -30,6 +30,12 @@ const {reducer, actions, name} = createSlice({
     disableShowMore(state) {
       state.showMore = false;
       state.showMoreInitialPage = null;
+    },
+    removeKeys(state, action) {
+      const keysToRemove = action.payload;
+      for (const key of keysToRemove) {
+        delete state.keys[key];
+      }
     }
   }
 });
