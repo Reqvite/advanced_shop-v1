@@ -18,6 +18,12 @@ const {reducer, actions, name} = createSlice({
     },
     resetFilter(state) {
       state.keys = {};
+    },
+    removeKeys(state, action) {
+      const keysToRemove = action.payload;
+      for (const key of keysToRemove) {
+        delete state.keys[key];
+      }
     }
   }
 });

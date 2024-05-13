@@ -41,7 +41,7 @@ export const Filter = <T extends FieldValues>({
     500
   );
 
-  const resetFilter = () => {
+  const resetFilter = (): void => {
     onResetFilter(getValues());
     reset(resetValues);
   };
