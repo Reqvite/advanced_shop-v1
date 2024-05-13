@@ -10,6 +10,7 @@ interface UseFilterReturn<T> {
   searchParams: URLSearchParams;
   filterKeys: FilterKeys;
   onUpdateFilter: ({data, resetPage}: {data: Record<string, unknown>; resetPage?: boolean}) => void;
+  onResetFilter: (resetValues: Record<string, unknown>) => void;
   decodeParams: T;
 }
 
@@ -23,7 +24,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     if (searchParams.size === 0) {
       dispatch(filterActions.resetFilter());
     }
-  }, []);
+  }, [dispatch, searchParams]);
 
   const onUpdateFilter = ({data, resetPage}: {data: object; resetPage?: boolean}): void => {
     const newData = resetPage ? {...data, page: 1} : data;
@@ -33,5 +34,16 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     dispatch(filterActions.setFilter(updatedFilter));
   };
 
-  return {searchParams, filterKeys, decodeParams, onUpdateFilter};
+  const onResetFilter = (resetValues: Record<string, unknown>): void => {
+    resetValues.page = 1;
+    const resetParams = encodeSearchParams(resetValues);
+    for (const key of resetParams.keys()) {
+      searchParams.delete(key);
+    }
+
+    setSearchParams(searchParams);
+    dispatch(filterActions.removeKeys(Object.keys(resetValues)));
+  };
+
+  return {searchParams, filterKeys, decodeParams, onUpdateFilter, onResetFilter};
 };

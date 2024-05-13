@@ -1,7 +1,7 @@
 import {List as MuiList, ListProps, SxProps} from '@mui/material';
 import {ComponentType, ReactElement} from 'react';
 import {renderListItem} from '@/shared/services';
-import {NoContentBox} from '../base/MessageBox';
+import {NoContentBox} from '../base/NoContentBox';
 
 type Props<T> = ListProps & {
   items: T[];

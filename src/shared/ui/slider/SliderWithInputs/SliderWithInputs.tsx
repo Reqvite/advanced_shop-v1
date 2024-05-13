@@ -1,5 +1,5 @@
 import {SliderProps, Stack, Typography} from '@mui/material';
-import {ChangeEvent, forwardRef, ReactElement, useState} from 'react';
+import {ChangeEvent, forwardRef, ReactElement, useEffect, useState} from 'react';
 import {Input} from '../../input/Input';
 import {Slider} from '../Slider';
 import {calculateNewRangeValue} from './model/calculateNewRangeValue';
@@ -19,6 +19,10 @@ const defaultMax = 1000;
 export const SliderWithInput = forwardRef<HTMLSpanElement, Props>(
   ({min = defaultMin, max = defaultMax, onChange, label, ...otherProps}, ref): ReactElement => {
     const [rangeValue, setRangeValue] = useState<Value>((otherProps.value as Value) || [min, max]);
+
+    useEffect(() => {
+      setRangeValue(otherProps.value as Value);
+    }, [otherProps.value]);
 
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
       setRangeValue(newValue as Value);

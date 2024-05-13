@@ -1,6 +1,7 @@
 import {CardMedia, Stack, StackProps, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import EmptyImg from '../../../../public/empty.png';
+
 type Props = StackProps & {
   title?: string;
 };

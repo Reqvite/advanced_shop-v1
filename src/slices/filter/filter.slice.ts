@@ -2,11 +2,11 @@ import {createSlice} from '@reduxjs/toolkit';
 import {FilterKeys} from '@/shared/types/filter';
 
 type State = {
-  keys: FilterKeys;
+  filters: FilterKeys;
 };
 
 const initialState: State = {
-  keys: {}
+  filters: {}
 };
 
 const {reducer, actions, name} = createSlice({
@@ -14,10 +14,16 @@ const {reducer, actions, name} = createSlice({
   initialState,
   reducers: {
     setFilter(state, action) {
-      state.keys = action.payload;
+      state.filters = action.payload;
     },
     resetFilter(state) {
-      state.keys = {};
+      state.filters = {};
+    },
+    removeKeys(state, action) {
+      const keysToRemove = action.payload;
+      for (const key of keysToRemove) {
+        delete state.filters[key];
+      }
     }
   }
 });

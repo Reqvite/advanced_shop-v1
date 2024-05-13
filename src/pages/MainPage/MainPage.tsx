@@ -36,7 +36,13 @@ const MainPage = (): ReactElement => {
       <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       <StickyContentLayout
         left={
-          <Filter options={memoizedFilterOptions} defaultValues={memoizedDefaultValues} resetPage />
+          <Filter
+            options={memoizedFilterOptions}
+            resetValues={getFilterDefaultValues({defaultValues: new ProductFilterModel()})}
+            defaultValues={memoizedDefaultValues}
+            resetPage
+            withResetButton
+          />
         }
         content={
           <List<ProductI>
