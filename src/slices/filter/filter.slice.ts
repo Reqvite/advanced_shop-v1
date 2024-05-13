@@ -1,14 +1,14 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {FilterKeys} from '@/shared/types/filter';
 
 type State = {
-  keys: FilterKeys;
+  filters: FilterKeys;
   showMore: boolean;
   showMoreInitialPage: number | null;
 };
 
 const initialState: State = {
-  keys: {},
+  filters: {},
   showMore: false,
   showMoreInitialPage: null
 };
@@ -17,19 +17,25 @@ const {reducer, actions, name} = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setFilter(state, action: PayloadAction<FilterKeys>) {
-      state.keys = action.payload;
+    setFilter(state, action) {
+      state.filters = action.payload;
     },
     resetFilter(state) {
-      state.keys = {};
+      state.filters = {};
     },
-    enableShowMore(state, {payload}: PayloadAction<number>) {
+    enableShowMore(state, action) {
       state.showMore = true;
-      state.showMoreInitialPage = state.showMore ? state.showMoreInitialPage || payload : payload;
+      state.showMoreInitialPage ||= action.payload;
     },
     disableShowMore(state) {
       state.showMore = false;
       state.showMoreInitialPage = null;
+    },
+    removeKeys(state, action) {
+      const keysToRemove = action.payload;
+      for (const key of keysToRemove) {
+        delete state.filters[key];
+      }
     }
   }
 });
