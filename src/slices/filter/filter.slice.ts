@@ -25,7 +25,7 @@ const {reducer, actions, name} = createSlice({
     },
     enableShowMore(state, action) {
       state.showMore = true;
-      state.showMoreInitialPage = action.payload;
+      state.showMoreInitialPage ||= action.payload;
     },
     disableShowMore(state) {
       state.showMore = false;
