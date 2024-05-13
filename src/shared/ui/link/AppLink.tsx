@@ -6,11 +6,26 @@ type Props = LinkProps &
   MuiLinkProps & {
     children?: ReactNode;
     label?: string;
+    withUnderline?: boolean;
   };
 
-export const AppLink = ({children, label, ...otherProps}: Props): ReactElement => {
+export const AppLink = ({
+  children,
+  withUnderline = true,
+  label,
+  ...otherProps
+}: Props): ReactElement => {
   return (
-    <MuiLink component={RouterLink} {...otherProps}>
+    <MuiLink
+      component={RouterLink}
+      sx={{
+        '&:hover::before': {
+          width: withUnderline ? '100%' : '0',
+          opacity: 1
+        }
+      }}
+      {...otherProps}
+    >
       {label}
       {children}
     </MuiLink>

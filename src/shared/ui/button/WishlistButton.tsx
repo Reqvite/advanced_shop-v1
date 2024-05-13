@@ -3,22 +3,38 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {IconButton} from '@mui/material';
 import {ButtonProps} from '@mui/material';
 import {ReactElement} from 'react';
+import {getRouteWishlist} from '@/app/providers/AppRouter/routeConfig';
 import {red} from '@/app/theme/theme';
+import {useAuth} from '@/shared/lib/hooks';
+import {AppLink} from '../link/AppLink';
 import {Button} from './Button';
 
 type Props = ButtonProps & {
+  isNavigate?: boolean;
   isSmall?: boolean;
   isLoading?: boolean;
   isLiked?: boolean;
 };
 
 export const WishlistButton = ({
+  isNavigate,
   isLiked,
   isSmall,
   isLoading,
   ...otherProps
-}: Props): ReactElement => {
+}: Props): ReactElement | null => {
+  const auth = useAuth();
   const buttonText = isLiked ? 'Remove' : 'Add to Wishlist';
+
+  if (isNavigate) {
+    return auth.user ? (
+      <AppLink withUnderline={false} to={getRouteWishlist()}>
+        <IconButton {...otherProps}>
+          <FavoriteBorderIcon />
+        </IconButton>
+      </AppLink>
+    ) : null;
+  }
 
   if (isSmall) {
     return (

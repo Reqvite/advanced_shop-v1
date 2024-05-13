@@ -1,11 +1,12 @@
 import {ReactNode} from 'react';
 import {RouteProps} from 'react-router-dom';
-import {MainPage, ProductDetailsPage} from '@/pages';
+import {MainPage, ProductDetailsPage, WishlistPage} from '@/pages';
 
 export enum AppRoutes {
   MAIN = 'main',
   NOT_FOUND = 'not-found',
-  PRODUCT_DETAILS = 'product-details'
+  PRODUCT_DETAILS = 'product-details',
+  WISHLIST = 'wishlist'
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
@@ -23,6 +24,7 @@ export type MatchedRoute = {
 
 export const getRouteMain = () => '/';
 export const getRouteProductDetails = (id: string) => `/products/${id}`;
+export const getRouteWishlist = () => `/wishlist`;
 export const getRouteProductDetailsReviews = (id: string) => `/products/${id}/reviews`;
 export const getRouteProductDetailsReviewsTab = () => 'reviews';
 export const getRouteProductDetailsQuestionsTab = () => 'questions';
@@ -37,6 +39,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.NOT_FOUND]: {
     path: '*',
     element: <MainPage />
+  },
+  [AppRoutes.WISHLIST]: {
+    path: getRouteWishlist(),
+    element: <WishlistPage />,
+    breadcrumbName: 'Wishlist',
+    needAuth: true
   },
   [AppRoutes.PRODUCT_DETAILS]: {
     path: `${getRouteProductDetails(':id')}/*`,

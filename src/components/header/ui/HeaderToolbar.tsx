@@ -1,6 +1,6 @@
 import {Box, Stack, Toolbar} from '@mui/material';
 import {ReactElement} from 'react';
-import {AuthMenuButton, CartButton, Input, Logo} from '@/shared/ui';
+import {AuthMenuButton, CartButton, Input, Logo, WishlistButton} from '@/shared/ui';
 
 export const HeaderToolbar = (): ReactElement => {
   return (
@@ -10,6 +10,7 @@ export const HeaderToolbar = (): ReactElement => {
           <Logo />
           <Input placeholder="Search…" />
           <Stack flexDirection="row" justifyContent="space-between">
+            <WishlistButton isNavigate />
             <AuthMenuButton />
             <CartButton />
           </Stack>
