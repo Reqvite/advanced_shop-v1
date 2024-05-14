@@ -5,6 +5,7 @@ import {NotificationMessage} from '@/shared/const/notificationMessages';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {notificationService} from '@/shared/services';
+import {ErrorI} from '@/shared/types/error';
 import {FilterKeys} from '@/shared/types/filter';
 import {
   GetProductsQuantityByCategories,
@@ -18,16 +19,16 @@ import {getProducts, getProductsQuantityByCategories} from './apiHelpers';
 export type GetProductsQuery = FilterKeys | void;
 
 const onQueryStartedToast = async (
-  {queryFulfilled}: {queryFulfilled: any},
+  {queryFulfilled}: {queryFulfilled: Promise<unknown>},
   message = 'Success'
 ) => {
   try {
     await queryFulfilled;
     notificationService.success(message);
   } catch (error: unknown) {
-    const {error: customError} = error as any;
+    const {error: customError} = error as {error: ErrorI};
     if (customError.code === 401) return;
-    notificationService.error(customError?.data?.error);
+    notificationService.error(customError?.message);
   }
 };
 
