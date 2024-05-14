@@ -27,6 +27,7 @@ type Props = {
   withFilter?: boolean;
   withSort?: boolean;
   withPagination?: boolean;
+  trigger?: string;
 };
 
 export const ProductsList = ({

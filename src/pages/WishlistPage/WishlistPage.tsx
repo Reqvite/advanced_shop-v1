@@ -1,9 +1,9 @@
 import {ReactElement} from 'react';
 import {ProductsList} from '@/components/productsList';
-import {useGetProductsQuery} from '@/slices/products';
+import {useGetUserWishlistQuery} from '@/slices/products';
 
 const WishlistPage = (): ReactElement => {
-  return <ProductsList title="Wishlist" useGetProducts={useGetProductsQuery} withPagination />;
+  return <ProductsList title="Wishlist" useGetProducts={useGetUserWishlistQuery} withPagination />;
 };
 
 export default WishlistPage;

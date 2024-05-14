@@ -1,4 +1,5 @@
 export enum RtkApiTagsEnum {
   Product = 'Product',
-  Products = 'Products'
+  Products = 'Products',
+  WishlistProducts = 'WishlistProducts'
 }

@@ -18,6 +18,7 @@ type RootReducer = {
   user: ReturnType<typeof userReducer> & PersistPartial;
   modal: ReturnType<typeof modalReducer>;
   filter: ReturnType<typeof filterReducer> & PersistPartial;
+
   [productsApi.reducerPath]: ReturnType<typeof productsApi.reducer>;
 };
 

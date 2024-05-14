@@ -22,6 +22,8 @@ const {reducer, actions, name} = createSlice({
     },
     resetFilter(state) {
       state.filters = {};
+      state.showMore = false;
+      state.showMoreInitialPage = null;
     },
     enableShowMore(state, action) {
       state.showMore = true;
@@ -36,6 +38,9 @@ const {reducer, actions, name} = createSlice({
       for (const key of keysToRemove) {
         delete state.filters[key];
       }
+    },
+    addKey(state, action) {
+      state.filters = {...state.filters, ...action?.payload};
     }
   }
 });
