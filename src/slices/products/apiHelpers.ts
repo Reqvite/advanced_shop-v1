@@ -3,7 +3,21 @@ import {encodeSearchParams} from '@/shared/lib/helpers';
 import {getSortOption} from '@/shared/lib/helpers/enumLabelResolver/sortValueResolver';
 import {GetProductsQuery} from './products.rtk';
 
-const getProducts = (params: GetProductsQuery): {url: ApiPathEnum; params?: URLSearchParams} => {
+interface RequestOptions {
+  url: string;
+  params?: URLSearchParams;
+  needAuth?: boolean;
+}
+
+const buildGetProductsRequestOptions = ({
+  params,
+  path = '',
+  needAuth
+}: {
+  params: GetProductsQuery;
+  path?: string;
+  needAuth?: boolean;
+}): RequestOptions => {
   if (!params) {
     return {url: ApiPathEnum.PRODUCTS};
   }
@@ -16,7 +30,19 @@ const getProducts = (params: GetProductsQuery): {url: ApiPathEnum; params?: URLS
     paramsCopy.order = sortValue.option.order;
   }
 
-  return {url: ApiPathEnum.PRODUCTS, params: encodeSearchParams(paramsCopy)};
+  return {
+    url: `${ApiPathEnum.PRODUCTS}${path}`,
+    params: encodeSearchParams(paramsCopy),
+    needAuth
+  };
+};
+
+const getUserWishlist = (params: GetProductsQuery): RequestOptions => {
+  return buildGetProductsRequestOptions({params, path: ProductsApiPath.WISHLIST, needAuth: true});
+};
+
+const getProducts = (params: GetProductsQuery): RequestOptions => {
+  return buildGetProductsRequestOptions({params});
 };
 
 const getProductsQuantityByCategories = (
@@ -33,4 +59,4 @@ const getProductsQuantityByCategories = (
   return {url: `${ApiPathEnum.PRODUCTS}${ProductsApiPath.PRODUCTS_QUANTITY}`};
 };
 
-export {getProducts, getProductsQuantityByCategories};
+export {getProducts, getProductsQuantityByCategories, getUserWishlist};

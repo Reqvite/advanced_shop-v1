@@ -13,9 +13,23 @@ import {
 } from '@/shared/types/product';
 import {UserWishlistType} from '@/shared/types/user/user';
 import {actions as userActions} from '../user';
-import {getProducts, getProductsQuantityByCategories} from './apiHelpers';
+import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './apiHelpers';
 
 export type GetProductsQuery = FilterKeys | void;
+
+const mergeResults = (currentCache, newItems, arg) => {
+  if (arg?.showMore) {
+    return {
+      ...currentCache,
+      results: [...currentCache.results, ...newItems.results]
+    };
+  }
+  return newItems;
+};
+
+const forceRefetch = ({currentArg, previousArg}) => {
+  return currentArg !== previousArg;
+};
 
 const onQueryStartedToast = async (
   {queryFulfilled}: {queryFulfilled: any},
@@ -42,19 +56,17 @@ export const productsApi = createApi({
       serializeQueryArgs: ({endpointName}) => {
         return endpointName;
       },
-      merge: (currentCache, newItems, {arg}) => {
-        if (arg?.showMore) {
-          return {
-            ...currentCache,
-            results: [...currentCache.results, ...newItems.results]
-          };
-        }
-
-        return newItems;
+      merge: mergeResults,
+      forceRefetch
+    }),
+    getUserWishlist: builder.query<GetProductsResponse, GetProductsQuery>({
+      query: (params) => getUserWishlist(params),
+      providesTags: [RtkApiTagsEnum.Products],
+      serializeQueryArgs: ({endpointName}) => {
+        return endpointName;
       },
-      forceRefetch({currentArg, previousArg}) {
-        return currentArg !== previousArg;
-      }
+      merge: mergeResults,
+      forceRefetch
     }),
     getProductsQuantityByCategories: builder.query<
       GetProductsQuantityByCategories[],
