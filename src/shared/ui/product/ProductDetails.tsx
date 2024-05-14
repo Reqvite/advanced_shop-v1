@@ -82,7 +82,7 @@ export const ProductDetails = ({
           sx={(theme) => ({
             justifyContent: 'space-between',
             borderRadius: 1,
-            border: `2px solid ${theme.palette.grey[100]}`,
+            border: `1px solid ${theme.palette.grey[100]}`,
             padding: 2
           })}
         >

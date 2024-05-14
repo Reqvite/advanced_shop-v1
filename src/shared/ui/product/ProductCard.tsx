@@ -2,8 +2,8 @@ import {Box, Card, CardActions, CardContent, CardMedia, Stack, SxProps} from '@m
 import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
-import {useMediaQuery} from '@/shared/lib/hooks';
-import {ProductI} from '@/shared/types/product';
+import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
+import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {NavigateButton} from '../button/NavigateButton';
@@ -18,6 +18,7 @@ export type CardVariants = 'small' | 'medium';
 type Props = ProductI & {
   variant?: CardVariants;
   sx?: SxProps;
+  onUpdateWishlist: UpdateWishlistMutation;
 };
 
 export const ProductCard = ({
@@ -30,9 +31,13 @@ export const ProductCard = ({
   discount,
   variant,
   image,
-  sx
+  sx,
+  onUpdateWishlist
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
+  const auth = useAuth();
+
+  const [onClickWishlist, {isLoading}] = onUpdateWishlist();
 
   if (isMobile || variant === 'small') {
     return (
@@ -55,9 +60,17 @@ export const ProductCard = ({
           </CardContent>
           <CardActions sx={productCardStyles.smallCardActionsContainer}>
             <PriceText price={price} discount={discount} />
-            <Button variant="contained" size="small">
-              Buy now
-            </Button>
+            <Box>
+              <WishlistButton
+                isSmall
+                isLiked={auth.user?.wishlist.includes(_id)}
+                isLoading={isLoading}
+                onClick={() => onClickWishlist(_id)}
+              />
+              <Button variant="contained" size="small">
+                Buy now
+              </Button>
+            </Box>
           </CardActions>
         </Stack>
       </Card>
@@ -94,10 +107,15 @@ export const ProductCard = ({
               <PriceText price={price} discount={discount} />
               <DeliveryText />
             </Box>
-            <CardActions sx={productCardStyles.bigCardActionsContainer}>
+            <Box sx={productCardStyles.bigCardActionsContainer}>
               <NavigateButton fullWidth to={getRouteProductDetails(_id)} />
-              <WishlistButton fullWidth />
-            </CardActions>
+              <WishlistButton
+                isLiked={auth.user?.wishlist.includes(_id)}
+                fullWidth
+                isLoading={isLoading}
+                onClick={() => onClickWishlist(_id)}
+              />
+            </Box>
           </Box>
         </CardContent>
       </Flex>

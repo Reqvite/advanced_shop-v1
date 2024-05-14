@@ -1,4 +1,4 @@
-import {Box, Rating} from '@mui/material';
+import {Box, Rating, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
 import {TruncatedTypography} from '../../typography/TruncatedTypography';
@@ -27,13 +27,13 @@ export const ProductHeading = ({
 }: Props): ReactElement => {
   return (
     <Box>
-      <TruncatedTypography
-        gutterBottom
-        variant={variant === 'small' ? 'h5' : 'h2'}
-        maxWidth={titleMaxWidth}
-      >
-        {title}
-      </TruncatedTypography>
+      {variant === 'small' ? (
+        <TruncatedTypography gutterBottom variant={'h5'} maxWidth={titleMaxWidth}>
+          {title}
+        </TruncatedTypography>
+      ) : (
+        <Typography variant="h2">{title}</Typography>
+      )}
       {description && (
         <TruncatedTypography
           variant="body2"

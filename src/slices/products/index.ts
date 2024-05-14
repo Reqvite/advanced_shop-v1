@@ -2,5 +2,6 @@ export {
   productsApi,
   useGetProductByIdQuery,
   useGetProductsQuantityByCategoriesQuery,
-  useGetProductsQuery
+  useGetProductsQuery,
+  useUpdateWishlistMutation
 } from './products.rtk';

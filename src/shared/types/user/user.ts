@@ -1,9 +1,12 @@
 export type User = {
-  id: string;
+  _id: string;
   email: string;
   firstName: string;
   lastName: string;
+  wishlist: string[];
 };
+
+export type UserWishlistType = string[];
 
 export type UserRegisterRequestDto = {
   email: string;

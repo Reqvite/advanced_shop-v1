@@ -73,16 +73,20 @@ export const imageGalleryStyles = {
 };
 
 export const stickyContentLayoutStyles = {
-  gridContainer: () => ({
+  gridContainer: (theme: Theme) => ({
     display: 'grid',
     gridTemplateAreas: `"left content"`,
-    gridTemplateColumns: 'min-content 1fr'
+    gridTemplateColumns: 'min-content 1fr',
+    [theme.breakpoints.down('md')]: {
+      gridTemplateColumns: '1% 1fr'
+    }
   }),
   leftGridItem: {
     gridArea: 'left',
     position: 'sticky',
     top: 32,
-    height: 'fit-content'
+    height: 'fit-content',
+    zIndex: 100
   },
   contentGridItem: {
     gridArea: 'content',
@@ -102,7 +106,8 @@ export const productCardStyles = {
     p: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    objectFit: 'contain'
   },
   smallCardActionsContainer: {display: 'flex', justifyContent: 'space-between', gap: 2},
   bigCardContainer: {maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'},

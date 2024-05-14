@@ -4,7 +4,7 @@ import {Autoplay} from 'swiper/modules';
 import {SwiperProps} from 'swiper/react';
 import {getRouteMain} from '@/app/providers/AppRouter/routeConfig';
 import {useMediaQuery} from '@/shared/lib/hooks';
-import {ProductI} from '@/shared/types/product';
+import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {NavigateButton} from '../button/NavigateButton';
 import {Carousel} from '../carousel/Carousel';
@@ -13,6 +13,7 @@ import {ProductCard} from './ProductCard';
 type Props = StackProps & {
   products: ProductI[];
   isLoading?: boolean;
+  onUpdateWishlist: UpdateWishlistMutation;
 };
 
 const getCarouselConfig = (isMobile: boolean): SwiperProps => {
@@ -51,11 +52,19 @@ const getCarouselConfig = (isMobile: boolean): SwiperProps => {
 export const RecommendedProductList = ({
   products,
   isLoading,
+  onUpdateWishlist,
   ...otherProps
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
   const renderProductCard = (product: ProductI): ReactElement => {
-    return <ProductCard variant="small" sx={{height: 350}} {...product} />;
+    return (
+      <ProductCard
+        onUpdateWishlist={onUpdateWishlist}
+        variant="small"
+        sx={{height: 350}}
+        {...product}
+      />
+    );
   };
 
   return (
