@@ -8,8 +8,14 @@ export class ProductFilterModel {
   public prices: number[];
   public brands: number[];
 
-  constructor(model?: ProductFilterModel, minMaxPrices = defaultPrice) {
-    this.page = model?.sort || defaultPage;
+  constructor({
+    model,
+    minMaxPrices = defaultPrice
+  }: {
+    model?: ProductFilterModel;
+    minMaxPrices: number[];
+  }) {
+    this.page = model?.page || defaultPage;
     this.sort = model?.sort || defaultSort;
     this.rating = model?.rating || defaultRating;
     this.categories = model?.categories || [];

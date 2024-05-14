@@ -40,7 +40,7 @@ export const ProductsList = ({
   const {data, isLoading, isFetching} = useGetProducts(requestParams);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
   const defaultValues = useMemo(
-    () => new ProductFilterModel(decodeParams, data?.minMaxPrices),
+    () => new ProductFilterModel({model: decodeParams, minMaxPrices: data?.minMaxPrices}),
     [data?.minMaxPrices, decodeParams]
   );
   const memoizedFilterOptions = useMemo(
@@ -68,7 +68,9 @@ export const ProductsList = ({
           withFilter && (
             <Filter
               options={memoizedFilterOptions}
-              resetValues={getFilterDefaultValues({defaultValues: new ProductFilterModel()})}
+              resetValues={getFilterDefaultValues({
+                defaultValues: new ProductFilterModel({minMaxPrices: data?.minMaxPrices})
+              })}
               defaultValues={memoizedDefaultValues}
               resetPage
               withResetButton
