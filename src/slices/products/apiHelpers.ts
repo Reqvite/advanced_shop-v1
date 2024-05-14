@@ -109,7 +109,7 @@ const mergeProductsWishlistResults = (
       (newItem) => !currentCache.results.some((existingItem) => existingItem._id === newItem._id)
     );
     return {
-      ...currentCache,
+      ...newItems,
       results: [...currentCache.results, ...uniqueNewItems]
     };
   }

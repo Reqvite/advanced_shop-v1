@@ -10,6 +10,7 @@ type Props<T> = ListProps & {
   isLoading?: boolean;
   itemStyle?: SxProps;
   scrollOnTop?: boolean;
+  emptyListTitle?: string;
 } & ({skeleton: ReactElement; skeletonLength: number} | {skeleton?: never; skeletonLength?: never});
 
 export const List = <T extends {_id: string}>({
@@ -20,10 +21,11 @@ export const List = <T extends {_id: string}>({
   skeleton,
   skeletonLength = 5,
   itemStyle,
+  emptyListTitle = 'No products found matching your search.',
   ...otherProps
 }: Props<T>): ReactElement => {
   if (items.length === 0) {
-    return <NoContentBox title="No products found matching your search." />;
+    return <NoContentBox title={emptyListTitle} />;
   }
 
   return (

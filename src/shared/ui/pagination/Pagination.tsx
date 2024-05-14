@@ -39,7 +39,7 @@ export const Pagination = ({
     }
   }, [page, showMoreInitialPage]);
 
-  if (count === 0) {
+  if (count === 0 || total === 0) {
     return null;
   }
 
@@ -68,7 +68,7 @@ export const Pagination = ({
           Show more
         </Button>
       )}
-      {total && (
+      {Boolean(total) && (
         <Flex gap={1} alignItems="center">
           <Chip label={total} />
           <Typography variant="body2" color="grey.200">

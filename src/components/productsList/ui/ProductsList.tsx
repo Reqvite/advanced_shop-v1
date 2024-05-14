@@ -27,7 +27,7 @@ type Props = {
   withFilter?: boolean;
   withSort?: boolean;
   withPagination?: boolean;
-  trigger?: string;
+  emptyListTitle?: string;
 };
 
 export const ProductsList = ({
@@ -35,7 +35,8 @@ export const ProductsList = ({
   useGetProducts,
   withFilter,
   withSort,
-  withPagination
+  withPagination,
+  emptyListTitle
 }: Props): ReactElement => {
   const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProducts(requestParams);
@@ -88,6 +89,7 @@ export const ProductsList = ({
             skeletonLength={skeletonLength}
             isLoading={isFetching}
             itemStyle={{justifyContent: 'center'}}
+            emptyListTitle={emptyListTitle}
           />
         }
         bottom={
@@ -96,7 +98,7 @@ export const ProductsList = ({
               page={decodeParams.page || defaultValues.page}
               count={data?.totalPages}
               total={data?.results.length}
-              isLastPage={data?.totalPages === decodeParams.page}
+              isLastPage={data?.totalPages === decodeParams?.page || data?.totalPages === 1}
             />
           )
         }

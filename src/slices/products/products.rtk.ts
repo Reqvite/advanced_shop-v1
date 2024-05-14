@@ -3,6 +3,7 @@ import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
+import {encodeSearchParams} from '@/shared/lib/helpers';
 import {notificationService} from '@/shared/services';
 import {FilterKeys} from '@/shared/types/filter';
 import {
@@ -11,6 +12,7 @@ import {
   ProductI
 } from '@/shared/types/product';
 import {UserWishlistType} from '@/shared/types/user/user';
+import {actions as filterActions} from '../filter';
 import {actions as userActions} from '../user';
 import {
   forceRefetch,
@@ -22,6 +24,7 @@ import {
 } from './apiHelpers';
 
 export type GetProductsQuery = FilterKeys | void;
+export type GetWishlistQuery = {_id: string; setSearchParams: () => void};
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
@@ -58,18 +61,24 @@ export const productsApi = createApi({
       }),
       providesTags: [RtkApiTagsEnum.Product]
     }),
-    updateWishlist: builder.mutation<UserWishlistType, string | undefined>({
-      query: (id) => ({
+    updateWishlist: builder.mutation<UserWishlistType, GetWishlistQuery>({
+      query: ({_id}) => ({
         method: 'PATCH',
         needAuth: true,
-        url: `${ApiPathEnum.PRODUCTS}/${id}`
+        url: `${ApiPathEnum.PRODUCTS}/${_id}`
       }),
-      async onQueryStarted(_id: string, {dispatch, queryFulfilled}) {
+      async onQueryStarted({_id, setSearchParams}: GetWishlistQuery, {dispatch, queryFulfilled}) {
         try {
-          const data = await queryFulfilled;
-          console.log(data);
+          await queryFulfilled;
           dispatch(
             productsApi.util.updateQueryData('getUserWishlist', _id, (draft) => {
+              if (draft.results.length === 1) {
+                dispatch(filterActions.addKey({page: 1}));
+                setSearchParams(encodeSearchParams({page: 1}));
+                productsApi.util.invalidateTags([RtkApiTagsEnum.WishlistProducts]);
+              } else {
+                productsApi.util.invalidateTags([RtkApiTagsEnum.WishlistProducts]);
+              }
               draft.results = draft.results.filter((item) => item._id !== _id);
               return draft;
             })
@@ -77,7 +86,7 @@ export const productsApi = createApi({
           notificationService.success('Wishlist updated');
         } catch (error: unknown) {
           const {error: customError} = error as any;
-          if (customError.code === 401) return;
+          if (customError?.code === 401) return;
           notificationService.error(customError?.data?.error);
         }
       },
