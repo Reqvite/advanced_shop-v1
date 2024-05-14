@@ -44,13 +44,9 @@ export const productsApi = createApi({
       },
       merge: (currentCache, newItems, {arg}) => {
         if (arg?.showMore) {
-          const uniqueNewItems = newItems.results.filter((newItem) => {
-            return !currentCache.results.some((cachedItem) => cachedItem._id === newItem._id);
-          });
-
           return {
             ...currentCache,
-            results: [...currentCache.results, ...uniqueNewItems]
+            results: [...currentCache.results, ...newItems.results]
           };
         }
 

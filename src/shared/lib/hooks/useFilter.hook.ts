@@ -20,7 +20,6 @@ interface UseFilterReturn<T> {
   onResetFilter: (resetValues: Record<string, unknown>) => void;
   onShowMore: () => void;
   decodeParams: T;
-  showMore: boolean;
 }
 
 export const useFilter = <T>(): UseFilterReturn<T> => {
@@ -54,19 +53,14 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   };
 
   const onResetFilter = (resetValues: Record<string, unknown>): void => {
+    resetValues.page = 1;
     const resetParams = encodeSearchParams(resetValues);
     for (const key of resetParams.keys()) {
       searchParams.delete(key);
     }
 
     setSearchParams(searchParams);
-
-    const copy = {...filterKeys};
-    for (const key of Object.keys(resetValues)) {
-      delete copy[key];
-    }
-
-    dispatch(filterActions.setFilter(copy));
+    dispatch(filterActions.removeKeys(Object.keys(resetValues)));
   };
 
   return {
@@ -76,7 +70,6 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     onUpdateFilter,
     onResetFilter,
     onShowMore,
-    showMoreInitialPage,
-    showMore
+    showMoreInitialPage
   };
 };

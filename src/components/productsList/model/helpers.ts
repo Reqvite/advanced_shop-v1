@@ -16,6 +16,7 @@ export const getCategoriesOptions = ({
       quantity: matchedQuantity?.quantity
     };
   });
+
   return categoryOptions;
 };
 

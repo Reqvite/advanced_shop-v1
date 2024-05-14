@@ -1,7 +1,7 @@
 import {List as MuiList, ListProps, SxProps} from '@mui/material';
 import {ComponentType, ReactElement} from 'react';
 import {renderListItem} from '@/shared/services';
-import {MessageBox} from '../base/MessageBox';
+import {NoContentBox} from '../base/NoContentBox';
 
 type Props<T> = ListProps & {
   items: T[];
@@ -23,7 +23,7 @@ export const List = <T extends {_id: string}>({
   ...otherProps
 }: Props<T>): ReactElement => {
   if (items.length === 0) {
-    return <MessageBox title="No products found matching your search." />;
+    return <NoContentBox title="No products found matching your search." />;
   }
 
   return (
