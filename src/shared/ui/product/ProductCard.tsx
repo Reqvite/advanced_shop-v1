@@ -3,8 +3,7 @@ import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
-import {ProductI} from '@/shared/types/product';
-import {useUpdateWishlistMutation} from '@/slices/products';
+import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {NavigateButton} from '../button/NavigateButton';
@@ -19,7 +18,7 @@ export type CardVariants = 'small' | 'medium';
 type Props = ProductI & {
   variant?: CardVariants;
   sx?: SxProps;
-  onUpdateWishlist: typeof useUpdateWishlistMutation;
+  onUpdateWishlist: UpdateWishlistMutation;
 };
 
 export const ProductCard = ({

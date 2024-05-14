@@ -1,3 +1,4 @@
+import {useUpdateWishlistMutation} from '@/slices/products';
 import {LabelOptionsWithId} from './options';
 
 interface ProductI {
@@ -26,4 +27,11 @@ interface GetProductsQuantityByCategories {
   quantity: number;
 }
 
-export {type GetProductsQuantityByCategories, type GetProductsResponse, type ProductI};
+type UpdateWishlistMutation = typeof useUpdateWishlistMutation;
+
+export {
+  type GetProductsQuantityByCategories,
+  type GetProductsResponse,
+  type ProductI,
+  type UpdateWishlistMutation
+};
