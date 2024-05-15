@@ -18,8 +18,8 @@ import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './q
 export type GetProductsQuery = FilterKeys | void;
 export type GetWishlistQuery = {
   _id: string;
-  setSearchParams: (params: URLSearchParams) => void;
-  navigate: (page: number) => void;
+  setSearchParams?: (params: URLSearchParams) => void;
+  navigate?: (page: number) => void;
 };
 
 export const productsApi = createApi({

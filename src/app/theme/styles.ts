@@ -90,7 +90,7 @@ export const stickyContentLayoutStyles = {
   },
   contentGridItem: {
     gridArea: 'content',
-    maxWidth: 1200,
+    maxWidth: '100%',
     justifySelf: 'right',
     padding: 2,
     width: '100%'

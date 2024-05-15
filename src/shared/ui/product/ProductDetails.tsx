@@ -109,7 +109,7 @@ export const ProductDetails = ({
           isLiked={auth.user?.wishlist.includes(_id)}
           fullWidth
           isLoading={isLoading}
-          onClick={() => onClickWishlist(_id)}
+          onClick={() => onClickWishlist({_id})}
         />
         <Tabs options={tabOptions} onChange={onChangeTab} defaultValue={currentTab} />
         <TabsRouter description={description} />

@@ -32,7 +32,7 @@ const updateQueryDataCallback =
   () => {
     dispatch(
       productsApi.util.updateQueryData('getUserWishlist', _id, (draft) => {
-        if (draft.results.length === 1) {
+        if (draft.results.length === 1 && setSearchParams && navigate) {
           dispatch(filterActions.addKey({page: 1}));
           setSearchParams(encodeSearchParams({page: 1}));
           navigate(0);
