@@ -8,15 +8,20 @@ type Props = LinkProps &
   ButtonProps & {
     to: string;
     label?: string;
+    withIcon?: boolean;
   };
 
-export const NavigateButton = ({label = 'Product details', ...otherProps}: Props): ReactElement => {
+export const NavigateButton = ({
+  label = 'Product details',
+  withIcon = true,
+  ...otherProps
+}: Props): ReactElement => {
   return (
     <Button
       variant="contained"
       component={Link}
-      RightAddon={NavigateNextIcon}
-      sx={{minWidth: 150}}
+      RightAddon={withIcon ? NavigateNextIcon : undefined}
+      sx={{minWidth: 166}}
       {...otherProps}
     >
       {label}

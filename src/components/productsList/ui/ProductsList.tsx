@@ -1,7 +1,7 @@
 import {Typography} from '@mui/material';
 import {ReactElement, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
-import {useFilter} from '@/shared/lib/hooks';
+import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {ProductI} from '@/shared/types/product';
 import {
@@ -20,6 +20,7 @@ import {
 } from '@/slices/products';
 import {getFilterDefaultValues} from '../model/helpers';
 import {filterOptions, sortFilterOptions} from '../model/options';
+import {MobileFilters} from './MobileFilters';
 
 type Props = {
   title?: string;
@@ -38,6 +39,7 @@ export const ProductsList = ({
   withPagination,
   emptyListTitle
 }: Props): ReactElement => {
+  const isMobile = useMediaQuery('md');
   const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProducts(requestParams);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
@@ -64,10 +66,22 @@ export const ProductsList = ({
       <Typography variant="h2" mb={3}>
         {title}
       </Typography>
-      {withSort && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
+      <MobileFilters
+        filterOptions={memoizedFilterOptions}
+        resetValues={getFilterDefaultValues({
+          defaultValues: new ProductFilterModel({minMaxPrices: data?.minMaxPrices})
+        })}
+        filterDefaultValues={memoizedDefaultValues}
+        sortOptions={sortFilterOptions}
+        sortDefaultValues={{sort: defaultValues.sort}}
+      />
+      {withSort && !isMobile && (
+        <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
+      )}
       <StickyContentLayout
         left={
-          withFilter && (
+          withFilter &&
+          !isMobile && (
             <Filter
               options={memoizedFilterOptions}
               resetValues={getFilterDefaultValues({
@@ -88,8 +102,9 @@ export const ProductsList = ({
             skeleton={<ProductCardSkeleton />}
             skeletonLength={data?.results?.length || skeletonLength}
             isLoading={isFetching}
-            itemStyle={{justifyContent: 'center'}}
+            itemStyle={{justifyContent: 'center', width: isMobile ? '300px' : '100%'}}
             emptyListTitle={emptyListTitle}
+            row={isMobile}
           />
         }
         bottom={

@@ -1,5 +1,6 @@
 import {Theme} from '@mui/material';
 import {CSSProperties} from 'react';
+import {brand} from './theme';
 
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
@@ -111,7 +112,7 @@ export const productCardStyles = {
   },
   smallCardActionsContainer: {display: 'flex', justifyContent: 'space-between', gap: 2},
   bigCardContainer: {maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'},
-  bigCardMedia: {minHeight: '100%', minWidth: 150, maxWidth: 268, objectFit: 'cover'},
+  bigCardMedia: {minHeight: '100%', minWidth: 60, maxWidth: 268, objectFit: 'contain'},
   bigCardContent: {
     display: 'flex',
     width: '100%',
@@ -126,6 +127,20 @@ export const productCardStyles = {
     height: '100%',
     justifyContent: 'space-between'
   }
+};
+
+export const productsListStyles = {
+  mobileFiltersBox: (isSticky: boolean) => ({
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    background: isSticky ? brand[900] : 'transparent',
+    borderRadius: 5,
+    width: '100%',
+    padding: 1.4,
+    zIndex: 100,
+    justifyContent: 'space-between'
+  })
 };
 
 export const footerStyles = {

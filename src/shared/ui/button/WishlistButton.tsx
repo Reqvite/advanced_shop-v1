@@ -49,10 +49,11 @@ export const WishlistButton = ({
 
   return (
     <Button
+      color="secondary"
       iconColor={isLiked ? red[300] : 'inherit'}
       LeftAddon={isLiked ? FavoriteIcon : FavoriteBorderIcon}
       isLoading={isLoading}
-      sx={{maxWidth: 200}}
+      sx={{minWidth: 166}}
       {...otherProps}
     >
       {buttonText}

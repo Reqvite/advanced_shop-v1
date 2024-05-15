@@ -22,6 +22,7 @@ export const List = <T extends {_id: string}>({
   skeletonLength = 5,
   itemStyle,
   emptyListTitle = 'No products found matching your search.',
+  sx,
   ...otherProps
 }: Props<T>): ReactElement => {
   if (items.length === 0) {
@@ -30,7 +31,13 @@ export const List = <T extends {_id: string}>({
 
   return (
     <MuiList
-      sx={{display: 'flex', flexWrap: 'wrap', flexDirection: row ? 'row' : 'column'}}
+      sx={{
+        display: 'flex',
+        justifyContent: row ? 'center' : 'none',
+        flexWrap: 'wrap',
+        flexDirection: row ? 'row' : 'column',
+        ...sx
+      }}
       {...otherProps}
     >
       {!isLoading && renderListItem<T>({items, renderItem, sx: itemStyle})}

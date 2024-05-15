@@ -6,7 +6,6 @@ import {productCardStyles} from '@/app/theme/styles';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
-import {Button} from '../button/Button';
 import {NavigateButton} from '../button/NavigateButton';
 import {WishlistButton} from '../button/WishlistButton';
 import {CharacteristicList} from './ui/CharacteristicList';
@@ -69,9 +68,13 @@ export const ProductCard = ({
                 isLoading={isLoading}
                 onClick={() => onClickWishlist({_id, setSearchParams})}
               />
-              <Button variant="contained" size="small">
-                Buy now
-              </Button>
+              <NavigateButton
+                sx={{minWidth: '90px'}}
+                withIcon={false}
+                size="small"
+                label="Buy now"
+                to={getRouteProductDetails(_id)}
+              />
             </Box>
           </CardActions>
         </Stack>

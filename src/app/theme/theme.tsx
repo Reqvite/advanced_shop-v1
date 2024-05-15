@@ -224,8 +224,8 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
               }),
             ...(ownerState.variant === 'outlined' &&
               ownerState.color === 'secondary' && {
-                backgroundColor: alpha(grey[300], 0.1),
-                borderColor: alpha(grey[300], 0.5),
+                backgroundColor: grey[900],
+                border: `1px solid ${grey[900]}`,
                 color: grey[700],
                 '&:hover': {
                   backgroundColor: alpha(grey[300], 0.3),
@@ -436,7 +436,9 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
           root: ({theme}) => ({
             typography: theme.typography.caption,
             fontWeight: 600,
-            marginBottom: 6
+            marginBottom: 6,
+            fontSize: 18,
+            color: theme.palette.text.primary
           })
         }
       },

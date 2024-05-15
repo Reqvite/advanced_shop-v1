@@ -107,7 +107,7 @@ export const ProductDetails = ({
         </Flex>
         <WishlistButton
           isLiked={auth.user?.wishlist.includes(_id)}
-          fullWidth
+          sx={{maxWidth: 166}}
           isLoading={isLoading}
           onClick={() => onClickWishlist({_id})}
         />
