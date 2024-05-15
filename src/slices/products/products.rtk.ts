@@ -1,11 +1,8 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
-import {URLSearchParams} from 'url';
 import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
-import {encodeSearchParams} from '@/shared/lib/helpers';
-import {notificationService} from '@/shared/services';
 import {FilterKeys} from '@/shared/types/filter';
 import {
   GetProductsQuantityByCategories,
@@ -13,10 +10,10 @@ import {
   ProductI
 } from '@/shared/types/product';
 import {UserWishlistType} from '@/shared/types/user/user';
-import {actions as filterActions} from '../filter';
 import {actions as userActions} from '../user';
-import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './api';
-import {forceRefetch, mergeProductsResults, mergeProductsWishlistResults} from './helpers';
+import {forceRefetch, onQueryStartedUpdateWishlist} from './helpers';
+import {mergeProductsResults} from './merges';
+import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './queries';
 
 export type GetProductsQuery = FilterKeys | void;
 export type GetWishlistQuery = {
@@ -45,7 +42,7 @@ export const productsApi = createApi({
       serializeQueryArgs: ({endpointName}) => {
         return endpointName;
       },
-      merge: mergeProductsWishlistResults,
+      merge: mergeProductsResults,
       forceRefetch
     }),
     getProductsQuantityByCategories: builder.query<
@@ -66,30 +63,7 @@ export const productsApi = createApi({
         needAuth: true,
         url: `${ApiPathEnum.PRODUCTS}/${_id}`
       }),
-      async onQueryStarted(
-        {_id, setSearchParams, navigate}: GetWishlistQuery,
-        {dispatch, queryFulfilled}
-      ) {
-        try {
-          await queryFulfilled;
-          dispatch(
-            productsApi.util.updateQueryData('getUserWishlist', _id, (draft) => {
-              if (draft.results.length === 1) {
-                dispatch(filterActions.addKey({page: 1}));
-                setSearchParams(encodeSearchParams({page: 1}));
-                navigate(0);
-              }
-              draft.results = draft.results.filter((item) => item._id !== _id);
-              return draft;
-            })
-          );
-          notificationService.success('Wishlist updated');
-        } catch (error: unknown) {
-          const {error: customError} = error as any;
-          if (customError?.code === 401) return;
-          notificationService.error(customError?.data?.error);
-        }
-      },
+      onQueryStarted: onQueryStartedUpdateWishlist,
       transformResponse: (response: UserWishlistType) => {
         store.instance.dispatch(userActions.setWishlist(response));
         return response;

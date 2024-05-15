@@ -6,8 +6,7 @@ import {ReactElement} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {getRouteWishlist} from '@/app/providers/AppRouter/routeConfig';
 import {red} from '@/app/theme/theme';
-import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
-import {actions} from '@/slices/filter';
+import {useAuth} from '@/shared/lib/hooks';
 import {Button} from './Button';
 
 type Props = ButtonProps & {
@@ -26,12 +25,10 @@ export const WishlistButton = ({
 }: Props): ReactElement | null => {
   const auth = useAuth();
   const buttonText = isLiked ? 'Remove' : 'Add to Wishlist';
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   if (isNavigate) {
     const onNavigate = (): void => {
-      dispatch(actions.resetFilter());
       navigate(getRouteWishlist());
     };
 

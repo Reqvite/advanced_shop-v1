@@ -14,7 +14,6 @@ const mainContainer = {display: 'flex', flexDirection: 'column', minHeight: '100
 function App() {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
-
   const {accessToken} = useAuth();
 
   useEffect(() => {
