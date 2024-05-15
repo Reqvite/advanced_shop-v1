@@ -8,4 +8,14 @@ const defaultRating = [minRating, maxRating];
 const skeletonLength = 5;
 const defaultPage = 1;
 
-export {defaultPage, defaultPrice, defaultRating, defaultSort, skeletonLength};
+export {
+  defaultPage,
+  defaultPrice,
+  defaultRating,
+  defaultSort,
+  maxPrice,
+  maxRating,
+  minPrice,
+  minRating,
+  skeletonLength
+};

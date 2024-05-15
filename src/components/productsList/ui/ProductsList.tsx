@@ -49,8 +49,8 @@ export const ProductsList = ({
     () =>
       filterOptions({
         categoriesQuantity,
-        minPrice: data?.minMaxPrices[0],
-        maxPrice: data?.minMaxPrices[1]
+        minPriceFromApi: data?.minMaxPrices[0],
+        maxPriceFromApi: data?.minMaxPrices[1]
       }),
     [categoriesQuantity, data?.minMaxPrices]
   );
