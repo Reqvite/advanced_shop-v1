@@ -7,7 +7,7 @@ import {
   Typography
 } from '@mui/material';
 import {AnimatePresence, motion} from 'framer-motion';
-import {forwardRef, ReactElement, useState} from 'react';
+import {forwardRef, Fragment, ReactElement, useState} from 'react';
 import {Control, FieldError, useController, useWatch} from 'react-hook-form';
 import {checkboxGroupStyles} from '@/app/theme/styles';
 import {LabelOptionsI} from '@/shared/types/options';
@@ -26,6 +26,7 @@ interface Props {
   control: Control<any>;
   max?: number;
   showCheckbox?: boolean;
+  withQuantity?: boolean;
 }
 
 const MotionFormControlLabel = motion(FormControlLabel);
@@ -38,7 +39,7 @@ const animation = {
 
 export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
   (
-    {label, options, name, row, isDisabled, max = 5, showCheckbox = true, control},
+    {label, options, name, row, isDisabled, max = 5, showCheckbox = true, withQuantity, control},
     ref
   ): ReactElement => {
     const {
@@ -67,45 +68,63 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
 
     const renderOptions = showMore ? options : options.slice(0, max);
 
+    const checkbox = (option: LabelOptionsI) => {
+      const renderWithQuantity = withQuantity && option.quantity;
+      const renderWithoutQuantity = !withQuantity;
+
+      const label = (
+        <MotionFormControlLabel
+          sx={{ml: 0}}
+          {...animation}
+          key={option.value}
+          control={
+            <Checkbox
+              checked={value?.includes(Number(option.value))}
+              inputRef={ref}
+              onChange={() => handleChange(Number(option.value))}
+              disabled={isDisabled}
+              sx={styles.checkbox}
+              {...inputProps}
+            />
+          }
+          label={
+            <Typography
+              variant="body2"
+              color={
+                !showCheckbox && value?.includes(Number(option.value))
+                  ? 'primary.main'
+                  : 'text.primary'
+              }
+            >
+              {option.label}
+            </Typography>
+          }
+        />
+      );
+
+      return (
+        <Fragment key={option.value}>
+          {renderWithQuantity && (
+            <Flex justifyContent="space-between" alignItems="center" key={option.value}>
+              {label}
+              <Chip label={option.quantity} />
+            </Flex>
+          )}
+          {renderWithoutQuantity && (
+            <Flex justifyContent="space-between" alignItems="center" key={option.value}>
+              {label}
+            </Flex>
+          )}
+        </Fragment>
+      );
+    };
+
     return (
       <>
         <FormControl>
           {label && <FormLabel>{label}</FormLabel>}
           <FormGroup row={row} sx={styles.formGroup}>
-            <AnimatePresence>
-              {renderOptions.map((option) => (
-                <Flex justifyContent="space-between" alignItems="center" key={option.value}>
-                  <MotionFormControlLabel
-                    sx={{ml: 0}}
-                    {...animation}
-                    key={option.value}
-                    control={
-                      <Checkbox
-                        checked={value?.includes(Number(option.value))}
-                        inputRef={ref}
-                        onChange={() => handleChange(Number(option.value))}
-                        disabled={isDisabled}
-                        sx={styles.checkbox}
-                        {...inputProps}
-                      />
-                    }
-                    label={
-                      <Typography
-                        variant="body2"
-                        color={
-                          !showCheckbox && value?.includes(Number(option.value))
-                            ? 'primary.main'
-                            : 'text.primary'
-                        }
-                      >
-                        {option.label}
-                      </Typography>
-                    }
-                  />
-                  {option.quantity !== undefined && <Chip label={option.quantity} />}
-                </Flex>
-              ))}
-            </AnimatePresence>
+            <AnimatePresence>{renderOptions.map(checkbox)}</AnimatePresence>
           </FormGroup>
           {options.length > 5 && (
             <Button variant="text" color="primary" onClick={() => setShowMore(!showMore)}>
