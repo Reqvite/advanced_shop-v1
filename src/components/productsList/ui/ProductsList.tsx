@@ -86,7 +86,7 @@ export const ProductsList = ({
               <ProductCard {...product} onUpdateWishlist={useUpdateWishlistMutation} />
             )}
             skeleton={<ProductCardSkeleton />}
-            skeletonLength={skeletonLength}
+            skeletonLength={data?.results?.length || skeletonLength}
             isLoading={isFetching}
             itemStyle={{justifyContent: 'center'}}
             emptyListTitle={emptyListTitle}

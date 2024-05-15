@@ -23,19 +23,13 @@ const onQueryStartedToast = async (
 };
 
 const updateQueryDataCallback =
-  ({
-    _id,
-    setSearchParams,
-    navigate,
-    dispatch
-  }: GetWishlistQuery & {dispatch: (args: unknown) => void}) =>
+  ({_id, setSearchParams, dispatch}: GetWishlistQuery & {dispatch: (args: unknown) => void}) =>
   () => {
     dispatch(
       productsApi.util.updateQueryData('getUserWishlist', _id, (draft) => {
-        if (draft.results.length === 1 && setSearchParams && navigate) {
+        if (draft.results.length === 1 && setSearchParams) {
           dispatch(filterActions.addKey({page: 1}));
           setSearchParams(encodeSearchParams({page: 1}));
-          navigate(0);
         }
         draft.results = draft.results.filter((item) => item._id !== _id);
         return draft;
@@ -44,13 +38,13 @@ const updateQueryDataCallback =
   };
 
 const onQueryStartedUpdateWishlist = async (
-  {_id, setSearchParams, navigate}: GetWishlistQuery,
+  {_id, setSearchParams}: GetWishlistQuery,
   {dispatch, queryFulfilled}: {dispatch: (args: unknown) => void; queryFulfilled: Promise<unknown>}
 ) => {
   onQueryStartedToast(
     {queryFulfilled},
     'Wishlist updated',
-    updateQueryDataCallback({_id, setSearchParams, navigate, dispatch})
+    updateQueryDataCallback({_id, setSearchParams, dispatch})
   );
 };
 
