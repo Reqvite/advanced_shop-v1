@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import {PersistPartial} from 'redux-persist/es/persistReducer';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
+import {NotificationService} from '@/shared/services';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
@@ -26,6 +27,7 @@ type ExtraArguments = {
   $protectedApi: typeof $protectedApi;
   $refreshApi: typeof $refreshApi;
   $publicApi: typeof $publicApi;
+  notificationService: NotificationService;
 };
 
 type AsyncThunkConfig = {

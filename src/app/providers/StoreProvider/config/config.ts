@@ -1,6 +1,7 @@
 import {configureStore, ReducersMapObject} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
+import {notificationService} from '@/shared/services';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
@@ -40,7 +41,8 @@ class Store implements StorePackage {
     return {
       $protectedApi,
       $refreshApi,
-      $publicApi
+      $publicApi,
+      notificationService
     };
   }
 }
