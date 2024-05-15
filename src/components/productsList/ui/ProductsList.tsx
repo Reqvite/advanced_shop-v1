@@ -66,15 +66,17 @@ export const ProductsList = ({
       <Typography variant="h2" mb={3}>
         {title}
       </Typography>
-      <MobileFilters
-        filterOptions={memoizedFilterOptions}
-        resetValues={getFilterDefaultValues({
-          defaultValues: new ProductFilterModel({minMaxPrices: data?.minMaxPrices})
-        })}
-        filterDefaultValues={memoizedDefaultValues}
-        sortOptions={sortFilterOptions}
-        sortDefaultValues={{sort: defaultValues.sort}}
-      />
+      {withFilter && (
+        <MobileFilters
+          filterOptions={memoizedFilterOptions}
+          resetValues={getFilterDefaultValues({
+            defaultValues: new ProductFilterModel({minMaxPrices: data?.minMaxPrices})
+          })}
+          filterDefaultValues={memoizedDefaultValues}
+          sortOptions={sortFilterOptions}
+          sortDefaultValues={{sort: defaultValues.sort}}
+        />
+      )}
       {withSort && !isMobile && (
         <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       )}

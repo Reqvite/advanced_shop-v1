@@ -1,5 +1,5 @@
 import {ArrowDropDown} from '@mui/icons-material';
-import {useTheme} from '@mui/material';
+import {Typography, useTheme} from '@mui/material';
 import {MouseEvent, ReactElement, useState} from 'react';
 import {PopoverItemI} from '@/shared/types/popover';
 import {Button} from '../../button/Button';
@@ -30,7 +30,7 @@ export const PopoverListItem = ({label, children}: Props): ReactElement => {
         onClick={onClick}
         RightAddon={ArrowDropDown}
       >
-        {label}
+        <Typography fontWeight="bold">{label}</Typography>
       </Button>
       {children && (
         <PopoverMenu

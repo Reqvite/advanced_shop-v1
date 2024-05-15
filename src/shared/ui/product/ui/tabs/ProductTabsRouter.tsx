@@ -12,7 +12,10 @@ export const TabsRouter = ({description}: Props): ReactElement => {
   return (
     <Routes>
       <Route path="*" element={<ProductDescription description={description} />} />
-      <Route path={getRouteProductDetailsReviewsTab()} element={<div>reviews</div>} />
+      <Route
+        path={getRouteProductDetailsReviewsTab()}
+        element={<ProductDescription description={description} />}
+      />
     </Routes>
   );
 };

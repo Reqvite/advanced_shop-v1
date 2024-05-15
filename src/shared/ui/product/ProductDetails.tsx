@@ -73,7 +73,7 @@ export const ProductDetails = ({
             row
             items={resolvedTags}
             renderItem={Chip}
-            sx={{display: 'flex', gap: 1}}
+            sx={{display: 'flex', justifyContent: 'flex-start', gap: 1}}
             itemStyle={{width: 'auto', p: 0}}
           />
         )}

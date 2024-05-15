@@ -1,7 +1,7 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {CardMedia, Grid, GridProps, IconButton} from '@mui/material';
-import {ReactElement, useState} from 'react';
+import {ReactElement, useEffect, useState} from 'react';
 import {imageGalleryStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
@@ -23,6 +23,10 @@ export const ImageGallery = ({
   const isMobile = useMediaQuery('md') || withSlider;
   const [selectedImage, setSelectedImage] = useState<string>(images[0]);
   const [startIndex, setStartIndex] = useState<number>(0);
+
+  useEffect(() => {
+    setSelectedImage(images[0]);
+  }, [images]);
 
   const onThumbnailClick = (image: string): void => {
     setSelectedImage(image);

@@ -135,7 +135,7 @@ export const productsListStyles = {
     top: 0,
     left: 0,
     background: isSticky ? brand[900] : 'transparent',
-    borderRadius: 5,
+    borderRadius: '0 0 10px 10px',
     width: '100%',
     padding: 1.4,
     zIndex: 100,
@@ -164,7 +164,7 @@ export const modalStyles = {
     boxShadow: theme.shadows[19],
     padding: theme.spacing(5)
   }),
-  logo: {position: 'absolute', left: 10, top: 8},
+  logo: {position: 'absolute', left: 20, top: 2},
   closeButton: {
     position: 'absolute',
     right: 10,
