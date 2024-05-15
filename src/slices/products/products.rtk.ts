@@ -1,4 +1,5 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
+import {URLSearchParams} from 'url';
 import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
@@ -14,17 +15,15 @@ import {
 import {UserWishlistType} from '@/shared/types/user/user';
 import {actions as filterActions} from '../filter';
 import {actions as userActions} from '../user';
-import {
-  forceRefetch,
-  getProducts,
-  getProductsQuantityByCategories,
-  getUserWishlist,
-  mergeProductsResults,
-  mergeProductsWishlistResults
-} from './apiHelpers';
+import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './api';
+import {forceRefetch, mergeProductsResults, mergeProductsWishlistResults} from './helpers';
 
 export type GetProductsQuery = FilterKeys | void;
-export type GetWishlistQuery = {_id: string; setSearchParams: () => void};
+export type GetWishlistQuery = {
+  _id: string;
+  setSearchParams: (params: URLSearchParams) => void;
+  navigate: (page: number) => void;
+};
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
@@ -67,7 +66,10 @@ export const productsApi = createApi({
         needAuth: true,
         url: `${ApiPathEnum.PRODUCTS}/${_id}`
       }),
-      async onQueryStarted({_id, setSearchParams}: GetWishlistQuery, {dispatch, queryFulfilled}) {
+      async onQueryStarted(
+        {_id, setSearchParams, navigate}: GetWishlistQuery,
+        {dispatch, queryFulfilled}
+      ) {
         try {
           await queryFulfilled;
           dispatch(
@@ -75,9 +77,7 @@ export const productsApi = createApi({
               if (draft.results.length === 1) {
                 dispatch(filterActions.addKey({page: 1}));
                 setSearchParams(encodeSearchParams({page: 1}));
-                productsApi.util.invalidateTags([RtkApiTagsEnum.WishlistProducts]);
-              } else {
-                productsApi.util.invalidateTags([RtkApiTagsEnum.WishlistProducts]);
+                navigate(0);
               }
               draft.results = draft.results.filter((item) => item._id !== _id);
               return draft;
@@ -93,7 +93,9 @@ export const productsApi = createApi({
       transformResponse: (response: UserWishlistType) => {
         store.instance.dispatch(userActions.setWishlist(response));
         return response;
-      }
+      },
+
+      invalidatesTags: [RtkApiTagsEnum.WishlistProducts]
     })
   })
 });
