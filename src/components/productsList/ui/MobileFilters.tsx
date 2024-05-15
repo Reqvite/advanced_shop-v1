@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {ReactElement} from 'react';
 import {FieldValues} from 'react-hook-form';
 import {productsListStyles} from '@/app/theme/styles';
