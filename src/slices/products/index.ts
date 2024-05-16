@@ -1,5 +1,4 @@
 export {
-  productsApi,
   useGetProductByIdQuery,
   useGetProductsQuantityByCategoriesQuery,
   useGetProductsQuery,

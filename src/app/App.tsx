@@ -17,16 +17,16 @@ function App() {
   const {accessToken} = useAuth();
 
   useEffect(() => {
-    if (accessToken) {
-      dispatch(userActions.currentUser());
-    }
-  }, []);
-
-  useEffect(() => {
     if (searchParams.size === 0) {
       dispatch(filterActions.resetFilter());
     }
   }, [dispatch, searchParams]);
+
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(userActions.currentUser());
+    }
+  }, []);
 
   return (
     <Box sx={mainContainer}>

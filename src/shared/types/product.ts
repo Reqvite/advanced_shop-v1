@@ -20,6 +20,8 @@ interface GetProductsResponse {
   results: ProductI[];
   totalPages: number;
   totalItems: number;
+  currentPage: number;
+  minMaxPrices: number[];
 }
 
 interface GetProductsQuantityByCategories {

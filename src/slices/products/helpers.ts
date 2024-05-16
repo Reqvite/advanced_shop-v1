@@ -1,7 +1,5 @@
-import {encodeSearchParams} from '@/shared/lib/helpers';
 import {notificationService} from '@/shared/services';
 import {ErrorI} from '@/shared/types/error';
-import {actions as filterActions} from '../filter';
 import {GetWishlistQuery, productsApi} from './products.rtk';
 
 const onQueryStartedToast = async (
@@ -23,14 +21,10 @@ const onQueryStartedToast = async (
 };
 
 const updateQueryDataCallback =
-  ({_id, setSearchParams, dispatch}: GetWishlistQuery & {dispatch: (args: unknown) => void}) =>
+  ({_id, dispatch}: GetWishlistQuery & {dispatch: (args: unknown) => void}) =>
   () => {
     dispatch(
       productsApi.util.updateQueryData('getUserWishlist', _id, (draft) => {
-        if (draft.results.length === 1 && setSearchParams) {
-          dispatch(filterActions.addKey({page: 1}));
-          setSearchParams(encodeSearchParams({page: 1}));
-        }
         draft.results = draft.results.filter((item) => item._id !== _id);
         return draft;
       })
@@ -38,14 +32,12 @@ const updateQueryDataCallback =
   };
 
 const onQueryStartedUpdateWishlist = async (
-  {_id, setSearchParams}: GetWishlistQuery,
+  {_id}: GetWishlistQuery,
   {dispatch, queryFulfilled}: {dispatch: (args: unknown) => void; queryFulfilled: Promise<unknown>}
 ) => {
-  onQueryStartedToast(
-    {queryFulfilled},
-    'Wishlist updated',
-    updateQueryDataCallback({_id, setSearchParams, dispatch})
-  );
+  const updateCallback = updateQueryDataCallback({_id, dispatch});
+
+  await onQueryStartedToast({queryFulfilled}, 'Wishlist updated', updateCallback);
 };
 
 const forceRefetch = ({currentArg, previousArg}: {currentArg: unknown; previousArg: unknown}) => {

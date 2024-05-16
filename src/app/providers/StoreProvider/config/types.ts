@@ -8,7 +8,7 @@ import {PersistPartial} from 'redux-persist/es/persistReducer';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
-import {productsApi} from '@/slices/products';
+import {productsApi} from '@/slices/products/products.rtk';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {store} from './store';
@@ -18,7 +18,6 @@ type RootReducer = {
   user: ReturnType<typeof userReducer> & PersistPartial;
   modal: ReturnType<typeof modalReducer>;
   filter: ReturnType<typeof filterReducer> & PersistPartial;
-
   [productsApi.reducerPath]: ReturnType<typeof productsApi.reducer>;
 };
 

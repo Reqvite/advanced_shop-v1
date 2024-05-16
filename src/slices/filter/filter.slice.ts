@@ -38,9 +38,6 @@ const {reducer, actions, name} = createSlice({
       for (const key of keysToRemove) {
         delete state.filters[key];
       }
-    },
-    addKey(state, action) {
-      state.filters = {...state.filters, ...action?.payload};
     }
   }
 });

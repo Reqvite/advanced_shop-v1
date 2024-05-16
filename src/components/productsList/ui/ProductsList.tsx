@@ -1,5 +1,5 @@
 import {Typography} from '@mui/material';
-import {ReactElement, useMemo} from 'react';
+import {ReactElement, useEffect, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
 import {useFilter} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
@@ -16,14 +16,16 @@ import {
 } from '@/shared/ui';
 import {
   useGetProductsQuantityByCategoriesQuery,
+  useGetUserWishlistQuery,
   useUpdateWishlistMutation
 } from '@/slices/products';
+import {useGetProductsQuery} from '@/slices/products';
 import {getFilterDefaultValues} from '../model/helpers';
 import {filterOptions, sortFilterOptions} from '../model/options';
 
 type Props = {
   title?: string;
-  useGetProducts?: any;
+  useGetProducts: typeof useGetProductsQuery | typeof useGetUserWishlistQuery;
   withFilter?: boolean;
   withSort?: boolean;
   withPagination?: boolean;
@@ -38,8 +40,10 @@ export const ProductsList = ({
   withPagination,
   emptyListTitle
 }: Props): ReactElement => {
-  const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
-  const {data, isLoading, isFetching} = useGetProducts(requestParams);
+  const {requestParams, decodeParams, onResetFilter} = useFilter<ProductFilterModel>();
+  const {data, isLoading, isFetching} = useGetProducts(
+    Object.keys(requestParams)?.length === 1 ? {} : requestParams
+  );
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
   const defaultValues = useMemo(
     () => new ProductFilterModel({model: decodeParams, minMaxPrices: data?.minMaxPrices}),
@@ -58,6 +62,12 @@ export const ProductsList = ({
     () => getFilterDefaultValues({defaultValues}),
     [defaultValues]
   );
+
+  useEffect(() => {
+    if (requestParams?.page !== 1 && data?.results.length === 0) {
+      onResetFilter({data: {page: 1}});
+    }
+  }, [data?.results.length, onResetFilter, requestParams?.page]);
 
   return (
     <PageWrapper isLoading={isLoading}>

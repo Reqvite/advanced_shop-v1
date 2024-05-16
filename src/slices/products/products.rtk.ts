@@ -37,7 +37,9 @@ export const productsApi = createApi({
       forceRefetch
     }),
     getUserWishlist: builder.query<GetProductsResponse, GetProductsQuery | string>({
-      query: (params) => getUserWishlist(params as GetProductsQuery),
+      query: (params) => {
+        return getUserWishlist(params as GetProductsQuery);
+      },
       providesTags: [RtkApiTagsEnum.WishlistProducts],
       serializeQueryArgs: ({endpointName}) => {
         return endpointName;
@@ -63,13 +65,12 @@ export const productsApi = createApi({
         needAuth: true,
         url: `${ApiPathEnum.PRODUCTS}/${_id}`
       }),
+      invalidatesTags: [RtkApiTagsEnum.WishlistProducts],
       onQueryStarted: onQueryStartedUpdateWishlist,
       transformResponse: (response: UserWishlistType) => {
         store.instance.dispatch(userActions.setWishlist(response));
         return response;
-      },
-
-      invalidatesTags: [RtkApiTagsEnum.WishlistProducts]
+      }
     })
   })
 });
