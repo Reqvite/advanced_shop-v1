@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {PageWrapper, ProductDetails, RecommendedProductList} from '@/shared/ui';
+import {NoContentBox, PageWrapper, ProductDetails, RecommendedProductList} from '@/shared/ui';
 import {
   useGetProductByIdQuery,
   useGetProductsQuery,
@@ -12,9 +12,13 @@ const ProductDetailsPage = () => {
     useGetProductsQuery();
   const {data, isLoading} = useGetProductByIdQuery(id);
 
+  if (!data) {
+    return <NoContentBox title="Product not found" />;
+  }
+
   return (
     <PageWrapper isLoading={isLoading}>
-      <ProductDetails {...data!} />
+      <ProductDetails onUpdateWishlist={useUpdateWishlistMutation} {...data} />
       <RecommendedProductList
         onUpdateWishlist={useUpdateWishlistMutation}
         products={recommendedProducts?.results || []}
