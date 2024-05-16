@@ -3,7 +3,7 @@ import {persistReducer} from 'redux-persist';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
-import {productsApi} from '@/slices/products/products.rtk';
+import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {filterPersistConfig, themePersistConfig, userPersistConfig} from './pesrsistConfig';

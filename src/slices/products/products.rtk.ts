@@ -37,9 +37,7 @@ export const productsApi = createApi({
       forceRefetch
     }),
     getUserWishlist: builder.query<GetProductsResponse, GetProductsQuery | string>({
-      query: (params) => {
-        return getUserWishlist(params as GetProductsQuery);
-      },
+      query: (params) => getUserWishlist(params as GetProductsQuery),
       providesTags: [RtkApiTagsEnum.WishlistProducts],
       serializeQueryArgs: ({endpointName}) => {
         return endpointName;

@@ -36,8 +36,7 @@ const onQueryStartedUpdateWishlist = async (
   {dispatch, queryFulfilled}: {dispatch: (args: unknown) => void; queryFulfilled: Promise<unknown>}
 ) => {
   const updateCallback = updateQueryDataCallback({_id, dispatch});
-
-  await onQueryStartedToast({queryFulfilled}, 'Wishlist updated', updateCallback);
+  onQueryStartedToast({queryFulfilled}, 'Wishlist updated', updateCallback);
 };
 
 const forceRefetch = ({currentArg, previousArg}: {currentArg: unknown; previousArg: unknown}) => {

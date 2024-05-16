@@ -3,7 +3,7 @@ import {ReactElement, useEffect, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
 import {useFilter} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
-import {ProductI} from '@/shared/types/product';
+import {GetProductsQuery, GetUserWishlistQuery, ProductI} from '@/shared/types/product';
 import {
   Filter,
   List,
@@ -16,16 +16,14 @@ import {
 } from '@/shared/ui';
 import {
   useGetProductsQuantityByCategoriesQuery,
-  useGetUserWishlistQuery,
   useUpdateWishlistMutation
 } from '@/slices/products';
-import {useGetProductsQuery} from '@/slices/products';
 import {getFilterDefaultValues} from '../model/helpers';
 import {filterOptions, sortFilterOptions} from '../model/options';
 
 type Props = {
   title?: string;
-  useGetProducts: typeof useGetProductsQuery | typeof useGetUserWishlistQuery;
+  useGetProducts: GetUserWishlistQuery | GetProductsQuery;
   withFilter?: boolean;
   withSort?: boolean;
   withPagination?: boolean;
@@ -45,6 +43,7 @@ export const ProductsList = ({
     Object.keys(requestParams)?.length === 1 ? {} : requestParams
   );
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
+
   const defaultValues = useMemo(
     () => new ProductFilterModel({model: decodeParams, minMaxPrices: data?.minMaxPrices}),
     [data?.minMaxPrices, decodeParams]
@@ -62,6 +61,8 @@ export const ProductsList = ({
     () => getFilterDefaultValues({defaultValues}),
     [defaultValues]
   );
+
+  const isLastPage = data?.totalPages === decodeParams?.page || data?.totalPages === 1;
 
   useEffect(() => {
     if (requestParams?.page !== 1 && data?.results.length === 0) {
@@ -96,7 +97,7 @@ export const ProductsList = ({
               <ProductCard {...product} onUpdateWishlist={useUpdateWishlistMutation} />
             )}
             skeleton={<ProductCardSkeleton />}
-            skeletonLength={data?.results?.length || skeletonLength}
+            skeletonLength={data?.results.length || skeletonLength}
             isLoading={isFetching}
             itemStyle={{justifyContent: 'center'}}
             emptyListTitle={emptyListTitle}
@@ -108,7 +109,7 @@ export const ProductsList = ({
               page={decodeParams.page || defaultValues.page}
               count={data?.totalPages}
               total={data?.results.length}
-              isLastPage={data?.totalPages === decodeParams?.page || data?.totalPages === 1}
+              isLastPage={isLastPage}
             />
           )
         }

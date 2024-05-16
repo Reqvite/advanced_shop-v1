@@ -8,7 +8,7 @@ import {PersistPartial} from 'redux-persist/es/persistReducer';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
-import {productsApi} from '@/slices/products/products.rtk';
+import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {store} from './store';
