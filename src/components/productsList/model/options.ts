@@ -16,12 +16,12 @@ const sortFilterOptions: FormOption<FormVariantsEnum>[] = [
 ];
 
 const filterOptions = ({
-  minPriceFromApi,
-  maxPriceFromApi,
+  minPriceFromApi = minPrice,
+  maxPriceFromApi = maxPrice,
   categoriesQuantity = []
 }: {
-  minPriceFromApi: number;
-  maxPriceFromApi: number;
+  minPriceFromApi?: number;
+  maxPriceFromApi?: number;
   categoriesQuantity: GetProductsQuantityByCategories[];
 }): FormOption<FormVariantsEnum>[] => {
   return [
@@ -51,8 +51,8 @@ const filterOptions = ({
       id: 'prices',
       variant: FormVariantsEnum.SliderWithInput,
       name: 'Price',
-      max: maxPriceFromApi || maxPrice,
-      min: minPriceFromApi || minPrice
+      max: maxPriceFromApi,
+      min: minPriceFromApi
     }
   ];
 };

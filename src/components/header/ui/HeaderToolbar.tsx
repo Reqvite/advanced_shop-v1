@@ -10,7 +10,7 @@ export const HeaderToolbar = (): ReactElement => {
           <Logo />
           {/* <Input placeholder="Search…" /> */}
           <Stack flexDirection="row" justifyContent="space-between">
-            <WishlistButton isNavigate />
+            <WishlistButton withNavigate />
             <AuthMenuButton />
             <CartButton />
           </Stack>

@@ -13,7 +13,7 @@ export class ProductFilterModel {
     minMaxPrices = defaultPrice
   }: {
     model?: ProductFilterModel;
-    minMaxPrices: number[];
+    minMaxPrices?: number[];
   }) {
     this.page = model?.page || defaultPage;
     this.sort = model?.sort || defaultSort;

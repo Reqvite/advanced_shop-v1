@@ -1,6 +1,5 @@
 import {Box, Card, CardActions, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
 import {ReactElement} from 'react';
-import {useSearchParams} from 'react-router-dom';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
@@ -35,7 +34,6 @@ export const ProductCard = ({
   onUpdateWishlist
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const [, setSearchParams] = useSearchParams();
   const auth = useAuth();
 
   const [onClickWishlist, {isLoading}] = onUpdateWishlist();
@@ -66,7 +64,7 @@ export const ProductCard = ({
                 isSmall
                 isLiked={auth.user?.wishlist.includes(_id)}
                 isLoading={isLoading}
-                onClick={() => onClickWishlist({_id, setSearchParams})}
+                onClick={() => onClickWishlist({_id})}
               />
               <NavigateButton
                 sx={{minWidth: '90px'}}
@@ -118,7 +116,7 @@ export const ProductCard = ({
                 isLiked={auth.user?.wishlist.includes(_id)}
                 fullWidth
                 isLoading={isLoading}
-                onClick={() => onClickWishlist({_id, setSearchParams})}
+                onClick={() => onClickWishlist({_id})}
               />
             </Box>
           </Box>

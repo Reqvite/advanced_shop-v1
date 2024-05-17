@@ -63,13 +63,12 @@ export const productsApi = createApi({
         needAuth: true,
         url: `${ApiPathEnum.PRODUCTS}/${_id}`
       }),
+      invalidatesTags: [RtkApiTagsEnum.WishlistProducts],
       onQueryStarted: onQueryStartedUpdateWishlist,
       transformResponse: (response: UserWishlistType) => {
         store.instance.dispatch(userActions.setWishlist(response));
         return response;
-      },
-
-      invalidatesTags: [RtkApiTagsEnum.WishlistProducts]
+      }
     })
   })
 });

@@ -47,6 +47,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
 
   const onResetFilter = (resetValues: Record<string, unknown>): void => {
     resetValues.page = 1;
+    dispatch(filterActions.disableShowMore());
     const resetParams = encodeSearchParams(resetValues);
     for (const key of resetParams.keys()) {
       searchParams.delete(key);

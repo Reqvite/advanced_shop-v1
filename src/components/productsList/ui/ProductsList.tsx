@@ -1,9 +1,9 @@
 import {Typography} from '@mui/material';
-import {ReactElement, useMemo} from 'react';
+import {ReactElement, useEffect, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
 import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
-import {ProductI} from '@/shared/types/product';
+import {GetProductsQuery, GetUserWishlistQuery, ProductI} from '@/shared/types/product';
 import {
   Filter,
   List,
@@ -24,7 +24,7 @@ import {MobileFilters} from './MobileFilters';
 
 type Props = {
   title?: string;
-  useGetProducts?: any;
+  useGetProducts: GetUserWishlistQuery | GetProductsQuery;
   withFilter?: boolean;
   withSort?: boolean;
   withPagination?: boolean;
@@ -40,8 +40,10 @@ export const ProductsList = ({
   emptyListTitle
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const {requestParams, decodeParams} = useFilter<ProductFilterModel>();
-  const {data, isLoading, isFetching} = useGetProducts(requestParams);
+  const {requestParams, decodeParams, onResetFilter} = useFilter<ProductFilterModel>();
+  const {data, isLoading, isFetching} = useGetProducts(
+    Object.keys(requestParams)?.length === 1 ? {} : requestParams
+  );
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
   const defaultValues = useMemo(
     () => new ProductFilterModel({model: decodeParams, minMaxPrices: data?.minMaxPrices}),
@@ -60,6 +62,14 @@ export const ProductsList = ({
     () => getFilterDefaultValues({defaultValues}),
     [defaultValues]
   );
+
+  const isLastPage = data?.totalPages === decodeParams?.page || data?.totalPages === 1;
+
+  useEffect(() => {
+    if (requestParams?.page !== 1 && data?.results.length === 0) {
+      onResetFilter({data: {page: 1}});
+    }
+  }, [data?.results.length, onResetFilter, requestParams?.page]);
 
   return (
     <PageWrapper isLoading={isLoading}>
@@ -102,7 +112,7 @@ export const ProductsList = ({
               <ProductCard {...product} onUpdateWishlist={useUpdateWishlistMutation} />
             )}
             skeleton={<ProductCardSkeleton />}
-            skeletonLength={data?.results?.length || skeletonLength}
+            skeletonLength={data?.results.length || skeletonLength}
             isLoading={isFetching}
             itemStyle={{justifyContent: 'center', width: isMobile ? '300px' : '100%'}}
             emptyListTitle={emptyListTitle}
@@ -115,7 +125,7 @@ export const ProductsList = ({
               page={decodeParams.page || defaultValues.page}
               count={data?.totalPages}
               total={data?.results.length}
-              isLastPage={data?.totalPages === decodeParams?.page || data?.totalPages === 1}
+              isLastPage={isLastPage}
             />
           )
         }
