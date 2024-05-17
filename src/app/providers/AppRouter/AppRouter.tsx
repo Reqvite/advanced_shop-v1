@@ -1,6 +1,7 @@
 import {ReactElement, ReactNode, Suspense} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {Loader} from '@/shared/ui';
+import {RequireAuth} from './RequireAuth';
 import {AppRoutesProps, routeConfig} from './routeConfig';
 
 export const AppRouter = (): ReactElement => {
@@ -8,7 +9,11 @@ export const AppRouter = (): ReactElement => {
     <Route
       key={route.path}
       path={route.path}
-      element={<Suspense fallback={<Loader fullHeight />}>{route.element}</Suspense>}
+      element={
+        <Suspense fallback={<Loader fullHeight />}>
+          {route.needAuth ? <RequireAuth>{route.element}</RequireAuth> : route.element}
+        </Suspense>
+      }
     >
       {route.children && <Route>{renderRoutesRecursive(route.children as AppRoutesProps)}</Route>}
     </Route>

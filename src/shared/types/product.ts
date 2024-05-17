@@ -1,4 +1,8 @@
-import {useUpdateWishlistMutation} from '@/slices/products';
+import {
+  useGetProductsQuery,
+  useGetUserWishlistQuery,
+  useUpdateWishlistMutation
+} from '@/slices/products';
 import {LabelOptionsWithId} from './options';
 
 interface ProductI {
@@ -20,6 +24,8 @@ interface GetProductsResponse {
   results: ProductI[];
   totalPages: number;
   totalItems: number;
+  currentPage: number;
+  minMaxPrices: number[];
 }
 
 interface GetProductsQuantityByCategories {
@@ -28,10 +34,14 @@ interface GetProductsQuantityByCategories {
 }
 
 type UpdateWishlistMutation = typeof useUpdateWishlistMutation;
+type GetProductsQuery = typeof useGetProductsQuery;
+type GetUserWishlistQuery = typeof useGetUserWishlistQuery;
 
 export {
   type GetProductsQuantityByCategories,
+  type GetProductsQuery,
   type GetProductsResponse,
+  type GetUserWishlistQuery,
   type ProductI,
   type UpdateWishlistMutation
 };

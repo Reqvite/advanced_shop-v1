@@ -1,11 +1,8 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
-import {NotificationMessage} from '@/shared/const/notificationMessages';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
-import {notificationService} from '@/shared/services';
-import {ErrorI} from '@/shared/types/error';
 import {FilterKeys} from '@/shared/types/filter';
 import {
   GetProductsQuantityByCategories,
@@ -14,28 +11,21 @@ import {
 } from '@/shared/types/product';
 import {UserWishlistType} from '@/shared/types/user/user';
 import {actions as userActions} from '../user';
-import {getProducts, getProductsQuantityByCategories} from './apiHelpers';
+import {forceRefetch, onQueryStartedUpdateWishlist} from './helpers';
+import {mergeProductsResults} from './merges';
+import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './queries';
 
 export type GetProductsQuery = FilterKeys | void;
-
-const onQueryStartedToast = async (
-  {queryFulfilled}: {queryFulfilled: Promise<unknown>},
-  message = 'Success'
-) => {
-  try {
-    await queryFulfilled;
-    notificationService.success(message);
-  } catch (error: unknown) {
-    const {error: customError} = error as {error: ErrorI};
-    if (customError.code === 401) return;
-    notificationService.error(customError?.message);
-  }
+export type GetWishlistQuery = {
+  _id: string;
+  setSearchParams?: (params: URLSearchParams) => void;
+  navigate?: (page: number) => void;
 };
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: axiosBaseQuery(),
-  tagTypes: [RtkApiTagsEnum.Product, RtkApiTagsEnum.Products],
+  tagTypes: [RtkApiTagsEnum.Product, RtkApiTagsEnum.Products, RtkApiTagsEnum.WishlistProducts],
   endpoints: (builder) => ({
     getProducts: builder.query<GetProductsResponse, GetProductsQuery>({
       query: (params) => getProducts(params),
@@ -43,19 +33,17 @@ export const productsApi = createApi({
       serializeQueryArgs: ({endpointName}) => {
         return endpointName;
       },
-      merge: (currentCache, newItems, {arg}) => {
-        if (arg?.showMore) {
-          return {
-            ...currentCache,
-            results: [...currentCache.results, ...newItems.results]
-          };
-        }
-
-        return newItems;
+      merge: mergeProductsResults,
+      forceRefetch
+    }),
+    getUserWishlist: builder.query<GetProductsResponse, GetProductsQuery | string>({
+      query: (params) => getUserWishlist(params as GetProductsQuery),
+      providesTags: [RtkApiTagsEnum.WishlistProducts],
+      serializeQueryArgs: ({endpointName}) => {
+        return endpointName;
       },
-      forceRefetch({currentArg, previousArg}) {
-        return currentArg !== previousArg;
-      }
+      merge: mergeProductsResults,
+      forceRefetch
     }),
     getProductsQuantityByCategories: builder.query<
       GetProductsQuantityByCategories[],
@@ -69,14 +57,14 @@ export const productsApi = createApi({
       }),
       providesTags: [RtkApiTagsEnum.Product]
     }),
-    updateWishlist: builder.mutation<UserWishlistType, string | undefined>({
-      query: (id) => ({
+    updateWishlist: builder.mutation<UserWishlistType, GetWishlistQuery>({
+      query: ({_id}) => ({
         method: 'PATCH',
         needAuth: true,
-        url: `${ApiPathEnum.PRODUCTS}/${id}`
+        url: `${ApiPathEnum.PRODUCTS}/${_id}`
       }),
-      onQueryStarted: (_, {queryFulfilled}) =>
-        onQueryStartedToast({queryFulfilled}, NotificationMessage.SUCCESS('Wishlist updated')),
+      invalidatesTags: [RtkApiTagsEnum.WishlistProducts],
+      onQueryStarted: onQueryStartedUpdateWishlist,
       transformResponse: (response: UserWishlistType) => {
         store.instance.dispatch(userActions.setWishlist(response));
         return response;
@@ -89,5 +77,6 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useGetProductsQuantityByCategoriesQuery,
+  useGetUserWishlistQuery,
   useUpdateWishlistMutation
 } = productsApi;

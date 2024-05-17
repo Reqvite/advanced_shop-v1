@@ -32,20 +32,6 @@ export const Slider = forwardRef<HTMLSpanElement, Props>(
           {Component && <Component readOnly value={value} />}
         </Flex>
         <MuiSlider
-          sx={{
-            '& .MuiSlider-thumb': {
-              color: 'yellow'
-            },
-            '& .MuiSlider-track': {
-              color: 'yellow'
-            },
-            '& .MuiSlider-rail': {
-              color: '#acc4e4'
-            },
-            '& .MuiSlider-active': {
-              color: 'green'
-            }
-          }}
           value={value}
           ref={ref}
           valueLabelDisplay="auto"

@@ -2,4 +2,5 @@ import {lazy} from 'react';
 
 export const MainPage = lazy(() => import('@/pages/MainPage/MainPage'));
 export const ProductDetailsPage = lazy(() => import('@/pages/ProductDetails/ProductDetailsPage'));
+export const WishlistPage = lazy(() => import('@/pages/WishlistPage/WishlistPage'));
 export {ErrorPage} from './ErrorPage/ErrorPage';

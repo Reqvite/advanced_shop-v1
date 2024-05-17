@@ -55,6 +55,7 @@ export const SliderWithInput = forwardRef<HTMLSpanElement, Props>(
           min={min}
           max={max}
           label={label}
+          step={0.5}
         />
         <Stack direction="row" spacing={2} alignItems="center">
           <Input

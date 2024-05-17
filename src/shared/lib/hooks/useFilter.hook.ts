@@ -1,4 +1,3 @@
-import {useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {defaultPage} from '@/shared/const/product.const';
 import {FilterKeys} from '@/shared/types/filter';
@@ -28,15 +27,9 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   const showMore = useAppSelector(selectShowMore);
   const currentPage = Number(filterKeys.page || defaultPage);
   const showMoreInitialPage = useAppSelector(selectShowMoreInitialPage) || currentPage;
-  const requestParams = {...filterKeys, showMore};
   const [searchParams, setSearchParams] = useSearchParams();
   const decodeParams = decodeSearchParams(searchParams) as T;
-
-  useEffect(() => {
-    if (searchParams.size === 0) {
-      dispatch(filterActions.resetFilter());
-    }
-  }, [dispatch, searchParams]);
+  const requestParams = {...decodeParams, showMore};
 
   const onUpdateFilter = ({data, resetPage}: {data: object; resetPage?: boolean}): void => {
     const newData = resetPage ? {...data, page: 1} : data;
@@ -54,6 +47,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
 
   const onResetFilter = (resetValues: Record<string, unknown>): void => {
     resetValues.page = 1;
+    dispatch(filterActions.disableShowMore());
     const resetParams = encodeSearchParams(resetValues);
     for (const key of resetParams.keys()) {
       searchParams.delete(key);

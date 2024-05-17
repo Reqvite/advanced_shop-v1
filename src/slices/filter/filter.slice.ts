@@ -22,6 +22,8 @@ const {reducer, actions, name} = createSlice({
     },
     resetFilter(state) {
       state.filters = {};
+      state.showMore = false;
+      state.showMoreInitialPage = null;
     },
     enableShowMore(state, action) {
       state.showMore = true;

@@ -65,7 +65,7 @@ export const ProductCard = ({
                 isSmall
                 isLiked={auth.user?.wishlist.includes(_id)}
                 isLoading={isLoading}
-                onClick={() => onClickWishlist(_id)}
+                onClick={() => onClickWishlist({_id})}
               />
               <Button variant="contained" size="small">
                 Buy now
@@ -113,7 +113,7 @@ export const ProductCard = ({
                 isLiked={auth.user?.wishlist.includes(_id)}
                 fullWidth
                 isLoading={isLoading}
-                onClick={() => onClickWishlist(_id)}
+                onClick={() => onClickWishlist({_id})}
               />
             </Box>
           </Box>

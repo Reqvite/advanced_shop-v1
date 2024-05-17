@@ -1,5 +1,5 @@
 import {yellowSliderStyles} from '@/app/theme/styles';
-import {defaultPrice, defaultRating} from '@/shared/const/product.const';
+import {maxPrice, maxRating, minPrice, minRating} from '@/shared/const/product.const';
 import {brandsOptions, sortOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {GetProductsQuantityByCategories} from '@/shared/types/product';
@@ -16,8 +16,12 @@ const sortFilterOptions: FormOption<FormVariantsEnum>[] = [
 ];
 
 const filterOptions = ({
+  minPriceFromApi = minPrice,
+  maxPriceFromApi = maxPrice,
   categoriesQuantity = []
 }: {
+  minPriceFromApi?: number;
+  maxPriceFromApi?: number;
   categoriesQuantity: GetProductsQuantityByCategories[];
 }): FormOption<FormVariantsEnum>[] => {
   return [
@@ -38,11 +42,17 @@ const filterOptions = ({
       id: 'rating',
       variant: FormVariantsEnum.Slider,
       name: 'Rating',
-      min: defaultRating[0],
-      max: defaultRating[1],
+      min: minRating,
+      max: maxRating,
       sx: yellowSliderStyles
     },
-    {id: 'prices', variant: FormVariantsEnum.SliderWithInput, name: 'Price', max: defaultPrice[1]}
+    {
+      id: 'prices',
+      variant: FormVariantsEnum.SliderWithInput,
+      name: 'Price',
+      max: maxPriceFromApi,
+      min: minPriceFromApi
+    }
   ];
 };
 
