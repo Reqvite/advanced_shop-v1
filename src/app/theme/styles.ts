@@ -1,4 +1,4 @@
-import {Theme} from '@mui/material';
+import {SxProps, Theme} from '@mui/material';
 import {CSSProperties} from 'react';
 import {maxPhotos} from '@/shared/ui/imageGallery/ImageGallery';
 import {brand} from './theme';
@@ -77,31 +77,28 @@ export const imageGalleryStyles = {
   }
 };
 
-export const getImageStyles = (slidesPerView: number) => {
+export const getImageStyles = (slidesPerView: number): SxProps => {
   const baseImageStyle = imageGalleryStyles.smallImg;
 
   const perViewStyles = {
     1: {
-      maxWidth: 200,
-      height: 'auto'
+      maxWidth: 200
     },
     2: {
-      maxWidth: 180,
-      height: 'auto'
+      maxWidth: 180
     },
     3: {
-      maxWidth: 160,
-      height: 'auto'
+      maxWidth: 160
     },
     4: {
-      maxWidth: 140,
-      height: 'auto'
+      maxWidth: 140
     }
   };
-
   return {
     ...baseImageStyle,
-    ...perViewStyles[slidesPerView > maxPhotos ? maxPhotos : slidesPerView]
+    ...(perViewStyles as {[key: number]: {maxWidth: number}})[
+      slidesPerView > maxPhotos ? maxPhotos : slidesPerView
+    ]
   };
 };
 
