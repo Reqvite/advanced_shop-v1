@@ -3,7 +3,7 @@ import {ProductsList} from '@/components/productsList';
 import {useGetProductsQuery} from '@/slices/products';
 
 const MainPage = (): ReactElement => {
-  return <ProductsList useGetProducts={useGetProductsQuery} withFilter withSort withPagination />;
+  return <ProductsList useGetProducts={useGetProductsQuery} withFilter withPagination />;
 };
 
 export default MainPage;

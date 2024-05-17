@@ -8,7 +8,7 @@ import {carouselStyles} from '@/app/theme/styles';
 import {Flex} from '../base/Flex';
 
 interface ItemWithId {
-  _id: string;
+  _id: string | number;
 }
 
 type Props<T extends ItemWithId> = SwiperProps & {

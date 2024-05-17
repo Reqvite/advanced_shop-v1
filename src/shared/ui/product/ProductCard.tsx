@@ -29,7 +29,7 @@ export const ProductCard = ({
   price,
   discount,
   variant,
-  image,
+  images,
   sx,
   onUpdateWishlist
 }: Props): ReactElement => {
@@ -46,7 +46,7 @@ export const ProductCard = ({
           alt={title}
           height="180"
           sx={{objectFit: 'contain'}}
-          image={image[0]}
+          image={images[0]?.src}
         />
         <Stack>
           <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
@@ -86,7 +86,7 @@ export const ProductCard = ({
         <CardMedia
           component="img"
           sx={productCardStyles.bigCardMedia}
-          image={image[0]}
+          image={images[0]?.src}
           alt={title}
         />
         <CardContent sx={productCardStyles.bigCardContent}>

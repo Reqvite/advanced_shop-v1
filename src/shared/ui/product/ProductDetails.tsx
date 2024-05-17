@@ -45,7 +45,7 @@ export const ProductDetails = ({
   characteristics,
   price,
   discount,
-  image,
+  images,
   tags,
   onUpdateWishlist
 }: Props): ReactElement => {
@@ -77,7 +77,7 @@ export const ProductDetails = ({
             itemStyle={{width: 'auto', p: 0}}
           />
         )}
-        <ImageGallery images={image} />
+        <ImageGallery images={images} />
       </Stack>
       <Stack gap={4} width={isMobile ? '100%' : '60%'}>
         <ProductHeading variant="medium" title={title} rating={rating} />

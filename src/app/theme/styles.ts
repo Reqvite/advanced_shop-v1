@@ -1,5 +1,6 @@
 import {Theme} from '@mui/material';
 import {CSSProperties} from 'react';
+import {maxPhotos} from '@/shared/ui/imageGallery/ImageGallery';
 import {brand} from './theme';
 
 export const headerStyles = {
@@ -53,14 +54,17 @@ const baseImageStyle = {
   borderRadius: 1,
   transition: 'transform 0.3s ease',
   '&:hover': {
-    transform: 'scale(1.02)'
+    transform: 'scale(0.99)'
   }
 };
 
 export const imageGalleryStyles = {
+  mainImg: {
+    objectFit: 'contain'
+  },
   smallImg: {
-    maxWidth: 60,
-    height: 60,
+    maxWidth: 140,
+    height: 140,
     ...baseImageStyle
   },
   bigImg: {
@@ -71,6 +75,34 @@ export const imageGalleryStyles = {
     objectFit: 'contain',
     ...baseImageStyle
   }
+};
+
+export const getImageStyles = (slidesPerView: number) => {
+  const baseImageStyle = imageGalleryStyles.smallImg;
+
+  const perViewStyles = {
+    1: {
+      maxWidth: 200,
+      height: 'auto'
+    },
+    2: {
+      maxWidth: 180,
+      height: 'auto'
+    },
+    3: {
+      maxWidth: 160,
+      height: 'auto'
+    },
+    4: {
+      maxWidth: 140,
+      height: 'auto'
+    }
+  };
+
+  return {
+    ...baseImageStyle,
+    ...perViewStyles[slidesPerView > maxPhotos ? maxPhotos : slidesPerView]
+  };
 };
 
 export const stickyContentLayoutStyles = {
