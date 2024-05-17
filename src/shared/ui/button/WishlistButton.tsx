@@ -10,14 +10,14 @@ import {useAuth} from '@/shared/lib/hooks';
 import {Button} from './Button';
 
 type Props = ButtonProps & {
-  isNavigate?: boolean;
+  withNavigate?: boolean;
   isSmall?: boolean;
   isLoading?: boolean;
   isLiked?: boolean;
 };
 
 export const WishlistButton = ({
-  isNavigate,
+  withNavigate,
   isLiked,
   isSmall,
   isLoading,
@@ -27,7 +27,7 @@ export const WishlistButton = ({
   const buttonText = isLiked ? 'Remove' : 'Add to Wishlist';
   const navigate = useNavigate();
 
-  if (isNavigate) {
+  if (withNavigate) {
     const onNavigate = (): void => {
       navigate(getRouteWishlist());
     };

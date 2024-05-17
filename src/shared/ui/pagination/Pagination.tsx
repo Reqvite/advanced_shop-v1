@@ -39,7 +39,7 @@ export const Pagination = ({
     }
   }, [page, showMoreInitialPage]);
 
-  if (count === 0 || total === 0) {
+  if (!count || !total) {
     return null;
   }
 
