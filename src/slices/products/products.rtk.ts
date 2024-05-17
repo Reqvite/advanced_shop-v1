@@ -47,9 +47,9 @@ export const productsApi = createApi({
     }),
     getProductsQuantityByCategories: builder.query<
       GetProductsQuantityByCategories[],
-      GetProductsQuery
+      GetProductsQuery | null
     >({
-      query: (params) => getProductsQuantityByCategories(params)
+      query: (params) => getProductsQuantityByCategories(params ? params : {})
     }),
     getProductById: builder.query<ProductI, string | undefined>({
       query: (id) => ({

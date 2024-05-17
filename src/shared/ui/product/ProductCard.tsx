@@ -5,7 +5,6 @@ import {productCardStyles} from '@/app/theme/styles';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
-import {Button} from '../button/Button';
 import {NavigateButton} from '../button/NavigateButton';
 import {WishlistButton} from '../button/WishlistButton';
 import {CharacteristicList} from './ui/CharacteristicList';
@@ -30,7 +29,7 @@ export const ProductCard = ({
   price,
   discount,
   variant,
-  image,
+  images,
   sx,
   onUpdateWishlist
 }: Props): ReactElement => {
@@ -47,7 +46,7 @@ export const ProductCard = ({
           alt={title}
           height="180"
           sx={{objectFit: 'contain'}}
-          image={image[0]}
+          image={images[0]?.src}
         />
         <Stack>
           <CardContent sx={(theme) => ({p: theme.spacing(1)})}>
@@ -67,9 +66,13 @@ export const ProductCard = ({
                 isLoading={isLoading}
                 onClick={() => onClickWishlist({_id})}
               />
-              <Button variant="contained" size="small">
-                Buy now
-              </Button>
+              <NavigateButton
+                sx={{minWidth: '90px'}}
+                withIcon={false}
+                size="small"
+                label="Buy now"
+                to={getRouteProductDetails(_id)}
+              />
             </Box>
           </CardActions>
         </Stack>
@@ -83,7 +86,7 @@ export const ProductCard = ({
         <CardMedia
           component="img"
           sx={productCardStyles.bigCardMedia}
-          image={image[0]}
+          image={images[0]?.src}
           alt={title}
         />
         <CardContent sx={productCardStyles.bigCardContent}>

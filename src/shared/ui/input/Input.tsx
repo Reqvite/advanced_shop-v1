@@ -37,7 +37,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <Box>
-        {label && <InputLabel required={required}>{label}</InputLabel>}
+        {label && (
+          <InputLabel required={required} sx={{fontSize: 14}}>
+            {label}
+          </InputLabel>
+        )}
         <FormControl fullWidth>
           <TextField
             variant={variant}

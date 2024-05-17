@@ -13,7 +13,7 @@ export const Header = (): ReactElement => {
     <AppBar position="static" sx={headerStyles.appBar}>
       <Stack sx={headerStyles.headerContainer}>
         <HeaderNavigation />
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{padding: 0}}>
           <HeaderToolbar />
           {!isMobile && <HeaderCategories />}
         </Container>

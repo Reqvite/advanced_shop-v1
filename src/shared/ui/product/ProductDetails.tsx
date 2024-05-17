@@ -45,7 +45,7 @@ export const ProductDetails = ({
   characteristics,
   price,
   discount,
-  image,
+  images,
   tags,
   onUpdateWishlist
 }: Props): ReactElement => {
@@ -73,11 +73,11 @@ export const ProductDetails = ({
             row
             items={resolvedTags}
             renderItem={Chip}
-            sx={{display: 'flex', gap: 1}}
+            sx={{display: 'flex', justifyContent: 'flex-start', gap: 1}}
             itemStyle={{width: 'auto', p: 0}}
           />
         )}
-        <ImageGallery images={image} />
+        <ImageGallery images={images} />
       </Stack>
       <Stack gap={4} width={isMobile ? '100%' : '60%'}>
         <ProductHeading variant="medium" title={title} rating={rating} />
@@ -107,7 +107,7 @@ export const ProductDetails = ({
         </Flex>
         <WishlistButton
           isLiked={auth.user?.wishlist.includes(_id)}
-          fullWidth
+          sx={{maxWidth: 166}}
           isLoading={isLoading}
           onClick={() => onClickWishlist({_id})}
         />

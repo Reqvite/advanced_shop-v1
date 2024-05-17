@@ -1,5 +1,7 @@
-import {Theme} from '@mui/material';
+import {SxProps, Theme} from '@mui/material';
 import {CSSProperties} from 'react';
+import {maxPhotos} from '@/shared/ui/imageGallery/ImageGallery';
+import {brand} from './theme';
 
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
@@ -52,14 +54,17 @@ const baseImageStyle = {
   borderRadius: 1,
   transition: 'transform 0.3s ease',
   '&:hover': {
-    transform: 'scale(1.02)'
+    transform: 'scale(0.99)'
   }
 };
 
 export const imageGalleryStyles = {
+  mainImg: {
+    objectFit: 'contain'
+  },
   smallImg: {
-    maxWidth: 60,
-    height: 60,
+    maxWidth: 140,
+    height: 140,
     ...baseImageStyle
   },
   bigImg: {
@@ -70,6 +75,31 @@ export const imageGalleryStyles = {
     objectFit: 'contain',
     ...baseImageStyle
   }
+};
+
+export const getImageStyles = (slidesPerView: number): SxProps => {
+  const baseImageStyle = imageGalleryStyles.smallImg;
+
+  const perViewStyles = {
+    1: {
+      maxWidth: 200
+    },
+    2: {
+      maxWidth: 180
+    },
+    3: {
+      maxWidth: 160
+    },
+    4: {
+      maxWidth: 140
+    }
+  };
+  return {
+    ...baseImageStyle,
+    ...(perViewStyles as {[key: number]: {maxWidth: number}})[
+      slidesPerView > maxPhotos ? maxPhotos : slidesPerView
+    ]
+  };
 };
 
 export const stickyContentLayoutStyles = {
@@ -111,7 +141,7 @@ export const productCardStyles = {
   },
   smallCardActionsContainer: {display: 'flex', justifyContent: 'space-between', gap: 2},
   bigCardContainer: {maxWidth: 869, minHeight: 280, maxHeight: 280, width: '100%'},
-  bigCardMedia: {minHeight: '100%', minWidth: 150, maxWidth: 268, objectFit: 'cover'},
+  bigCardMedia: {minHeight: '100%', minWidth: 60, maxWidth: 268, objectFit: 'contain'},
   bigCardContent: {
     display: 'flex',
     width: '100%',
@@ -126,6 +156,20 @@ export const productCardStyles = {
     height: '100%',
     justifyContent: 'space-between'
   }
+};
+
+export const productsListStyles = {
+  mobileFiltersBox: (isSticky: boolean) => ({
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    background: isSticky ? brand[900] : 'transparent',
+    borderRadius: '0 0 10px 10px',
+    width: '100%',
+    padding: 1.4,
+    zIndex: 100,
+    justifyContent: 'space-between'
+  })
 };
 
 export const footerStyles = {
@@ -149,7 +193,7 @@ export const modalStyles = {
     boxShadow: theme.shadows[19],
     padding: theme.spacing(5)
   }),
-  logo: {position: 'absolute', left: 10, top: 8},
+  logo: {position: 'absolute', left: 20, top: 2},
   closeButton: {
     position: 'absolute',
     right: 10,

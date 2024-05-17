@@ -30,7 +30,8 @@ const filterOptions = ({
       variant: FormVariantsEnum.CheckboxGroup,
       name: 'Categories',
       options: getCategoriesOptions({categoriesQuantity}),
-      showCheckbox: false
+      showCheckbox: false,
+      withQuantity: true
     },
     {
       id: 'brands',

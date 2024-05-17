@@ -1,11 +1,11 @@
-import {Box, Stack, Toolbar} from '@mui/material';
+import {Box, Stack} from '@mui/material';
 import {ReactElement} from 'react';
 import {AuthMenuButton, CartButton, Input, Logo, WishlistButton} from '@/shared/ui';
 
 export const HeaderToolbar = (): ReactElement => {
   return (
-    <Box width="100%">
-      <Toolbar>
+    <Box width="100%" p={0}>
+      <Box sx={{padding: 0}}>
         <Stack width="100%" flexDirection="row" justifyContent="space-between" alignItems="center">
           <Logo />
           <Input placeholder="Search…" />
@@ -15,7 +15,7 @@ export const HeaderToolbar = (): ReactElement => {
             <CartButton />
           </Stack>
         </Stack>
-      </Toolbar>
+      </Box>
     </Box>
   );
 };

@@ -60,7 +60,8 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
             onChange={onInputChange}
             inputRef={ref}
             {...otherProps}
-            sx={{width: 60, textAlign: 'center'}}
+            inputProps={{style: {textAlign: 'center'}}}
+            sx={{width: 60}}
           />
           <IconButton size="small" onClick={onIncrement} disabled={numberValue >= max}>
             <AddIcon fontSize="small" />

@@ -5,6 +5,8 @@ export const CustomBox = styled(Box)(({theme}) => ({
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
+  background: 'rgb(249, 249, 249)',
+  borderRadius: theme.shape.borderRadius,
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -38,7 +40,8 @@ export const CustomSelectFormLabel = styled(FormLabel)(({theme}) => ({
     height: '20px',
     width: '1px',
     backgroundColor: theme.palette.grey[100]
-  }
+  },
+  fontSize: 14
 }));
 
 export const CustomSelectStyle = styled(InputBase)(() => ({

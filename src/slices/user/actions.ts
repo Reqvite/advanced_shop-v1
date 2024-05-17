@@ -13,8 +13,9 @@ import {actions as modalActions} from '../modal';
 
 const login = createAsyncThunk<UserLoginResponseDto, UserLoginRequestDto, AsyncThunkConfig>(
   UsersApiPath.LOG_IN,
-  async (body, {dispatch, extra: {$publicApi}}) => {
+  async (body, {dispatch, extra: {$publicApi, notificationService}}) => {
     const response = await $publicApi.post(UsersApiPath.LOG_IN, body);
+    notificationService.success('Login successfully.');
     dispatch(modalActions.closeModal());
 
     return response.data;
@@ -52,8 +53,9 @@ const refreshToken = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncTh
 
 const logout = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncThunkConfig>(
   UsersApiPath.LOG_OUT,
-  async (_request, {extra: {$protectedApi}}) => {
+  async (_request, {extra: {$protectedApi, notificationService}}) => {
     const response = await $protectedApi.post(UsersApiPath.LOG_OUT);
+    notificationService.success('Logout successfully.');
 
     return response.data;
   }

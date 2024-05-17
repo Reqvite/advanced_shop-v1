@@ -5,10 +5,15 @@ import {
 } from '@/slices/products';
 import {LabelOptionsWithId} from './options';
 
+interface ImgI {
+  _id: string;
+  src: string;
+}
+
 interface ProductI {
   _id: string;
   rating: number;
-  image: string[];
+  images: ImgI[];
   title: string;
   description: LabelOptionsWithId[];
   characteristics: LabelOptionsWithId[];
@@ -42,6 +47,7 @@ export {
   type GetProductsQuery,
   type GetProductsResponse,
   type GetUserWishlistQuery,
+  type ImgI,
   type ProductI,
   type UpdateWishlistMutation
 };

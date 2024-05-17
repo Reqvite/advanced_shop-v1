@@ -1,82 +1,79 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {CardMedia, Grid, GridProps, IconButton} from '@mui/material';
-import {ReactElement, useState} from 'react';
-import {imageGalleryStyles} from '@/app/theme/styles';
+import {Box, CardMedia, GridProps} from '@mui/material';
+import {ReactElement, useEffect, useState} from 'react';
+import {Pagination} from 'swiper/modules';
+import {SwiperProps} from 'swiper/react';
+import {getImageStyles, imageGalleryStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
-import {Flex} from '../base/Flex';
+import {ImgI} from '@/shared/types/product';
+import {Carousel} from '../carousel/Carousel';
 import {ImageGalleryItem} from './ImageGalleryItem';
 
 type Props = GridProps & {
-  images: string[];
-  withSlider?: boolean;
+  images: ImgI[];
   title?: string;
-  maxSliderImages?: number;
 };
 
-export const ImageGallery = ({
-  images,
-  withSlider,
-  title = 'Img title',
-  maxSliderImages = 3
-}: Props): ReactElement => {
-  const isMobile = useMediaQuery('md') || withSlider;
-  const [selectedImage, setSelectedImage] = useState<string>(images[0]);
-  const [startIndex, setStartIndex] = useState<number>(0);
+export const maxPhotos = 4;
+const getCarouselConfig = (isMobile: boolean, length: number): SwiperProps => {
+  return {
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: true
+    },
+    pagination: {
+      clickable: true,
+      dynamicBullets: true
+    },
+    slidesPerView: isMobile ? 3 : length > maxPhotos ? maxPhotos : length,
+    freeMode: true,
+    allowTouchMove: true,
+    modules: [Pagination]
+  };
+};
+
+export const ImageGallery = ({images, title = 'Img title'}: Props): ReactElement => {
+  const isMobile = useMediaQuery('md');
+  const [selectedImage, setSelectedImage] = useState<string>(images[0]?.src);
+  const imagesCount = images?.length;
+
+  useEffect(() => {
+    setSelectedImage(images[0]?.src);
+  }, [images]);
 
   const onThumbnailClick = (image: string): void => {
     setSelectedImage(image);
   };
 
-  const onPrevImage = (): void => {
-    setStartIndex((prevIndex) => prevIndex - 1);
-  };
+  const renderProductCard = (image: ImgI): ReactElement => {
+    const isActive = selectedImage === image.src;
 
-  const onNextImage = (): void => {
-    setStartIndex((prevIndex) => prevIndex + 1);
+    return (
+      <ImageGalleryItem
+        isActive={isActive}
+        sx={getImageStyles(imagesCount)}
+        alt={`${title}-${image._id}`}
+        onClick={() => onThumbnailClick(image.src)}
+        {...image}
+      />
+    );
   };
 
   return (
-    <Grid container direction="column" alignItems="center" spacing={2} width="100%">
-      <Grid item>
-        <CardMedia component="img" src={selectedImage} height="400" width="100%" />
-      </Grid>
-      <Grid item>
-        {isMobile ? (
-          <Flex alignItems="center" gap={1}>
-            <IconButton disabled={startIndex === 0} onClick={onPrevImage}>
-              <ArrowBackIcon />
-            </IconButton>
-            {images.slice(startIndex, startIndex + maxSliderImages).map((image, index) => (
-              <ImageGalleryItem
-                key={`${startIndex}-${index}-${image}`}
-                src={image}
-                sx={imageGalleryStyles.smallImg}
-                alt={`${title} ${startIndex + index}`}
-                onClick={() => onThumbnailClick(image)}
-              />
-            ))}
-            <IconButton
-              disabled={startIndex >= images.length - maxSliderImages}
-              onClick={onNextImage}
-            >
-              <ArrowForwardIcon />
-            </IconButton>
-          </Flex>
-        ) : (
-          <Grid container spacing={2}>
-            {images.map((image, index) => (
-              <ImageGalleryItem
-                key={`${startIndex}-${index}-${image}`}
-                src={image}
-                sx={imageGalleryStyles.bigImg}
-                alt={`${title} ${startIndex + index}`}
-                onClick={() => onThumbnailClick(image)}
-              />
-            ))}
-          </Grid>
-        )}
-      </Grid>
-    </Grid>
+    <Box width="100%">
+      <CardMedia
+        component="img"
+        sx={imageGalleryStyles.mainImg}
+        src={selectedImage}
+        height="400"
+        width="100%"
+      />
+      {imagesCount > 1 && (
+        <Carousel<ImgI>
+          {...getCarouselConfig(isMobile, imagesCount)}
+          items={images}
+          component={renderProductCard}
+        />
+      )}
+    </Box>
   );
 };

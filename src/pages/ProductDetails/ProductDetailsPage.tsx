@@ -12,13 +12,13 @@ const ProductDetailsPage = () => {
     useGetProductsQuery();
   const {data, isLoading} = useGetProductByIdQuery(id);
 
-  if (!data) {
+  if (!data && !isLoading) {
     return <NoContentBox title="Product not found" />;
   }
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <ProductDetails onUpdateWishlist={useUpdateWishlistMutation} {...data} />
+      {data && <ProductDetails onUpdateWishlist={useUpdateWishlistMutation} {...data} />}
       <RecommendedProductList
         onUpdateWishlist={useUpdateWishlistMutation}
         products={recommendedProducts?.results || []}

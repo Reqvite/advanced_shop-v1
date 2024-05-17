@@ -3,7 +3,7 @@ import {Pagination as MuiPagination, PaginationProps, Typography} from '@mui/mat
 import {ChangeEvent, ReactElement, useEffect, useRef} from 'react';
 import {defaultPage} from '@/shared/const/product.const';
 import {scrollToTop} from '@/shared/lib/helpers';
-import {useFilter} from '@/shared/lib/hooks';
+import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {Chip} from '../chip/Chip';
@@ -26,6 +26,7 @@ export const Pagination = ({
   page = defaultPage,
   ...otherProps
 }: Props): ReactElement | null => {
+  const isMobile = useMediaQuery('md');
   const {onUpdateFilter, onShowMore, showMoreInitialPage} = useFilter();
   const ref = useRef<HTMLElement>();
 
@@ -51,31 +52,37 @@ export const Pagination = ({
     }
   };
 
-  return (
-    <Flex justifyContent="space-between" alignItems="center" gap={2} paddingTop="40px">
-      <Flex alignItems="center">
-        <Typography>Page:</Typography>
-        <MuiPagination
-          ref={ref}
-          onChange={onChangePage}
-          count={count}
-          page={page}
-          {...otherProps}
-        />
-      </Flex>
-      {!isLastPage && (
-        <Button variant="contained" onClick={onShowMore} RightAddon={KeyboardArrowDownIcon}>
-          Show more
-        </Button>
-      )}
-      {Boolean(total) && (
-        <Flex gap={1} alignItems="center">
-          <Chip label={total} />
-          <Typography variant="body2" color="grey.200">
-            {label}
-          </Typography>
-        </Flex>
-      )}
+  const paginator = (
+    <Flex alignItems="center" justifyContent="center">
+      {!isMobile && <Typography>Page:</Typography>}
+      <MuiPagination ref={ref} onChange={onChangePage} count={count} page={page} {...otherProps} />
     </Flex>
+  );
+
+  return (
+    <>
+      {isMobile && paginator}
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        gap={2}
+        paddingTop={isMobile ? '10px' : '40px'}
+      >
+        {!isMobile && paginator}
+        {!isLastPage && (
+          <Button variant="contained" onClick={onShowMore} endIcon={<KeyboardArrowDownIcon />}>
+            Show more
+          </Button>
+        )}
+        {Boolean(total) && (
+          <Flex gap={1} alignItems="center">
+            <Chip label={total} />
+            <Typography variant="body2" color="textSecondary">
+              {label}
+            </Typography>
+          </Flex>
+        )}
+      </Flex>
+    </>
   );
 };

@@ -1,7 +1,7 @@
 import {Typography} from '@mui/material';
 import {ReactElement, useEffect, useMemo} from 'react';
 import {skeletonLength} from '@/shared/const/product.const';
-import {useFilter} from '@/shared/lib/hooks';
+import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {GetProductsQuery, GetUserWishlistQuery, ProductI} from '@/shared/types/product';
 import {
@@ -20,12 +20,12 @@ import {
 } from '@/slices/products';
 import {getFilterDefaultValues} from '../model/helpers';
 import {filterOptions, sortFilterOptions} from '../model/options';
+import {MobileFilters} from './MobileFilters';
 
 type Props = {
   title?: string;
   useGetProducts: GetUserWishlistQuery | GetProductsQuery;
   withFilter?: boolean;
-  withSort?: boolean;
   withPagination?: boolean;
   emptyListTitle?: string;
 };
@@ -34,51 +34,69 @@ export const ProductsList = ({
   title = 'All products',
   useGetProducts,
   withFilter,
-  withSort,
   withPagination,
   emptyListTitle
 }: Props): ReactElement => {
+  const isMobile = useMediaQuery('md');
   const {requestParams, decodeParams, onResetFilter} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProducts(
     Object.keys(requestParams)?.length === 1 ? {} : requestParams
   );
-  const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery();
-
+  const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery(null, {
+    skip: !withFilter
+  });
   const defaultValues = useMemo(
     () => new ProductFilterModel({model: decodeParams, minMaxPrices: data?.minMaxPrices}),
     [data?.minMaxPrices, decodeParams]
   );
   const memoizedFilterOptions = useMemo(
     () =>
-      filterOptions({
-        categoriesQuantity,
-        minPriceFromApi: data?.minMaxPrices[0],
-        maxPriceFromApi: data?.minMaxPrices[1]
-      }),
-    [categoriesQuantity, data?.minMaxPrices]
+      withFilter
+        ? filterOptions({
+            categoriesQuantity,
+            minPriceFromApi: data?.minMaxPrices[0],
+            maxPriceFromApi: data?.minMaxPrices[1]
+          })
+        : null,
+    [categoriesQuantity, data?.minMaxPrices, withFilter]
   );
   const memoizedDefaultValues = useMemo(
-    () => getFilterDefaultValues({defaultValues}),
-    [defaultValues]
+    () => (withFilter && defaultValues ? getFilterDefaultValues({defaultValues}) : null),
+    [defaultValues, withFilter]
   );
 
   const isLastPage = data?.totalPages === decodeParams?.page || data?.totalPages === 1;
+  const hasFilters = withFilter && memoizedFilterOptions && memoizedDefaultValues;
 
   useEffect(() => {
-    if (requestParams?.page !== 1 && data?.results.length === 0) {
+    if (requestParams?.page !== 1 && data?.totalPages && data?.results.length === 0) {
       onResetFilter({data: {page: 1}});
     }
-  }, [data?.results.length, onResetFilter, requestParams?.page]);
+  }, [data?.results.length, data?.totalPages, onResetFilter, requestParams?.page]);
 
   return (
     <PageWrapper isLoading={isLoading}>
       <Typography variant="h2" mb={3}>
         {title}
       </Typography>
-      {withSort && <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />}
+      {hasFilters && (
+        <MobileFilters
+          filterOptions={memoizedFilterOptions}
+          resetValues={getFilterDefaultValues({
+            defaultValues: new ProductFilterModel({minMaxPrices: data?.minMaxPrices})
+          })}
+          filterDefaultValues={memoizedDefaultValues}
+          sortOptions={sortFilterOptions}
+          sortDefaultValues={{sort: defaultValues.sort}}
+        />
+      )}
+      {withFilter && !isMobile && (
+        <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
+      )}
       <StickyContentLayout
         left={
-          withFilter && (
+          hasFilters &&
+          !isMobile && (
             <Filter
               options={memoizedFilterOptions}
               resetValues={getFilterDefaultValues({
@@ -99,8 +117,9 @@ export const ProductsList = ({
             skeleton={<ProductCardSkeleton />}
             skeletonLength={data?.results.length || skeletonLength}
             isLoading={isFetching}
-            itemStyle={{justifyContent: 'center'}}
+            itemStyle={{justifyContent: 'center', width: isMobile ? '300px' : '100%'}}
             emptyListTitle={emptyListTitle}
+            row={isMobile}
           />
         }
         bottom={

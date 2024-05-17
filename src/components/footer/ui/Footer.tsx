@@ -20,7 +20,13 @@ export const Footer = (): ReactElement => {
       <Typography variant="h6" fontWeight={600} sx={{marginTop: '20px'}}>
         Product tags
       </Typography>
-      <List items={footerTags} row renderItem={Chip} itemStyle={{width: 'auto'}} />
+      <List
+        items={footerTags}
+        row
+        renderItem={Chip}
+        sx={{justifyContent: 'flex-start'}}
+        itemStyle={{width: 'auto'}}
+      />
     </Container>
   );
 };
