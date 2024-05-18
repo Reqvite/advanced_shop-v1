@@ -31,7 +31,8 @@ const filterOptions = ({
       name: 'Categories',
       options: getCategoriesOptions({categoriesQuantity}),
       showCheckbox: false,
-      withQuantity: true
+      withQuantity: true,
+      withShowMore: false
     },
     {
       id: 'brands',

@@ -5,12 +5,14 @@ type State = {
   filters: FilterKeys;
   showMore: boolean;
   showMoreInitialPage: number | null;
+  resetAll: boolean;
 };
 
 const initialState: State = {
   filters: {},
   showMore: false,
-  showMoreInitialPage: null
+  showMoreInitialPage: null,
+  resetAll: false
 };
 
 const {reducer, actions, name} = createSlice({
@@ -19,6 +21,12 @@ const {reducer, actions, name} = createSlice({
   reducers: {
     setFilter(state, action) {
       state.filters = action.payload;
+    },
+    resetFilterOn(state) {
+      state.resetAll = true;
+    },
+    resetFilterOff(state) {
+      state.resetAll = false;
     },
     resetFilter(state) {
       state.filters = {};

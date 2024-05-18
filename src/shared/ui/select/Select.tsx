@@ -24,13 +24,13 @@ export const Select = forwardRef<HTMLSelectElement, Props>(
       <FormControl fullWidth>
         {renderSelect({styleVariant, options: renderOptions, label, ref, ...otherProps})}
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
-        <Box height="6px" mt="1px">
-          {error && (
+        {error && (
+          <Box height="6px" mt="1px">
             <Typography fontSize={12} color="error.light">
               {error}
             </Typography>
-          )}
-        </Box>
+          </Box>
+        )}
       </FormControl>
     );
   }

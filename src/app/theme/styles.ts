@@ -1,7 +1,7 @@
 import {SxProps, Theme} from '@mui/material';
 import {CSSProperties} from 'react';
 import {maxPhotos} from '@/shared/ui/imageGallery/ImageGallery';
-import {brand} from './theme';
+import {brand, yellow} from './theme';
 
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
@@ -223,10 +223,10 @@ export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSPr
 
 export const yellowSliderStyles = {
   '& .MuiSlider-thumb': {
-    color: '#faaf00'
+    color: yellow[900]
   },
   '& .MuiSlider-track': {
-    color: '#faaf00'
+    color: yellow[900]
   },
   '& .MuiSlider-rail': {
     color: 'primary.main'

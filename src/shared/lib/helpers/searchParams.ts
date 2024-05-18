@@ -14,7 +14,7 @@ export const decodeSearchParams = (searchParams: URLSearchParams): FilterKeys =>
       }
       decodedParams[baseKey][parseInt(index)] = Number(val);
     } else {
-      decodedParams[key] = Number(val);
+      decodedParams[key] = isNaN(Number(val)) ? val : Number(val);
     }
   });
 

@@ -5,6 +5,7 @@ import {useMediaQuery} from '@/shared/lib/hooks';
 import {HeaderCategories} from './HeaderCategories';
 import {HeaderNavigation} from './HeaderNavigation';
 import {HeaderToolbar} from './HeaderToolbar';
+import {SearchInput} from './SearchInput';
 
 export const Header = (): ReactElement => {
   const isMobile = useMediaQuery('md');
@@ -18,6 +19,11 @@ export const Header = (): ReactElement => {
           {!isMobile && <HeaderCategories />}
         </Container>
       </Stack>
+      {isMobile && (
+        <Container maxWidth="xl">
+          <SearchInput />
+        </Container>
+      )}
     </AppBar>
   );
 };

@@ -70,7 +70,7 @@ export const Pagination = ({
       >
         {!isMobile && paginator}
         {!isLastPage && (
-          <Button variant="contained" onClick={onShowMore} endIcon={<KeyboardArrowDownIcon />}>
+          <Button variant="contained" onClick={onShowMore} RightAddon={KeyboardArrowDownIcon}>
             Show more
           </Button>
         )}

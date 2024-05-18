@@ -7,6 +7,7 @@ export enum FormVariantsEnum {
   Input = 'input',
   Quantity_Input = 'quantity-input',
   Select = 'select',
+  InputWithSelect = 'input-with-select',
   CheckboxGroup = 'checkbox_group',
   SliderWithInput = 'slider-with-input',
   Slider = 'slider',
@@ -30,6 +31,12 @@ interface FormOptionVariantMapI {
   [FormVariantsEnum.Quantity_Input]: {
     variant: FormVariantsEnum.Quantity_Input;
   };
+  [FormVariantsEnum.InputWithSelect]: {
+    variant: FormVariantsEnum.InputWithSelect;
+    options: LabelOptionsI[];
+    inputName: string;
+    selectName: string;
+  };
   [FormVariantsEnum.Select]: {
     variant: FormVariantsEnum.Select;
     options: LabelOptionsI[];
@@ -40,6 +47,7 @@ interface FormOptionVariantMapI {
     options: LabelOptionsI[];
     showCheckbox?: boolean;
     withQuantity?: boolean;
+    withShowMore?: boolean;
   };
   [FormVariantsEnum.Slider]: {
     component?: ComponentType;

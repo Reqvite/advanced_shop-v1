@@ -25,6 +25,7 @@ export const enumLabelResolver = {
     [TagsEnum.Aquariums]: 'Aquariums'
   },
   categories: {
+    [CategoriesEnum.All_Categories]: 'All categories',
     [CategoriesEnum.Dog]: 'Dogs',
     [CategoriesEnum.Cat]: 'Cats',
     [CategoriesEnum.Bird]: 'Birds',

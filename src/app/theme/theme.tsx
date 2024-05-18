@@ -20,6 +20,10 @@ declare module '@mui/material/styles/createPalette' {
   interface PaletteColor extends ColorRange {}
 }
 
+export const yellow = {
+  900: '#faaf00'
+};
+
 export const brand = {
   50: 'rgb(106, 152, 70)',
   100: 'rgb(244, 248, 236)',
@@ -318,6 +322,25 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
           root: () => ({
             backgroundColor: 'none',
             color: brand[50]
+          })
+        }
+      },
+      MuiSvgIcon: {
+        styleOverrides: {
+          root: () => ({
+            color: 'rgb(21, 21, 21)'
+          })
+        }
+      },
+      MuiRating: {
+        styleOverrides: {
+          root: () => ({
+            '&.MuiRating-root svg': {
+              color: yellow[900]
+            },
+            '& .MuiRating-iconEmpty svg': {
+              color: 'rgb(200, 200, 200)'
+            }
           })
         }
       },

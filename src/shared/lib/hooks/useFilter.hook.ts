@@ -1,9 +1,11 @@
+import {useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {defaultPage} from '@/shared/const/product.const';
 import {FilterKeys} from '@/shared/types/filter';
 import {
   actions as filterActions,
   selectFilter,
+  selectResetAll,
   selectShowMore,
   selectShowMoreInitialPage
 } from '@/slices/filter';
@@ -14,6 +16,7 @@ import {useAppSelector} from './useAppSelector.hook';
 interface UseFilterReturn<T> {
   searchParams: URLSearchParams;
   requestParams: FilterKeys;
+  resetAll: boolean;
   showMoreInitialPage: number | null;
   onUpdateFilter: ({data, resetPage}: {data: Record<string, unknown>; resetPage?: boolean}) => void;
   onResetFilter: (resetValues: Record<string, unknown>) => void;
@@ -21,8 +24,15 @@ interface UseFilterReturn<T> {
   decodeParams: T;
 }
 
+interface UpdateFilterArgs {
+  data: Record<string, unknown>;
+  resetPage?: boolean;
+  resetOtherFilterKeys?: boolean;
+}
+
 export const useFilter = <T>(): UseFilterReturn<T> => {
   const dispatch = useAppDispatch();
+  const resetAll = useAppSelector(selectResetAll);
   const filterKeys = useAppSelector(selectFilter);
   const showMore = useAppSelector(selectShowMore);
   const currentPage = Number(filterKeys.page || defaultPage);
@@ -31,16 +41,26 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   const decodeParams = decodeSearchParams(searchParams) as T;
   const requestParams = {...decodeParams, showMore};
 
-  const onUpdateFilter = ({data, resetPage}: {data: object; resetPage?: boolean}): void => {
-    const newData = resetPage ? {...data, page: 1} : data;
+  const onUpdateFilter = ({data, resetPage, resetOtherFilterKeys}: UpdateFilterArgs): void => {
+    const flattenedData = Object.entries(data).reduce((acc, [key, value]) => {
+      if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+        return {...acc, ...value};
+      }
+      return {...acc, [key]: value};
+    }, {});
+
+    const newData = resetPage ? {...flattenedData, page: 1} : flattenedData;
     const updatedFilter = {...filterKeys, ...newData};
-    setSearchParams(encodeSearchParams(updatedFilter));
+
     dispatch(filterActions.setFilter(updatedFilter));
     dispatch(filterActions.disableShowMore());
+
+    if (resetOtherFilterKeys) {
+      dispatch(filterActions.resetFilterOn());
+    }
   };
 
   const onShowMore = (): void => {
-    setSearchParams(encodeSearchParams({...filterKeys, page: currentPage + 1}));
     dispatch(filterActions.setFilter({...filterKeys, page: currentPage + 1}));
     dispatch(filterActions.enableShowMore(currentPage));
   };
@@ -48,14 +68,18 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   const onResetFilter = (resetValues: Record<string, unknown>): void => {
     resetValues.page = 1;
     dispatch(filterActions.disableShowMore());
-    const resetParams = encodeSearchParams(resetValues);
-    for (const key of resetParams.keys()) {
-      searchParams.delete(key);
-    }
-
-    setSearchParams(searchParams);
     dispatch(filterActions.removeKeys(Object.keys(resetValues)));
   };
+
+  useEffect(() => {
+    if (resetAll) {
+      dispatch(filterActions.resetFilterOff());
+    }
+  }, [dispatch, resetAll]);
+
+  useEffect(() => {
+    setSearchParams(encodeSearchParams(filterKeys));
+  }, [filterKeys, setSearchParams]);
 
   return {
     searchParams,
@@ -64,6 +88,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     onUpdateFilter,
     onResetFilter,
     onShowMore,
-    showMoreInitialPage
+    showMoreInitialPage,
+    resetAll
   };
 };

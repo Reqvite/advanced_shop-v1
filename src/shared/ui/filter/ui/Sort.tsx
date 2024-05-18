@@ -17,7 +17,12 @@ export const Sort = <T extends FieldValues>({
 }: Props<T>): ReactElement => {
   return (
     <Box pb="40px" {...otherProps}>
-      <Filter withDrawer={false} options={options} defaultValues={defaultValues} />
+      <Filter
+        withDrawer={false}
+        options={options}
+        defaultValues={defaultValues}
+        resetValues={{sort: 0}}
+      />
     </Box>
   );
 };

@@ -14,6 +14,7 @@ interface Props<T> {
   onChange?: () => void;
   withDrawer?: boolean;
   resetPage?: boolean;
+  resetOtherFilterKeys?: boolean;
   withResetButton?: boolean;
 }
 
@@ -23,28 +24,35 @@ export const Filter = <T extends FieldValues>({
   options,
   resetPage,
   withResetButton,
-  resetValues
+  resetValues,
+  resetOtherFilterKeys
 }: Props<T>): ReactElement => {
   const isMobile = useMediaQuery('md');
   const {control, handleSubmit, watch, reset, getValues} = useForm<T>({
     defaultValues: {...defaultValues} as DefaultValues<T>
   });
-  const {onUpdateFilter, onResetFilter} = useFilter();
+  const {onUpdateFilter, onResetFilter, resetAll} = useFilter();
 
   const onSubmit = useDebouncedCallback(
     useCallback(
       (data: FilterKeys) => {
-        onUpdateFilter({data, resetPage});
+        onUpdateFilter({data, resetPage, resetOtherFilterKeys});
       },
-      [onUpdateFilter, resetPage]
+      [onUpdateFilter, resetOtherFilterKeys, resetPage]
     ),
     500
   );
 
-  const resetFilter = (): void => {
+  const resetFilter = useCallback((): void => {
     onResetFilter(getValues());
     reset(resetValues);
-  };
+  }, [getValues, onResetFilter, reset, resetValues]);
+
+  useEffect(() => {
+    if (resetAll && !resetOtherFilterKeys) {
+      resetFilter();
+    }
+  }, [reset, resetAll, resetFilter, resetOtherFilterKeys, resetValues]);
 
   useEffect(() => {
     const subscription = watch((_, action) => {
