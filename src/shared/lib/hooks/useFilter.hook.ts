@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {defaultPage} from '@/shared/const/product.const';
 import {FilterKeys} from '@/shared/types/filter';
@@ -40,6 +40,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   const [searchParams, setSearchParams] = useSearchParams();
   const decodeParams = decodeSearchParams(searchParams) as T;
   const requestParams = {...decodeParams, showMore};
+  const isFilterKeysChanged = useRef<boolean>(false);
 
   const onUpdateFilter = ({data, resetPage, resetOtherFilterKeys}: UpdateFilterArgs): void => {
     const flattenedData = Object.entries(data).reduce((acc, [key, value]) => {
@@ -52,23 +53,31 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     const newData = resetPage ? {...flattenedData, page: 1} : flattenedData;
     const updatedFilter = {...filterKeys, ...newData};
 
+    setSearchParams(encodeSearchParams(updatedFilter));
     dispatch(filterActions.setFilter(updatedFilter));
     dispatch(filterActions.disableShowMore());
 
     if (resetOtherFilterKeys) {
       dispatch(filterActions.resetFilterOn());
     }
+
+    isFilterKeysChanged.current = true;
   };
 
   const onShowMore = (): void => {
+    setSearchParams(encodeSearchParams({...filterKeys, page: currentPage + 1}));
     dispatch(filterActions.setFilter({...filterKeys, page: currentPage + 1}));
     dispatch(filterActions.enableShowMore(currentPage));
+
+    isFilterKeysChanged.current = true;
   };
 
   const onResetFilter = (resetValues: Record<string, unknown>): void => {
     resetValues.page = 1;
     dispatch(filterActions.disableShowMore());
     dispatch(filterActions.removeKeys(Object.keys(resetValues)));
+
+    isFilterKeysChanged.current = true;
   };
 
   useEffect(() => {
@@ -78,7 +87,10 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   }, [dispatch, resetAll]);
 
   useEffect(() => {
-    setSearchParams(encodeSearchParams(filterKeys));
+    if (isFilterKeysChanged.current) {
+      setSearchParams(encodeSearchParams(filterKeys));
+      isFilterKeysChanged.current = false;
+    }
   }, [filterKeys, setSearchParams]);
 
   return {

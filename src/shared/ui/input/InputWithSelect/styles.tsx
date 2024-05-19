@@ -50,6 +50,9 @@ export const CustomSelectStyles = styled(Select)(({theme}) => ({
   },
   '&:hover': {
     background: 'none'
+  },
+  '&.Mui-focused': {
+    outline: 'none'
   }
 }));
 
