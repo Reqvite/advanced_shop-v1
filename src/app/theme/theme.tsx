@@ -469,7 +469,15 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         defaultProps: {
           disableRipple: true,
           icon: <CheckBoxOutlineBlankRoundedIcon sx={{color: 'hsla(210, 0%, 0%, 0.0)'}} />,
-          checkedIcon: <CheckRoundedIcon sx={{height: 14, width: 14}} />
+          checkedIcon: (
+            <CheckRoundedIcon
+              sx={{
+                height: 14,
+                width: 14,
+                color: grey[900]
+              }}
+            />
+          )
         },
         styleOverrides: {
           root: ({theme}) => ({

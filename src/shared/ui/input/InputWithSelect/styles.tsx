@@ -33,6 +33,7 @@ export const CustomBox = styled(Box)(({theme}) => ({
 export const CustomSelectStyles = styled(Select)(({theme}) => ({
   border: 'none',
   background: 'none',
+  fontWeight: 'bold',
   height: '40px',
   padding: 0,
   '& .MuiSelect-outlined': {
@@ -65,5 +66,5 @@ export const CustomInputStyles = styled(InputBase)(({theme}) => ({
 }));
 
 export const CustomInputAdornment = styled(InputAdornment)(() => ({
-  paddingRight: '18px'
+  paddingLeft: '18px'
 }));

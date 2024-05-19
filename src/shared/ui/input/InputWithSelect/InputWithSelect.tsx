@@ -45,10 +45,10 @@ export const InputWithSelect = forwardRef(
           control={control}
           render={({field}) => (
             <CustomInputStyles
-              placeholder="Search products"
+              placeholder="Search products..."
               {...field}
               endAdornment={
-                <CustomInputAdornment position="end">
+                <CustomInputAdornment sx={{transform: 'scaleX(-1)'}} position="end">
                   <SearchIcon />
                 </CustomInputAdornment>
               }
