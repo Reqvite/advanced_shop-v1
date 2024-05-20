@@ -30,8 +30,9 @@ export const SliderWithInput = forwardRef<HTMLSpanElement, Props>(
     };
 
     const onInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-      const value = Number(event.target.value);
-      if (!value) {
+      const value = parseFloat(event.target.value);
+      console.log(value);
+      if (isNaN(value)) {
         return;
       }
       const isMin = event.target.name === 'min';

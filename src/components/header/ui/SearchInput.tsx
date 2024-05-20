@@ -1,4 +1,6 @@
-import {ReactElement} from 'react';
+import {ReactElement, useEffect} from 'react';
+import {createSearchParams, URLSearchParamsInit, useLocation, useNavigate} from 'react-router-dom';
+import {getRouteMain} from '@/app/providers/AppRouter/routeConfig';
 import {categoriesOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useFilter} from '@/shared/lib/hooks';
 import {SearchFilterModel} from '@/shared/models/searchFilterModel';
@@ -16,8 +18,12 @@ const options: FormOption<FormVariantsEnum>[] = [
   }
 ];
 
+type SearchInputParams = {category: number; search: string};
+
 export const SearchInput = (): ReactElement => {
-  const {decodeParams, filterKeys} = useFilter<{category: number; search: string}>();
+  const {pathname} = useLocation();
+  const navigate = useNavigate();
+  const {decodeParams, filterKeys, onResetFilter} = useFilter<SearchInputParams>();
 
   const defaultValues = {
     search: {
@@ -27,6 +33,21 @@ export const SearchInput = (): ReactElement => {
       })
     }
   };
+
+  useEffect(() => {
+    if (filterKeys.categories) {
+      onResetFilter({category: ''}, {resetPage: false});
+    }
+  }, [filterKeys, onResetFilter]);
+
+  useEffect(() => {
+    if (pathname !== getRouteMain() && Object.keys(decodeParams).length) {
+      navigate({
+        pathname: getRouteMain(),
+        search: createSearchParams(decodeParams as unknown as URLSearchParamsInit).toString()
+      });
+    }
+  }, [decodeParams, navigate, pathname]);
 
   return (
     <Flex justifyContent="center">
