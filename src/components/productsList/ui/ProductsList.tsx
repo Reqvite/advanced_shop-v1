@@ -38,7 +38,7 @@ export const ProductsList = ({
   emptyListTitle
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const {requestParams, decodeParams, onResetFilter} = useFilter<ProductFilterModel>();
+  const {requestParams, decodeParams, onResetFilter, filterKeys} = useFilter<ProductFilterModel>();
   const {data, isLoading, isFetching} = useGetProducts(
     Object.keys(requestParams)?.length === 1 ? {} : requestParams
   );
@@ -46,8 +46,13 @@ export const ProductsList = ({
     skip: !withFilter
   });
   const defaultValues = useMemo(
-    () => new ProductFilterModel({model: decodeParams, minMaxPrices: data?.minMaxPrices}),
-    [data?.minMaxPrices, decodeParams]
+    () =>
+      new ProductFilterModel({
+        model: decodeParams,
+        minMaxPrices: data?.minMaxPrices,
+        category: filterKeys?.category as number
+      }),
+    [data?.minMaxPrices, decodeParams, filterKeys?.category]
   );
   const memoizedFilterOptions = useMemo(
     () =>
@@ -64,6 +69,12 @@ export const ProductsList = ({
     () => (withFilter && defaultValues ? getFilterDefaultValues({defaultValues}) : null),
     [defaultValues, withFilter]
   );
+  const resetValues = getFilterDefaultValues({
+    defaultValues: new ProductFilterModel({
+      minMaxPrices: data?.minMaxPrices,
+      category: filterKeys?.category as number
+    })
+  });
 
   const isLastPage = data?.totalPages === decodeParams?.page || data?.totalPages === 1;
   const hasFilters = withFilter && memoizedFilterOptions && memoizedDefaultValues;
@@ -82,9 +93,7 @@ export const ProductsList = ({
       {hasFilters && (
         <MobileFilters
           filterOptions={memoizedFilterOptions}
-          resetValues={getFilterDefaultValues({
-            defaultValues: new ProductFilterModel({minMaxPrices: data?.minMaxPrices})
-          })}
+          resetValues={resetValues}
           filterDefaultValues={memoizedDefaultValues}
           sortOptions={sortFilterOptions}
           sortDefaultValues={{sort: defaultValues.sort}}
@@ -99,9 +108,7 @@ export const ProductsList = ({
           !isMobile && (
             <Filter
               options={memoizedFilterOptions}
-              resetValues={getFilterDefaultValues({
-                defaultValues: new ProductFilterModel({minMaxPrices: data?.minMaxPrices})
-              })}
+              resetValues={resetValues}
               defaultValues={memoizedDefaultValues}
               resetPage
               withResetButton

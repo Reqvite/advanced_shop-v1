@@ -12,20 +12,30 @@ const options: FormOption<FormVariantsEnum>[] = [
     name: 'Search',
     options: categoriesOptions,
     inputName: 'search',
-    selectName: 'categories0'
+    selectName: 'category'
   }
 ];
 
 export const SearchInput = (): ReactElement => {
-  const {decodeParams} = useFilter<{categories: number[]; search: string}>();
+  const {decodeParams, filterKeys} = useFilter<{category: number; search: string}>();
+
+  const defaultValues = {
+    search: {
+      ...new SearchFilterModel({
+        model: decodeParams,
+        categories: filterKeys?.categories as number[]
+      })
+    }
+  };
 
   return (
     <Flex justifyContent="center">
       <Filter
         options={options}
-        defaultValues={{search: new SearchFilterModel({model: decodeParams})}}
+        defaultValues={defaultValues}
         withDrawer={false}
         resetOtherFilterKeys
+        values={defaultValues}
       />
     </Flex>
   );

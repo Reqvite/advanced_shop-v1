@@ -16,6 +16,7 @@ interface Props<T> {
   resetPage?: boolean;
   resetOtherFilterKeys?: boolean;
   withResetButton?: boolean;
+  values?: T;
 }
 
 export const Filter = <T extends FieldValues>({
@@ -25,12 +26,15 @@ export const Filter = <T extends FieldValues>({
   resetPage,
   withResetButton,
   resetValues,
-  resetOtherFilterKeys
+  resetOtherFilterKeys,
+  values
 }: Props<T>): ReactElement => {
   const isMobile = useMediaQuery('md');
   const {control, handleSubmit, watch, reset, getValues} = useForm<T>({
-    defaultValues: {...defaultValues} as DefaultValues<T>
+    defaultValues: {...defaultValues} as DefaultValues<T>,
+    values
   });
+
   const {onUpdateFilter, onResetFilter, resetAll} = useFilter();
 
   const onSubmit = useDebouncedCallback(

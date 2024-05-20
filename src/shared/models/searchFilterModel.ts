@@ -1,9 +1,20 @@
-export class SearchFilterModel {
-  public categories0?: number;
-  public search?: string;
+const defaultCategory = 0;
 
-  constructor({model}: {model?: {categories: number[]; search: string}}) {
-    this.categories0 = model?.categories?.[0] || 0;
+export class SearchFilterModel {
+  public category: number;
+  public search: string;
+
+  constructor({
+    model,
+    categories
+  }: {
+    model?: {category?: number; search?: string};
+    categories?: number[];
+  }) {
+    const resetCategory = (categories?.length || 0) > 1;
+    this.category = resetCategory
+      ? defaultCategory
+      : categories?.[0] ?? model?.category ?? defaultCategory;
     this.search = model?.search || '';
   }
 }

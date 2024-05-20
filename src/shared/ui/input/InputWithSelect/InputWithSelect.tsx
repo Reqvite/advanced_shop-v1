@@ -23,7 +23,6 @@ export const InputWithSelect = forwardRef(
       control,
       defaultValue: ''
     });
-
     useWatch({control, name});
 
     return (

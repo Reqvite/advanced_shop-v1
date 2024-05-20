@@ -29,6 +29,14 @@ const buildGetProductsRequestOptions = ({
     paramsCopy.orderBy = sortValue.option.orderBy;
     paramsCopy.order = sortValue.option.order;
   }
+  if (params?.category) {
+    let otherCategories: number[] = [];
+    if (params?.categories) {
+      otherCategories = params?.categories as number[];
+    }
+    paramsCopy.categories = [params.category, ...otherCategories] as number[];
+  }
+  delete paramsCopy['category'];
 
   return {
     url: `${ApiPathEnum.PRODUCTS}${path}`,
