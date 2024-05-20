@@ -90,7 +90,7 @@ export const ProductsList = ({
           sortDefaultValues={{sort: defaultValues.sort}}
         />
       )}
-      {withFilter && !isMobile && (
+      {withFilter && !isMobile && defaultValues.sort && (
         <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       )}
       <StickyContentLayout

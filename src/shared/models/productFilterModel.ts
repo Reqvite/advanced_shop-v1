@@ -2,7 +2,7 @@ import {defaultPage, defaultPrice, defaultRating, defaultSort} from '../const/pr
 
 export class ProductFilterModel {
   public page?: number;
-  public sort: number;
+  public sort?: number;
   public rating: number[];
   public categories: number[];
   public prices: number[];
