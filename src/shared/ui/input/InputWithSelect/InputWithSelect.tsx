@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import {forwardRef, ReactElement} from 'react';
 import {Control, Controller, useController, useWatch} from 'react-hook-form';
-import {categoriesOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
+import {LabelOptionsI} from '@/shared/types/options';
 import {CustomBox, CustomInputAdornment, CustomInputStyles, CustomSelectStyles} from './styles';
 
 type Props = {
@@ -9,14 +9,15 @@ type Props = {
   name: string;
   inputName: string;
   selectName: string;
+  options: LabelOptionsI[];
 };
 
 export const InputWithSelect = forwardRef(
-  ({control, name, inputName, selectName}: Props, ref): ReactElement => {
+  ({control, name, inputName, selectName, options}: Props, ref): ReactElement => {
     useController({
       name: `${name}.${selectName}`,
       control,
-      defaultValue: 1
+      defaultValue: options[0].value
     });
     useController({
       name: `${name}.${inputName}`,
@@ -32,12 +33,7 @@ export const InputWithSelect = forwardRef(
           name={`${name}.${selectName}`}
           control={control}
           render={({field}) => (
-            <CustomSelectStyles
-              options={categoriesOptions}
-              fullWidth
-              variant="outlined"
-              {...field}
-            />
+            <CustomSelectStyles options={options} fullWidth variant="outlined" {...field} />
           )}
         />
         <Controller

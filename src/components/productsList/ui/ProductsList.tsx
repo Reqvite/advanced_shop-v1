@@ -79,7 +79,7 @@ export const ProductsList = ({
       <Typography variant="h2" mb={3}>
         {title}
       </Typography>
-      {hasFilters && (
+      {hasFilters && defaultValues.sort && (
         <MobileFilters
           filterOptions={memoizedFilterOptions}
           resetValues={getFilterDefaultValues({

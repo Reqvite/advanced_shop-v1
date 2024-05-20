@@ -4,7 +4,7 @@ import {FieldValues} from 'react-hook-form';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Filter} from './Filter';
 
-type SortFieldValues = FieldValues & {
+export type SortFieldValues = FieldValues & {
   sort: number;
 };
 
