@@ -21,7 +21,7 @@ export const Sort = <T extends FieldValues>({
         withDrawer={false}
         options={options}
         defaultValues={defaultValues}
-        resetValues={{sort: 0}}
+        resetValues={{sort: 0} as any}
       />
     </Box>
   );

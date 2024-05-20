@@ -34,7 +34,14 @@ export const ProductCardSkeleton = ({variant}: Props): ReactElement => {
   return (
     <Card sx={productCardStyles.bigCardContainer}>
       <Flex minHeight="280px">
-        <Skeleton variant="rectangular" sx={productCardStyles.bigCardMedia} />
+        <Skeleton
+          variant="rectangular"
+          sx={{
+            ...productCardStyles.bigCardMedia,
+            minHeight: '280px',
+            minWidth: '180px'
+          }}
+        />
         <CardContent sx={productCardStyles.bigCardContent}>
           <Box sx={productCardStyles.box}>
             <Box>

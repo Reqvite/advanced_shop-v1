@@ -13,21 +13,21 @@ import {decodeSearchParams, encodeSearchParams} from '../helpers';
 import {useAppDispatch} from './useAppDispatch.hook';
 import {useAppSelector} from './useAppSelector.hook';
 
+interface UpdateFilterArgs {
+  data: Record<string, unknown>;
+  resetPage?: boolean;
+  resetOtherFilterKeys?: boolean;
+}
+
 interface UseFilterReturn<T> {
   searchParams: URLSearchParams;
   requestParams: FilterKeys;
   resetAll: boolean;
   showMoreInitialPage: number | null;
-  onUpdateFilter: ({data, resetPage}: {data: Record<string, unknown>; resetPage?: boolean}) => void;
+  onUpdateFilter: (args: UpdateFilterArgs) => void;
   onResetFilter: (resetValues: Record<string, unknown>) => void;
   onShowMore: () => void;
   decodeParams: T;
-}
-
-interface UpdateFilterArgs {
-  data: Record<string, unknown>;
-  resetPage?: boolean;
-  resetOtherFilterKeys?: boolean;
 }
 
 export const useFilter = <T>(): UseFilterReturn<T> => {
