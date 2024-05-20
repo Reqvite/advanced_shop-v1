@@ -4,13 +4,17 @@ import {FieldValues} from 'react-hook-form';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Filter} from './Filter';
 
-type Props<T> = BoxProps & {
+type SortFieldValues = FieldValues & {
+  sort: number;
+};
+
+type Props<T extends SortFieldValues> = BoxProps & {
   options: FormOption<FormVariantsEnum>[];
   defaultValues: T;
   title?: string;
 };
 
-export const Sort = <T extends FieldValues>({
+export const Sort = <T extends SortFieldValues>({
   options,
   defaultValues,
   ...otherProps
@@ -21,7 +25,7 @@ export const Sort = <T extends FieldValues>({
         withDrawer={false}
         options={options}
         defaultValues={defaultValues}
-        resetValues={{sort: 0} as any}
+        resetValues={{sort: 0}}
       />
     </Box>
   );

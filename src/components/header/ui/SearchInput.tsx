@@ -12,12 +12,14 @@ const options: FormOption<FormVariantsEnum>[] = [
     name: 'Search',
     options: categoriesOptions,
     inputName: 'search',
-    selectName: 'categories0'
+    selectName: 'category'
   }
 ];
 
+type SearchInputParams = {category: number; search: string};
+
 export const SearchInput = (): ReactElement => {
-  const {decodeParams} = useFilter<{categories: number[]; search: string}>();
+  const {decodeParams} = useFilter<SearchInputParams>();
 
   return (
     <Flex justifyContent="center">

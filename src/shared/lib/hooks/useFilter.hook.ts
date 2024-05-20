@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {defaultPage} from '@/shared/const/product.const';
 import {FilterKeys} from '@/shared/types/filter';
@@ -40,7 +40,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   const [searchParams, setSearchParams] = useSearchParams();
   const decodeParams = decodeSearchParams(searchParams) as T;
   const requestParams = {...decodeParams, showMore};
-  const isFilterKeysChanged = useRef<boolean>(false);
+  const [isFilterKeysChanged, setIsFilterKeysChanged] = useState<boolean>(false);
 
   const onUpdateFilter = ({data, resetPage, resetOtherFilterKeys}: UpdateFilterArgs): void => {
     const flattenedData = Object.entries(data).reduce((acc, [key, value]) => {
@@ -61,7 +61,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
       dispatch(filterActions.resetFilterOn());
     }
 
-    isFilterKeysChanged.current = true;
+    setIsFilterKeysChanged(true);
   };
 
   const onShowMore = (): void => {
@@ -69,7 +69,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     dispatch(filterActions.setFilter({...filterKeys, page: currentPage + 1}));
     dispatch(filterActions.enableShowMore(currentPage));
 
-    isFilterKeysChanged.current = true;
+    setIsFilterKeysChanged(true);
   };
 
   const onResetFilter = (resetValues: Record<string, unknown>): void => {
@@ -77,7 +77,7 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
     dispatch(filterActions.disableShowMore());
     dispatch(filterActions.removeKeys(Object.keys(resetValues)));
 
-    isFilterKeysChanged.current = true;
+    setIsFilterKeysChanged(true);
   };
 
   useEffect(() => {
@@ -87,11 +87,11 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
   }, [dispatch, resetAll]);
 
   useEffect(() => {
-    if (isFilterKeysChanged.current) {
+    if (isFilterKeysChanged) {
       setSearchParams(encodeSearchParams(filterKeys));
-      isFilterKeysChanged.current = false;
+      setIsFilterKeysChanged(false);
     }
-  }, [filterKeys, setSearchParams]);
+  }, [filterKeys, isFilterKeysChanged, setSearchParams]);
 
   return {
     searchParams,
