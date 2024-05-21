@@ -26,17 +26,15 @@ export const SearchInput = (): ReactElement => {
   const {decodeParams, filterKeys, onResetFilter} = useFilter<SearchInputParams>();
 
   const defaultValues = {
-    search: {
-      ...new SearchFilterModel({
-        model: decodeParams,
-        categories: filterKeys?.categories as number[]
-      })
-    }
+    search: new SearchFilterModel({
+      model: decodeParams,
+      categories: filterKeys?.categories as number[]
+    })
   };
 
   useEffect(() => {
     if (filterKeys.categories) {
-      onResetFilter({category: ''}, {resetPage: false});
+      onResetFilter({category: ''}, {resetPage: false, disableShowMore: false});
     }
   }, [filterKeys, onResetFilter]);
 

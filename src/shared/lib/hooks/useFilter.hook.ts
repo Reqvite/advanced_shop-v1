@@ -21,6 +21,7 @@ interface UpdateFilterArgs {
 
 interface OnResetOptions {
   resetPage?: boolean;
+  disableShowMore?: boolean;
 }
 
 interface UseFilterReturn<T> {
@@ -79,12 +80,14 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
 
   const onResetFilter = (
     resetValues: Record<string, unknown>,
-    options: OnResetOptions = {resetPage: true}
+    options: OnResetOptions = {resetPage: true, disableShowMore: true}
   ): void => {
     if (options.resetPage) {
       resetValues.page = 1;
     }
-    dispatch(filterActions.disableShowMore());
+    if (options.disableShowMore) {
+      dispatch(filterActions.disableShowMore());
+    }
     dispatch(filterActions.removeKeys(Object.keys(resetValues)));
 
     setIsFilterKeysChanged(true);

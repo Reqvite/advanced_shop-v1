@@ -31,7 +31,6 @@ export const SliderWithInput = forwardRef<HTMLSpanElement, Props>(
 
     const onInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
       const value = parseFloat(event.target.value);
-      console.log(value);
       if (isNaN(value)) {
         return;
       }
