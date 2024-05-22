@@ -28,7 +28,7 @@ export class ProductFilterModel {
     this.sort = model?.sort || defaultSort;
     this.rating = model?.rating || defaultRating;
     this.categories = setDefaultCategories(category, model?.categories) || [];
-    this.prices = model?.prices || minMaxPrices;
+    this.prices = minMaxPrices || model?.prices;
     this.brands = model?.brands || [];
   }
 }

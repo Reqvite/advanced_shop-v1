@@ -18,34 +18,35 @@ const options: FormOption<FormVariantsEnum>[] = [
   }
 ];
 
-type SearchInputParams = {category: number; search: string};
-
 export const SearchInput = (): ReactElement => {
   const {pathname} = useLocation();
   const navigate = useNavigate();
-  const {decodeParams, filterKeys, onResetFilter} = useFilter<SearchInputParams>();
+  const {paramsLength, paramsWithoutShowMore, onResetCategory} = useFilter();
+  const isNavigate = pathname !== getRouteMain();
 
   const defaultValues = {
     search: new SearchFilterModel({
-      model: decodeParams,
-      categories: filterKeys?.categories as number[]
+      model: paramsWithoutShowMore,
+      categories: paramsWithoutShowMore?.categories
     })
   };
 
   useEffect(() => {
-    if (filterKeys.categories) {
-      onResetFilter({category: ''}, {resetPage: false, disableShowMore: false});
+    if (paramsWithoutShowMore?.categories && paramsWithoutShowMore.category) {
+      onResetCategory();
     }
-  }, [filterKeys, onResetFilter]);
+  }, [onResetCategory, paramsWithoutShowMore?.categories, paramsWithoutShowMore.category]);
 
   useEffect(() => {
-    if (pathname !== getRouteMain() && Object.keys(decodeParams).length) {
+    if (isNavigate && Object.keys(paramsWithoutShowMore).includes('search')) {
       navigate({
         pathname: getRouteMain(),
-        search: createSearchParams(decodeParams as unknown as URLSearchParamsInit).toString()
+        search: createSearchParams(
+          paramsWithoutShowMore as unknown as URLSearchParamsInit
+        ).toString()
       });
     }
-  }, [decodeParams, navigate, pathname]);
+  }, [isNavigate, navigate, paramsLength, paramsWithoutShowMore]);
 
   return (
     <Flex justifyContent="center">
@@ -53,7 +54,6 @@ export const SearchInput = (): ReactElement => {
         options={options}
         defaultValues={defaultValues}
         withDrawer={false}
-        resetOtherFilterKeys
         values={defaultValues}
       />
     </Flex>

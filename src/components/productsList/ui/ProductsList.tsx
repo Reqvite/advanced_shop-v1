@@ -38,21 +38,19 @@ export const ProductsList = ({
   emptyListTitle
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const {requestParams, decodeParams, onResetFilter, filterKeys} = useFilter<ProductFilterModel>();
-  const {data, isLoading, isFetching} = useGetProducts(
-    Object.keys(requestParams)?.length === 1 ? {} : requestParams
-  );
+  const {params, onUpdateFilter} = useFilter();
+  const {data, isLoading, isFetching} = useGetProducts(params);
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery(null, {
     skip: !withFilter
   });
   const defaultValues = useMemo(
     () =>
       new ProductFilterModel({
-        model: decodeParams,
+        model: params,
         minMaxPrices: data?.minMaxPrices,
-        category: filterKeys?.category as number
+        category: params?.category
       }),
-    [data?.minMaxPrices, decodeParams, filterKeys?.category]
+    [data?.minMaxPrices, params]
   );
   const memoizedFilterOptions = useMemo(
     () =>
@@ -71,19 +69,18 @@ export const ProductsList = ({
   );
   const resetValues = getFilterDefaultValues({
     defaultValues: new ProductFilterModel({
-      minMaxPrices: data?.minMaxPrices,
-      category: filterKeys?.category as number
+      minMaxPrices: data?.minMaxPrices
     })
   });
 
-  const isLastPage = data?.totalPages === decodeParams?.page || data?.totalPages === 1;
+  const isLastPage = data?.totalPages === params?.page || data?.totalPages === 1;
   const hasFilters = withFilter && memoizedFilterOptions && memoizedDefaultValues;
 
   useEffect(() => {
-    if (requestParams?.page !== 1 && data?.totalPages && data?.results.length === 0) {
-      onResetFilter({data: {page: 1}});
+    if (params?.page !== 1 && data?.totalPages && data?.results.length === 0) {
+      onUpdateFilter({page: 1});
     }
-  }, [data?.results.length, data?.totalPages, onResetFilter, requestParams?.page]);
+  }, [data?.results.length, data?.totalPages, onUpdateFilter, params?.page]);
 
   return (
     <PageWrapper isLoading={isLoading}>
@@ -110,6 +107,7 @@ export const ProductsList = ({
               options={memoizedFilterOptions}
               resetValues={resetValues}
               defaultValues={memoizedDefaultValues}
+              values={memoizedDefaultValues}
               resetPage
               withResetButton
             />
@@ -132,7 +130,7 @@ export const ProductsList = ({
         bottom={
           withPagination && (
             <Pagination
-              page={decodeParams.page || defaultValues.page}
+              page={defaultValues.page}
               count={data?.totalPages}
               total={data?.results.length}
               isLastPage={isLastPage}

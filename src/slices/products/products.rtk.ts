@@ -3,7 +3,7 @@ import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
-import {FilterKeys} from '@/shared/types/filter';
+import {RequestFilterParams} from '@/shared/types/filter';
 import {
   GetProductsQuantityByCategories,
   GetProductsResponse,
@@ -15,7 +15,7 @@ import {forceRefetch, onQueryStartedUpdateWishlist} from './helpers';
 import {mergeProductsResults} from './merges';
 import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './queries';
 
-export type GetProductsQuery = FilterKeys | void;
+export type GetProductsQuery = RequestFilterParams | void;
 export type GetWishlistQuery = {
   _id: string;
   setSearchParams?: (params: URLSearchParams) => void;
@@ -47,7 +47,7 @@ export const productsApi = createApi({
     }),
     getProductsQuantityByCategories: builder.query<
       GetProductsQuantityByCategories[],
-      GetProductsQuery | null
+      GetProductsQuery | object | null
     >({
       query: (params) => getProductsQuantityByCategories(params ? params : {})
     }),

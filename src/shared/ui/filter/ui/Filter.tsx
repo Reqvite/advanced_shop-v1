@@ -3,9 +3,9 @@ import {ReactElement, useCallback, useEffect} from 'react';
 import {DefaultValues, FieldValues, useForm} from 'react-hook-form';
 import {useDebouncedCallback, useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
-import {FilterKeys} from '@/shared/types/filter';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Button, Drawer, FilterButton} from '@/shared/ui';
+import {FilterI} from '@/slices/filter/filter.slice';
 
 interface Props<T> {
   options: FormOption<FormVariantsEnum>[];
@@ -26,37 +26,29 @@ export const Filter = <T extends FieldValues>({
   resetPage,
   withResetButton,
   resetValues,
-  resetOtherFilterKeys,
   values
 }: Props<T>): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const {control, handleSubmit, watch, reset, getValues} = useForm<T>({
+  const {onUpdateFilter, onResetFilter} = useFilter();
+  const {control, handleSubmit, watch, reset} = useForm<T>({
     defaultValues: {...defaultValues} as DefaultValues<T>,
     values
   });
 
-  const {onUpdateFilter, onResetFilter, resetAll} = useFilter();
-
   const onSubmit = useDebouncedCallback(
     useCallback(
-      (data: FilterKeys) => {
-        onUpdateFilter({data, resetPage, resetOtherFilterKeys});
+      (data: FilterI) => {
+        onUpdateFilter(data, {resetPage});
       },
-      [onUpdateFilter, resetOtherFilterKeys, resetPage]
+      [onUpdateFilter, resetPage]
     ),
     500
   );
 
   const resetFilter = useCallback((): void => {
-    onResetFilter(getValues());
     reset(resetValues);
-  }, [getValues, onResetFilter, reset, resetValues]);
-
-  useEffect(() => {
-    if (resetAll && !resetOtherFilterKeys) {
-      resetFilter();
-    }
-  }, [reset, resetAll, resetFilter, resetOtherFilterKeys, resetValues]);
+    onResetFilter();
+  }, [onResetFilter, reset, resetValues]);
 
   useEffect(() => {
     const subscription = watch((_, action) => {

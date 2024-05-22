@@ -26,6 +26,7 @@ export const Sort = <T extends SortFieldValues>({
         options={options}
         defaultValues={defaultValues}
         resetValues={{sort: 0}}
+        values={defaultValues}
       />
     </Box>
   );
