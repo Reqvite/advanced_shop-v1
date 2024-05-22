@@ -20,6 +20,10 @@ declare module '@mui/material/styles/createPalette' {
   interface PaletteColor extends ColorRange {}
 }
 
+export const yellow = {
+  900: '#faaf00'
+};
+
 export const brand = {
   50: 'rgb(106, 152, 70)',
   100: 'rgb(244, 248, 236)',
@@ -321,6 +325,25 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
           })
         }
       },
+      MuiSvgIcon: {
+        styleOverrides: {
+          root: () => ({
+            color: 'rgb(21, 21, 21)'
+          })
+        }
+      },
+      MuiRating: {
+        styleOverrides: {
+          root: () => ({
+            '&.MuiRating-root svg': {
+              color: yellow[900]
+            },
+            '& .MuiRating-iconEmpty svg': {
+              color: 'rgb(200, 200, 200)'
+            }
+          })
+        }
+      },
       MuiOutlinedInput: {
         styleOverrides: {
           notchedOutline: {
@@ -446,7 +469,15 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         defaultProps: {
           disableRipple: true,
           icon: <CheckBoxOutlineBlankRoundedIcon sx={{color: 'hsla(210, 0%, 0%, 0.0)'}} />,
-          checkedIcon: <CheckRoundedIcon sx={{height: 14, width: 14}} />
+          checkedIcon: (
+            <CheckRoundedIcon
+              sx={{
+                height: 14,
+                width: 14,
+                color: grey[900]
+              }}
+            />
+          )
         },
         styleOverrides: {
           root: ({theme}) => ({

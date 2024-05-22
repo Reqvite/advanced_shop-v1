@@ -1,7 +1,7 @@
 import {SxProps, Theme} from '@mui/material';
 import {CSSProperties} from 'react';
 import {maxPhotos} from '@/shared/ui/imageGallery/ImageGallery';
-import {brand} from './theme';
+import {brand, grey, yellow} from './theme';
 
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
@@ -204,7 +204,12 @@ export const modalStyles = {
 export const carouselStyles = {
   swiper: {
     paddingTop: '10px',
-    paddingBottom: '10px'
+    paddingBottom: '10px',
+    '--swiper-pagination-color': brand[500],
+    '--swiper-pagination-bullet-inactive-color': grey[500],
+    '--swiper-pagination-bullet-inactive-opacity': '1',
+    '--swiper-pagination-bullet-size': '12px',
+    '--swiper-pagination-bullet-horizontal-gap': '6px'
   },
   swiperSlide: {
     display: 'flex',
@@ -223,10 +228,10 @@ export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSPr
 
 export const yellowSliderStyles = {
   '& .MuiSlider-thumb': {
-    color: '#faaf00'
+    color: yellow[900]
   },
   '& .MuiSlider-track': {
-    color: '#faaf00'
+    color: yellow[900]
   },
   '& .MuiSlider-rail': {
     color: 'primary.main'

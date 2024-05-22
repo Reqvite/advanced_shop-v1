@@ -4,6 +4,7 @@ import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {
   Checkbox,
   ControllerWrapper,
+  InputWithSelect,
   QuantityInput,
   Select,
   Slider,
@@ -54,6 +55,15 @@ export const renderFormBlock = <T extends FieldValues>({
       return (
         <ControllerWrapper
           InputComponent={SliderWithInput}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
+    case FormVariantsEnum.InputWithSelect:
+      return (
+        <ControllerWrapper
+          InputComponent={InputWithSelect}
           key={option.id}
           option={option}
           control={control}

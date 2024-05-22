@@ -28,6 +28,7 @@ export const Pagination = ({
 }: Props): ReactElement | null => {
   const isMobile = useMediaQuery('md');
   const {onUpdateFilter, onShowMore, showMoreInitialPage} = useFilter();
+
   const ref = useRef<HTMLElement>();
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export const Pagination = ({
   }
 
   const onChangePage = (_: ChangeEvent<unknown>, page: number): void => {
-    onUpdateFilter({data: {page}});
+    onUpdateFilter({page});
     scrollToTop();
     if (onChange) {
       onChange;
@@ -70,7 +71,7 @@ export const Pagination = ({
       >
         {!isMobile && paginator}
         {!isLastPage && (
-          <Button variant="contained" onClick={onShowMore} endIcon={<KeyboardArrowDownIcon />}>
+          <Button variant="contained" onClick={onShowMore} RightAddon={KeyboardArrowDownIcon}>
             Show more
           </Button>
         )}

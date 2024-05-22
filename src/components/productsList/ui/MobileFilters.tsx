@@ -3,16 +3,16 @@ import {ReactElement} from 'react';
 import {FieldValues} from 'react-hook-form';
 import {productsListStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
-import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Filter, Flex, Sort} from '@/shared/ui';
+import {SortFieldValues} from '@/shared/ui/filter/ui/Sort';
 
 type Props<T> = {
   filterOptions: FormOption<FormVariantsEnum>[];
   resetValues?: T;
   filterDefaultValues: T;
   sortOptions: FormOption<FormVariantsEnum>[];
-  sortDefaultValues: Pick<ProductFilterModel, 'sort'>;
+  sortDefaultValues: SortFieldValues;
 };
 
 export const MobileFilters = <T extends FieldValues>({

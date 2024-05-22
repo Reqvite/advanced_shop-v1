@@ -19,6 +19,9 @@ interface BasePropsI<T extends FieldValues> {
   withQuantity?: boolean;
   iconComponent?: ElementType;
   sx?: SxProps;
+  inputName?: string;
+  selectName?: string;
+  withShowMore?: boolean;
 }
 
 export const getProps = <T extends FieldValues>({
@@ -42,14 +45,27 @@ export const getProps = <T extends FieldValues>({
 
   switch (variant) {
     case FormVariantsEnum.Select:
-      return {...baseProps, options: option.options, styleVariant: option.styleVariant};
+      return {
+        ...baseProps,
+        options: option.options,
+        styleVariant: option.styleVariant
+      };
+    case FormVariantsEnum.InputWithSelect:
+      return {
+        ...baseProps,
+        options: option.options,
+        control,
+        inputName: option.inputName,
+        selectName: option.selectName
+      };
     case FormVariantsEnum.CheckboxGroup:
       return {
         ...baseProps,
         options: option.options,
         control,
         showCheckbox: option.showCheckbox,
-        withQuantity: option.withQuantity
+        withQuantity: option.withQuantity,
+        withShowMore: option.withShowMore
       };
     case FormVariantsEnum.Slider:
       return {...baseProps, iconComponent: option.component};

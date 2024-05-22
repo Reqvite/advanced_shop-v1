@@ -11,7 +11,7 @@ export const ImageGalleryItem = ({alt, isActive = false, ...otherProps}: Props):
   return (
     <Box
       maxWidth={200}
-      sx={{...(isActive && {border: `2px solid ${alpha(brand[500], 0.4)}`, borderRadius: '5px'})}}
+      sx={{...(isActive && {border: `2px solid ${alpha(brand[500], 0.4)}`, borderRadius: '12px'})}}
     >
       <CardMedia component="img" alt={alt} {...otherProps} />
     </Box>

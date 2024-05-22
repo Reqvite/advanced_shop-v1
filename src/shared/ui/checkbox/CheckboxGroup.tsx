@@ -27,6 +27,7 @@ interface Props {
   max?: number;
   showCheckbox?: boolean;
   withQuantity?: boolean;
+  withShowMore?: boolean;
 }
 
 const MotionFormControlLabel = motion(FormControlLabel);
@@ -39,7 +40,18 @@ const animation = {
 
 export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
   (
-    {label, options, name, row, isDisabled, max = 5, showCheckbox = true, withQuantity, control},
+    {
+      label,
+      options,
+      name,
+      row,
+      isDisabled,
+      max = 5,
+      showCheckbox = true,
+      withShowMore = true,
+      withQuantity,
+      control
+    },
     ref
   ): ReactElement => {
     const {
@@ -126,7 +138,7 @@ export const CheckboxGroup = forwardRef<HTMLInputElement, Props>(
           <FormGroup row={row} sx={styles.formGroup}>
             <AnimatePresence>{renderOptions.map(checkbox)}</AnimatePresence>
           </FormGroup>
-          {options.length > 5 && (
+          {withShowMore && options.length > 5 && (
             <Button variant="text" color="primary" onClick={() => setShowMore(!showMore)}>
               {showMore ? 'Show Less' : 'Show More'}
             </Button>

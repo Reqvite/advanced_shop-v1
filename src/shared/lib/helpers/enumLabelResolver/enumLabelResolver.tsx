@@ -25,11 +25,9 @@ export const enumLabelResolver = {
     [TagsEnum.Aquariums]: 'Aquariums'
   },
   categories: {
+    [CategoriesEnum.All_Categories]: 'All categories',
     [CategoriesEnum.Dog]: 'Dogs',
-    [CategoriesEnum.Cat]: 'Cats',
-    [CategoriesEnum.Bird]: 'Birds',
-    [CategoriesEnum.Small_Pet]: 'Small Pets',
-    [CategoriesEnum.Aquatic]: 'Dry Food'
+    [CategoriesEnum.Cat]: 'Cats'
   },
   brands: {
     [BrandsEnum.Savory]: 'Savory',

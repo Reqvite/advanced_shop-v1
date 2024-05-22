@@ -1,9 +1,9 @@
 import {FormControl, Stack} from '@mui/material';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {ReactElement, useCallback, useEffect} from 'react';
 import {DefaultValues, FieldValues, useForm} from 'react-hook-form';
 import {useDebouncedCallback, useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
-import {FilterKeys} from '@/shared/types/filter';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Button, Drawer, FilterButton} from '@/shared/ui';
 
@@ -14,7 +14,10 @@ interface Props<T> {
   onChange?: () => void;
   withDrawer?: boolean;
   resetPage?: boolean;
+  resetOtherFilterKeys?: boolean;
   withResetButton?: boolean;
+  values?: T;
+  filterAction?: ActionCreatorWithPayload<unknown>;
 }
 
 export const Filter = <T extends FieldValues>({
@@ -23,28 +26,31 @@ export const Filter = <T extends FieldValues>({
   options,
   resetPage,
   withResetButton,
-  resetValues
+  resetValues,
+  values,
+  filterAction
 }: Props<T>): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const {control, handleSubmit, watch, reset, getValues} = useForm<T>({
-    defaultValues: {...defaultValues} as DefaultValues<T>
+  const {onUpdateFilter, onResetFilter} = useFilter({filterAction});
+  const {control, handleSubmit, watch, reset} = useForm<T>({
+    defaultValues: {...defaultValues} as DefaultValues<T>,
+    values
   });
-  const {onUpdateFilter, onResetFilter} = useFilter();
 
   const onSubmit = useDebouncedCallback(
     useCallback(
-      (data: FilterKeys) => {
-        onUpdateFilter({data, resetPage});
+      (data: T) => {
+        onUpdateFilter(data, {resetPage});
       },
       [onUpdateFilter, resetPage]
     ),
     500
   );
 
-  const resetFilter = (): void => {
-    onResetFilter(getValues());
+  const resetFilter = useCallback((): void => {
     reset(resetValues);
-  };
+    onResetFilter();
+  }, [onResetFilter, reset, resetValues]);
 
   useEffect(() => {
     const subscription = watch((_, action) => {

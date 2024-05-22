@@ -1,8 +1,15 @@
 import {defaultPage, defaultPrice, defaultRating, defaultSort} from '../const/product.const';
 
+const setDefaultCategories = (category?: number, categories?: number[]): number[] | undefined => {
+  if (category) {
+    return [category];
+  } else {
+    return categories;
+  }
+};
 export class ProductFilterModel {
   public page?: number;
-  public sort?: number;
+  public sort: number;
   public rating: number[];
   public categories: number[];
   public prices: number[];
@@ -10,16 +17,18 @@ export class ProductFilterModel {
 
   constructor({
     model,
-    minMaxPrices = defaultPrice
+    minMaxPrices = defaultPrice,
+    category
   }: {
     model?: ProductFilterModel;
     minMaxPrices?: number[];
+    category?: number;
   }) {
     this.page = model?.page || defaultPage;
     this.sort = model?.sort || defaultSort;
     this.rating = model?.rating || defaultRating;
-    this.categories = model?.categories || [];
-    this.prices = model?.prices || minMaxPrices;
+    this.categories = setDefaultCategories(category, model?.categories) || [];
+    this.prices = minMaxPrices || model?.prices;
     this.brands = model?.brands || [];
   }
 }
