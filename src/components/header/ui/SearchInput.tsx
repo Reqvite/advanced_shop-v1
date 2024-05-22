@@ -6,6 +6,7 @@ import {useFilter} from '@/shared/lib/hooks';
 import {SearchFilterModel} from '@/shared/models/searchFilterModel';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Filter, Flex} from '@/shared/ui';
+import {actions as filterActions} from '@/slices/filter';
 
 const options: FormOption<FormVariantsEnum>[] = [
   {
@@ -55,6 +56,7 @@ export const SearchInput = (): ReactElement => {
         defaultValues={defaultValues}
         withDrawer={false}
         values={defaultValues}
+        filterAction={filterActions.setSearchInput}
       />
     </Flex>
   );

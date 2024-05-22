@@ -1,6 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {defaultPage, defaultPrice, defaultRating, defaultSort} from '@/shared/const/product.const';
-import {encodeSearchParams} from '@/shared/lib/helpers';
+import {
+  deleteQueryParamsKey,
+  resetQueryParams,
+  updateQueryParams
+} from '@/shared/lib/helpers/searchParams';
 
 export interface FilterI {
   page: number;
@@ -38,46 +42,27 @@ const initialState: State = {
   resetAll: false
 };
 
-const updateQueryParams = (filters: Partial<FilterI>) => {
-  const queryParams = new URLSearchParams(encodeSearchParams(filters));
-  window.history.replaceState({}, '', `${window.location.pathname}?${queryParams}`);
-};
-
-const resetQueryParams = () => {
-  const queryParams = new URLSearchParams();
-  window.history.replaceState({}, '', `${window.location.pathname}?${queryParams}`);
-};
-
-const deleteQueryParamsKey = (key: string) => {
-  const queryParams = new URLSearchParams(window.location.search);
-  queryParams.delete(key);
-  const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
-  window.history.replaceState({}, '', newUrl);
-};
-
 const {reducer, actions, name} = createSlice({
   name: 'filter',
   initialState,
   reducers: {
     setFilter(state, action) {
-      const {filters, isWishlistPage} = action.payload;
-      const {category, search} = filters;
-      if (category) {
-        state.filters = {
-          ...initialFilter,
-          category,
-          search
-        };
-        updateQueryParams(action.payload.filters);
-        return;
-      }
-
       state.filters = {...state.filters, ...action.payload.filters};
-      if (isWishlistPage) {
-        updateQueryParams(action.payload.filters);
-      } else {
-        updateQueryParams({...state.filters, ...action.payload.filters});
-      }
+      updateQueryParams({...state.filters, ...action.payload.filters});
+    },
+    setWishlistParams(state, action) {
+      state.filters = {...state.filters, ...action.payload.filters};
+      updateQueryParams(action.payload.filters);
+    },
+    setSearchInput(state, action) {
+      const {filters} = action.payload;
+      const {category, search} = filters;
+      state.filters = {
+        ...initialFilter,
+        category,
+        search
+      };
+      updateQueryParams(filters);
     },
     resetFilter(state) {
       state.filters = initialFilter;

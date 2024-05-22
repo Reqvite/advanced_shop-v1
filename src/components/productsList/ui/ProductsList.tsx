@@ -40,7 +40,7 @@ export const ProductsList = ({
   const isMobile = useMediaQuery('md');
   const {params, onUpdateFilter} = useFilter();
   const {data, isLoading, isFetching} = useGetProducts(params);
-  const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery(null, {
+  const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery(params, {
     skip: !withFilter
   });
   const defaultValues = useMemo(

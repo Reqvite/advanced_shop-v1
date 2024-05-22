@@ -1,11 +1,11 @@
 import {FormControl, Stack} from '@mui/material';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {ReactElement, useCallback, useEffect} from 'react';
 import {DefaultValues, FieldValues, useForm} from 'react-hook-form';
 import {useDebouncedCallback, useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Button, Drawer, FilterButton} from '@/shared/ui';
-import {FilterI} from '@/slices/filter/filter.slice';
 
 interface Props<T> {
   options: FormOption<FormVariantsEnum>[];
@@ -17,6 +17,7 @@ interface Props<T> {
   resetOtherFilterKeys?: boolean;
   withResetButton?: boolean;
   values?: T;
+  filterAction?: ActionCreatorWithPayload<unknown>;
 }
 
 export const Filter = <T extends FieldValues>({
@@ -26,10 +27,11 @@ export const Filter = <T extends FieldValues>({
   resetPage,
   withResetButton,
   resetValues,
-  values
+  values,
+  filterAction
 }: Props<T>): ReactElement => {
   const isMobile = useMediaQuery('md');
-  const {onUpdateFilter, onResetFilter} = useFilter();
+  const {onUpdateFilter, onResetFilter} = useFilter({filterAction});
   const {control, handleSubmit, watch, reset} = useForm<T>({
     defaultValues: {...defaultValues} as DefaultValues<T>,
     values
@@ -37,7 +39,7 @@ export const Filter = <T extends FieldValues>({
 
   const onSubmit = useDebouncedCallback(
     useCallback(
-      (data: FilterI) => {
+      (data: T) => {
         onUpdateFilter(data, {resetPage});
       },
       [onUpdateFilter, resetPage]

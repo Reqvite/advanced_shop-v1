@@ -1,3 +1,4 @@
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {useLocation} from 'react-router-dom';
 import {getRouteWishlist} from '@/app/providers/AppRouter/routeConfig';
 import {RequestFilterParams} from '@/shared/types/filter';
@@ -27,7 +28,11 @@ interface UseFilterReturn {
   onResetCategory: () => void;
 }
 
-export const useFilter = (): UseFilterReturn => {
+interface UseFilterArgs {
+  filterAction?: ActionCreatorWithPayload<unknown>;
+}
+
+export const useFilter = ({filterAction}: UseFilterArgs = {}): UseFilterReturn => {
   const dispatch = useAppDispatch();
   const {pathname} = useLocation();
   const filterKeys = useAppSelector(selectFilter);
@@ -36,10 +41,10 @@ export const useFilter = (): UseFilterReturn => {
   const queryParams = new URLSearchParams(window.location.search);
   const decodeParams = decodeSearchParams(queryParams);
   const showMoreInitialPage = useAppSelector(selectShowMoreInitialPage) || currentPage;
-  const isWishlistPage = pathname === getRouteWishlist();
   const params = {...decodeParams, showMore} as RequestFilterParams;
   const paramsWithoutShowMore = {...decodeParams} as RequestFilterParams;
   const paramsLength = Object.keys(decodeParams).length;
+  const isWishlistPage = pathname === getRouteWishlist();
 
   const onUpdateFilter = (
     filters: Partial<FilterI>,
@@ -51,14 +56,25 @@ export const useFilter = (): UseFilterReturn => {
       }
       return {...acc, [key]: value};
     }, {});
-
     const newFilters = options.resetPage ? {...flattenedData, page: 1} : flattenedData;
-    dispatch(filterActions.setFilter({filters: newFilters, isWishlistPage}));
+
+    if (filterAction) {
+      dispatch(filterAction({filters: newFilters}));
+    } else if (isWishlistPage) {
+      dispatch(filterActions.setWishlistParams({filters: newFilters}));
+    } else {
+      dispatch(filterActions.setFilter({filters: newFilters}));
+    }
+
     dispatch(filterActions.disableShowMore());
   };
 
   const onShowMore = (): void => {
-    dispatch(filterActions.setFilter({filters: {page: currentPage + 1}, isWishlistPage}));
+    if (isWishlistPage) {
+      dispatch(filterActions.setWishlistParams({filters: {page: currentPage + 1}}));
+    } else {
+      dispatch(filterActions.setFilter({filters: {page: currentPage + 1}}));
+    }
     dispatch(filterActions.enableShowMore(currentPage));
   };
 
