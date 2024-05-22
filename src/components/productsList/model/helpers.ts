@@ -3,6 +3,12 @@ import {ProductFilterModel} from '@/shared/models/productFilterModel';
 import {LabelOptionsI} from '@/shared/types/options';
 import {GetProductsQuantityByCategories} from '@/shared/types/product';
 
+type ProductFilterModelWithoutPageAndSort = Omit<ProductFilterModel, 'sort' | 'page'>;
+type DefaultValuesModel = ProductFilterModelWithoutPageAndSort & {
+  sort?: number;
+  page?: number;
+};
+
 export const getCategoriesOptions = ({
   categoriesQuantity = []
 }: {
@@ -24,8 +30,8 @@ export const getFilterDefaultValues = ({
   defaultValues
 }: {
   defaultValues: ProductFilterModel;
-}): Omit<ProductFilterModel, 'sort' | 'page'> => {
-  const defaultValuesCopy = {...defaultValues};
+}): ProductFilterModelWithoutPageAndSort => {
+  const defaultValuesCopy: DefaultValuesModel = {...defaultValues};
   delete defaultValuesCopy['sort'];
   delete defaultValuesCopy['page'];
   return defaultValuesCopy;

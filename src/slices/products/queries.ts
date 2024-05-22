@@ -49,7 +49,7 @@ const buildGetProductsRequestOptions = ({
     }
     paramsCopy.categories = [params.category, ...otherCategories] as number[];
   }
-  delete paramsCopy['category'];
+  delete paramsCopy.category;
 
   return {
     url: `${ApiPathEnum.PRODUCTS}${path}`,
@@ -69,7 +69,7 @@ const getProducts = (params: GetProductsQuery): RequestOptions => {
 const getProductsQuantityByCategories = (params?: GetProductsQuery): RequestOptions => {
   if (params) {
     const paramsCopy: TransformedQueryParams = {...params};
-    delete paramsCopy['category'];
+    delete paramsCopy.category;
     const newParams = encodeSearchParams(paramsCopy);
     return {url: `${ApiPathEnum.PRODUCTS}${ProductsApiPath.PRODUCTS_QUANTITY}`, params: newParams};
   }

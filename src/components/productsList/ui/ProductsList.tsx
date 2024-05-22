@@ -93,11 +93,11 @@ export const ProductsList = ({
           resetValues={resetValues}
           filterDefaultValues={memoizedDefaultValues}
           sortOptions={sortFilterOptions}
-          sortDefaultValues={{sort: defaultValues.sort!}}
+          sortDefaultValues={{sort: defaultValues.sort}}
         />
       )}
       {withFilter && !isMobile && (
-        <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort!}} />
+        <Sort options={sortFilterOptions} defaultValues={{sort: defaultValues.sort}} />
       )}
       <StickyContentLayout
         left={

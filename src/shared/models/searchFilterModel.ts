@@ -14,7 +14,7 @@ export class SearchFilterModel {
     const resetCategory = (categories?.length || 0) > 1;
     this.category = resetCategory
       ? defaultCategory
-      : categories?.[0] ?? model?.category ?? defaultCategory;
+      : categories?.[0] || model?.category || defaultCategory;
     this.search = model?.search || '';
   }
 }
