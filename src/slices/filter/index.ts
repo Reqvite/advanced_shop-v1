@@ -1,5 +1,5 @@
 import {actions, FilterI, reducer} from './filter.slice';
-import {selectFilter, selectResetAll, selectShowMore, selectShowMoreInitialPage} from './selectors';
+import {selectFilter, selectShowMore, selectShowMoreInitialPage} from './selectors';
 
-export {actions, reducer, selectFilter, selectResetAll, selectShowMore, selectShowMoreInitialPage};
+export {actions, reducer, selectFilter, selectShowMore, selectShowMoreInitialPage};
 export {type FilterI};

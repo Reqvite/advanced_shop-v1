@@ -21,7 +21,6 @@ type State = {
   filters: FilterI;
   showMore: boolean;
   showMoreInitialPage: number | null;
-  resetAll: boolean;
 };
 
 export const initialFilter = {
@@ -38,8 +37,7 @@ export const initialFilter = {
 const initialState: State = {
   filters: initialFilter,
   showMore: false,
-  showMoreInitialPage: null,
-  resetAll: false
+  showMoreInitialPage: null
 };
 
 const {reducer, actions, name} = createSlice({
