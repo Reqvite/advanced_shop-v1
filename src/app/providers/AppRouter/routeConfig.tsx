@@ -1,13 +1,13 @@
 import {ReactNode} from 'react';
 import {RouteProps} from 'react-router-dom';
-import {CheckoutPage, MainPage, ProductDetailsPage, WishlistPage} from '@/pages';
+import {MainPage, ProductDetailsPage, ShoppingCartPage, WishlistPage} from '@/pages';
 
 export enum AppRoutes {
   MAIN = 'main',
   NOT_FOUND = 'not-found',
   PRODUCT_DETAILS = 'product-details',
   WISHLIST = 'wishlist',
-  CHECKOUT = 'checkout'
+  SHOPPING_CART = 'shopping-cart'
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
@@ -26,7 +26,7 @@ export type MatchedRoute = {
 export const getRouteMain = () => '/';
 export const getRouteProductDetails = (id: string) => `/products/${id}`;
 export const getRouteWishlist = () => `/wishlist`;
-export const getRouteCheckout = () => `/checkout`;
+export const getRouteShoppingCart = () => `/shopping-cart`;
 export const getRouteProductDetailsReviews = (id: string) => `/products/${id}/reviews`;
 export const getRouteProductDetailsReviewsTab = () => 'reviews';
 export const getRouteProductDetailsQuestionsTab = () => 'questions';
@@ -48,10 +48,10 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     breadcrumbName: 'Wishlist',
     needAuth: true
   },
-  [AppRoutes.CHECKOUT]: {
-    path: getRouteCheckout(),
-    element: <CheckoutPage />,
-    breadcrumbName: 'Checkout'
+  [AppRoutes.SHOPPING_CART]: {
+    path: getRouteShoppingCart(),
+    element: <ShoppingCartPage />,
+    breadcrumbName: 'Shopping cart'
   },
   [AppRoutes.PRODUCT_DETAILS]: {
     path: `${getRouteProductDetails(':id')}/*`,

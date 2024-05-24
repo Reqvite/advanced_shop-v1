@@ -63,7 +63,7 @@ export const red = {
   900: 'hsl(0, 93%, 12%)'
 };
 
-const modernThemeCustom = createTheme();
+const appTheme = createTheme();
 
 export function getTheme(mode: PaletteMode): ThemeOptions {
   return {
@@ -112,54 +112,54 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
     typography: {
       fontFamily: ['"Montserrat", "sans-serif"'].join(','),
       h1: {
-        [modernThemeCustom.breakpoints.down('md')]: {
-          fontSize: modernThemeCustom.typography.pxToRem(45)
+        [appTheme.breakpoints.down('md')]: {
+          fontSize: appTheme.typography.pxToRem(45)
         },
-        fontSize: modernThemeCustom.typography.pxToRem(60),
+        fontSize: appTheme.typography.pxToRem(60),
         lineHeight: 1.2
       },
       h2: {
-        [modernThemeCustom.breakpoints.down('md')]: {
-          fontSize: modernThemeCustom.typography.pxToRem(20)
+        [appTheme.breakpoints.down('md')]: {
+          fontSize: appTheme.typography.pxToRem(20)
         },
-        fontSize: modernThemeCustom.typography.pxToRem(32),
+        fontSize: appTheme.typography.pxToRem(32),
         lineHeight: 1.2,
         fontWeight: 600
       },
       h3: {
-        [modernThemeCustom.breakpoints.down('md')]: {
-          fontSize: modernThemeCustom.typography.pxToRem(22)
+        [appTheme.breakpoints.down('md')]: {
+          fontSize: appTheme.typography.pxToRem(22)
         },
-        fontSize: modernThemeCustom.typography.pxToRem(22),
+        fontSize: appTheme.typography.pxToRem(22),
         lineHeight: 1.2,
         fontWeight: 600
       },
       h5: {
-        [modernThemeCustom.breakpoints.down('md')]: {
-          fontSize: modernThemeCustom.typography.pxToRem(14)
+        [appTheme.breakpoints.down('md')]: {
+          fontSize: appTheme.typography.pxToRem(14)
         },
-        fontSize: modernThemeCustom.typography.pxToRem(18),
+        fontSize: appTheme.typography.pxToRem(18),
         fontWeight: 600
       },
       subtitle1: {
-        fontSize: modernThemeCustom.typography.pxToRem(18)
+        fontSize: appTheme.typography.pxToRem(18)
       },
       subtitle2: {
-        fontSize: modernThemeCustom.typography.pxToRem(16)
+        fontSize: appTheme.typography.pxToRem(16)
       },
       body1: {
-        fontSize: modernThemeCustom.typography.pxToRem(15),
+        fontSize: appTheme.typography.pxToRem(15),
         fontWeight: 400
       },
       body2: {
-        [modernThemeCustom.breakpoints.down('md')]: {
-          fontSize: modernThemeCustom.typography.pxToRem(12)
+        [appTheme.breakpoints.down('md')]: {
+          fontSize: appTheme.typography.pxToRem(12)
         },
-        fontSize: modernThemeCustom.typography.pxToRem(14),
+        fontSize: appTheme.typography.pxToRem(14),
         fontWeight: 400
       },
       caption: {
-        fontSize: modernThemeCustom.typography.pxToRem(12)
+        fontSize: appTheme.typography.pxToRem(12)
       }
     },
     shape: {
@@ -208,7 +208,7 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
       MuiButton: {
         styleOverrides: {
           root: ({theme, ownerState}) => ({
-            [modernThemeCustom.breakpoints.down('md')]: {
+            [appTheme.breakpoints.down('md')]: {
               fontSize: 10
             },
             minWidth: 100,

@@ -2,7 +2,7 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import {Badge, IconButton, IconButtonProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {getRouteCheckout} from '@/app/providers/AppRouter/routeConfig';
+import {getRouteShoppingCart} from '@/app/providers/AppRouter/routeConfig';
 import {cartButtonStyles} from '@/app/theme/styles';
 import {useAuth} from '@/shared/lib/hooks';
 
@@ -22,7 +22,7 @@ export const CartButton = (props: Props): ReactElement => {
       }}
       sx={cartButtonStyles.quantityBade}
     >
-      <IconButton aria-label="Cart" onClick={() => navigate(getRouteCheckout())} {...props}>
+      <IconButton aria-label="Cart" onClick={() => navigate(getRouteShoppingCart())} {...props}>
         <LocalMallIcon fontSize="inherit" />
       </IconButton>
     </Badge>
