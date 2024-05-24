@@ -1,6 +1,7 @@
 import {Typography, TypographyProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {grey} from '@/app/theme/theme';
+
 type Props = {
   titleVariant?: TypographyProps['variant'];
   title?: string;
