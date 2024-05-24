@@ -126,6 +126,14 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
         lineHeight: 1.2,
         fontWeight: 600
       },
+      h3: {
+        [modernThemeCustom.breakpoints.down('md')]: {
+          fontSize: modernThemeCustom.typography.pxToRem(22)
+        },
+        fontSize: modernThemeCustom.typography.pxToRem(22),
+        lineHeight: 1.2,
+        fontWeight: 600
+      },
       h5: {
         [modernThemeCustom.breakpoints.down('md')]: {
           fontSize: modernThemeCustom.typography.pxToRem(14)
