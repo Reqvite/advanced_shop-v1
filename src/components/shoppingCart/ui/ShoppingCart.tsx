@@ -7,7 +7,7 @@ import {BillingInfo} from './BillingInfo';
 import {Confirmation} from './Confirmation';
 import {OrderSummary} from './OrderSummary';
 
-export const Checkout = () => {
+export const ShoppingCart = () => {
   const {data = [], isLoading, isFetching} = useGetCartQuery();
   const isMobile = useMediaQuery('md');
   const leftBoxWidth = isMobile ? '100%' : '55%';
