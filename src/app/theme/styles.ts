@@ -244,6 +244,19 @@ export const checkoutStyles = {
   }
 };
 
+export const cartButtonStyles = {
+  quantityBade: {
+    '& .MuiBadge-badge': {
+      bottom: '7px',
+      left: '7px',
+      color: 'white',
+      fontWeight: 600,
+      background: 'rgb(230, 112, 75)',
+      boxShadow: '0px 2px 4px 0px rgba(0, 0, 0, 0.15)'
+    }
+  }
+};
+
 export const yellowSliderStyles = {
   '& .MuiSlider-thumb': {
     color: yellow[900]

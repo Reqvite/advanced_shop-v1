@@ -1,9 +1,12 @@
+import {CartItem} from '../cart';
+
 export type User = {
   _id: string;
   email: string;
   firstName: string;
   lastName: string;
   wishlist: string[];
+  cart: CartItem[];
 };
 
 export type UserWishlistType = string[];

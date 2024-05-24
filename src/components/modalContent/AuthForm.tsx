@@ -43,7 +43,7 @@ const defaultValues = registerOptions.reduce(
 export const AuthForm = (): ReactElement => {
   const dispatch = useAppDispatch();
   const isLoading = useSelector(selectAuthIsLoading);
-  const [isLoginMode, setIsLoginMode] = useState<boolean>(false);
+  const [isLoginMode, setIsLoginMode] = useState<boolean>(true);
 
   const onChangeAuthMode = (): void => {
     setIsLoginMode((mode) => !mode);
