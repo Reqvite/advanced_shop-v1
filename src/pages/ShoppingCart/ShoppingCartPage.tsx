@@ -1,8 +1,8 @@
 import {ReactElement} from 'react';
-import {Checkout} from '@/components/checkout';
+import {ShoppingCart} from '@/components/shoppingCart';
 
 const ShoppingCartPage = (): ReactElement => {
-  return <Checkout />;
+  return <ShoppingCart />;
 };
 
 export default ShoppingCartPage;
