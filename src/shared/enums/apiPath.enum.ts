@@ -1,6 +1,7 @@
 enum ApiPathEnum {
   AUTH = '/auth',
-  PRODUCTS = '/products'
+  PRODUCTS = '/products',
+  CART = '/cart'
 }
 
 enum UsersApiPath {

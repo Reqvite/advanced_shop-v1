@@ -20,9 +20,14 @@ interface ProductI {
   subCategory: number;
   category: number;
   createdAt: Date;
+  quantity: number;
   price: number;
   discount?: number;
   tags?: number[];
+}
+
+interface CartProductI extends ProductI {
+  orderedQuantity: number;
 }
 
 interface GetProductsResponse {
@@ -43,6 +48,7 @@ type GetProductsQuery = typeof useGetProductsQuery;
 type GetUserWishlistQuery = typeof useGetUserWishlistQuery;
 
 export {
+  type CartProductI,
   type GetProductsQuantityByCategories,
   type GetProductsQuery,
   type GetProductsResponse,

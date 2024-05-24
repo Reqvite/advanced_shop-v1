@@ -1,24 +1,5 @@
-import {notificationService} from '@/shared/services';
-import {ErrorI} from '@/shared/types/error';
+import {onQueryStartedToast} from '@/shared/lib/helpers';
 import {GetWishlistQuery, productsApi} from './products.rtk';
-
-const onQueryStartedToast = async (
-  {queryFulfilled}: {queryFulfilled: Promise<unknown>},
-  message = 'Success',
-  callback?: () => void
-): Promise<void> => {
-  try {
-    await queryFulfilled;
-    if (callback) {
-      callback();
-    }
-    notificationService.success(message);
-  } catch (error: unknown) {
-    const {error: customError} = error as {error: ErrorI};
-    if (customError.code === 401) return;
-    notificationService.error(customError?.message);
-  }
-};
 
 const updateQueryDataCallback =
   ({_id, dispatch}: GetWishlistQuery & {dispatch: (args: unknown) => void}) =>
@@ -43,4 +24,4 @@ const forceRefetch = ({currentArg, previousArg}: {currentArg: unknown; previousA
   return currentArg !== previousArg;
 };
 
-export {forceRefetch, onQueryStartedToast, onQueryStartedUpdateWishlist};
+export {forceRefetch, onQueryStartedUpdateWishlist};

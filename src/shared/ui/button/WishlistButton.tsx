@@ -5,7 +5,7 @@ import {ButtonProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {getRouteWishlist} from '@/app/providers/AppRouter/routeConfig';
-import {red} from '@/app/theme/theme';
+import {grey, red} from '@/app/theme/theme';
 import {useAuth} from '@/shared/lib/hooks';
 import {Button} from './Button';
 
@@ -14,6 +14,7 @@ type Props = ButtonProps & {
   isSmall?: boolean;
   isLoading?: boolean;
   isLiked?: boolean;
+  isClear?: boolean;
 };
 
 export const WishlistButton = ({
@@ -21,6 +22,7 @@ export const WishlistButton = ({
   isLiked,
   isSmall,
   isLoading,
+  isClear,
   ...otherProps
 }: Props): ReactElement | null => {
   const auth = useAuth();
@@ -44,6 +46,22 @@ export const WishlistButton = ({
       <IconButton {...otherProps}>
         {isLiked ? <FavoriteIcon sx={{color: red[300]}} /> : <FavoriteBorderIcon />}
       </IconButton>
+    );
+  }
+
+  if (isClear) {
+    return (
+      <Button
+        variant="text"
+        iconColor={red[300]}
+        iconSize="small"
+        LeftAddon={isLiked ? FavoriteIcon : FavoriteBorderIcon}
+        isLoading={isLoading}
+        sx={{color: grey[200]}}
+        {...otherProps}
+      >
+        Wishlist
+      </Button>
     );
   }
 

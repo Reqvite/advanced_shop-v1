@@ -48,7 +48,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <Box display="flex" alignItems="center">
+      <>
         {label && <InputLabel required={required}>{label}</InputLabel>}
         <Flex gap={1} alignItems="center">
           <IconButton size="small" onClick={onDecrement} disabled={numberValue <= min}>
@@ -75,7 +75,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
             </Typography>
           )}
         </Box>
-      </Box>
+      </>
     );
   }
 );

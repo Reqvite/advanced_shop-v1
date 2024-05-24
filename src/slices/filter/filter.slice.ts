@@ -1,10 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {defaultPage, defaultPrice, defaultRating, defaultSort} from '@/shared/const/product.const';
-import {
-  deleteQueryParamsKey,
-  resetQueryParams,
-  updateQueryParams
-} from '@/shared/lib/helpers/searchParams';
+import {deleteQueryParamsKey, resetQueryParams, updateQueryParams} from '@/shared/lib/helpers';
 
 export interface FilterI {
   page: number;
