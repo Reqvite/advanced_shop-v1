@@ -228,12 +228,13 @@ export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSPr
 
 export const checkoutStyles = {
   orderSummaryBox: (theme: Theme) => ({
+    position: 'relative',
     width: '45%',
     padding: '32px 16px',
     border: `1px solid ${grey[100]}`,
     borderRadius: '12px',
     order: 1,
-    maxHeight: '770px',
+    maxHeight: '1000px',
     [theme.breakpoints.down('md')]: {
       width: '100%',
       order: -1,
@@ -245,7 +246,7 @@ export const checkoutStyles = {
   },
   orderSummaryList: {
     mt: '30px',
-    maxHeight: '340px',
+    maxHeight: '600px',
     flexWrap: 'nowrap',
     overflow: 'auto',
     '&::-webkit-scrollbar': {

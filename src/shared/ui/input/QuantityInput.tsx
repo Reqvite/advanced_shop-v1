@@ -21,16 +21,17 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
     ref
   ): ReactElement => {
     const numberValue = Number(value);
+    const isDisabled = max === 0;
 
     const onIncrement = (): void => {
       if (numberValue < max) {
-        onChange((prev) => Number(prev) + 1);
+        onChange(numberValue + 1);
       }
     };
 
     const onDecrement = (): void => {
       if (numberValue > min) {
-        onChange((prev) => Number(prev) - 1);
+        onChange(numberValue - 1);
       }
     };
 
@@ -48,34 +49,48 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <>
+      <Box>
         {label && <InputLabel required={required}>{label}</InputLabel>}
         <Flex gap={1} alignItems="center">
-          <IconButton size="small" onClick={onDecrement} disabled={numberValue <= min}>
+          <IconButton
+            size="small"
+            onClick={onDecrement}
+            disabled={numberValue <= min || isDisabled}
+          >
             <RemoveIcon fontSize="small" />
           </IconButton>
           <TextField
+            disabled={isDisabled}
             type="number"
             value={value ?? String(value)}
             onChange={onInputChange}
             inputRef={ref}
             {...otherProps}
             inputProps={{style: {textAlign: 'center'}}}
-            sx={{width: 60}}
+            sx={{
+              width: 55,
+              '& div': {
+                height: '35px'
+              }
+            }}
           />
-          <IconButton size="small" onClick={onIncrement} disabled={numberValue >= max}>
+          <IconButton
+            size="small"
+            onClick={onIncrement}
+            disabled={numberValue >= max || isDisabled}
+          >
             <AddIcon fontSize="small" />
           </IconButton>
         </Flex>
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
-        <Box height="6px" mt="1px">
+        <Box height="10px" mt="1px">
           {error && (
-            <Typography fontSize={12} color="error.light">
+            <Typography fontSize={10} color="error.light">
               {error}
             </Typography>
           )}
         </Box>
-      </>
+      </Box>
     );
   }
 );

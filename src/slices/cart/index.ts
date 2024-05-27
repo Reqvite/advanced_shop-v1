@@ -1,1 +1,6 @@
-export {cartApi, useDeleteItemByIdMutation, useGetCartQuery} from './cart.rtk';
+export {
+  cartApi,
+  useDeleteItemByIdMutation,
+  useGetCartQuery,
+  useUpdatedCartMutation
+} from './cart.rtk';

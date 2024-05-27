@@ -1,13 +1,12 @@
-import {Box, Stack, Typography} from '@mui/material';
-import {ReactElement} from 'react';
+import {Box} from '@mui/material';
+import {ReactElement, useCallback} from 'react';
 import {checkoutStyles} from '@/app/theme/styles';
-import {priceService} from '@/shared/services';
 import {CartProductI} from '@/shared/types/product';
-import {Flex, List, Title} from '@/shared/ui';
-import {CartProductCard} from '@/shared/ui/product/CartProductCard';
-import {CartProductCardSkeleton} from '@/shared/ui/product/CartProductCard.skeleton';
-import {useDeleteItemByIdMutation} from '@/slices/cart';
+import {List, Title} from '@/shared/ui';
+import {CartProductCard} from '@/shared/ui/product/CartProductCard/CartProductCard';
+import {useDeleteItemByIdMutation, useUpdatedCartMutation} from '@/slices/cart';
 import {useUpdateWishlistMutation} from '@/slices/products';
+import {OrderSummaryTotal} from './OrderSummaryTotal';
 
 type Props = {
   items: CartProductI[];
@@ -15,18 +14,18 @@ type Props = {
   tax?: number;
 };
 
-export const OrderSummary = ({items, tax = 15, isLoading}: Props): ReactElement => {
-  const subTotal = priceService.getFixedPrice(
-    items?.reduce((acc, {price, discount, orderedQuantity}) => {
-      const finalDiscount = discount ?? 0;
-      const finalPrice = finalDiscount
-        ? priceService.getDiscountPrice({discount: finalDiscount, price})
-        : price;
-      return acc + finalPrice * orderedQuantity;
-    }, 0)
+export const OrderSummary = ({items, tax = 15}: Props): ReactElement => {
+  const renderItem = useCallback(
+    (product: CartProductI) => (
+      <CartProductCard
+        onUpdateWishlist={useUpdateWishlistMutation}
+        onDeleteItem={useDeleteItemByIdMutation}
+        onUpdateCart={useUpdatedCartMutation}
+        {...product}
+      />
+    ),
+    []
   );
-  const taxTotal = priceService.getFixedPrice((subTotal / 100) * tax);
-  const total = priceService.getFixedPrice(subTotal + taxTotal);
 
   return (
     <Box sx={checkoutStyles.orderSummaryBox}>
@@ -36,41 +35,12 @@ export const OrderSummary = ({items, tax = 15, isLoading}: Props): ReactElement 
       />
       <List<CartProductI>
         items={items}
-        renderItem={(product) => (
-          <CartProductCard
-            onUpdateWishlist={useUpdateWishlistMutation}
-            onDeleteItem={useDeleteItemByIdMutation}
-            {...product}
-          />
-        )}
-        skeleton={<CartProductCardSkeleton />}
-        skeletonLength={items?.length}
+        renderItem={renderItem}
         sx={checkoutStyles.orderSummaryList}
         itemStyle={checkoutStyles.orderSummaryListItem}
-        isLoading={isLoading}
         emptyListTitle="Cart is empty."
       />
-      <Stack gap={1} mt={6}>
-        <Flex justifyContent="space-between">
-          <Typography fontWeight={600}>Subtotal</Typography>
-          <Typography fontWeight={600}>{subTotal} USD</Typography>
-        </Flex>
-        <Flex justifyContent="space-between">
-          <Typography fontWeight={600}>Tax {tax} %</Typography>
-          <Typography fontWeight={600}>{taxTotal} USD</Typography>
-        </Flex>
-        <Flex justifyContent="space-between" alignItems="center">
-          <Box>
-            <Typography fontWeight={600}>Total Order</Typography>
-            <Typography fontWeight={600} color="primary.main">
-              Guaranteed delivery day: June 12, 2024
-            </Typography>
-          </Box>
-          <Typography component="p" fontWeight={600} variant="h3" color="primary.main">
-            {total} USD
-          </Typography>
-        </Flex>
-      </Stack>
+      <OrderSummaryTotal items={items} tax={tax} />
     </Box>
   );
 };

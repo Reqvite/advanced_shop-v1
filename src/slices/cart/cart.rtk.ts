@@ -37,8 +37,26 @@ export const cartApi = createApi({
           NotificationMessage.SUCCESS('Product successfully deleted from your cart.')
         ),
       invalidatesTags: [RtkApiTagsEnum.Cart]
+    }),
+    updatedCart: builder.mutation<CartItem[], CartItem>({
+      query: (data) => ({
+        url: `${ApiPathEnum.CART}`,
+        method: 'PUT',
+        needAuth: true,
+        data
+      }),
+      transformResponse: (response: CartItem[]) => {
+        store.instance.dispatch(userActions.setCart(response));
+        return response;
+      },
+      onQueryStarted: (_, {queryFulfilled}) =>
+        onQueryStartedToast(
+          {queryFulfilled},
+          NotificationMessage.SUCCESS('Product quantity updated.')
+        ),
+      invalidatesTags: [RtkApiTagsEnum.Cart]
     })
   })
 });
 
-export const {useGetCartQuery, useDeleteItemByIdMutation} = cartApi;
+export const {useGetCartQuery, useDeleteItemByIdMutation, useUpdatedCartMutation} = cartApi;

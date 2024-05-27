@@ -1,3 +1,4 @@
+import {useUpdatedCartMutation} from '@/slices/cart';
 import {
   useGetProductsQuery,
   useGetUserWishlistQuery,
@@ -46,6 +47,7 @@ interface GetProductsQuantityByCategories {
 type UpdateWishlistMutation = typeof useUpdateWishlistMutation;
 type GetProductsQuery = typeof useGetProductsQuery;
 type GetUserWishlistQuery = typeof useGetUserWishlistQuery;
+type UpdateCartMutation = typeof useUpdatedCartMutation;
 
 export {
   type CartProductI,
@@ -55,5 +57,6 @@ export {
   type GetUserWishlistQuery,
   type ImgI,
   type ProductI,
+  type UpdateCartMutation,
   type UpdateWishlistMutation
 };
