@@ -7,6 +7,7 @@ export enum FormVariantsEnum {
   Input = 'input',
   Quantity_Input = 'quantity-input',
   Select = 'select',
+  NativeSelect = 'native-select',
   InputWithSelect = 'input-with-select',
   CheckboxGroup = 'checkbox_group',
   SliderWithInput = 'slider-with-input',
@@ -18,6 +19,7 @@ interface BaseFormOption {
   name?: string;
   id: string;
   isRequired?: boolean;
+  isDisabled?: boolean;
   type?: string;
   min?: number;
   max?: number;
@@ -41,6 +43,10 @@ interface FormOptionVariantMapI {
     variant: FormVariantsEnum.Select;
     options: LabelOptionsI[];
     styleVariant: SelectStyleVariants;
+  };
+  [FormVariantsEnum.NativeSelect]: {
+    variant: FormVariantsEnum.NativeSelect;
+    options: LabelOptionsI[];
   };
   [FormVariantsEnum.CheckboxGroup]: {
     variant: FormVariantsEnum.CheckboxGroup;

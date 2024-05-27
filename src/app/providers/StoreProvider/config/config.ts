@@ -3,6 +3,7 @@ import {persistReducer} from 'redux-persist';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {notificationService} from '@/shared/services';
 import {cartApi} from '@/slices/cart';
+import {countryApi} from '@/slices/country';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
@@ -25,7 +26,8 @@ class Store implements StorePackage {
       filter: persistReducer(filterPersistConfig, filterReducer),
       modal: modalReducer,
       [productsApi.reducerPath]: productsApi.reducer,
-      [cartApi.reducerPath]: cartApi.reducer
+      [cartApi.reducerPath]: cartApi.reducer,
+      [countryApi.reducerPath]: countryApi.reducer
     };
     this.#instance = configureStore({
       reducer: rootReducer,
@@ -38,6 +40,7 @@ class Store implements StorePackage {
         })
           .concat(productsApi.middleware)
           .concat(cartApi.middleware)
+          .concat(countryApi.middleware)
     });
   }
 
