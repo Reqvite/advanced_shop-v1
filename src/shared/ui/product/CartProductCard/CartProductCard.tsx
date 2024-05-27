@@ -20,6 +20,8 @@ type Props = CartProductI & {
   onUpdateCart: UpdateCartMutation;
 };
 
+const breakPoint = 1030;
+
 export const CartProductCard = ({
   _id,
   rating = 0,
@@ -36,7 +38,7 @@ export const CartProductCard = ({
   onUpdateCart
 }: Props) => {
   const auth = useAuth();
-  const isMobile = useMediaQuery(1030);
+  const isMobile = useMediaQuery(breakPoint);
 
   const confirm = useConfirm({
     message: `Are you sure you want to delete ${quantity} item(s) of "${title}" ?`
