@@ -6,8 +6,8 @@ const createMaxQuantity = (min = 1, max = 100) => {
   return yup.object().shape({
     quantity: yup
       .number()
-      .min(1, `Quantity must be at least ${min}.`)
-      .max(max, !max ? 'Product is out of stock.' : `Only ${max} left.`)
+      .min(1, ErrorMessages.MIN_QUANTITY(min))
+      .max(max, !max ? ErrorMessages.OUT_OF_STOCK : ErrorMessages.ITEMS_LEFT(max))
       .required(ErrorMessages.IS_REQUIRED('Quantity'))
   });
 };

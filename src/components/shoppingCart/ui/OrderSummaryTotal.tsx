@@ -10,16 +10,8 @@ type Props = {
 };
 
 export const OrderSummaryTotal = ({items, tax}: Props): ReactElement => {
-  const subTotal = priceService.getFixedPrice(
-    items?.reduce((acc, {price, discount, orderedQuantity}) => {
-      const finalDiscount = discount ?? 0;
-      const finalPrice = finalDiscount
-        ? priceService.getDiscountPrice({discount: finalDiscount, price})
-        : price;
-      return acc + finalPrice * orderedQuantity;
-    }, 0)
-  );
-  const taxTotal = priceService.getFixedPrice((subTotal / 100) * tax);
+  const subTotal = priceService.getSubtotal(items);
+  const taxTotal = priceService.getTax({price: subTotal, tax});
   const total = priceService.getFixedPrice(subTotal + taxTotal);
 
   return (
