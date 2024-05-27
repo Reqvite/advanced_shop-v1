@@ -1,5 +1,6 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import {ErrorMessages} from '@/shared/const/errorMessages.const';
 
 const createMaxQuantity = (min = 1, max = 100) => {
   return yup.object().shape({
@@ -7,7 +8,7 @@ const createMaxQuantity = (min = 1, max = 100) => {
       .number()
       .min(1, `Quantity must be at least ${min}.`)
       .max(max, !max ? 'Product is out of stock.' : `Only ${max} left.`)
-      .required('Quantity is required')
+      .required(ErrorMessages.IS_REQUIRED('Quantity'))
   });
 };
 

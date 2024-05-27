@@ -228,7 +228,6 @@ export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSPr
 
 export const checkoutStyles = {
   orderSummaryBox: (theme: Theme) => ({
-    position: 'relative',
     width: '45%',
     padding: '32px 16px',
     border: `1px solid ${grey[100]}`,
