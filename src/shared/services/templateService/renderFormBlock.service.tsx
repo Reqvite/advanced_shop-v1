@@ -8,7 +8,8 @@ import {
   QuantityInput,
   Select,
   Slider,
-  SliderWithInput
+  SliderWithInput,
+  TextArea
 } from '@/shared/ui';
 import {CheckboxGroup} from '@/shared/ui/checkbox/CheckboxGroup';
 import {AutoCompleteSelect} from '@/shared/ui/select/AutoCompleteSelect';
@@ -25,6 +26,15 @@ export const renderFormBlock = <T extends FieldValues>({
   switch (option.variant) {
     case FormVariantsEnum.Input:
       return <ControllerWrapper key={option.id} option={option} control={control} />;
+    case FormVariantsEnum.TextArea:
+      return (
+        <ControllerWrapper
+          InputComponent={TextArea}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
     case FormVariantsEnum.Quantity_Input:
       return (
         <ControllerWrapper

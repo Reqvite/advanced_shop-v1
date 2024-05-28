@@ -9,6 +9,7 @@ export enum FormVariantsEnum {
   Select = 'select',
   AutoCompleteSelect = 'auto-complete-select',
   InputWithSelect = 'input-with-select',
+  TextArea = 'text-area',
   CheckboxGroup = 'checkbox_group',
   SliderWithInput = 'slider-with-input',
   Slider = 'slider',
@@ -20,6 +21,7 @@ interface BaseFormOption {
   id: string;
   isRequired?: boolean;
   isDisabled?: boolean;
+  placeholder?: string;
   type?: string;
   min?: number;
   max?: number;
@@ -29,6 +31,9 @@ interface BaseFormOption {
 interface FormOptionVariantMapI {
   [FormVariantsEnum.Input]: {
     variant: FormVariantsEnum.Input;
+  };
+  [FormVariantsEnum.TextArea]: {
+    variant: FormVariantsEnum.TextArea;
   };
   [FormVariantsEnum.Quantity_Input]: {
     variant: FormVariantsEnum.Quantity_Input;

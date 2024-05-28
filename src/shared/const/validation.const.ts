@@ -12,6 +12,7 @@ const minLength = 3;
 const maxLength = 30;
 const zipCodeLength = 5;
 const maxLengthAddress = 100;
+const maxNotesLength = 500;
 
 const phoneRegex = /^[0-9]{12}$/;
 const passwordValidationSchema = yup
@@ -57,6 +58,9 @@ const zipValidation = yup
   .min(minLength, ErrorMessages.AT_LEAST_LENGTH(zipCodeLength, zip))
   .max(maxLength, ErrorMessages.AT_MOST_LENGTH(zipCodeLength, zip))
   .required(ErrorMessages.IS_REQUIRED(zip));
+const notesValidation = yup
+  .string()
+  .max(maxNotesLength, ErrorMessages.AT_MOST_LENGTH(maxNotesLength, 'Order notes'));
 
 export {
   addressValidation,
@@ -65,6 +69,7 @@ export {
   emailValidation,
   firstNameValidation,
   lastNameValidation,
+  notesValidation,
   passwordValidationSchema,
   phoneNumberValidation,
   phoneRegex,

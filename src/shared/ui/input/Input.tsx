@@ -13,7 +13,16 @@ export type InputProps = Omit<TextFieldProps, 'error'> & {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    {variant = 'outlined', error, label, helperText, type = 'text', required, ...otherProps},
+    {
+      variant = 'outlined',
+      error,
+      label,
+      helperText,
+      type = 'text',
+      required,
+      placeholder,
+      ...otherProps
+    },
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -51,6 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             InputProps={{
               endAdornment: renderEndAdornment()
             }}
+            placeholder={placeholder ? placeholder : label}
           />
           {helperText && <FormHelperText>{helperText}</FormHelperText>}
           <Box height="6px" mt="1px">

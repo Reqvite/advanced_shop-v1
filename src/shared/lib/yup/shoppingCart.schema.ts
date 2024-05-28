@@ -7,6 +7,7 @@ import {
   emailValidation,
   firstNameValidation,
   lastNameValidation,
+  notesValidation,
   phoneNumberValidation,
   zipValidation
 } from '@/shared/const/validation.const';
@@ -19,7 +20,8 @@ export const shoppingCart = yup.object().shape({
   phoneNumber: phoneNumberValidation,
   country: countryValidation,
   city: cityValidation,
-  zip: zipValidation
+  zip: zipValidation,
+  notes: notesValidation
 });
 
 export const shoppingCartSchema = yupResolver(shoppingCart);

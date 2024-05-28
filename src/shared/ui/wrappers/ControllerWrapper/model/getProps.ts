@@ -39,7 +39,7 @@ export const getProps = <T extends FieldValues>({
     key: option.id,
     type: option.type,
     label: option.name,
-    placeholder: option.name,
+    placeholder: option.placeholder,
     max: option.max,
     min: option.min,
     sx: option.sx

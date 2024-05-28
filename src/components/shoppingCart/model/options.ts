@@ -54,3 +54,13 @@ export const getShoppingCartOptions = ({
     isRequired: true
   }
 ];
+
+export const additionalInfoOptions: FormOption<FormVariantsEnum>[] = [
+  {
+    id: 'notes',
+    variant: FormVariantsEnum.TextArea,
+    name: 'Order notes',
+    placeholder: 'Need a specific delivery day? Sending a gift? Let`s say ...',
+    sx: {height: '100px'}
+  }
+];
