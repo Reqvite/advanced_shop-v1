@@ -357,9 +357,6 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
       },
       MuiNativeSelect: {
         styleOverrides: {
-          input: {
-            paddingLeft: 10
-          },
           root: ({theme, ownerState}) => ({
             'input:-webkit-autofill': {
               WebkitBoxShadow: `0 0 0 1000px ${brand[100]} inset, 0 0 0 1px ${brand[200]}`,

@@ -1,13 +1,12 @@
 import {Box} from '@mui/material';
-import {ReactElement, useEffect, useMemo} from 'react';
+import {ReactElement, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
+import {shoppingCartSchema} from '@/shared/lib/yup/shoppingCart.schema';
 import {ShoppingCartModel} from '@/shared/models/shoppingCartModel';
-import {CountryTransformI} from '@/shared/types/country';
 import {Flex, PageWrapper} from '@/shared/ui';
 import {useGetCartQuery} from '@/slices/cart';
-import {useGetCountriesQuery} from '@/slices/country';
-import {mapCities} from '../model/mapCities';
+import {useGetCountriesQuery, useGetCountryCityMutation} from '@/slices/location';
 import {getShoppingCartOptions} from '../model/options';
 import {AdditionalInfo} from './AdditionalInfo';
 import {BillingInfo} from './BillingInfo';
@@ -17,6 +16,7 @@ import {OrderSummary} from './OrderSummary';
 export const ShoppingCart = (): ReactElement => {
   const {user} = useAuth();
   const {handleSubmit, control, watch, resetField} = useForm({
+    resolver: shoppingCartSchema,
     defaultValues: {...new ShoppingCartModel({user})}
   });
   const country = watch('country');
@@ -26,13 +26,13 @@ export const ShoppingCart = (): ReactElement => {
   const direction = isMobile ? 'column' : 'row';
 
   const {data = [], isLoading, isFetching} = useGetCartQuery();
-  const {data: countries = {} as CountryTransformI} = useGetCountriesQuery();
+  const {data: countries, isLoading: countriesIsLoading} = useGetCountriesQuery();
+  const [getCountries, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
 
-  const citiesMap = useMemo(() => mapCities(countries?.data, country), [countries, country]);
   const options = getShoppingCartOptions({
-    countryOptions: countries.transformedData,
-    citiesOptions: citiesMap,
-    isCitiesSelectDisabled: !country
+    countryOptions: countries,
+    citiesOptions: cities,
+    isCitiesSelectDisabled: !citiesIsLoading && !country
   });
 
   const handleFormSubmit = handleSubmit((data) => {
@@ -40,11 +40,14 @@ export const ShoppingCart = (): ReactElement => {
   });
 
   useEffect(() => {
+    if (country) {
+      getCountries({country});
+    }
     resetField('city');
-  }, [country, resetField]);
+  }, [country, getCountries, resetField]);
 
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper isLoading={isLoading || countriesIsLoading}>
       <Flex flexDirection={direction} gap={2}>
         <Box width={leftBoxWidth} component="form" onSubmit={handleFormSubmit}>
           <BillingInfo options={options} control={control} />

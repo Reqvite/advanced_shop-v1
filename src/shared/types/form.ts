@@ -1,13 +1,13 @@
 import {SxProps} from '@mui/material';
 import {ComponentType} from 'react';
-import {LabelOptionsI} from '@/shared/types/options';
+import {AutoCompleteOptionsI, LabelOptionsI} from '@/shared/types/options';
 import {SelectStyleVariants} from '../ui';
 
 export enum FormVariantsEnum {
   Input = 'input',
   Quantity_Input = 'quantity-input',
   Select = 'select',
-  NativeSelect = 'native-select',
+  AutoCompleteSelect = 'auto-complete-select',
   InputWithSelect = 'input-with-select',
   CheckboxGroup = 'checkbox_group',
   SliderWithInput = 'slider-with-input',
@@ -44,9 +44,9 @@ interface FormOptionVariantMapI {
     options: LabelOptionsI[];
     styleVariant: SelectStyleVariants;
   };
-  [FormVariantsEnum.NativeSelect]: {
-    variant: FormVariantsEnum.NativeSelect;
-    options: LabelOptionsI[];
+  [FormVariantsEnum.AutoCompleteSelect]: {
+    variant: FormVariantsEnum.AutoCompleteSelect;
+    options: AutoCompleteOptionsI[];
   };
   [FormVariantsEnum.CheckboxGroup]: {
     variant: FormVariantsEnum.CheckboxGroup;

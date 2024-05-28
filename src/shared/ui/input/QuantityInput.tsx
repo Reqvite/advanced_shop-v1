@@ -60,13 +60,13 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
             <RemoveIcon fontSize="small" />
           </IconButton>
           <TextField
-            disabled={isDisabled}
             type="number"
             value={value ?? String(value)}
             onChange={onInputChange}
             inputRef={ref}
             {...otherProps}
             inputProps={{style: {textAlign: 'center'}}}
+            disabled={isDisabled}
             sx={{
               width: 55,
               '& div': {

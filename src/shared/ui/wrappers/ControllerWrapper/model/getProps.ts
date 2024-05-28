@@ -46,7 +46,7 @@ export const getProps = <T extends FieldValues>({
   };
 
   switch (variant) {
-    case FormVariantsEnum.NativeSelect:
+    case FormVariantsEnum.AutoCompleteSelect:
       return {
         ...baseProps,
         options: option.options

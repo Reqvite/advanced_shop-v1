@@ -1,16 +1,16 @@
-import {CountryOption} from '@/shared/types/country';
-import {FormVariantsEnum} from '@/shared/types/form';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
+import {AutoCompleteOptionsI} from '@/shared/types/options';
 
 export const getShoppingCartOptions = ({
   countryOptions,
   citiesOptions,
   isCitiesSelectDisabled
 }: {
-  countryOptions: CountryOption[];
-  citiesOptions: CountryOption[];
+  countryOptions?: AutoCompleteOptionsI[];
+  citiesOptions?: AutoCompleteOptionsI[];
   isCitiesSelectDisabled: boolean;
-}) => [
-  {id: 'name', variant: FormVariantsEnum.Input, name: 'Name', isRequired: true},
+}): FormOption<FormVariantsEnum>[] => [
+  {id: 'firstName', variant: FormVariantsEnum.Input, name: 'Name', isRequired: true},
   {
     id: 'lastName',
     variant: FormVariantsEnum.Input,
@@ -33,15 +33,15 @@ export const getShoppingCartOptions = ({
   },
   {
     id: 'country',
-    variant: FormVariantsEnum.NativeSelect,
-    options: countryOptions,
+    variant: FormVariantsEnum.AutoCompleteSelect,
+    options: countryOptions || [],
     name: 'Country',
     isRequired: true
   },
   {
     id: 'city',
-    variant: FormVariantsEnum.NativeSelect,
-    options: citiesOptions,
+    variant: FormVariantsEnum.AutoCompleteSelect,
+    options: citiesOptions || [],
     name: 'City',
     isRequired: true,
     isDisabled: isCitiesSelectDisabled
@@ -49,6 +49,7 @@ export const getShoppingCartOptions = ({
   {
     id: 'zip',
     variant: FormVariantsEnum.Input,
+    type: 'number',
     name: 'Zip code',
     isRequired: true
   }

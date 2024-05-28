@@ -1,9 +1,16 @@
 import {Box, Grid} from '@mui/material';
 import {ReactElement} from 'react';
+import {Control, FieldValues} from 'react-hook-form';
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
+import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {Title} from '@/shared/ui';
 
-export const BillingInfo = ({options, control}): ReactElement => {
+type Props<T extends FieldValues> = {
+  options: FormOption<FormVariantsEnum>[];
+  control: Control<T>;
+};
+
+export const BillingInfo = <T extends FieldValues>({options, control}: Props<T>): ReactElement => {
   return (
     <Box>
       <Title title="Billing info" description="Please enter your billing info." />

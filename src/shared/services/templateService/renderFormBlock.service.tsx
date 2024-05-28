@@ -11,7 +11,7 @@ import {
   SliderWithInput
 } from '@/shared/ui';
 import {CheckboxGroup} from '@/shared/ui/checkbox/CheckboxGroup';
-import {CustomNativeSelect} from '@/shared/ui/select/NativeSelect';
+import {AutoCompleteSelect} from '@/shared/ui/select/AutoCompleteSelect';
 
 type Props<T extends FieldValues> = {
   option: FormOption<FormVariantsEnum>;
@@ -43,10 +43,10 @@ export const renderFormBlock = <T extends FieldValues>({
           control={control}
         />
       );
-    case FormVariantsEnum.NativeSelect:
+    case FormVariantsEnum.AutoCompleteSelect:
       return (
         <ControllerWrapper
-          InputComponent={CustomNativeSelect}
+          InputComponent={AutoCompleteSelect}
           key={option.id}
           option={option}
           control={control}

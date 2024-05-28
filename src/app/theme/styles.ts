@@ -276,6 +276,25 @@ export const cartButtonStyles = {
   }
 };
 
+export const autoCompleteStyles = {
+  textField: {
+    '& .MuiInputBase-input': {
+      position: 'absolute',
+      width: '80%'
+    },
+    '& .MuiAutocomplete-inputRoot .MuiAutocomplete-input': {
+      width: '80%'
+    }
+  },
+  autoComplete: {
+    '& .MuiAutocomplete-input': {
+      minWidth: '100%',
+      width: '100%',
+      maxWidth: '100%'
+    }
+  }
+};
+
 export const yellowSliderStyles = {
   '& .MuiSlider-thumb': {
     color: yellow[900]

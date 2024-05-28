@@ -19,9 +19,11 @@ export const ControllerWrapper = <T extends FieldValues>({
     <Controller
       control={control}
       name={option.id as Path<T>}
-      render={({field, fieldState: {error}}) => (
-        <InputComponent error={error?.message} {...getProps<T>({option, control})} {...field} />
-      )}
+      render={({field, fieldState: {error}}) => {
+        return (
+          <InputComponent error={error?.message} {...getProps<T>({option, control})} {...field} />
+        );
+      }}
     />
   );
 };

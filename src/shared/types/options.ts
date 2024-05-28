@@ -6,6 +6,11 @@ export interface LabelOptionsI {
   quantity?: number;
 }
 
+export interface AutoCompleteOptionsI {
+  label: string;
+  _id?: string;
+}
+
 export type LabelOptionsWithId = LabelOptionsI & {
   _id: string;
 };
