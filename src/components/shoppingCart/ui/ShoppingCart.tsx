@@ -7,7 +7,7 @@ import {ShoppingCartModel} from '@/shared/models/shoppingCartModel';
 import {Flex, PageWrapper} from '@/shared/ui';
 import {useGetCartQuery} from '@/slices/cart';
 import {useGetCountriesQuery, useGetCountryCityMutation} from '@/slices/location';
-import {additionalInfoOptions, getShoppingCartOptions} from '../model/options';
+import {additionalInfoOptions, confirmationOptions, getShoppingCartOptions} from '../model/options';
 import {AdditionalInfo} from './AdditionalInfo';
 import {BillingInfo} from './BillingInfo';
 import {Confirmation} from './Confirmation';
@@ -48,11 +48,11 @@ export const ShoppingCart = (): ReactElement => {
 
   return (
     <PageWrapper isLoading={isLoading || countriesIsLoading}>
-      <Flex flexDirection={direction} gap={2}>
+      <Flex flexDirection={direction} gap={3}>
         <Box width={leftBoxWidth} component="form" onSubmit={handleFormSubmit}>
           <BillingInfo options={options} control={control} />
           <AdditionalInfo options={additionalInfoOptions} control={control} />
-          <Confirmation />
+          <Confirmation options={confirmationOptions} control={control} />
         </Box>
         <OrderSummary items={data} isLoading={isFetching} />
       </Flex>

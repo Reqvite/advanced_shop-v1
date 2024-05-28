@@ -9,6 +9,7 @@ import {
   lastNameValidation,
   notesValidation,
   phoneNumberValidation,
+  privacyPolicyAgreementValidation,
   zipValidation
 } from '@/shared/const/validation.const';
 
@@ -21,7 +22,9 @@ export const shoppingCart = yup.object().shape({
   country: countryValidation,
   city: cityValidation,
   zip: zipValidation,
-  notes: notesValidation
+  notes: notesValidation,
+  privacyPolicyAgreement: privacyPolicyAgreementValidation,
+  newsLatterAgreement: yup.boolean()
 });
 
 export const shoppingCartSchema = yupResolver(shoppingCart);

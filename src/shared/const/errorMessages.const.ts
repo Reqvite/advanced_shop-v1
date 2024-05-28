@@ -15,5 +15,6 @@ export const ErrorMessages = {
   INVALID_PHONE_FORMAT: (length: number = 12) => `Phone must contain ${length} digits.`,
   MIN_QUANTITY: (min: number) => `Quantity must be at least ${min}.`,
   OUT_OF_STOCK: 'Product is out of stock.',
-  ITEMS_LEFT: (max: number) => `Only ${max} left.`
+  ITEMS_LEFT: (max: number) => `Only ${max} left.`,
+  ACCEPT_PRIVACY: 'Please, accept the privacy policy.'
 };

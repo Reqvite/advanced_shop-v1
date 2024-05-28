@@ -78,7 +78,7 @@ export const getProps = <T extends FieldValues>({
       return {...baseProps, iconComponent: option.component};
     case FormVariantsEnum.Checkbox:
       delete baseProps['type'];
-      return baseProps;
+      return {...baseProps, labelComponent: option.labelComponent};
     default:
       return baseProps;
   }
