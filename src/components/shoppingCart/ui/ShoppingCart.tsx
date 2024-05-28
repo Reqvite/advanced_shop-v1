@@ -27,7 +27,7 @@ export const ShoppingCart = (): ReactElement => {
 
   const {data = [], isLoading, isFetching} = useGetCartQuery();
   const {data: countries, isLoading: countriesIsLoading} = useGetCountriesQuery();
-  const [getCountries, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
+  const [getCities, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
 
   const options = getShoppingCartOptions({
     countryOptions: countries,
@@ -41,10 +41,10 @@ export const ShoppingCart = (): ReactElement => {
 
   useEffect(() => {
     if (country) {
-      getCountries({country});
+      getCities({country});
     }
     resetField('city');
-  }, [country, getCountries, resetField]);
+  }, [country, getCities, resetField]);
 
   return (
     <PageWrapper isLoading={isLoading || countriesIsLoading}>
