@@ -42,16 +42,8 @@ const addressValidation = yup
   .min(minLength, ErrorMessages.AT_LEAST_LENGTH(minLength, address))
   .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLengthAddress, address))
   .required(ErrorMessages.IS_REQUIRED(address));
-const countryValidation = yup
-  .string()
-  .min(minLength, ErrorMessages.AT_LEAST_LENGTH(minLength, country))
-  .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, country))
-  .required(ErrorMessages.IS_REQUIRED(country));
-const cityValidation = yup
-  .string()
-  .min(minLength, ErrorMessages.AT_LEAST_LENGTH(minLength, city))
-  .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, city))
-  .required(ErrorMessages.IS_REQUIRED(city));
+const countryValidation = yup.string().required(ErrorMessages.IS_REQUIRED(country));
+const cityValidation = yup.string().required(ErrorMessages.IS_REQUIRED(city));
 const zipValidation = yup
   .string()
   .min(minLength, ErrorMessages.AT_LEAST_LENGTH(zipCodeLength, zip))
