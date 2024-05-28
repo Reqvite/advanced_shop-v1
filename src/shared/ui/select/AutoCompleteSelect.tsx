@@ -26,6 +26,12 @@ export const AutoCompleteSelect = forwardRef<HTMLSelectElement, Props>(
     {label, helperText, options, error, required, disabled, value, onChange, ...otherProps},
     ref
   ): ReactElement => {
+    const newValue = value
+      ? options.find((option) => {
+          return value === option._id;
+        }) ?? null
+      : null;
+
     return (
       <FormControl fullWidth>
         <FormLabel required={required} sx={{fontSize: 14}}>
@@ -33,13 +39,7 @@ export const AutoCompleteSelect = forwardRef<HTMLSelectElement, Props>(
         </FormLabel>
         <Autocomplete
           options={options}
-          value={
-            value
-              ? options.find((option) => {
-                  return value === option._id;
-                }) ?? null
-              : null
-          }
+          value={newValue}
           getOptionLabel={(option: AutoCompleteOptionsI) => option.label}
           onChange={(_, newValue) => {
             if (onChange) {
