@@ -61,8 +61,8 @@ export const CartProductCard = ({
   }, 500);
 
   return (
-    <Flex sx={{...sx}} width="100%" justifyContent="center" gap={1} py={1}>
-      <Flex flexDirection={isMobile ? 'column' : 'row'}>
+    <Flex sx={{...sx}} width="100%" gap={1} py={1}>
+      <Flex flexDirection={isMobile ? 'column' : 'row'} width="100%" justifyContent="space-between">
         <Flex>
           <Stack>
             <CardMedia
@@ -118,7 +118,7 @@ export const CartProductCard = ({
             />
           </CardContent>
         </Flex>
-        <Box display="flex" alignItems="flex-end" pr={1}>
+        <Box display="flex" justifyContent="flex-end" alignItems="flex-end" pr={1}>
           <Form
             options={options}
             defaultValues={{quantity: orderedQuantity}}

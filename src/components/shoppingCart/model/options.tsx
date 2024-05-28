@@ -1,5 +1,8 @@
 import {Typography} from '@mui/material';
-import {getRouteMain} from '@/app/providers/AppRouter/routeConfig';
+import {
+  getRoutePrivacyPolicy,
+  getRouteTermsAndConditions
+} from '@/app/providers/AppRouter/routeConfig';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {AutoCompleteOptionsI} from '@/shared/types/options';
 import {AppLink} from '@/shared/ui';
@@ -80,8 +83,8 @@ export const confirmationOptions: FormOption<FormVariantsEnum>[] = [
     name: 'privacyPolicyAgreement',
     labelComponent: (
       <Typography className="body2">
-        I agree with our <AppLink to={getRouteMain()}>terms and conditions</AppLink> and{' '}
-        <AppLink to={getRouteMain()}>privacy policy</AppLink>.
+        I agree with our <AppLink to={getRouteTermsAndConditions()}>terms and conditions</AppLink>{' '}
+        and <AppLink to={getRoutePrivacyPolicy()}>privacy policy</AppLink>.
       </Typography>
     )
   }
