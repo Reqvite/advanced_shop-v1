@@ -11,7 +11,8 @@ type Props<T> = {
   heading?: string;
   options: FormOption<FormVariantsEnum>[];
   formValidationSchema?: Resolver<any>;
-  defaultValues: T;
+  defaultValues?: T;
+  values?: T;
   onSubmit?: (data: T) => void;
   onChange?: (data: T) => void;
   transformData?: (data: T) => void;
@@ -37,11 +38,13 @@ export const Form = <T extends FieldValues>({
   initialTrigger,
   buttonLabel = 'Submit',
   onCancel,
-  ButtonComponent
+  ButtonComponent,
+  values
 }: Props<T>): ReactElement => {
   const {handleSubmit, reset, control, getValues, trigger, watch} = useForm<T>({
     resolver: formValidationSchema,
-    defaultValues: defaultValues as DefaultValues<T>
+    defaultValues: defaultValues as DefaultValues<T>,
+    values
   });
 
   const handleFormSubmit = handleSubmit(() => {

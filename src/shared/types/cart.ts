@@ -1,10 +1,24 @@
-import {useDeleteItemByIdMutation} from '@/slices/cart';
+import {
+  useAddToCartMutation,
+  useDeleteItemByIdMutation,
+  useUpdatedCartMutation
+} from '@/slices/cart';
 import {ProductI} from './product';
 
-export interface GetCartResponse {
+interface GetCartResponse {
   products: ProductI[];
 }
 
-export type DeleteItemByIdMutation = typeof useDeleteItemByIdMutation;
+type DeleteItemByIdMutation = typeof useDeleteItemByIdMutation;
+type UpdateCartMutation = typeof useUpdatedCartMutation;
+type AddToCartMutation = typeof useAddToCartMutation;
 
-export type CartItem = {_id: string; quantity: number};
+type CartItem = {_id: string; quantity: number};
+
+export {
+  type AddToCartMutation,
+  type CartItem,
+  type DeleteItemByIdMutation,
+  type GetCartResponse,
+  type UpdateCartMutation
+};

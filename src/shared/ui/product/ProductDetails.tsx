@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 import {Stack, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
@@ -5,12 +6,14 @@ import {
   getRouteProductDetailsReviewsTab,
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
+import {grey} from '@/app/theme/theme';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
-import {FormOption, FormVariantsEnum} from '@/shared/types/form';
+import {UseCartAndWishlistActionsType} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
+import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {ProductI} from '@/shared/types/product';
-import {useUpdateWishlistMutation} from '@/slices/products';
 import {Flex} from '../base/Flex';
+import {Button} from '../button';
 import {AddToCartButton} from '../button/AddToCartButton';
 import {WishlistButton} from '../button/WishlistButton';
 import {Chip} from '../chip/Chip';
@@ -18,23 +21,20 @@ import {Form} from '../form';
 import {ImageGallery} from '../imageGallery/ImageGallery';
 import {List} from '../list/List';
 import {Tabs} from '../tabs/Tabs';
+import {cartProductCardOptions} from './CartProductCard/option';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {PriceText} from './ui/PriceText';
 import {ProductHeading} from './ui/ProductHeading';
 import {TabsRouter} from './ui/tabs/ProductTabsRouter';
 
 type Props = ProductI & {
-  onUpdateWishlist: typeof useUpdateWishlistMutation;
+  useActions: UseCartAndWishlistActionsType;
 };
 
 const tabOptions = [
   {label: 'Description', value: getRouteProductDetailsTab()},
   {label: 'Reviews', value: getRouteProductDetailsReviewsTab()},
   {label: 'Questions', value: 'questions'}
-];
-
-const formOptions: FormOption<FormVariantsEnum>[] = [
-  {id: 'quantity', variant: FormVariantsEnum.Quantity_Input}
 ];
 
 export const ProductDetails = ({
@@ -47,22 +47,41 @@ export const ProductDetails = ({
   discount,
   images,
   tags,
-  onUpdateWishlist
+  quantity,
+  useActions
 }: Props): ReactElement => {
   const auth = useAuth();
+  const [product] = auth?.user?.cart?.filter((item) => item._id === _id) || [];
+  const {
+    onConfirmDeleteItem,
+    onClickWishlist,
+    onClickAddToCart,
+    onUpdateCartQuantity,
+    updateWishlistIsLoading,
+    addToCartIsLoading,
+    updateCartIsLoading,
+    deleteIsLoading
+  } = useActions({quantity: product?.quantity, title});
   const navigate = useNavigate();
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
-  const [onClickWishlist, {isLoading}] = onUpdateWishlist();
 
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
+
+  const options = cartProductCardOptions({
+    maxQuantity: quantity
+  });
 
   const onChangeTab = (route: string): void => {
     navigate(route);
   };
 
-  const onSubmit = (data: any): void => {
-    console.log(data);
+  const onSubmit = (data: {quantity: number}): void => {
+    if (product) {
+      onUpdateCartQuantity({_id, ...data});
+    } else {
+      onClickAddToCart({_id, ...data});
+    }
   };
 
   return (
@@ -95,20 +114,39 @@ export const ProductDetails = ({
           })}
         >
           <PriceText price={price} discount={discount} />
-          <Flex gap={2} alignItems="center">
-            <Form<{quantity: number}>
+          <Flex gap={2} alignItems="flex-start">
+            {product && (
+              <Button
+                variant="text"
+                LeftAddon={CloseIcon}
+                iconSize="small"
+                iconColor="black"
+                sx={{color: grey[200]}}
+                onClick={() => onConfirmDeleteItem(_id)}
+                isLoading={deleteIsLoading}
+              >
+                Remove from cart
+              </Button>
+            )}
+            <Form
               sx={{flexDirection: 'row'}}
-              options={formOptions}
-              defaultValues={{quantity: 1}}
+              options={options}
+              values={{
+                quantity: product?.quantity || 1
+              }}
+              formValidationSchema={maxQuantitySchema({max: quantity})}
+              initialTrigger
               onSubmit={onSubmit}
-              ButtonComponent={AddToCartButton}
+              ButtonComponent={product ? undefined : AddToCartButton}
+              buttonLabel={product ? 'Update cart' : undefined}
+              isLoading={addToCartIsLoading || updateCartIsLoading}
             />
           </Flex>
         </Flex>
         <WishlistButton
           isLiked={auth.user?.wishlist.includes(_id)}
           sx={{maxWidth: 166}}
-          isLoading={isLoading}
+          isLoading={updateWishlistIsLoading}
           onClick={() => onClickWishlist({_id})}
         />
         <Tabs options={tabOptions} onChange={onChangeTab} defaultValue={currentTab} />

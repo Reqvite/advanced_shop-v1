@@ -1,10 +1,10 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {Box, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
 import {grey} from '@/app/theme/theme';
-import {useAuth, useConfirm, useDebouncedCallback, useMediaQuery} from '@/shared/lib/hooks';
+import {useAuth, useDebouncedCallback, useMediaQuery} from '@/shared/lib/hooks';
+import {UseCartAndWishlistActionsType} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
 import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
-import {DeleteItemByIdMutation} from '@/shared/types/cart';
-import {CartProductI, UpdateCartMutation, UpdateWishlistMutation} from '@/shared/types/product';
+import {CartProductI} from '@/shared/types/product';
 import {Flex} from '../../base/Flex';
 import {Button, WishlistButton} from '../../button';
 import {Form} from '../../form';
@@ -15,9 +15,7 @@ import {cartProductCardOptions} from './option';
 
 type Props = CartProductI & {
   sx?: SxProps;
-  onUpdateWishlist: UpdateWishlistMutation;
-  onDeleteItem: DeleteItemByIdMutation;
-  onUpdateCart: UpdateCartMutation;
+  useActions: UseCartAndWishlistActionsType;
 };
 
 const breakPoint = 1030;
@@ -33,28 +31,21 @@ export const CartProductCard = ({
   sx,
   quantity,
   orderedQuantity,
-  onDeleteItem,
-  onUpdateWishlist,
-  onUpdateCart
+  useActions
 }: Props) => {
   const auth = useAuth();
+  const {
+    onConfirmDeleteItem,
+    onClickWishlist,
+    onUpdateCartQuantity,
+    updateWishlistIsLoading,
+    deleteIsLoading
+  } = useActions({quantity: orderedQuantity, title});
   const isMobile = useMediaQuery(breakPoint);
-
-  const confirm = useConfirm({
-    message: `Are you sure you want to delete ${quantity} item(s) of "${title}" ?`
-  });
-  const [onClickWishlist, {isLoading: isLoadingWishlist}] = onUpdateWishlist();
-  const [deleteItem, {isLoading: deleteIsLoading}] = onDeleteItem();
-  const [onUpdateCartQuantity] = onUpdateCart();
 
   const options = cartProductCardOptions({
     maxQuantity: quantity
   });
-
-  const onConfirmDeleteItem = async (_id: string): Promise<void> => {
-    await confirm();
-    deleteItem({_id});
-  };
 
   const onChange = useDebouncedCallback(({quantity}): void => {
     onUpdateCartQuantity({_id, quantity});
@@ -77,7 +68,7 @@ export const CartProductCard = ({
                 <WishlistButton
                   isClear
                   isLiked={auth.user?.wishlist.includes(_id)}
-                  isLoading={isLoadingWishlist}
+                  isLoading={updateWishlistIsLoading}
                   onClick={() => onClickWishlist({_id})}
                 >
                   Wishlist

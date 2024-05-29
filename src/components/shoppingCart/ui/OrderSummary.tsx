@@ -1,11 +1,10 @@
 import {Box, Stack} from '@mui/material';
 import {ReactElement, useCallback} from 'react';
 import {checkoutStyles} from '@/app/theme/styles';
+import {useCartAndWishlistActions} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
 import {CartProductI} from '@/shared/types/product';
 import {List, Title} from '@/shared/ui';
 import {CartProductCard} from '@/shared/ui/product/CartProductCard/CartProductCard';
-import {useDeleteItemByIdMutation, useUpdatedCartMutation} from '@/slices/cart';
-import {useUpdateWishlistMutation} from '@/slices/products';
 import {OrderSummaryTotal} from './OrderSummaryTotal';
 
 type Props = {
@@ -17,12 +16,7 @@ type Props = {
 export const OrderSummary = ({items, tax = 15}: Props): ReactElement => {
   const renderItem = useCallback(
     (product: CartProductI) => (
-      <CartProductCard
-        onUpdateWishlist={useUpdateWishlistMutation}
-        onDeleteItem={useDeleteItemByIdMutation}
-        onUpdateCart={useUpdatedCartMutation}
-        {...product}
-      />
+      <CartProductCard useActions={useCartAndWishlistActions} {...product} />
     ),
     []
   );
