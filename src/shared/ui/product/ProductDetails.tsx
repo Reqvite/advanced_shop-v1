@@ -71,7 +71,7 @@ export const ProductDetails = ({
   const characteristicsWithQuantity = [
     {
       label: 'Quantity',
-      value: quantity,
+      value: quantity ? quantity : 'Out of stock',
       _id: nanoid()
     },
     ...characteristics
