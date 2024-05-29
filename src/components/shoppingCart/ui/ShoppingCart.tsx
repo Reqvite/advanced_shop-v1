@@ -2,6 +2,7 @@ import {Box} from '@mui/material';
 import {ReactElement, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
+import {useCartAndWishlistActions} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
 import {shoppingCartSchema} from '@/shared/lib/yup/shoppingCart.schema';
 import {ShoppingCartModel} from '@/shared/models/shoppingCartModel';
 import {Flex, PageWrapper} from '@/shared/ui';
@@ -13,7 +14,7 @@ import {BillingInfo} from './BillingInfo';
 import {Confirmation} from './Confirmation';
 import {OrderSummary} from './OrderSummary';
 
-export const ShoppingCart = (): ReactElement => {
+export const ShoppingCart = (): ReactElement | null => {
   const {user} = useAuth();
   const {handleSubmit, control, watch, resetField} = useForm({
     resolver: shoppingCartSchema,
@@ -28,16 +29,7 @@ export const ShoppingCart = (): ReactElement => {
   const {data = [], isLoading, isFetching} = useGetCartQuery();
   const {data: countries, isLoading: countriesIsLoading} = useGetCountriesQuery();
   const [getCities, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
-
-  const options = getShoppingCartOptions({
-    countryOptions: countries,
-    citiesOptions: cities,
-    isCitiesSelectDisabled: !citiesIsLoading && !country
-  });
-
-  const handleFormSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+  const {onCompleteOrder, completeOrderIsLoading} = useCartAndWishlistActions();
 
   useEffect(() => {
     if (country) {
@@ -46,14 +38,33 @@ export const ShoppingCart = (): ReactElement => {
     resetField('city');
   }, [country, getCities, resetField]);
 
+  if (!user) return null;
+
+  const options = getShoppingCartOptions({
+    countryOptions: countries,
+    citiesOptions: cities,
+    isCitiesSelectDisabled: !citiesIsLoading && !country
+  });
+
+  const handleFormSubmit = handleSubmit((data): void => {
+    onCompleteOrder({orderInformation: data as ShoppingCartModel, products: user?.cart});
+  });
+
   return (
     <PageWrapper isLoading={isLoading || countriesIsLoading}>
-      <Flex flexDirection={direction} gap={3}>
-        <Box width={leftBoxWidth} component="form" onSubmit={handleFormSubmit}>
-          <BillingInfo options={options} control={control} />
-          <AdditionalInfo options={additionalInfoOptions} control={control} />
-          <Confirmation options={confirmationOptions} control={control} />
-        </Box>
+      <Flex flexDirection={direction} justifyContent="center" gap={3}>
+        {data.length !== 0 && (
+          <Box width={leftBoxWidth} component="form" onSubmit={handleFormSubmit}>
+            <BillingInfo options={options} control={control} />
+            <AdditionalInfo options={additionalInfoOptions} control={control} />
+            <Confirmation
+              options={confirmationOptions}
+              control={control}
+              isLoading={completeOrderIsLoading}
+              onSubmit={handleFormSubmit}
+            />
+          </Box>
+        )}
         <OrderSummary items={data} isLoading={isFetching} />
       </Flex>
     </PageWrapper>

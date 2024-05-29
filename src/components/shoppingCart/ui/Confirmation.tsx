@@ -9,9 +9,16 @@ import {Button, Title} from '@/shared/ui';
 type Props<T extends FieldValues> = {
   options: FormOption<FormVariantsEnum>[];
   control: Control<T>;
+  isLoading?: boolean;
+  onSubmit: () => void;
 };
 
-export const Confirmation = <T extends FieldValues>({options, control}: Props<T>): ReactElement => {
+export const Confirmation = <T extends FieldValues>({
+  options,
+  control,
+  isLoading,
+  onSubmit
+}: Props<T>): ReactElement => {
   return (
     <Box mt="64px">
       <Title
@@ -21,7 +28,13 @@ export const Confirmation = <T extends FieldValues>({options, control}: Props<T>
       <Stack mt="32px" gap={2}>
         {options?.map((option) => renderFormBlock({option, control}))}
       </Stack>
-      <Button type="submit" sx={checkoutStyles.completeOrderButton} variant="contained">
+      <Button
+        onSubmit={onSubmit}
+        isLoading={isLoading}
+        type="submit"
+        sx={checkoutStyles.completeOrderButton}
+        variant="contained"
+      >
         Complete order
       </Button>
     </Box>

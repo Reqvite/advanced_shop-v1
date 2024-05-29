@@ -1,5 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {Stack, Typography} from '@mui/material';
+import {nanoid} from '@reduxjs/toolkit';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {
@@ -51,8 +52,10 @@ export const ProductDetails = ({
   useActions
 }: Props): ReactElement => {
   const auth = useAuth();
+
   const [product] = auth?.user?.cart?.filter((item) => item._id === _id) || [];
   const {
+    invalidateProduct,
     onConfirmDeleteItem,
     onClickWishlist,
     onClickAddToCart,
@@ -66,6 +69,15 @@ export const ProductDetails = ({
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
 
+  const characteristicsWithQuantity = [
+    {
+      label: 'Quantity',
+      value: quantity,
+      _id: nanoid()
+    },
+    ...characteristics
+  ];
+
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
 
   const options = cartProductCardOptions({
@@ -78,9 +90,13 @@ export const ProductDetails = ({
 
   const onSubmit = (data: {quantity: number}): void => {
     if (product) {
-      onUpdateCartQuantity({_id, ...data});
+      onUpdateCartQuantity({_id, ...data})
+        .unwrap()
+        .catch(() => invalidateProduct());
     } else {
-      onClickAddToCart({_id, ...data});
+      onClickAddToCart({_id, ...data})
+        .unwrap()
+        .catch(() => invalidateProduct());
     }
   };
 
@@ -102,8 +118,11 @@ export const ProductDetails = ({
         <ProductHeading variant="medium" title={title} rating={rating} />
         <Typography>{description[0]?.value}</Typography>
         <Flex justifyContent="space-between" flexWrap="wrap" gap={1}>
-          <CharacteristicList characteristics={characteristics} maxListItems={4} />
-          <CharacteristicList characteristics={characteristics.slice(4, 8)} maxListItems={4} />
+          <CharacteristicList characteristics={characteristicsWithQuantity} maxListItems={4} />
+          <CharacteristicList
+            characteristics={characteristicsWithQuantity.slice(4, 8)}
+            maxListItems={4}
+          />
         </Flex>
         <Flex
           sx={(theme) => ({
