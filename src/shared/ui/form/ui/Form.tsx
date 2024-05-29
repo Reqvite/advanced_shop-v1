@@ -1,6 +1,6 @@
 import {Box, Stack} from '@mui/material';
 import {SxProps} from '@mui/system';
-import {ElementType, ReactElement} from 'react';
+import {ElementType, ReactElement, useEffect} from 'react';
 import {DefaultValues, FieldValues, Resolver, useForm} from 'react-hook-form';
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
@@ -12,12 +12,14 @@ type Props<T> = {
   options: FormOption<FormVariantsEnum>[];
   formValidationSchema?: Resolver<any>;
   defaultValues: T;
-  onSubmit: (data: T) => void;
+  onSubmit?: (data: T) => void;
+  onChange?: (data: T) => void;
   transformData?: (data: T) => void;
   isLoading?: boolean;
   sx?: SxProps;
   buttonLabel?: string;
   withCancel?: boolean;
+  initialTrigger?: boolean;
   onCancel?: () => void;
   ButtonComponent?: ElementType;
 };
@@ -25,17 +27,19 @@ type Props<T> = {
 export const Form = <T extends FieldValues>({
   heading,
   options,
+  onChange,
   formValidationSchema,
   onSubmit,
   transformData,
   defaultValues,
   sx,
   isLoading,
+  initialTrigger,
   buttonLabel = 'Submit',
   onCancel,
   ButtonComponent
 }: Props<T>): ReactElement => {
-  const {handleSubmit, reset, control, getValues} = useForm<T>({
+  const {handleSubmit, reset, control, getValues, trigger, watch} = useForm<T>({
     resolver: formValidationSchema,
     defaultValues: defaultValues as DefaultValues<T>
   });
@@ -43,7 +47,9 @@ export const Form = <T extends FieldValues>({
   const handleFormSubmit = handleSubmit(() => {
     const formData = getValues();
     const transformedData = transformData ? transformData(formData) : formData;
-    onSubmit(transformedData!);
+    if (onSubmit) {
+      onSubmit(transformedData as T);
+    }
   });
 
   const handleCancel = () => {
@@ -53,26 +59,43 @@ export const Form = <T extends FieldValues>({
     reset();
   };
 
+  useEffect(() => {
+    if (initialTrigger) {
+      trigger();
+    }
+  }, [initialTrigger, trigger, options]);
+
+  useEffect(() => {
+    if (onChange) {
+      const subscription = watch(() => {
+        return handleSubmit(onChange)();
+      });
+      return () => subscription.unsubscribe();
+    }
+  }, [handleSubmit, onChange, onSubmit, watch]);
+
   return (
     <Box>
       {heading && <FormHeader heading={heading} />}
       <Box component="form" onSubmit={handleFormSubmit}>
         <Stack gap={3} sx={sx}>
           {options.map((option) => renderFormBlock<T>({option, control}))}
-          <Stack direction="row" spacing={2}>
-            {ButtonComponent ? (
-              <ButtonComponent type="submit" isLoading={isLoading} />
-            ) : (
-              <Button fullWidth type="submit" variant="contained" isLoading={isLoading}>
-                {buttonLabel}
-              </Button>
-            )}
-            {onCancel && (
-              <Button fullWidth variant="outlined" onClick={handleCancel}>
-                Cancel
-              </Button>
-            )}
-          </Stack>
+          {onSubmit && (
+            <Stack direction="row" spacing={2}>
+              {ButtonComponent ? (
+                <ButtonComponent type="submit" isLoading={isLoading} />
+              ) : (
+                <Button fullWidth type="submit" variant="contained" isLoading={isLoading}>
+                  {buttonLabel}
+                </Button>
+              )}
+              {onCancel && (
+                <Button fullWidth variant="outlined" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              )}
+            </Stack>
+          )}
         </Stack>
       </Box>
     </Box>

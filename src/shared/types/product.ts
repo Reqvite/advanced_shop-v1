@@ -1,3 +1,4 @@
+import {useUpdatedCartMutation} from '@/slices/cart';
 import {
   useGetProductsQuery,
   useGetUserWishlistQuery,
@@ -20,9 +21,14 @@ interface ProductI {
   subCategory: number;
   category: number;
   createdAt: Date;
+  quantity: number;
   price: number;
   discount?: number;
   tags?: number[];
+}
+
+interface CartProductI extends ProductI {
+  orderedQuantity: number;
 }
 
 interface GetProductsResponse {
@@ -41,13 +47,16 @@ interface GetProductsQuantityByCategories {
 type UpdateWishlistMutation = typeof useUpdateWishlistMutation;
 type GetProductsQuery = typeof useGetProductsQuery;
 type GetUserWishlistQuery = typeof useGetUserWishlistQuery;
+type UpdateCartMutation = typeof useUpdatedCartMutation;
 
 export {
+  type CartProductI,
   type GetProductsQuantityByCategories,
   type GetProductsQuery,
   type GetProductsResponse,
   type GetUserWishlistQuery,
   type ImgI,
   type ProductI,
+  type UpdateCartMutation,
   type UpdateWishlistMutation
 };

@@ -6,7 +6,7 @@ export const useConfirm = ({
   message = 'Please, confirm your action.'
 }: {
   message?: string;
-}): (() => void) => {
+} = {}): (() => void) => {
   const dispatch = useAppDispatch();
 
   const confirm = async () => {

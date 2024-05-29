@@ -13,6 +13,7 @@ type Props = {
   titleMaxWidth?: number;
   withRating?: boolean;
   variant?: CardVariants;
+  headingRows?: number;
 };
 
 export const ProductHeading = ({
@@ -22,13 +23,19 @@ export const ProductHeading = ({
   rating,
   descriptionNoWrap,
   descriptionMaxWidth,
+  headingRows = 2,
   titleMaxWidth,
   withRating = true
 }: Props): ReactElement => {
   return (
     <Box>
       {variant === 'small' ? (
-        <TruncatedTypography gutterBottom variant={'h5'} maxWidth={titleMaxWidth}>
+        <TruncatedTypography
+          gutterBottom
+          variant={'h5'}
+          maxWidth={titleMaxWidth}
+          lineclamp={headingRows}
+        >
           {title}
         </TruncatedTypography>
       ) : (

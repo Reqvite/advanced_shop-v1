@@ -7,6 +7,7 @@ import {
 import {PersistPartial} from 'redux-persist/es/persistReducer';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {NotificationService} from '@/shared/services';
+import {cartApi} from '@/slices/cart';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
@@ -20,6 +21,7 @@ type RootReducer = {
   modal: ReturnType<typeof modalReducer>;
   filter: ReturnType<typeof filterReducer> & PersistPartial;
   [productsApi.reducerPath]: ReturnType<typeof productsApi.reducer>;
+  [cartApi.reducerPath]: ReturnType<typeof cartApi.reducer>;
 };
 
 type ExtraArguments = {

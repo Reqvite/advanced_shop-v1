@@ -279,6 +279,9 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
               height: '40px',
               width: '40px'
             }),
+            '&.Mui-disabled svg': {
+              color: grey[100]
+            },
             '&:hover': {
               backgroundColor: brand[100]
             },

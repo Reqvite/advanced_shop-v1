@@ -1,4 +1,5 @@
 import {createSlice, isAnyOf, PayloadAction} from '@reduxjs/toolkit';
+import {CartItem} from '@/shared/types/cart';
 import {User, UserWishlistType} from '@/shared/types/user/user';
 import {currentUser, login, logout, refreshToken, register} from './actions';
 
@@ -26,6 +27,11 @@ const {reducer, actions, name} = createSlice({
     setWishlist(state, action: PayloadAction<UserWishlistType>) {
       if (state.user) {
         state.user = {...state.user, wishlist: action.payload};
+      }
+    },
+    setCart(state, action: PayloadAction<CartItem[]>) {
+      if (state.user) {
+        state.user = {...state.user, cart: action.payload};
       }
     },
     clearCurrentUser(state) {

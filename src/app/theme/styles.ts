@@ -233,6 +233,7 @@ export const checkoutStyles = {
     border: `1px solid ${grey[100]}`,
     borderRadius: '12px',
     order: 1,
+    maxHeight: '1000px',
     [theme.breakpoints.down('md')]: {
       width: '100%',
       order: -1,
@@ -241,7 +242,25 @@ export const checkoutStyles = {
   }),
   completeOrderButton: {
     mt: '30px'
-  }
+  },
+  orderSummaryList: {
+    mt: '30px',
+    maxHeight: '600px',
+    flexWrap: 'nowrap',
+    overflow: 'auto',
+    '&::-webkit-scrollbar': {
+      width: '8px'
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: grey[100],
+      borderRadius: '4px'
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: brand[500],
+      borderRadius: '4px'
+    }
+  },
+  orderSummaryListItem: {padding: 0, borderBottom: `1px solid ${grey[900]}`}
 };
 
 export const cartButtonStyles = {

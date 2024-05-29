@@ -2,6 +2,7 @@ import {configureStore, ReducersMapObject} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {notificationService} from '@/shared/services';
+import {cartApi} from '@/slices/cart';
 import {reducer as filterReducer} from '@/slices/filter';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
@@ -23,7 +24,8 @@ class Store implements StorePackage {
       user: persistReducer(userPersistConfig, userReducer),
       filter: persistReducer(filterPersistConfig, filterReducer),
       modal: modalReducer,
-      [productsApi.reducerPath]: productsApi.reducer
+      [productsApi.reducerPath]: productsApi.reducer,
+      [cartApi.reducerPath]: cartApi.reducer
     };
     this.#instance = configureStore({
       reducer: rootReducer,
@@ -33,7 +35,9 @@ class Store implements StorePackage {
           thunk: {
             extraArgument: this.extraArguments
           }
-        }).concat(productsApi.middleware)
+        })
+          .concat(productsApi.middleware)
+          .concat(cartApi.middleware)
     });
   }
 
