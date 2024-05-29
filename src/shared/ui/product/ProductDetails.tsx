@@ -52,7 +52,6 @@ export const ProductDetails = ({
   useActions
 }: Props): ReactElement => {
   const auth = useAuth();
-
   const [product] = auth?.user?.cart?.filter((item) => item._id === _id) || [];
   const {
     invalidateProduct,
@@ -156,6 +155,7 @@ export const ProductDetails = ({
               formValidationSchema={maxQuantitySchema({max: quantity})}
               initialTrigger
               onSubmit={onSubmit}
+              disabled={quantity === 0}
               ButtonComponent={product ? undefined : AddToCartButton}
               buttonLabel={product ? 'Update cart' : undefined}
               isLoading={addToCartIsLoading || updateCartIsLoading}

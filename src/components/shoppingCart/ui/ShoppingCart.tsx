@@ -31,6 +31,8 @@ export const ShoppingCart = (): ReactElement | null => {
   const [getCities, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
   const {onCompleteOrder, completeOrderIsLoading} = useCartAndWishlistActions();
 
+  const cartIsEmpty = data?.length !== 0;
+
   useEffect(() => {
     if (country) {
       getCities({country});
@@ -53,7 +55,7 @@ export const ShoppingCart = (): ReactElement | null => {
   return (
     <PageWrapper isLoading={isLoading || countriesIsLoading}>
       <Flex flexDirection={direction} justifyContent="center" gap={3}>
-        {data.length !== 0 && (
+        {cartIsEmpty && (
           <Box width={leftBoxWidth} component="form" onSubmit={handleFormSubmit}>
             <BillingInfo options={options} control={control} />
             <AdditionalInfo options={additionalInfoOptions} control={control} />
@@ -65,7 +67,7 @@ export const ShoppingCart = (): ReactElement | null => {
             />
           </Box>
         )}
-        <OrderSummary items={data} isLoading={isFetching} />
+        <OrderSummary cartIsEmpty={cartIsEmpty} items={data} isLoading={isFetching} />
       </Flex>
     </PageWrapper>
   );

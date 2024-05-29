@@ -12,10 +12,11 @@ import {OrderSummaryTotal} from './OrderSummaryTotal';
 type Props = {
   items: CartProductI[];
   isLoading?: boolean;
+  cartIsEmpty?: boolean;
   tax?: number;
 };
 
-export const OrderSummary = ({items, tax = 15}: Props): ReactElement => {
+export const OrderSummary = ({items, cartIsEmpty, tax = 15}: Props): ReactElement => {
   const navigate = useNavigate();
   const renderItem = useCallback(
     (product: CartProductI) => (
@@ -44,7 +45,7 @@ export const OrderSummary = ({items, tax = 15}: Props): ReactElement => {
           itemStyle={checkoutStyles.orderSummaryListItem}
           emptyListTitle="Cart is empty."
         />
-        {items.length !== 0 ? (
+        {cartIsEmpty ? (
           <OrderSummaryTotal items={items} tax={tax} />
         ) : (
           <Flex justifyContent="center" width="100%" mt={4}>

@@ -13,6 +13,7 @@ type Props = ButtonProps & {
 };
 
 export const Button = ({
+  disabled,
   variant = 'outlined',
   children,
   isLoading,
@@ -23,7 +24,7 @@ export const Button = ({
   ...otherProps
 }: Props): ReactElement => {
   return (
-    <MuiButton variant={variant} disabled={isLoading} {...otherProps}>
+    <MuiButton variant={variant} disabled={isLoading || disabled} {...otherProps}>
       {!isLoading && LeftAddon && <LeftAddon sx={{color: iconColor}} fontSize={iconSize} />}
       {isLoading ? <Loader /> : children}
       {!isLoading && RightAddon && <RightAddon sx={{color: iconColor}} fontSize={iconSize} />}
