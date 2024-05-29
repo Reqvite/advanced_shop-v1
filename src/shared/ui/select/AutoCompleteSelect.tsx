@@ -24,7 +24,10 @@ type Props = Omit<
   required?: boolean;
 };
 
-function findOptionById(options: AutoCompleteOptionsI[], value?: string | null) {
+function findOptionById(
+  options: AutoCompleteOptionsI[],
+  value?: string | null
+): AutoCompleteOptionsI | null {
   if (!value) return null;
 
   const foundOption = options.find((option) => value === option._id);
