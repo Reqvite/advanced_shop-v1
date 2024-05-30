@@ -28,7 +28,9 @@ const registerOptions: FormOption<FormVariantsEnum>[] = [
   {
     id: 'phoneNumber',
     variant: FormVariantsEnum.Input,
-    name: 'Phone number'
+    name: 'Phone number',
+    type: 'number',
+    isRequired: true
   }
 ];
 

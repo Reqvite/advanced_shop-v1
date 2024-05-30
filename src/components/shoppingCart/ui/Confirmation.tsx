@@ -10,7 +10,7 @@ export const Confirmation = (): ReactElement => {
         title="Confirmation"
         description="We are getting to the end. Just few clicks and your order is ready!"
       />
-      <Button sx={checkoutStyles.completeOrderButton} variant="contained">
+      <Button type="submit" sx={checkoutStyles.completeOrderButton} variant="contained">
         Complete order
       </Button>
     </Box>

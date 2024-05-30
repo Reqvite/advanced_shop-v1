@@ -11,6 +11,7 @@ import {
   SliderWithInput
 } from '@/shared/ui';
 import {CheckboxGroup} from '@/shared/ui/checkbox/CheckboxGroup';
+import {AutoCompleteSelect} from '@/shared/ui/select/AutoCompleteSelect';
 
 type Props<T extends FieldValues> = {
   option: FormOption<FormVariantsEnum>;
@@ -37,6 +38,15 @@ export const renderFormBlock = <T extends FieldValues>({
       return (
         <ControllerWrapper
           InputComponent={Select}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
+    case FormVariantsEnum.AutoCompleteSelect:
+      return (
+        <ControllerWrapper
+          InputComponent={AutoCompleteSelect}
           key={option.id}
           option={option}
           control={control}

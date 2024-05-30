@@ -4,6 +4,7 @@ import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {notificationService} from '@/shared/services';
 import {cartApi} from '@/slices/cart';
 import {reducer as filterReducer} from '@/slices/filter';
+import {locationApi} from '@/slices/location';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
@@ -25,7 +26,8 @@ class Store implements StorePackage {
       filter: persistReducer(filterPersistConfig, filterReducer),
       modal: modalReducer,
       [productsApi.reducerPath]: productsApi.reducer,
-      [cartApi.reducerPath]: cartApi.reducer
+      [cartApi.reducerPath]: cartApi.reducer,
+      [locationApi.reducerPath]: locationApi.reducer
     };
     this.#instance = configureStore({
       reducer: rootReducer,
@@ -38,6 +40,7 @@ class Store implements StorePackage {
         })
           .concat(productsApi.middleware)
           .concat(cartApi.middleware)
+          .concat(locationApi.middleware)
     });
   }
 

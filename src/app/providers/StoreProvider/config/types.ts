@@ -9,6 +9,7 @@ import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {NotificationService} from '@/shared/services';
 import {cartApi} from '@/slices/cart';
 import {reducer as filterReducer} from '@/slices/filter';
+import {locationApi} from '@/slices/location';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
 import {reducer as themeReducer} from '@/slices/theme';
@@ -22,6 +23,7 @@ type RootReducer = {
   filter: ReturnType<typeof filterReducer> & PersistPartial;
   [productsApi.reducerPath]: ReturnType<typeof productsApi.reducer>;
   [cartApi.reducerPath]: ReturnType<typeof cartApi.reducer>;
+  [locationApi.reducerPath]: ReturnType<typeof locationApi.reducer>;
 };
 
 type ExtraArguments = {

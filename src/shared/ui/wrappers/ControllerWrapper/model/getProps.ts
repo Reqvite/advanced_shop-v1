@@ -6,6 +6,7 @@ import {LabelOptionsI} from '@/shared/types/options';
 
 interface BasePropsI<T extends FieldValues> {
   required?: boolean;
+  disabled?: boolean;
   key: string;
   type?: string;
   label?: string;
@@ -34,6 +35,7 @@ export const getProps = <T extends FieldValues>({
   const variant = option.variant;
   const baseProps: BasePropsI<T> = {
     required: option.isRequired,
+    disabled: option.isDisabled,
     key: option.id,
     type: option.type,
     label: option.name,
@@ -44,6 +46,11 @@ export const getProps = <T extends FieldValues>({
   };
 
   switch (variant) {
+    case FormVariantsEnum.AutoCompleteSelect:
+      return {
+        ...baseProps,
+        options: option.options
+      };
     case FormVariantsEnum.Select:
       return {
         ...baseProps,
