@@ -2,7 +2,7 @@ import {Box} from '@mui/material';
 import {ReactElement, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
-import {useCartAndWishlistActions} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
+import {useCartActions} from '@/shared/lib/hooks/useCartActions.hook';
 import {shoppingCartSchema} from '@/shared/lib/yup/shoppingCart.schema';
 import {ShoppingCartModel} from '@/shared/models/shoppingCartModel';
 import {Flex, PageWrapper} from '@/shared/ui';
@@ -30,7 +30,7 @@ export const ShoppingCart = (): ReactElement | null => {
   const {data = [], isLoading, isFetching} = useGetCartQuery();
   const {data: countries, isLoading: countriesIsLoading} = useGetCountriesQuery();
   const [getCities, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
-  const {onCompleteOrder, completeOrderIsLoading} = useCartAndWishlistActions();
+  const {onCompleteOrder, completeOrderIsLoading} = useCartActions();
 
   const cartIsEmpty = data?.length !== 0;
 

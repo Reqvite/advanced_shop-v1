@@ -43,6 +43,7 @@ export const ProductsList = ({
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery(params, {
     skip: !withFilter
   });
+
   const defaultValues = useMemo(
     () =>
       new ProductFilterModel({
