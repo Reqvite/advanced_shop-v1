@@ -17,8 +17,9 @@ export const ShoppingCart = (): ReactElement => {
   const {user} = useAuth();
   const {handleSubmit, control, watch, resetField} = useForm({
     resolver: shoppingCartSchema,
-    defaultValues: {...new ShoppingCartModel({user})}
+    defaultValues: new ShoppingCartModel({user})
   });
+
   const country = watch('country');
 
   const isMobile = useMediaQuery('md');
