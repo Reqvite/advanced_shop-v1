@@ -1,7 +1,17 @@
-import {Box, Card, CardActions, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Stack,
+  SxProps,
+  Typography
+} from '@mui/material';
 import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
+import {brand} from '@/app/theme/theme';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
@@ -30,16 +40,20 @@ export const ProductCard = ({
   discount,
   variant,
   images,
+  quantity,
   sx,
   onUpdateWishlist
 }: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
   const auth = useAuth();
 
+  const isOutOfStock = quantity === 0;
+  let content;
+
   const [onClickWishlist, {isLoading}] = onUpdateWishlist();
 
   if (isMobile || variant === 'small') {
-    return (
+    content = (
       <Card sx={{...productCardStyles.smallCardContainer, ...sx} as SxProps}>
         <CardMedia
           component="img"
@@ -78,50 +92,60 @@ export const ProductCard = ({
         </Stack>
       </Card>
     );
-  }
-
-  return (
-    <Card sx={productCardStyles.bigCardContainer}>
-      <Flex minHeight="280px">
-        <CardMedia
-          component="img"
-          sx={productCardStyles.bigCardMedia}
-          image={images[0]?.src}
-          alt={title}
-        />
-        <CardContent sx={productCardStyles.bigCardContent}>
-          <Box sx={productCardStyles.box}>
-            <ProductHeading
-              title={title}
-              description={description}
-              titleMaxWidth={250}
-              descriptionMaxWidth={220}
-              rating={rating}
-            />
-            <CharacteristicList
-              characteristics={characteristics}
-              maxListItems={4}
-              noWrap
-              descriptionMaxWidth={80}
-            />
-          </Box>
-          <Box sx={productCardStyles.box}>
-            <Box>
-              <PriceText price={price} discount={discount} />
-              <DeliveryText />
-            </Box>
-            <Box sx={productCardStyles.bigCardActionsContainer}>
-              <NavigateButton fullWidth to={getRouteProductDetails(_id)} />
-              <WishlistButton
-                isLiked={auth.user?.wishlist.includes(_id)}
-                fullWidth
-                isLoading={isLoading}
-                onClick={() => onClickWishlist({_id})}
+  } else {
+    content = (
+      <Card sx={productCardStyles.bigCardContainer}>
+        <Flex minHeight="280px">
+          <CardMedia
+            component="img"
+            sx={productCardStyles.bigCardMedia}
+            image={images[0]?.src}
+            alt={title}
+          />
+          <CardContent sx={productCardStyles.bigCardContent}>
+            <Box sx={productCardStyles.box}>
+              <ProductHeading
+                title={title}
+                description={description}
+                titleMaxWidth={250}
+                descriptionMaxWidth={220}
+                rating={rating}
+              />
+              <CharacteristicList
+                characteristics={characteristics}
+                maxListItems={4}
+                noWrap
+                descriptionMaxWidth={80}
               />
             </Box>
-          </Box>
-        </CardContent>
-      </Flex>
-    </Card>
+            <Box sx={productCardStyles.box}>
+              <Box>
+                <PriceText price={price} discount={discount} />
+                <DeliveryText />
+              </Box>
+              <Box sx={productCardStyles.bigCardActionsContainer}>
+                <NavigateButton fullWidth to={getRouteProductDetails(_id)} />
+                <WishlistButton
+                  isLiked={auth.user?.wishlist.includes(_id)}
+                  fullWidth
+                  isLoading={isLoading}
+                  onClick={() => onClickWishlist({_id})}
+                />
+              </Box>
+            </Box>
+          </CardContent>
+        </Flex>
+      </Card>
+    );
+  }
+  return isOutOfStock ? (
+    <Flex sx={productCardStyles.outOfStockBox}>
+      <Typography zIndex={100} color={brand[50]} component="p" variant="h1" position="absolute">
+        Out of Stock
+      </Typography>
+      {content}
+    </Flex>
+  ) : (
+    content
   );
 };
