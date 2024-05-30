@@ -24,7 +24,7 @@ export const shoppingCart = yup.object().shape({
   zip: zipValidation,
   notes: notesValidation,
   privacyPolicyAgreement: privacyPolicyAgreementValidation,
-  newsLatterAgreement: yup.boolean()
+  newsLatterAgreement: yup.boolean().optional()
 });
 
 export const shoppingCartSchema = yupResolver(shoppingCart);

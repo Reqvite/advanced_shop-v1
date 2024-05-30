@@ -6,7 +6,7 @@ import {
   useDeleteItemByIdMutation,
   useUpdatedCartMutation
 } from '@/slices/cart';
-import {productsApi, useUpdateWishlistMutation} from '@/slices/products';
+import {productsApi} from '@/slices/products';
 import {useAppDispatch} from './useAppDispatch.hook';
 import {useConfirm} from './useConfirm.hook';
 
@@ -15,28 +15,25 @@ type Params = {
   title: string;
 };
 
-type UseCartAndWishlistActionsReturnType = {
+type UseCartActionsReturnType = {
   onConfirmDeleteItem: (_id: string) => void;
-  onClickWishlist: ({_id}: {_id: string}) => void;
-  onClickAddToCart: (data: CartItem) => any;
-  onUpdateCartQuantity: (data: CartItem) => any;
   onCompleteOrder: ({orderInformation, products}: CompleteOrderArgs) => void;
   invalidateProduct: () => void;
-  updateWishlistIsLoading: boolean;
+  onClickAddToCart: (data: CartItem) => any;
+  onUpdateCartQuantity: (data: CartItem) => any;
   addToCartIsLoading: boolean;
   updateCartIsLoading: boolean;
   deleteIsLoading: boolean;
   completeOrderIsLoading: boolean;
 };
 
-export const useCartAndWishlistActions = (
+export const useCartActions = (
   {quantity, title}: Params = {quantity: 1, title: 'product'}
-): UseCartAndWishlistActionsReturnType => {
+): UseCartActionsReturnType => {
   const dispatch = useAppDispatch();
   const confirm = useConfirm({
     message: `Are you sure you want to delete ${quantity} item(s) of "${title}" ?`
   });
-  const [onClickWishlist, {isLoading: updateWishlistIsLoading}] = useUpdateWishlistMutation();
   const [onClickAddToCart, {isLoading: addToCartIsLoading}] = useAddToCartMutation();
   const [onUpdateCartQuantity, {isLoading: updateCartIsLoading}] = useUpdatedCartMutation();
   const [deleteItem, {isLoading: deleteIsLoading}] = useDeleteItemByIdMutation();
@@ -54,11 +51,9 @@ export const useCartAndWishlistActions = (
   return {
     invalidateProduct,
     onConfirmDeleteItem,
-    onClickWishlist,
     onClickAddToCart,
     onUpdateCartQuantity,
     onCompleteOrder,
-    updateWishlistIsLoading,
     addToCartIsLoading,
     updateCartIsLoading,
     deleteIsLoading,
@@ -66,4 +61,4 @@ export const useCartAndWishlistActions = (
   };
 };
 
-export type UseCartAndWishlistActionsType = typeof useCartAndWishlistActions;
+export type UseCartActionsType = typeof useCartActions;

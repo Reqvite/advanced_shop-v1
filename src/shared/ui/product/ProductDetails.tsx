@@ -10,7 +10,8 @@ import {
 import {grey} from '@/app/theme/theme';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
-import {UseCartAndWishlistActionsType} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
+import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
+import {useWishlistActionsType} from '@/shared/lib/hooks/useWishlistActions.hook';
 import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
@@ -29,7 +30,8 @@ import {ProductHeading} from './ui/ProductHeading';
 import {TabsRouter} from './ui/tabs/ProductTabsRouter';
 
 type Props = ProductI & {
-  useActions: UseCartAndWishlistActionsType;
+  useCartActions: UseCartActionsType;
+  useWishlistActions: useWishlistActionsType;
 };
 
 const tabOptions = [
@@ -49,21 +51,21 @@ export const ProductDetails = ({
   images,
   tags,
   quantity,
-  useActions
+  useCartActions,
+  useWishlistActions
 }: Props): ReactElement => {
   const auth = useAuth();
   const [product] = auth?.user?.cart?.filter((item) => item._id === _id) || [];
+  const {onClickWishlist, updateWishlistIsLoading} = useWishlistActions();
   const {
     invalidateProduct,
     onConfirmDeleteItem,
-    onClickWishlist,
     onClickAddToCart,
     onUpdateCartQuantity,
-    updateWishlistIsLoading,
     addToCartIsLoading,
     updateCartIsLoading,
     deleteIsLoading
-  } = useActions({quantity: product?.quantity, title});
+  } = useCartActions({quantity: product?.quantity, title});
   const navigate = useNavigate();
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
