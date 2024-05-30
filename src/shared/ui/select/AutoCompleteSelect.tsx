@@ -12,20 +12,35 @@ import {forwardRef, ReactElement} from 'react';
 import {autoCompleteStyles} from '@/app/theme/styles';
 import {AutoCompleteOptionsI} from '@/shared/types/options';
 
-type Props = Omit<AutocompleteProps<any, any, any, any, any>, 'error' | 'onChange'> & {
+type Props = Omit<
+  AutocompleteProps<AutoCompleteOptionsI, false, false, false>,
+  'error' | 'onChange'
+> & {
   label?: string;
   helperText?: string;
   options: AutoCompleteOptionsI[];
-  onChange: (value: string | null | undefined) => void;
+  onChange: (value?: string | null) => void;
   error?: string;
   required?: boolean;
 };
+
+function findOptionById(
+  options: AutoCompleteOptionsI[],
+  value?: string | null
+): AutoCompleteOptionsI | null {
+  if (!value) return null;
+
+  const foundOption = options.find((option) => value === option._id);
+  return foundOption || null;
+}
 
 export const AutoCompleteSelect = forwardRef<HTMLSelectElement, Props>(
   (
     {label, helperText, options, error, required, disabled, value, onChange, ...otherProps},
     ref
   ): ReactElement => {
+    const newValue = findOptionById(options, value as string | null);
+
     return (
       <FormControl fullWidth>
         <FormLabel required={required} sx={{fontSize: 14}}>
@@ -33,17 +48,11 @@ export const AutoCompleteSelect = forwardRef<HTMLSelectElement, Props>(
         </FormLabel>
         <Autocomplete
           options={options}
-          value={
-            value
-              ? options.find((option) => {
-                  return value === option._id;
-                }) ?? null
-              : null
-          }
+          value={newValue}
           getOptionLabel={(option: AutoCompleteOptionsI) => option.label}
-          onChange={(_, newValue) => {
+          onChange={(_, updatedValue) => {
             if (onChange) {
-              onChange(newValue ? newValue._id : null);
+              onChange(updatedValue?._id || null);
             }
           }}
           disabled={disabled}

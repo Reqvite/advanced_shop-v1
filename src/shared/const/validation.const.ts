@@ -29,7 +29,8 @@ const firstNameValidation = yup
 const lastNameValidation = yup
   .string()
   .min(minLength, ErrorMessages.AT_LEAST_LENGTH(minLength, lastName))
-  .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, lastName));
+  .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, lastName))
+  .required(ErrorMessages.IS_REQUIRED(lastName));
 const emailValidation = yup
   .string()
   .email(ErrorMessages.INVALID_EMAIL)
