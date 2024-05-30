@@ -1,5 +1,6 @@
 import {useParams} from 'react-router-dom';
-import {useCartAndWishlistActions} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
+import {useCartActions} from '@/shared/lib/hooks/useCartActions.hook';
+import {useWishlistActions} from '@/shared/lib/hooks/useWishlistActions.hook';
 import {NoContentBox, PageWrapper, ProductDetails, RecommendedProductList} from '@/shared/ui';
 import {
   useGetProductByIdQuery,
@@ -19,7 +20,13 @@ const ProductDetailsPage = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      {data && <ProductDetails useActions={useCartAndWishlistActions} {...data} />}
+      {data && (
+        <ProductDetails
+          useWishlistActions={useWishlistActions}
+          useCartActions={useCartActions}
+          {...data}
+        />
+      )}
       <RecommendedProductList
         onUpdateWishlist={useUpdateWishlistMutation}
         products={recommendedProducts?.results || []}

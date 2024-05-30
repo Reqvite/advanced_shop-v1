@@ -4,7 +4,6 @@ import {
   useDeleteItemByIdMutation,
   useUpdatedCartMutation
 } from '@/slices/cart';
-import {useUpdateWishlistMutation} from '@/slices/products';
 import {useConfirm} from './useConfirm.hook';
 
 type Params = {
@@ -12,25 +11,19 @@ type Params = {
   title: string;
 };
 
-type UseCartAndWishlistActionsReturnType = {
+type UseCartActionsReturnType = {
   onConfirmDeleteItem: (_id: string) => void;
-  onClickWishlist: ({_id}: {_id: string}) => void;
   onClickAddToCart: (data: CartItem) => void;
   onUpdateCartQuantity: (data: CartItem) => void;
-  updateWishlistIsLoading: boolean;
   addToCartIsLoading: boolean;
   updateCartIsLoading: boolean;
   deleteIsLoading: boolean;
 };
 
-export const useCartAndWishlistActions = ({
-  quantity,
-  title
-}: Params): UseCartAndWishlistActionsReturnType => {
+export const useCartActions = ({quantity, title}: Params): UseCartActionsReturnType => {
   const confirm = useConfirm({
     message: `Are you sure you want to delete ${quantity} item(s) of "${title}" ?`
   });
-  const [onClickWishlist, {isLoading: updateWishlistIsLoading}] = useUpdateWishlistMutation();
   const [onClickAddToCart, {isLoading: addToCartIsLoading}] = useAddToCartMutation();
   const [onUpdateCartQuantity, {isLoading: updateCartIsLoading}] = useUpdatedCartMutation();
   const [deleteItem, {isLoading: deleteIsLoading}] = useDeleteItemByIdMutation();
@@ -42,14 +35,12 @@ export const useCartAndWishlistActions = ({
 
   return {
     onConfirmDeleteItem,
-    onClickWishlist,
     onClickAddToCart,
     onUpdateCartQuantity,
-    updateWishlistIsLoading,
     addToCartIsLoading,
     updateCartIsLoading,
     deleteIsLoading
   };
 };
 
-export type UseCartAndWishlistActionsType = typeof useCartAndWishlistActions;
+export type UseCartActionsType = typeof useCartActions;
