@@ -1,7 +1,8 @@
 import {nanoid} from '@reduxjs/toolkit';
 import {CountryI} from '@/shared/types/country';
+import {AutoCompleteOptionsI} from '@/shared/types/options';
 
-export const transformCountriesResponse = (items: CountryI[]) => {
+export const transformCountriesResponse = (items: CountryI[]): AutoCompleteOptionsI[] => {
   const countries = new Set();
   return items
     .map((item) => ({
@@ -17,7 +18,7 @@ export const transformCountriesResponse = (items: CountryI[]) => {
     });
 };
 
-export const transformCountryCitiesResponse = (cities: string[]) => {
+export const transformCountryCitiesResponse = (cities: string[]): AutoCompleteOptionsI[] => {
   return cities.map((city) => ({
     label: city,
     _id: nanoid()

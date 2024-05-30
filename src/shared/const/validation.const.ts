@@ -29,7 +29,8 @@ const firstNameValidation = yup
 const lastNameValidation = yup
   .string()
   .min(minLength, ErrorMessages.AT_LEAST_LENGTH(minLength, lastName))
-  .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, lastName));
+  .max(maxLength, ErrorMessages.AT_MOST_LENGTH(maxLength, lastName))
+  .required(ErrorMessages.IS_REQUIRED(lastName));
 const emailValidation = yup
   .string()
   .email(ErrorMessages.INVALID_EMAIL)
@@ -55,7 +56,7 @@ const notesValidation = yup
   .max(maxNotesLength, ErrorMessages.AT_MOST_LENGTH(maxNotesLength, 'Order notes'));
 const privacyPolicyAgreementValidation = yup
   .boolean()
-  .isTrue(ErrorMessages.ACCEPT_PRIVACY)
+  .oneOf([true], ErrorMessages.ACCEPT_PRIVACY)
   .required(ErrorMessages.ACCEPT_PRIVACY);
 
 export {

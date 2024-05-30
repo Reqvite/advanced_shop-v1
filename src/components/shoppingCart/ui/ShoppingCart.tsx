@@ -15,10 +15,11 @@ import {OrderSummary} from './OrderSummary';
 
 export const ShoppingCart = (): ReactElement => {
   const {user} = useAuth();
-  const {handleSubmit, control, watch, resetField} = useForm({
+  const {handleSubmit, control, watch, resetField} = useForm<ShoppingCartModel>({
     resolver: shoppingCartSchema,
-    defaultValues: {...new ShoppingCartModel({user})}
+    defaultValues: new ShoppingCartModel({user})
   });
+
   const country = watch('country');
 
   const isMobile = useMediaQuery('md');
