@@ -56,7 +56,7 @@ const notesValidation = yup
   .max(maxNotesLength, ErrorMessages.AT_MOST_LENGTH(maxNotesLength, 'Order notes'));
 const privacyPolicyAgreementValidation = yup
   .boolean()
-  .isTrue(ErrorMessages.ACCEPT_PRIVACY)
+  .oneOf([true], ErrorMessages.ACCEPT_PRIVACY)
   .required(ErrorMessages.ACCEPT_PRIVACY);
 
 export {
