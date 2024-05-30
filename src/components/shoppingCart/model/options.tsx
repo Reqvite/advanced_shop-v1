@@ -1,5 +1,11 @@
+import {Typography} from '@mui/material';
+import {
+  getRoutePrivacyPolicy,
+  getRouteTermsAndConditions
+} from '@/app/providers/AppRouter/routeConfig';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
 import {AutoCompleteOptionsI} from '@/shared/types/options';
+import {AppLink} from '@/shared/ui';
 
 export const getShoppingCartOptions = ({
   countryOptions,
@@ -62,5 +68,24 @@ export const additionalInfoOptions: FormOption<FormVariantsEnum>[] = [
     name: 'Order notes',
     placeholder: 'Need a specific delivery day? Sending a gift? Let`s say ...',
     sx: {height: '100px'}
+  }
+];
+
+export const confirmationOptions: FormOption<FormVariantsEnum>[] = [
+  {
+    id: 'newsLatterAgreement',
+    variant: FormVariantsEnum.Checkbox,
+    name: 'I agree with sending an Marketing and newsletter emails. No spam, promised!'
+  },
+  {
+    id: 'privacyPolicyAgreement',
+    variant: FormVariantsEnum.Checkbox,
+    name: 'privacyPolicyAgreement',
+    labelComponent: (
+      <Typography className="body2">
+        I agree with our <AppLink to={getRouteTermsAndConditions()}>terms and conditions</AppLink>{' '}
+        and <AppLink to={getRoutePrivacyPolicy()}>privacy policy</AppLink>.
+      </Typography>
+    )
   }
 ];

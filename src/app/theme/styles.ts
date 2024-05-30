@@ -233,7 +233,7 @@ export const checkoutStyles = {
     border: `1px solid ${grey[100]}`,
     borderRadius: '12px',
     order: 1,
-    maxHeight: '1000px',
+    height: '100%',
     [theme.breakpoints.down('md')]: {
       width: '100%',
       order: -1,
@@ -260,7 +260,10 @@ export const checkoutStyles = {
       borderRadius: '4px'
     }
   },
-  orderSummaryListItem: {padding: 0, borderBottom: `1px solid ${grey[900]}`}
+  orderSummaryListItem: {
+    padding: 0,
+    borderBottom: `1px solid ${grey[900]}`
+  }
 };
 
 export const cartButtonStyles = {

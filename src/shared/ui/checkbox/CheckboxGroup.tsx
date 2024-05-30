@@ -1,4 +1,5 @@
 import {
+  Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -14,7 +15,6 @@ import {LabelOptionsI} from '@/shared/types/options';
 import {Flex} from '../base/Flex';
 import {Button} from '../button/Button';
 import {Chip} from '../chip/Chip';
-import {Checkbox} from './Checkbox';
 
 interface Props {
   label?: string;

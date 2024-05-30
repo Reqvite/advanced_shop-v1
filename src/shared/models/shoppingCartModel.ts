@@ -9,6 +9,9 @@ export class ShoppingCartModel {
   public country: string;
   public city: string;
   public zip: string;
+  public notes?: string;
+  public newsLatterAgreement?: boolean;
+  public privacyPolicyAgreement: boolean;
 
   constructor({user}: {user?: User | null}) {
     this.firstName = user?.firstName || '';
@@ -19,5 +22,8 @@ export class ShoppingCartModel {
     this.country = '';
     this.city = '';
     this.zip = '';
+    this.notes = '';
+    this.newsLatterAgreement = false;
+    this.privacyPolicyAgreement = false;
   }
 }

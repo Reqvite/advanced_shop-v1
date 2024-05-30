@@ -1,13 +1,22 @@
 import {ReactNode} from 'react';
 import {RouteProps} from 'react-router-dom';
-import {MainPage, ProductDetailsPage, ShoppingCartPage, WishlistPage} from '@/pages';
+import {
+  MainPage,
+  PrivacyPolicyPage,
+  ProductDetailsPage,
+  ShoppingCartPage,
+  TermsAndConditionsPage,
+  WishlistPage
+} from '@/pages';
 
 export enum AppRoutes {
   MAIN = 'main',
-  NOT_FOUND = 'not-found',
   PRODUCT_DETAILS = 'product-details',
   WISHLIST = 'wishlist',
-  SHOPPING_CART = 'shopping-cart'
+  SHOPPING_CART = 'shopping-cart',
+  PRIVACY_POLICY = 'privacy-policy',
+  TERMS_AND_CONDITIONS = 'terms-and-conditions',
+  NOT_FOUND = 'not-found'
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
@@ -26,6 +35,8 @@ export type MatchedRoute = {
 export const getRouteMain = () => '/';
 export const getRouteProductDetails = (id: string) => `/products/${id}`;
 export const getRouteWishlist = () => `/wishlist`;
+export const getRoutePrivacyPolicy = () => `/privacy-policy`;
+export const getRouteTermsAndConditions = () => `/terms`;
 export const getRouteShoppingCart = () => `/shopping-cart`;
 export const getRouteProductDetailsReviews = (id: string) => `/products/${id}/reviews`;
 export const getRouteProductDetailsReviewsTab = () => 'reviews';
@@ -38,20 +49,27 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     element: <MainPage />,
     breadcrumbName: 'Home'
   },
-  [AppRoutes.NOT_FOUND]: {
-    path: '*',
-    element: <MainPage />
-  },
   [AppRoutes.WISHLIST]: {
     path: getRouteWishlist(),
     element: <WishlistPage />,
     breadcrumbName: 'Wishlist',
     needAuth: true
   },
+  [AppRoutes.PRIVACY_POLICY]: {
+    path: getRoutePrivacyPolicy(),
+    element: <PrivacyPolicyPage />,
+    breadcrumbName: 'Privacy policy'
+  },
+  [AppRoutes.TERMS_AND_CONDITIONS]: {
+    path: getRouteTermsAndConditions(),
+    element: <TermsAndConditionsPage />,
+    breadcrumbName: 'Terms and conditions'
+  },
   [AppRoutes.SHOPPING_CART]: {
     path: getRouteShoppingCart(),
     element: <ShoppingCartPage />,
-    breadcrumbName: 'Shopping cart'
+    breadcrumbName: 'Shopping cart',
+    needAuth: true
   },
   [AppRoutes.PRODUCT_DETAILS]: {
     path: `${getRouteProductDetails(':id')}/*`,
@@ -67,5 +85,9 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         breadcrumbName: 'Questions'
       }
     ]
+  },
+  [AppRoutes.NOT_FOUND]: {
+    path: '*',
+    element: <MainPage />
   }
 };

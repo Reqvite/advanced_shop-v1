@@ -54,6 +54,10 @@ const zipValidation = yup
 const notesValidation = yup
   .string()
   .max(maxNotesLength, ErrorMessages.AT_MOST_LENGTH(maxNotesLength, 'Order notes'));
+const privacyPolicyAgreementValidation = yup
+  .boolean()
+  .oneOf([true], ErrorMessages.ACCEPT_PRIVACY)
+  .required(ErrorMessages.ACCEPT_PRIVACY);
 
 export {
   addressValidation,
@@ -66,5 +70,6 @@ export {
   passwordValidationSchema,
   phoneNumberValidation,
   phoneRegex,
+  privacyPolicyAgreementValidation,
   zipValidation
 };

@@ -1,5 +1,5 @@
 import {SxProps} from '@mui/material';
-import {ComponentType} from 'react';
+import {ComponentType, ReactNode} from 'react';
 import {AutoCompleteOptionsI, LabelOptionsI} from '@/shared/types/options';
 import {SelectStyleVariants} from '../ui';
 
@@ -69,6 +69,7 @@ interface FormOptionVariantMapI {
   };
   [FormVariantsEnum.Checkbox]: {
     variant: FormVariantsEnum.Checkbox;
+    labelComponent?: ReactNode;
   };
 }
 
