@@ -24,10 +24,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       ...otherProps
     },
     ref
-  ) => {
-    const [showPassword, setShowPassword] = useState(false);
+  ): ReactElement => {
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const togglePasswordVisibility = () => {
+    const togglePasswordVisibility = (): void => {
       setShowPassword((prevShowPassword) => !prevShowPassword);
     };
 
