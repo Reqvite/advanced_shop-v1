@@ -11,11 +11,15 @@ type Props = {
 
 export const SubNavItem = ({label, onClick, href}: Props): ReactElement => {
   if (href) {
-    return <AppLink to={href}>{label}</AppLink>;
+    return (
+      <AppLink sx={{color: 'text.primary'}} to={href}>
+        {label}
+      </AppLink>
+    );
   }
 
   return (
-    <Typography onClick={onClick && onClick} variant="body1" color="primary.text" component="div">
+    <Typography onClick={onClick && onClick} variant="body1" component="div">
       {label}
     </Typography>
   );

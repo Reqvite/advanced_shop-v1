@@ -2,6 +2,7 @@ import {ReactNode} from 'react';
 import {RouteProps} from 'react-router-dom';
 import {
   MainPage,
+  OrdersPage,
   PrivacyPolicyPage,
   ProductDetailsPage,
   ShoppingCartPage,
@@ -16,6 +17,7 @@ export enum AppRoutes {
   SHOPPING_CART = 'shopping-cart',
   PRIVACY_POLICY = 'privacy-policy',
   TERMS_AND_CONDITIONS = 'terms-and-conditions',
+  ORDERS = 'orders',
   NOT_FOUND = 'not-found'
 }
 
@@ -37,6 +39,7 @@ export const getRouteProductDetails = (id: string) => `/products/${id}`;
 export const getRouteWishlist = () => `/wishlist`;
 export const getRoutePrivacyPolicy = () => `/privacy-policy`;
 export const getRouteTermsAndConditions = () => `/terms`;
+export const getRouteOrders = () => `/orders`;
 export const getRouteShoppingCart = () => `/shopping-cart`;
 export const getRouteProductDetailsReviews = (id: string) => `/products/${id}/reviews`;
 export const getRouteProductDetailsReviewsTab = () => 'reviews';
@@ -53,6 +56,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteWishlist(),
     element: <WishlistPage />,
     breadcrumbName: 'Wishlist',
+    needAuth: true
+  },
+  [AppRoutes.ORDERS]: {
+    path: getRouteOrders(),
+    element: <OrdersPage />,
+    breadcrumbName: 'Orders history',
     needAuth: true
   },
   [AppRoutes.PRIVACY_POLICY]: {
