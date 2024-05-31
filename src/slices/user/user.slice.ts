@@ -34,6 +34,11 @@ const {reducer, actions, name} = createSlice({
         state.user = {...state.user, cart: action.payload};
       }
     },
+    clearCart(state) {
+      if (state.user) {
+        state.user = {...state.user, cart: []};
+      }
+    },
     clearCurrentUser(state) {
       state.user = null;
     }

@@ -23,6 +23,7 @@ import {ImageGallery} from '../imageGallery/ImageGallery';
 import {List} from '../list/List';
 import {Tabs} from '../tabs/Tabs';
 import {cartProductCardOptions} from './CartProductCard/option';
+import {getCharacteristicsWithQuantity} from './model/getCharacteristicsWithQuantity.ts';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {PriceText} from './ui/PriceText';
 import {ProductHeading} from './ui/ProductHeading';
@@ -57,6 +58,7 @@ export const ProductDetails = ({
   const [product] = auth?.user?.cart?.filter((item) => item._id === _id) || [];
   const {onClickWishlist, updateWishlistIsLoading} = useWishlistActions();
   const {
+    invalidateProduct,
     onConfirmDeleteItem,
     onClickAddToCart,
     onUpdateCartQuantity,
@@ -67,9 +69,8 @@ export const ProductDetails = ({
   const navigate = useNavigate();
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
-
+  const characteristicsWithQuantity = getCharacteristicsWithQuantity(characteristics, quantity);
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
-
   const options = cartProductCardOptions({
     maxQuantity: quantity
   });
@@ -80,9 +81,13 @@ export const ProductDetails = ({
 
   const onSubmit = (data: {quantity: number}): void => {
     if (product) {
-      onUpdateCartQuantity({_id, ...data});
+      onUpdateCartQuantity({_id, ...data})
+        .unwrap()
+        .catch(() => invalidateProduct());
     } else {
-      onClickAddToCart({_id, ...data});
+      onClickAddToCart({_id, ...data})
+        .unwrap()
+        .catch(() => invalidateProduct());
     }
   };
 
@@ -104,8 +109,11 @@ export const ProductDetails = ({
         <ProductHeading variant="medium" title={title} rating={rating} />
         <Typography>{description[0]?.value}</Typography>
         <Flex justifyContent="space-between" flexWrap="wrap" gap={1}>
-          <CharacteristicList characteristics={characteristics} maxListItems={4} />
-          <CharacteristicList characteristics={characteristics.slice(4, 8)} maxListItems={4} />
+          <CharacteristicList characteristics={characteristicsWithQuantity} maxListItems={4} />
+          <CharacteristicList
+            characteristics={characteristicsWithQuantity.slice(4, 8)}
+            maxListItems={4}
+          />
         </Flex>
         <Flex
           sx={(theme) => ({
@@ -139,6 +147,7 @@ export const ProductDetails = ({
               formValidationSchema={maxQuantitySchema({max: quantity})}
               initialTrigger
               onSubmit={onSubmit}
+              disabled={quantity === 0}
               ButtonComponent={product ? undefined : AddToCartButton}
               buttonLabel={product ? 'Update cart' : undefined}
               isLoading={addToCartIsLoading || updateCartIsLoading}

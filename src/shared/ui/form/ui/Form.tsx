@@ -1,6 +1,6 @@
 import {Box, Stack} from '@mui/material';
 import {SxProps} from '@mui/system';
-import {ElementType, ReactElement, useEffect} from 'react';
+import {ReactElement, useEffect} from 'react';
 import {DefaultValues, FieldValues, Resolver, useForm} from 'react-hook-form';
 import {renderFormBlock} from '@/shared/services/templateService/renderFormBlock.service';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
@@ -17,12 +17,13 @@ type Props<T> = {
   onChange?: (data: T) => void;
   transformData?: (data: T) => void;
   isLoading?: boolean;
+  disabled?: boolean;
   sx?: SxProps;
   buttonLabel?: string;
   withCancel?: boolean;
   initialTrigger?: boolean;
   onCancel?: () => void;
-  ButtonComponent?: ElementType;
+  ButtonComponent?: typeof Button;
 };
 
 export const Form = <T extends FieldValues>({
@@ -35,6 +36,7 @@ export const Form = <T extends FieldValues>({
   defaultValues,
   sx,
   isLoading,
+  disabled,
   initialTrigger,
   buttonLabel = 'Submit',
   onCancel,
@@ -86,9 +88,15 @@ export const Form = <T extends FieldValues>({
           {onSubmit && (
             <Stack direction="row" spacing={2}>
               {ButtonComponent ? (
-                <ButtonComponent type="submit" isLoading={isLoading} />
+                <ButtonComponent disabled={disabled} type="submit" isLoading={isLoading} />
               ) : (
-                <Button fullWidth type="submit" variant="contained" isLoading={isLoading}>
+                <Button
+                  disabled={disabled}
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  isLoading={isLoading}
+                >
                   {buttonLabel}
                 </Button>
               )}

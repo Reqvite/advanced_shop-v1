@@ -23,7 +23,7 @@ export const onMatchedRoutes = (matchedRoutes: MatchedRoute[], title: string): M
     routes.push({
       pathname: 'title',
       route: {
-        breadcrumbName: `${title.slice(0, 50)}...`
+        breadcrumbName: `${title.slice(0, 55)}...`
       }
     } as MatchedRoute);
   }

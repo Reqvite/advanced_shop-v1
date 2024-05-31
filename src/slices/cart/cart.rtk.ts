@@ -2,10 +2,10 @@ import {createApi} from '@reduxjs/toolkit/query/react';
 import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {NotificationMessage} from '@/shared/const/notificationMessages';
-import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
+import {ApiPathEnum, CartApiPath} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {onQueryStartedToast} from '@/shared/lib/helpers';
-import {CartItem} from '@/shared/types/cart';
+import {CartItem, CompleteOrderArgs} from '@/shared/types/cart';
 import {CartProductI} from '@/shared/types/product';
 import {actions as userActions} from '../user';
 
@@ -68,7 +68,31 @@ export const cartApi = createApi({
         return response;
       },
       onQueryStarted: (_, {queryFulfilled}) =>
-        onQueryStartedToast({queryFulfilled}, NotificationMessage.SUCCESS('Product added to cart.'))
+        onQueryStartedToast(
+          {queryFulfilled},
+          NotificationMessage.SUCCESS('Product added to cart.')
+        ),
+      invalidatesTags: [RtkApiTagsEnum.Cart]
+    }),
+    completeOrder: builder.mutation<CartItem[], CompleteOrderArgs>({
+      query: (data) => ({
+        url: `${ApiPathEnum.CART}${CartApiPath.COMPLETE}`,
+        method: 'POST',
+        needAuth: true,
+        data
+      }),
+      transformResponse: (response: CartItem[]) => {
+        store.instance.dispatch(userActions.clearCart());
+        return response;
+      },
+      onQueryStarted: (_, {queryFulfilled}) =>
+        onQueryStartedToast(
+          {queryFulfilled},
+          NotificationMessage.SUCCESS(
+            'Order completed successfully. A manager will contact you shortly.'
+          )
+        ),
+      invalidatesTags: [RtkApiTagsEnum.Cart]
     })
   })
 });
@@ -77,5 +101,6 @@ export const {
   useGetCartQuery,
   useDeleteItemByIdMutation,
   useUpdatedCartMutation,
-  useAddToCartMutation
+  useAddToCartMutation,
+  useCompleteOrderMutation
 } = cartApi;

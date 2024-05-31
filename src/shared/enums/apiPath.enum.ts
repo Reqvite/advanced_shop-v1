@@ -19,4 +19,8 @@ const ProductsApiPath = {
   WISHLIST: '/wishlist'
 };
 
-export {ApiPathEnum, ProductsApiPath, UsersApiPath};
+const CartApiPath = {
+  COMPLETE: '/complete'
+};
+
+export {ApiPathEnum, CartApiPath, ProductsApiPath, UsersApiPath};

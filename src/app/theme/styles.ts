@@ -155,6 +155,12 @@ export const productCardStyles = {
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'space-between'
+  },
+  outOfStockBox: {
+    filter: 'opacity(50%)',
+    position: 'relative',
+    width: '100%',
+    justifyContent: 'center'
   }
 };
 
@@ -241,6 +247,7 @@ export const checkoutStyles = {
     }
   }),
   completeOrderButton: {
+    minWidth: '150px',
     mt: '30px'
   },
   orderSummaryList: {
