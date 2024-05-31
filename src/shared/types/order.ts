@@ -6,4 +6,5 @@ export interface OrderI {
   products: ProductI[];
   billingInfo: LabelOptionsI[];
   createdAt: string;
+  totalPrice: number;
 }

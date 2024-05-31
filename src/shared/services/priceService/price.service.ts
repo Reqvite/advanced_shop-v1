@@ -22,8 +22,14 @@ class PriceService {
     );
   }
 
-  getTax({price, tax}: {price: number; tax: number}): number {
+  getTax({price, tax = 15}: {price: number; tax?: number}): number {
     return this.getFixedPrice((price / 100) * tax);
+  }
+
+  getTotal(items: CartProductI[], tax = 15): number {
+    const subTotal = this.getSubtotal(items);
+    const taxTotal = this.getTax({price: subTotal, tax});
+    return this.getFixedPrice(subTotal + taxTotal);
   }
 }
 

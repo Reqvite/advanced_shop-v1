@@ -1,6 +1,7 @@
 import {Typography, TypographyProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {grey} from '@/app/theme/theme';
+import {TruncatedTypography} from '../typography/TruncatedTypography';
 
 type Props = {
   titleVariant?: TypographyProps['variant'];
@@ -19,9 +20,9 @@ export const Title = ({
     <>
       <Typography variant={titleVariant}>{title}</Typography>
       {description && (
-        <Typography fontSize="12px" mt={1} color={descriptionColor}>
+        <TruncatedTypography fontSize="12px" mt={1} color={descriptionColor}>
           {description}
-        </Typography>
+        </TruncatedTypography>
       )}
     </>
   );

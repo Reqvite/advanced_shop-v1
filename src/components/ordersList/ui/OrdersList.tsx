@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
 import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {OrderI} from '@/shared/types/order';
-import {List, PageWrapper, Pagination, ProductCardSkeleton, StickyContentLayout} from '@/shared/ui';
+import {List, PageWrapper, Pagination, StickyContentLayout} from '@/shared/ui';
 import {OrderCard} from '@/shared/ui/order';
 import {useGetOrdersQuery} from '@/slices/cart';
 
@@ -19,8 +19,6 @@ export const OrdersList = (): ReactElement => {
           <List<OrderI>
             items={data?.results || []}
             renderItem={(order) => <OrderCard {...order} />}
-            skeleton={<ProductCardSkeleton />}
-            skeletonLength={data?.results.length || 5}
             itemStyle={{justifyContent: 'center', width: isMobile ? '300px' : '100%'}}
             emptyListTitle="No orders yet"
             row={isMobile}
