@@ -1,22 +1,13 @@
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Stack,
-  SxProps,
-  Typography
-} from '@mui/material';
+import {Box, Card, CardActions, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
-import {brand} from '@/app/theme/theme';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
 import {NavigateButton} from '../button/NavigateButton';
 import {WishlistButton} from '../button/WishlistButton';
+import {getCharacteristicsWithQuantity} from './model/getCharacteristicsWithQuantity';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {DeliveryText} from './ui/DeliveryText';
 import {PriceText} from './ui/PriceText';
@@ -47,7 +38,8 @@ export const ProductCard = ({
   const isMobile = useMediaQuery('md');
   const auth = useAuth();
 
-  const isOutOfStock = quantity === 0;
+  const characteristicsWithQuantity = getCharacteristicsWithQuantity(characteristics, quantity);
+
   let content;
 
   const [onClickWishlist, {isLoading}] = onUpdateWishlist();
@@ -112,7 +104,7 @@ export const ProductCard = ({
                 rating={rating}
               />
               <CharacteristicList
-                characteristics={characteristics}
+                characteristics={characteristicsWithQuantity}
                 maxListItems={4}
                 noWrap
                 descriptionMaxWidth={80}
@@ -138,14 +130,5 @@ export const ProductCard = ({
       </Card>
     );
   }
-  return isOutOfStock ? (
-    <Flex sx={productCardStyles.outOfStockBox}>
-      <Typography zIndex={100} color={brand[50]} component="p" variant="h1" position="absolute">
-        Out of Stock
-      </Typography>
-      {content}
-    </Flex>
-  ) : (
-    content
-  );
+  return !quantity ? <Flex sx={productCardStyles.outOfStockBox}>{content}</Flex> : content;
 };

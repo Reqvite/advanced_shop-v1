@@ -1,6 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {Stack, Typography} from '@mui/material';
-import {nanoid} from '@reduxjs/toolkit';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {
@@ -24,6 +23,7 @@ import {ImageGallery} from '../imageGallery/ImageGallery';
 import {List} from '../list/List';
 import {Tabs} from '../tabs/Tabs';
 import {cartProductCardOptions} from './CartProductCard/option';
+import {getCharacteristicsWithQuantity} from './model/getCharacteristicsWithQuantity.ts';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {PriceText} from './ui/PriceText';
 import {ProductHeading} from './ui/ProductHeading';
@@ -70,14 +70,7 @@ export const ProductDetails = ({
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
 
-  const characteristicsWithQuantity = [
-    {
-      label: 'Quantity',
-      value: quantity ? quantity : 'Out of stock',
-      _id: nanoid()
-    },
-    ...characteristics
-  ];
+  const characteristicsWithQuantity = getCharacteristicsWithQuantity(characteristics, quantity);
 
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
 

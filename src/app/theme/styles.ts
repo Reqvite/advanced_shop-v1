@@ -160,8 +160,7 @@ export const productCardStyles = {
     filter: 'opacity(50%)',
     position: 'relative',
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'center'
   }
 };
 
