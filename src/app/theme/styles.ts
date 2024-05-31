@@ -248,6 +248,7 @@ export const checkoutStyles = {
     }
   }),
   completeOrderButton: {
+    minWidth: '150px',
     mt: '30px'
   },
   orderSummaryList: {
