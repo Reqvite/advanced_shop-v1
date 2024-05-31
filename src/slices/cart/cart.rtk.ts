@@ -5,15 +5,30 @@ import {NotificationMessage} from '@/shared/const/notificationMessages';
 import {ApiPathEnum, CartApiPath} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {onQueryStartedToast} from '@/shared/lib/helpers';
-import {CartItem, CompleteOrderArgs} from '@/shared/types/cart';
+import {forceRefetch} from '@/shared/lib/helpers';
+import {CartItem, CompleteOrderArgs, GetOrdersResponse} from '@/shared/types/cart';
+import {RequestFilterParams} from '@/shared/types/filter';
 import {CartProductI} from '@/shared/types/product';
 import {actions as userActions} from '../user';
+import {mergeOrdersResults} from './merges';
+import {getUserOrders} from './queries';
+
+export type GetOrdersQuery = RequestFilterParams | void;
 
 export const cartApi = createApi({
   reducerPath: 'cartApi',
   baseQuery: axiosBaseQuery(),
-  tagTypes: [RtkApiTagsEnum.Cart],
+  tagTypes: [RtkApiTagsEnum.Cart, RtkApiTagsEnum.Orders],
   endpoints: (builder) => ({
+    getOrders: builder.query<GetOrdersResponse, GetOrdersQuery>({
+      query: (params) => getUserOrders(params),
+      serializeQueryArgs: ({endpointName}) => {
+        return endpointName;
+      },
+      merge: mergeOrdersResults,
+      forceRefetch,
+      providesTags: [RtkApiTagsEnum.Orders]
+    }),
     getCart: builder.query<CartProductI[], void>({
       query: () => ({
         url: ApiPathEnum.CART,
@@ -102,5 +117,6 @@ export const {
   useDeleteItemByIdMutation,
   useUpdatedCartMutation,
   useAddToCartMutation,
-  useCompleteOrderMutation
+  useCompleteOrderMutation,
+  useGetOrdersQuery
 } = cartApi;

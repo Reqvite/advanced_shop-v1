@@ -1,8 +1,8 @@
 import {ReactElement} from 'react';
-import {PageWrapper} from '@/shared/ui';
+import {OrdersList} from '@/components/ordersList';
 
 const OrdersPage = (): ReactElement => {
-  return <PageWrapper>OrdersPage</PageWrapper>;
+  return <OrdersList />;
 };
 
 export default OrdersPage;

@@ -44,7 +44,7 @@ const {reducer, actions, name} = createSlice({
       state.filters = {...state.filters, ...action.payload.filters};
       updateQueryParams({...state.filters, ...action.payload.filters});
     },
-    setWishlistParams(state, action) {
+    setPageParams(state, action) {
       state.filters = {...state.filters, ...action.payload.filters};
       updateQueryParams(action.payload.filters);
     },
