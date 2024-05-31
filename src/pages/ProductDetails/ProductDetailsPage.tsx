@@ -19,7 +19,7 @@ const ProductDetailsPage = () => {
   }
 
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper isLoading={isLoading} title={data?.title}>
       {data && (
         <ProductDetails
           useWishlistActions={useWishlistActions}

@@ -69,11 +69,8 @@ export const ProductDetails = ({
   const navigate = useNavigate();
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
-
   const characteristicsWithQuantity = getCharacteristicsWithQuantity(characteristics, quantity);
-
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
-
   const options = cartProductCardOptions({
     maxQuantity: quantity
   });

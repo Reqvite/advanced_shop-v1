@@ -1,6 +1,6 @@
 import {getRouteMain, MatchedRoute, routeConfig} from '@/app/providers/AppRouter/routeConfig';
 
-export const onMatchedRoutes = (matchedRoutes: MatchedRoute[]): MatchedRoute[] => {
+export const onMatchedRoutes = (matchedRoutes: MatchedRoute[], title: string): MatchedRoute[] => {
   if (!matchedRoutes) return [];
   const routes = matchedRoutes.map((matchRoute) => {
     return {
@@ -17,6 +17,15 @@ export const onMatchedRoutes = (matchedRoutes: MatchedRoute[]): MatchedRoute[] =
       pathnameBase: getRouteMain(),
       route: routeConfig.main
     });
+  }
+
+  if (title) {
+    routes.push({
+      pathname: 'title',
+      route: {
+        breadcrumbName: `${title.slice(0, 55)}...`
+      }
+    } as MatchedRoute);
   }
 
   return routes;

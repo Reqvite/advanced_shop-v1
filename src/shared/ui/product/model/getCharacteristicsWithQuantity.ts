@@ -7,7 +7,7 @@ export const getCharacteristicsWithQuantity = (
 ): LabelOptionsI[] => [
   {
     label: 'Quantity',
-    value: quantity ? quantity : 'Out of stock',
+    value: quantity || 'Out of stock',
     _id: nanoid()
   },
   ...characteristics

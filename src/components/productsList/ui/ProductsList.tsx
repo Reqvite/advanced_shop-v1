@@ -43,7 +43,6 @@ export const ProductsList = ({
   const {data: categoriesQuantity = []} = useGetProductsQuantityByCategoriesQuery(params, {
     skip: !withFilter
   });
-
   const defaultValues = useMemo(
     () =>
       new ProductFilterModel({
@@ -73,7 +72,6 @@ export const ProductsList = ({
       minMaxPrices: data?.minMaxPrices
     })
   });
-
   const isLastPage = data?.totalPages === params?.page || data?.totalPages === 1;
   const hasFilters = withFilter && memoizedFilterOptions && memoizedDefaultValues;
 

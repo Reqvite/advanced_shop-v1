@@ -4,7 +4,7 @@ import {AppRouter} from '@/app/providers/AppRouter/AppRouter';
 import {Footer} from '@/components/footer';
 import {Header} from '@/components/header';
 import {useAppDispatch, useAuth, useFilter} from '@/shared/lib/hooks';
-import {Alert, Breadcrumbs, Container, Modal} from '@/shared/ui';
+import {Alert, Container, Modal} from '@/shared/ui';
 import {actions as filterActions} from '@/slices/filter';
 import {actions as userActions} from '@/slices/user';
 
@@ -31,7 +31,6 @@ function App() {
     <Box sx={mainContainer}>
       <Header />
       <Container component="main">
-        <Breadcrumbs sx={{mb: 2}} />
         <AppRouter />
       </Container>
       <Footer />
