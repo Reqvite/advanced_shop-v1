@@ -12,7 +12,7 @@ const ProductDetailsPage = () => {
   const {id} = useParams();
   const {data: recommendedProducts, isLoading: recommendedProductsIsLoading} =
     useGetProductsQuery();
-  const {data, isLoading} = useGetProductByIdQuery(id);
+  const {data, isLoading} = useGetProductByIdQuery(id, {refetchOnMountOrArgChange: true});
 
   if (!data && !isLoading) {
     return <NoContentBox title="Product not found" />;
