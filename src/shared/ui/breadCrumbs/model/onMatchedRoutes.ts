@@ -1,6 +1,6 @@
 import {getRouteMain, MatchedRoute, routeConfig} from '@/app/providers/AppRouter/routeConfig';
 
-export const onMatchedRoutes = (matchedRoutes: MatchedRoute[], title: string): MatchedRoute[] => {
+export const onMatchedRoutes = (matchedRoutes: MatchedRoute[], title?: string): MatchedRoute[] => {
   if (!matchedRoutes) return [];
   const routes = matchedRoutes.map((matchRoute) => {
     return {
