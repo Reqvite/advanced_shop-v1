@@ -1,6 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {Stack, Typography} from '@mui/material';
-import {nanoid} from '@reduxjs/toolkit';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {
@@ -10,7 +9,8 @@ import {
 import {grey} from '@/app/theme/theme';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
-import {UseCartAndWishlistActionsType} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
+import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
+import {useWishlistActionsType} from '@/shared/lib/hooks/useWishlistActions.hook';
 import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
@@ -23,13 +23,15 @@ import {ImageGallery} from '../imageGallery/ImageGallery';
 import {List} from '../list/List';
 import {Tabs} from '../tabs/Tabs';
 import {cartProductCardOptions} from './CartProductCard/option';
+import {getCharacteristicsWithQuantity} from './model/getCharacteristicsWithQuantity.ts';
 import {CharacteristicList} from './ui/CharacteristicList';
 import {PriceText} from './ui/PriceText';
 import {ProductHeading} from './ui/ProductHeading';
 import {TabsRouter} from './ui/tabs/ProductTabsRouter';
 
 type Props = ProductI & {
-  useActions: UseCartAndWishlistActionsType;
+  useCartActions: UseCartActionsType;
+  useWishlistActions: useWishlistActionsType;
 };
 
 const tabOptions = [
@@ -49,36 +51,26 @@ export const ProductDetails = ({
   images,
   tags,
   quantity,
-  useActions
+  useCartActions,
+  useWishlistActions
 }: Props): ReactElement => {
   const auth = useAuth();
   const [product] = auth?.user?.cart?.filter((item) => item._id === _id) || [];
+  const {onClickWishlist, updateWishlistIsLoading} = useWishlistActions();
   const {
     invalidateProduct,
     onConfirmDeleteItem,
-    onClickWishlist,
     onClickAddToCart,
     onUpdateCartQuantity,
-    updateWishlistIsLoading,
     addToCartIsLoading,
     updateCartIsLoading,
     deleteIsLoading
-  } = useActions({quantity: product?.quantity, title});
+  } = useCartActions({quantity: product?.quantity, title});
   const navigate = useNavigate();
   const isMobile = useMediaQuery('md');
   const currentTab = useLocation().pathname.split('/')[3];
-
-  const characteristicsWithQuantity = [
-    {
-      label: 'Quantity',
-      value: quantity ? quantity : 'Out of stock',
-      _id: nanoid()
-    },
-    ...characteristics
-  ];
-
+  const characteristicsWithQuantity = getCharacteristicsWithQuantity(characteristics, quantity);
   const resolvedTags = tagOptions.filter(({value}) => tags?.includes(value));
-
   const options = cartProductCardOptions({
     maxQuantity: quantity
   });

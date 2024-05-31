@@ -3,6 +3,7 @@ import {motion} from 'framer-motion';
 import {PropsWithChildren, ReactElement, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 import {scrollToTop} from '@/shared/lib/helpers';
+import {Breadcrumbs} from '../breadCrumbs/BreadCrumbs';
 import {Loader} from '../loader/Loader';
 
 const MotionBox = motion(Box);
@@ -13,9 +14,10 @@ const variants = {
 
 type Props = PropsWithChildren & {
   isLoading?: boolean;
+  title?: string;
 };
 
-export const PageWrapper = ({children, isLoading}: Props): ReactElement => {
+export const PageWrapper = ({children, isLoading, title}: Props): ReactElement => {
   const location = useLocation();
 
   useEffect(() => {
@@ -27,8 +29,11 @@ export const PageWrapper = ({children, isLoading}: Props): ReactElement => {
   }
 
   return (
-    <MotionBox initial="hidden" animate="visible" exit="exit" variants={variants}>
-      {children}
-    </MotionBox>
+    <>
+      <Breadcrumbs sx={{mb: 2}} title={title} />
+      <MotionBox initial="hidden" animate="visible" exit="exit" variants={variants}>
+        {children}
+      </MotionBox>
+    </>
   );
 };
