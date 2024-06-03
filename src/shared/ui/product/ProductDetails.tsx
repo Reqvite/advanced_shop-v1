@@ -1,4 +1,3 @@
-import CloseIcon from '@mui/icons-material/Close';
 import {Stack, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
@@ -6,7 +5,6 @@ import {
   getRouteProductDetailsReviewsTab,
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
-import {grey} from '@/app/theme/theme';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
@@ -14,8 +12,8 @@ import {useWishlistActionsType} from '@/shared/lib/hooks/useWishlistActions.hook
 import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../base/Flex';
-import {Button} from '../button';
 import {AddToCartButton} from '../button/AddToCartButton';
+import {DeleteFromCartButton} from '../button/DeleteButton.tsx';
 import {WishlistButton} from '../button/WishlistButton';
 import {Chip} from '../chip/Chip';
 import {Form} from '../form';
@@ -63,8 +61,7 @@ export const ProductDetails = ({
     onClickAddToCart,
     onUpdateCartQuantity,
     addToCartIsLoading,
-    updateCartIsLoading,
-    deleteIsLoading
+    updateCartIsLoading
   } = useCartActions({quantity: product?.quantity, title});
   const navigate = useNavigate();
   const isMobile = useMediaQuery('md');
@@ -125,19 +122,6 @@ export const ProductDetails = ({
         >
           <PriceText price={price} discount={discount} />
           <Flex gap={2} alignItems="flex-start">
-            {product && (
-              <Button
-                variant="text"
-                LeftAddon={CloseIcon}
-                iconSize="small"
-                iconColor="black"
-                sx={{color: grey[200]}}
-                onClick={() => onConfirmDeleteItem(_id)}
-                isLoading={deleteIsLoading}
-              >
-                Remove from cart
-              </Button>
-            )}
             <Form
               sx={{flexDirection: 'row'}}
               options={options}
@@ -152,6 +136,7 @@ export const ProductDetails = ({
               buttonLabel={product ? 'Update cart' : undefined}
               isLoading={addToCartIsLoading || updateCartIsLoading}
             />
+            {product && <DeleteFromCartButton onClick={() => onConfirmDeleteItem(_id)} />}
           </Flex>
         </Flex>
         <WishlistButton

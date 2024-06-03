@@ -1,5 +1,4 @@
-import CloseIcon from '@mui/icons-material/Close';
-import {Box, CardMedia, IconButton, Stack, SxProps, Tooltip} from '@mui/material';
+import {Box, CardMedia, Stack, SxProps} from '@mui/material';
 import {useAuth, useDebouncedCallback, useMediaQuery} from '@/shared/lib/hooks';
 import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
 import {useWishlistActionsType} from '@/shared/lib/hooks/useWishlistActions.hook';
@@ -7,6 +6,7 @@ import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {CartProductI} from '@/shared/types/product';
 import {Flex} from '../../base/Flex';
 import {WishlistButton} from '../../button';
+import {DeleteFromCartButton} from '../../button/DeleteButton';
 import {Form} from '../../form';
 import {getCharacteristicsWithQuantity} from '../model/getCharacteristicsWithQuantity';
 import {CharacteristicList} from '../ui/CharacteristicList';
@@ -73,11 +73,7 @@ export const CartProductCard = ({
               >
                 Wishlist
               </WishlistButton>
-              <Tooltip title="Delete from cart">
-                <IconButton onClick={() => onConfirmDeleteItem(_id)}>
-                  <CloseIcon />
-                </IconButton>
-              </Tooltip>
+              <DeleteFromCartButton onClick={() => onConfirmDeleteItem(_id)} />
             </Stack>
           </Stack>
           <Box pb={1}>
