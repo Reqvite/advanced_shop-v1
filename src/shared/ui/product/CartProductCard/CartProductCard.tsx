@@ -53,7 +53,7 @@ export const CartProductCard = ({
   }, 500);
 
   return (
-    <Flex sx={{...sx}} width="100%" gap={1}>
+    <Flex sx={{...sx}} width="100%" padding={1} gap={1}>
       <Flex flexDirection={isMobile ? 'column' : 'row'} width="100%" justifyContent="space-between">
         <Flex>
           <Stack>

@@ -13,7 +13,7 @@ export const Logo = ({sx}: Props): ReactElement => {
   const isMobile = useMediaQuery('md');
 
   return (
-    <AppLink to={getRouteMain()} color="primary" sx={sx}>
+    <AppLink to={getRouteMain()} color="primary" sx={sx} withUnderline={false}>
       <Box component={'img'} width={isMobile ? '150px' : '200px'} src={logo} alt="logo" />
     </AppLink>
   );
