@@ -15,7 +15,7 @@ type Route = {
 export const Breadcrumbs = (props: Props): ReactElement => {
   const {pathname} = useLocation();
   const matchedRoutes = matchRoutes(Object.values(routeConfig) as Route[], pathname);
-  const routes = onMatchedRoutes(matchedRoutes as MatchedRoute[]);
+  const routes = onMatchedRoutes(matchedRoutes as MatchedRoute[], props.title);
 
   const renderBreadcrumb = (matchedRoute: MatchedRoute): ReactElement => {
     const {
@@ -26,8 +26,9 @@ export const Breadcrumbs = (props: Props): ReactElement => {
     const isActive = matchedRoutePathname === pathname;
     const isNestedRoute = pathname !== matchedRouteBasename;
     const link = isNestedRoute ? matchedRouteBasename : matchedRoutePathname;
+    const isTitle = matchedRouteBasename === undefined;
 
-    return isActive && !isNestedRoute ? (
+    return (isActive && !isNestedRoute) || isTitle ? (
       <Typography color={grey[200]} key={matchedRoute.pathname}>
         {breadcrumbName}
       </Typography>

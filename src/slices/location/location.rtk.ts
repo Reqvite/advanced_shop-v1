@@ -21,7 +21,6 @@ export const locationApi = createApi({
     getCountryCity: builder.mutation<AutoCompleteOptionsI[], {country: string}>({
       query: (data) => ({
         method: 'POST',
-        needAuth: true,
         url: `/countries/cities`,
         data
       }),

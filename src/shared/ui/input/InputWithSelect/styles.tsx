@@ -58,12 +58,12 @@ export const CustomSelectStyles = styled(Select)(({theme}) => ({
 
 export const CustomInputStyles = styled(InputBase)(({theme}) => ({
   '& .MuiInputBase-input': {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down(890)]: {
       width: '150px'
     },
     position: 'relative',
     marginLeft: '20px',
-    width: '262px',
+    width: '250px',
     paddingRight: '10px'
   }
 }));

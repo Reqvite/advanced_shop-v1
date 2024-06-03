@@ -2,7 +2,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import {Box, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
 import {grey} from '@/app/theme/theme';
 import {useAuth, useDebouncedCallback, useMediaQuery} from '@/shared/lib/hooks';
-import {UseCartAndWishlistActionsType} from '@/shared/lib/hooks/useCartAndWishlistActions.hook';
+import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
+import {useWishlistActionsType} from '@/shared/lib/hooks/useWishlistActions.hook';
 import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {CartProductI} from '@/shared/types/product';
 import {Flex} from '../../base/Flex';
@@ -15,7 +16,8 @@ import {cartProductCardOptions} from './option';
 
 type Props = CartProductI & {
   sx?: SxProps;
-  useActions: UseCartAndWishlistActionsType;
+  useCartActions: UseCartActionsType;
+  useWishlistActions: useWishlistActionsType;
 };
 
 const breakPoint = 1030;
@@ -31,16 +33,15 @@ export const CartProductCard = ({
   sx,
   quantity,
   orderedQuantity,
-  useActions
+  useCartActions,
+  useWishlistActions
 }: Props) => {
   const auth = useAuth();
-  const {
-    onConfirmDeleteItem,
-    onClickWishlist,
-    onUpdateCartQuantity,
-    updateWishlistIsLoading,
-    deleteIsLoading
-  } = useActions({quantity: orderedQuantity, title});
+  const {onClickWishlist, updateWishlistIsLoading} = useWishlistActions();
+  const {onConfirmDeleteItem, onUpdateCartQuantity, deleteIsLoading} = useCartActions({
+    quantity: orderedQuantity,
+    title
+  });
   const isMobile = useMediaQuery(breakPoint);
 
   const options = cartProductCardOptions({

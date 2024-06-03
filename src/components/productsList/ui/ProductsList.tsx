@@ -72,7 +72,6 @@ export const ProductsList = ({
       minMaxPrices: data?.minMaxPrices
     })
   });
-
   const isLastPage = data?.totalPages === params?.page || data?.totalPages === 1;
   const hasFilters = withFilter && memoizedFilterOptions && memoizedDefaultValues;
 
