@@ -6,7 +6,7 @@ import {Flex} from '@/shared/ui';
 
 type Props = {
   items: CartProductI[];
-  tax: number;
+  tax?: number;
 };
 
 export const OrderSummaryTotal = ({items, tax}: Props): ReactElement => {

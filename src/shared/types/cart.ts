@@ -21,6 +21,7 @@ interface GetOrdersResponse {
 type CompleteOrderArgs = {
   orderInformation: ShoppingCartModel;
   products: CartItem[];
+  totalPrice: number;
 };
 
 type DeleteItemByIdMutation = typeof useDeleteItemByIdMutation;

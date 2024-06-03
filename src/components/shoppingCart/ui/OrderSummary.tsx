@@ -17,7 +17,7 @@ type Props = {
   tax?: number;
 };
 
-export const OrderSummary = ({items, cartIsEmpty, tax = 15}: Props): ReactElement => {
+export const OrderSummary = ({items, cartIsEmpty, tax}: Props): ReactElement => {
   const navigate = useNavigate();
   const renderItem = useCallback(
     (product: CartProductI) => (
