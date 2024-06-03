@@ -164,6 +164,15 @@ export const productCardStyles = {
   }
 };
 
+export const productDetailsStyles = {
+  formBox: (theme: Theme) => ({
+    justifyContent: 'space-between',
+    borderRadius: 1,
+    border: `1px solid ${theme.palette.grey[100]}`,
+    padding: 2
+  })
+};
+
 export const productsListStyles = {
   mobileFiltersBox: (isSticky: boolean) => ({
     position: 'sticky',

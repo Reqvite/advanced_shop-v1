@@ -14,7 +14,7 @@ export const Logo = ({sx}: Props): ReactElement => {
 
   return (
     <AppLink to={getRouteMain()} color="primary" sx={sx} withUnderline={false}>
-      <Box component={'img'} width={isMobile ? '150px' : '200px'} src={logo} alt="logo" />
+      <Box component="img" width={isMobile ? '150px' : '200px'} src={logo} alt="logo" />
     </AppLink>
   );
 };

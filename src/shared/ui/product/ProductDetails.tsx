@@ -5,6 +5,7 @@ import {
   getRouteProductDetailsReviewsTab,
   getRouteProductDetailsTab
 } from '@/app/providers/AppRouter/routeConfig';
+import {productDetailsStyles} from '@/app/theme/styles.ts';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
@@ -112,14 +113,7 @@ export const ProductDetails = ({
             maxListItems={4}
           />
         </Flex>
-        <Flex
-          sx={(theme) => ({
-            justifyContent: 'space-between',
-            borderRadius: 1,
-            border: `1px solid ${theme.palette.grey[100]}`,
-            padding: 2
-          })}
-        >
+        <Flex sx={productDetailsStyles.formBox}>
           <PriceText price={price} discount={discount} />
           <Flex gap={2} alignItems="flex-start">
             <Form
