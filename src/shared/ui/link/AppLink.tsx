@@ -1,14 +1,13 @@
-import {Link as MuiLink, LinkProps as MuiLinkProps, SxProps} from '@mui/material';
+import {Link, SxProps} from '@mui/material';
 import {ReactElement, ReactNode} from 'react';
 import {Link as RouterLink, LinkProps} from 'react-router-dom';
 
-type Props = LinkProps &
-  MuiLinkProps & {
-    children?: ReactNode;
-    label?: string;
-    withUnderline?: boolean;
-    sx?: SxProps;
-  };
+type Props = LinkProps & {
+  children?: ReactNode;
+  label?: string;
+  withUnderline?: boolean;
+  sx?: SxProps;
+};
 
 export const AppLink = ({
   children,
@@ -18,7 +17,7 @@ export const AppLink = ({
   ...otherProps
 }: Props): ReactElement => {
   return (
-    <MuiLink
+    <Link
       component={RouterLink}
       sx={{
         '&:hover::before': {
@@ -31,6 +30,6 @@ export const AppLink = ({
     >
       {label}
       {children}
-    </MuiLink>
+    </Link>
   );
 };

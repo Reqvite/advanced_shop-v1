@@ -1,9 +1,9 @@
 import {LabelOptionsI} from './options';
-import {ProductI} from './product';
+import {CartProductI} from './product';
 
 export interface OrderI {
   _id: string;
-  products: ProductI[];
+  products: CartProductI[];
   billingInfo: LabelOptionsI[];
   createdAt: string;
   totalPrice: number;
