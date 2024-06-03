@@ -20,7 +20,8 @@ const ProductsApiPath = {
 };
 
 const CartApiPath = {
-  COMPLETE: '/complete'
+  COMPLETE: '/complete',
+  ORDERS: '/orders'
 };
 
 export {ApiPathEnum, CartApiPath, ProductsApiPath, UsersApiPath};

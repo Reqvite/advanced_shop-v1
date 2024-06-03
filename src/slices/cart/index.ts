@@ -4,5 +4,6 @@ export {
   useCompleteOrderMutation,
   useDeleteItemByIdMutation,
   useGetCartQuery,
+  useGetOrdersQuery,
   useUpdatedCartMutation
 } from './cart.rtk';

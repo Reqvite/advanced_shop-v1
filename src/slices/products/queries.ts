@@ -2,19 +2,8 @@ import {ApiPathEnum, ProductsApiPath} from '@/shared/enums/apiPath.enum';
 import {encodeSearchParams} from '@/shared/lib/helpers';
 import {getSortOption} from '@/shared/lib/helpers/enumLabelResolver/sortValueResolver';
 import {RequestFilterParams} from '@/shared/types/filter';
+import {RequestOptions} from '@/shared/types/requestOptions';
 import {GetProductsQuery} from './products.rtk';
-
-interface RequestOptions {
-  url: string;
-  params?: URLSearchParams;
-  needAuth?: boolean;
-}
-
-interface RequestOptions {
-  url: string;
-  params?: URLSearchParams;
-  needAuth?: boolean;
-}
 
 interface TransformedQueryParams extends Omit<RequestFilterParams, 'category'> {
   category?: number;

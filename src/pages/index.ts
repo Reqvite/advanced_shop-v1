@@ -7,5 +7,6 @@ export const ShoppingCartPage = lazy(() => import('@/pages/ShoppingCart/Shopping
 export const TermsAndConditionsPage = lazy(
   () => import('@/pages/TermsAndConditionsPage/TermsAndConditionsPage')
 );
+export const OrdersPage = lazy(() => import('@/pages/OrdersPage/OrdersPage'));
 export const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage/PrivacyPolicyPage'));
 export {ErrorPage} from './ErrorPage/ErrorPage';

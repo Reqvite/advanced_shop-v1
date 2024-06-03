@@ -14,8 +14,8 @@ export const HeaderToolbar = (): ReactElement => {
           <Logo />
           {!isMobile && <SearchInput />}
           <Stack flexDirection="row" justifyContent="space-between">
-            <WishlistButton withNavigate />
             <AuthMenuButton />
+            <WishlistButton withNavigate />
             <CartButton />
           </Stack>
         </Stack>

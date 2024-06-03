@@ -20,8 +20,4 @@ const onQueryStartedUpdateWishlist = async (
   onQueryStartedToast({queryFulfilled}, 'Wishlist updated', updateCallback);
 };
 
-const forceRefetch = ({currentArg, previousArg}: {currentArg: unknown; previousArg: unknown}) => {
-  return currentArg !== previousArg;
-};
-
-export {forceRefetch, onQueryStartedUpdateWishlist};
+export {onQueryStartedUpdateWishlist};

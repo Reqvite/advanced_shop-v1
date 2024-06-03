@@ -4,10 +4,18 @@ import {
   useUpdatedCartMutation
 } from '@/slices/cart';
 import {ShoppingCartModel} from '../models/shoppingCartModel';
+import {OrderI} from './order';
 import {ProductI} from './product';
 
 interface GetCartResponse {
   products: ProductI[];
+}
+
+interface GetOrdersResponse {
+  results: OrderI[];
+  totalPages: number;
+  totalItems: number;
+  currentPage: number;
 }
 
 type CompleteOrderArgs = {
@@ -27,5 +35,6 @@ export {
   type CompleteOrderArgs,
   type DeleteItemByIdMutation,
   type GetCartResponse,
+  type GetOrdersResponse,
   type UpdateCartMutation
 };

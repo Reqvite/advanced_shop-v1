@@ -3,6 +3,7 @@ import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
+import {forceRefetch} from '@/shared/lib/helpers';
 import {RequestFilterParams} from '@/shared/types/filter';
 import {
   GetProductsQuantityByCategories,
@@ -11,7 +12,7 @@ import {
 } from '@/shared/types/product';
 import {UserWishlistType} from '@/shared/types/user/user';
 import {actions as userActions} from '../user';
-import {forceRefetch, onQueryStartedUpdateWishlist} from './helpers';
+import {onQueryStartedUpdateWishlist} from './helpers';
 import {mergeProductsResults} from './merges';
 import {getProducts, getProductsQuantityByCategories, getUserWishlist} from './queries';
 

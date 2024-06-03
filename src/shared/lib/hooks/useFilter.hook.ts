@@ -1,6 +1,6 @@
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {useLocation} from 'react-router-dom';
-import {getRouteWishlist} from '@/app/providers/AppRouter/routeConfig';
+import {getRouteOrders, getRouteWishlist} from '@/app/providers/AppRouter/routeConfig';
 import {RequestFilterParams} from '@/shared/types/filter';
 import {
   actions as filterActions,
@@ -44,7 +44,7 @@ export const useFilter = ({filterAction}: UseFilterArgs = {}): UseFilterReturn =
   const params = {...decodeParams, showMore} as RequestFilterParams;
   const paramsWithoutShowMore = {...decodeParams} as RequestFilterParams;
   const paramsLength = Object.keys(decodeParams).length;
-  const isWishlistPage = pathname === getRouteWishlist();
+  const isWithPageParams = pathname === getRouteWishlist() || pathname === getRouteOrders();
 
   const onUpdateFilter = (
     filters: Partial<FilterI>,
@@ -60,8 +60,8 @@ export const useFilter = ({filterAction}: UseFilterArgs = {}): UseFilterReturn =
 
     if (filterAction) {
       dispatch(filterAction({filters: newFilters}));
-    } else if (isWishlistPage) {
-      dispatch(filterActions.setWishlistParams({filters: newFilters}));
+    } else if (isWithPageParams) {
+      dispatch(filterActions.setPageParams({filters: newFilters}));
     } else {
       dispatch(filterActions.setFilter({filters: newFilters}));
     }
@@ -70,8 +70,8 @@ export const useFilter = ({filterAction}: UseFilterArgs = {}): UseFilterReturn =
   };
 
   const onShowMore = (): void => {
-    if (isWishlistPage) {
-      dispatch(filterActions.setWishlistParams({filters: {page: currentPage + 1}}));
+    if (isWithPageParams) {
+      dispatch(filterActions.setPageParams({filters: {page: currentPage + 1}}));
     } else {
       dispatch(filterActions.setFilter({filters: {page: currentPage + 1}}));
     }
