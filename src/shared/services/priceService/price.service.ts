@@ -1,3 +1,4 @@
+import {defaultTax} from '@/shared/const/product.const';
 import {PriceI} from '@/shared/types/price';
 import {CartProductI} from '@/shared/types/product';
 
@@ -22,11 +23,11 @@ class PriceService {
     );
   }
 
-  getTax({price, tax = 15}: {price: number; tax?: number}): number {
+  getTax({price, tax = defaultTax}: {price: number; tax?: number}): number {
     return this.getFixedPrice((price / 100) * tax);
   }
 
-  getTotal(items: CartProductI[], tax = 15): number {
+  getTotal(items: CartProductI[], tax = defaultTax): number {
     const subTotal = this.getSubtotal(items);
     const taxTotal = this.getTax({price: subTotal, tax});
     return this.getFixedPrice(subTotal + taxTotal);

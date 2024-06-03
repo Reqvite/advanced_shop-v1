@@ -1,6 +1,7 @@
 import {Box} from '@mui/material';
 import {ReactElement, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
+import {defaultTax} from '@/shared/const/product.const';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {useCartActions} from '@/shared/lib/hooks/useCartActions.hook';
 import {shoppingCartSchema} from '@/shared/lib/yup/shoppingCart.schema';
@@ -19,7 +20,7 @@ type Props = {
   tax?: number;
 };
 
-export const ShoppingCart = ({tax = 15}: Props): ReactElement | null => {
+export const ShoppingCart = ({tax = defaultTax}: Props): ReactElement | null => {
   const {user} = useAuth();
   const {handleSubmit, control, watch, resetField} = useForm<ShoppingCartModel>({
     resolver: shoppingCartSchema,
