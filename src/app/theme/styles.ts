@@ -182,7 +182,7 @@ export const footerStyles = {
   flex: (theme: Theme) => ({
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'flex-start'
     },
     flexWrap: 'wrap',
     justifyContent: 'space-between'

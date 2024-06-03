@@ -25,18 +25,14 @@ export const ShoppingCart = ({tax = 15}: Props): ReactElement | null => {
     resolver: shoppingCartSchema,
     defaultValues: new ShoppingCartModel({user})
   });
-
   const country = watch('country');
-
   const isMobile = useMediaQuery('md');
   const leftBoxWidth = isMobile ? '100%' : '55%';
   const direction = isMobile ? 'column' : 'row';
-
   const {data: products = [], isLoading, isFetching} = useGetCartQuery();
   const {data: countries, isLoading: countriesIsLoading} = useGetCountriesQuery();
   const [getCities, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
   const {onCompleteOrder, completeOrderIsLoading} = useCartActions();
-
   const cartIsEmpty = products?.length !== 0;
 
   useEffect(() => {

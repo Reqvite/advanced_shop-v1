@@ -10,7 +10,6 @@ export const TextAreaStyled = styled('textarea')(({theme}) => ({
   borderRadius: theme.shape.borderRadius,
   border: `1px solid ${grey[200]}`,
   '&::placeholder': {
-    paddingLeft: '21px',
     color: grey[200],
     fontSize: '14px'
   },
