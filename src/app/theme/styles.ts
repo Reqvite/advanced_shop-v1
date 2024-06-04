@@ -164,6 +164,15 @@ export const productCardStyles = {
   }
 };
 
+export const productDetailsStyles = {
+  formBox: (theme: Theme) => ({
+    justifyContent: 'space-between',
+    borderRadius: 1,
+    border: `1px solid ${theme.palette.grey[100]}`,
+    padding: 2
+  })
+};
+
 export const productsListStyles = {
   mobileFiltersBox: (isSticky: boolean) => ({
     position: 'sticky',
@@ -182,7 +191,7 @@ export const footerStyles = {
   flex: (theme: Theme) => ({
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'flex-start'
     },
     flexWrap: 'wrap',
     justifyContent: 'space-between'

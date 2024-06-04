@@ -24,6 +24,7 @@ const getCarouselConfig = (isMobile: boolean, length: number): SwiperProps => {
       clickable: true,
       dynamicBullets: true
     },
+    spaceBetween: 5,
     slidesPerView: isMobile ? 3 : length > maxPhotos ? maxPhotos : length,
     freeMode: true,
     allowTouchMove: true,

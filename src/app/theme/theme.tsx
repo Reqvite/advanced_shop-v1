@@ -371,7 +371,7 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
             },
             '& .MuiInputBase-input': {
               '&::placeholder': {
-                paddingLeft: '21px',
+                paddingLeft: '0px',
                 color: theme.palette.mode === 'dark' ? grey[400] : grey[800],
                 fontSize: theme.typography.body2
               }
@@ -404,7 +404,7 @@ export function getTheme(mode: PaletteMode): ThemeOptions {
               },
               '& .MuiInputBase-input': {
                 '&::placeholder': {
-                  paddingLeft: '21px',
+                  paddingLeft: '0px',
                   color: theme.palette.mode === 'dark' ? grey[400] : grey[800],
                   fontSize: theme.typography.body2
                 }

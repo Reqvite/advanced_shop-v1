@@ -1,14 +1,14 @@
-import CloseIcon from '@mui/icons-material/Close';
-import {Box, CardContent, CardMedia, Stack, SxProps} from '@mui/material';
-import {grey} from '@/app/theme/theme';
+import {Box, CardMedia, Stack, SxProps} from '@mui/material';
 import {useAuth, useDebouncedCallback, useMediaQuery} from '@/shared/lib/hooks';
 import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
 import {useWishlistActionsType} from '@/shared/lib/hooks/useWishlistActions.hook';
 import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {CartProductI} from '@/shared/types/product';
 import {Flex} from '../../base/Flex';
-import {Button, WishlistButton} from '../../button';
+import {WishlistButton} from '../../button';
+import {DeleteFromCartButton} from '../../button/DeleteButton';
 import {Form} from '../../form';
+import {getCharacteristicsWithQuantity} from '../model/getCharacteristicsWithQuantity';
 import {CharacteristicList} from '../ui/CharacteristicList';
 import {PriceText} from '../ui/PriceText';
 import {ProductHeading} from '../ui/ProductHeading';
@@ -38,22 +38,22 @@ export const CartProductCard = ({
 }: Props) => {
   const auth = useAuth();
   const {onClickWishlist, updateWishlistIsLoading} = useWishlistActions();
-  const {onConfirmDeleteItem, onUpdateCartQuantity, deleteIsLoading} = useCartActions({
+  const {onConfirmDeleteItem, onUpdateCartQuantity} = useCartActions({
     quantity: orderedQuantity,
     title
   });
   const isMobile = useMediaQuery(breakPoint);
-
   const options = cartProductCardOptions({
     maxQuantity: quantity
   });
+  const characteristicsWithQuantity = getCharacteristicsWithQuantity(characteristics, quantity);
 
   const onChange = useDebouncedCallback(({quantity}): void => {
     onUpdateCartQuantity({_id, quantity});
   }, 500);
 
   return (
-    <Flex sx={{...sx}} width="100%" gap={1} py={1}>
+    <Flex sx={{...sx}} width="100%" padding={1} gap={1}>
       <Flex flexDirection={isMobile ? 'column' : 'row'} width="100%" justifyContent="space-between">
         <Flex>
           <Stack>
@@ -64,31 +64,19 @@ export const CartProductCard = ({
               sx={{objectFit: 'contain'}}
               image={images[0]?.src}
             />
-            <Box>
-              <Stack>
-                <WishlistButton
-                  isClear
-                  isLiked={auth.user?.wishlist.includes(_id)}
-                  isLoading={updateWishlistIsLoading}
-                  onClick={() => onClickWishlist({_id})}
-                >
-                  Wishlist
-                </WishlistButton>
-                <Button
-                  variant="text"
-                  LeftAddon={CloseIcon}
-                  iconSize="small"
-                  iconColor="black"
-                  sx={{color: grey[200]}}
-                  onClick={() => onConfirmDeleteItem(_id)}
-                  isLoading={deleteIsLoading}
-                >
-                  Remove
-                </Button>
-              </Stack>
-            </Box>
+            <Stack alignItems="center">
+              <WishlistButton
+                isSmall
+                isLiked={auth.user?.wishlist.includes(_id)}
+                isLoading={updateWishlistIsLoading}
+                onClick={() => onClickWishlist({_id})}
+              >
+                Wishlist
+              </WishlistButton>
+              <DeleteFromCartButton onClick={() => onConfirmDeleteItem(_id)} />
+            </Stack>
           </Stack>
-          <CardContent sx={{p: 1}}>
+          <Box pb={1}>
             <ProductHeading
               title={title}
               variant="small"
@@ -97,7 +85,7 @@ export const CartProductCard = ({
               headingRows={1}
             />
             <CharacteristicList
-              characteristics={characteristics}
+              characteristics={characteristicsWithQuantity}
               maxListItems={2}
               noWrap
               descriptionMaxWidth={80}
@@ -108,7 +96,7 @@ export const CartProductCard = ({
               discount={discount}
               quantity={orderedQuantity}
             />
-          </CardContent>
+          </Box>
         </Flex>
         <Box display="flex" justifyContent="flex-end" alignItems="flex-end" pr={1}>
           <Form
