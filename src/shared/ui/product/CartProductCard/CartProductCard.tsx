@@ -8,10 +8,10 @@ import {Flex} from '../../base/Flex';
 import {WishlistButton} from '../../button';
 import {DeleteFromCartButton} from '../../button/DeleteButton';
 import {Form} from '../../form';
+import {CharacteristicList} from '../base/CharacteristicList';
+import {PriceText} from '../base/PriceText';
+import {ProductHeading} from '../base/ProductHeading';
 import {getCharacteristicsWithQuantity} from '../model/getCharacteristicsWithQuantity';
-import {CharacteristicList} from '../ui/CharacteristicList';
-import {PriceText} from '../ui/PriceText';
-import {ProductHeading} from '../ui/ProductHeading';
 import {cartProductCardOptions} from './option';
 
 type Props = CartProductI & {

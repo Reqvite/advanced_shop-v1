@@ -12,6 +12,7 @@ import {reducer as filterReducer} from '@/slices/filter';
 import {locationApi} from '@/slices/location';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
+import {reviewsApi} from '@/slices/reviews';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {store} from './store';
@@ -23,6 +24,7 @@ type RootReducer = {
   filter: ReturnType<typeof filterReducer> & PersistPartial;
   [productsApi.reducerPath]: ReturnType<typeof productsApi.reducer>;
   [cartApi.reducerPath]: ReturnType<typeof cartApi.reducer>;
+  [reviewsApi.reducerPath]: ReturnType<typeof reviewsApi.reducer>;
   [locationApi.reducerPath]: ReturnType<typeof locationApi.reducer>;
 };
 

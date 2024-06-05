@@ -5,10 +5,10 @@ import {SwiperProps} from 'swiper/react';
 import {getRouteMain} from '@/app/providers/AppRouter/routeConfig';
 import {useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
-import {Flex} from '../base/Flex';
-import {NavigateButton} from '../button/NavigateButton';
-import {Carousel} from '../carousel/Carousel';
-import {ProductCard} from './ProductCard';
+import {Flex} from '../../base/Flex';
+import {NavigateButton} from '../../button/NavigateButton';
+import {Carousel} from '../../carousel/Carousel';
+import {ProductCard} from '../ProductCard/ProductCard';
 
 type Props = StackProps & {
   products: ProductI[];

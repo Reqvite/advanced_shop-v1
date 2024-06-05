@@ -12,6 +12,7 @@ import {
   TextArea
 } from '@/shared/ui';
 import {CheckboxGroup} from '@/shared/ui/checkbox/CheckboxGroup';
+import {FormRating} from '@/shared/ui/rating/FormRating';
 import {AutoCompleteSelect} from '@/shared/ui/select/AutoCompleteSelect';
 
 type Props<T extends FieldValues> = {
@@ -39,6 +40,15 @@ export const renderFormBlock = <T extends FieldValues>({
       return (
         <ControllerWrapper
           InputComponent={QuantityInput}
+          key={option.id}
+          option={option}
+          control={control}
+        />
+      );
+    case FormVariantsEnum.Rating:
+      return (
+        <ControllerWrapper
+          InputComponent={FormRating}
           key={option.id}
           option={option}
           control={control}
