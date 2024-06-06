@@ -10,7 +10,7 @@ import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {ProductI} from '@/shared/types/product';
 import {Flex} from '../../base/Flex.tsx';
 import {AddToCartButton} from '../../button/AddToCartButton.tsx';
-import {DeleteFromCartButton} from '../../button/DeleteButton.tsx';
+import {DeleteButton} from '../../button/DeleteButton.tsx';
 import {WishlistButton} from '../../button/WishlistButton.tsx';
 import {Chip} from '../../chip/Chip.tsx';
 import {Form} from '../../form/index.ts';
@@ -123,7 +123,7 @@ export const ProductDetails = ({
               buttonLabel={product ? 'Update cart' : undefined}
               isLoading={addToCartIsLoading || updateCartIsLoading}
             />
-            {product && <DeleteFromCartButton onClick={() => onConfirmDeleteItem(_id)} />}
+            {product && <DeleteButton onClick={() => onConfirmDeleteItem(_id)} />}
           </Flex>
         </Flex>
         <WishlistButton

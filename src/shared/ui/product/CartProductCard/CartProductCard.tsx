@@ -6,7 +6,7 @@ import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {CartProductI} from '@/shared/types/product';
 import {Flex} from '../../base/Flex';
 import {WishlistButton} from '../../button';
-import {DeleteFromCartButton} from '../../button/DeleteButton';
+import {DeleteButton} from '../../button/DeleteButton';
 import {Form} from '../../form';
 import {CharacteristicList} from '../base/CharacteristicList';
 import {PriceText} from '../base/PriceText';
@@ -73,7 +73,7 @@ export const CartProductCard = ({
               >
                 Wishlist
               </WishlistButton>
-              <DeleteFromCartButton onClick={() => onConfirmDeleteItem(_id)} />
+              <DeleteButton onClick={() => onConfirmDeleteItem(_id)} />
             </Stack>
           </Stack>
           <Box pb={1}>

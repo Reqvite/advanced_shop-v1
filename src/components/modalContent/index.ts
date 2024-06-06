@@ -1,3 +1,5 @@
+import {lazy} from 'react';
+
 export {AuthForm} from './AuthForm';
 export {ConfirmationForm} from './ConfirmationForm';
-export {CreateReviewForm} from './CreateReviewForm';
+export const CreateReviewForm = lazy(() => import('@/components/modalContent/CreateReviewForm'));

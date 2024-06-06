@@ -6,3 +6,16 @@ export interface ReviewI {
   message: string;
   createdAt: string;
 }
+
+export interface CreateReviewI {
+  rating: number;
+  message: string;
+  productId: string;
+  parentId?: string;
+}
+
+export interface UpdateReviewI {
+  rating: number;
+  message: string;
+  _id: string;
+}

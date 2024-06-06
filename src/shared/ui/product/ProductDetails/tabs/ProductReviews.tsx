@@ -1,5 +1,6 @@
 import {Box} from '@mui/material';
-import {ReactElement} from 'react';
+import {ReactElement, Suspense} from 'react';
+import {reviewStyles} from '@/app/theme/styles';
 import {CreateReviewForm} from '@/components/modalContent';
 import {useAppDispatch} from '@/shared/lib/hooks';
 import {ReviewI} from '@/shared/types/review';
@@ -21,7 +22,15 @@ const ProductReviews = ({id}: Props): ReactElement => {
   }
 
   const onAddReviewClick = (): void => {
-    dispatch(modalActions.openModal({children: <CreateReviewForm />}));
+    dispatch(
+      modalActions.openModal({
+        children: (
+          <Suspense fallback={<Loader />}>
+            <CreateReviewForm />
+          </Suspense>
+        )
+      })
+    );
   };
 
   return (
@@ -30,6 +39,8 @@ const ProductReviews = ({id}: Props): ReactElement => {
       <List<ReviewI>
         items={data}
         renderItem={ReviewItem}
+        sx={reviewStyles.list}
+        itemStyle={reviewStyles.listItem}
         emptyListTitle="No reviews found for this product."
       />
     </Box>
