@@ -32,11 +32,12 @@ const passwordValidationSchema = yup
   .matches(passwordRegex, ErrorMessages.PASSWORD_ERROR_MESSAGE)
   .required(ErrorMessages.PASSWORD_REQUIRED);
 
-const ratingValidation = yup
-  .number()
-  .min(lengths.minRating, ErrorMessages.AT_LEAST_LENGTH(lengths.minRating, labels.rating))
-  .max(lengths.maxRating, ErrorMessages.AT_MOST_LENGTH(lengths.maxRating, labels.rating))
-  .required(ErrorMessages.IS_REQUIRED(labels.rating));
+const ratingValidation = (min = lengths.minRating) =>
+  yup
+    .number()
+    .min(min, ErrorMessages.IS_REQUIRED(labels.rating))
+    .max(lengths.maxRating, ErrorMessages.AT_MOST_LENGTH(lengths.maxRating, labels.rating))
+    .required(ErrorMessages.IS_REQUIRED(labels.rating));
 const messageValidation = yup
   .string()
   .min(
