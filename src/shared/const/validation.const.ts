@@ -17,7 +17,7 @@ const lengths = {
   minRating,
   maxRating,
   minMessageLength: 10,
-  maxMessageLength: 100,
+  maxMessageLength: 300,
   minLength: 3,
   maxLength: 30,
   zipCodeLength: 5,

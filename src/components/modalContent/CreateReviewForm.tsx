@@ -7,7 +7,6 @@ import {useReviewActions} from '@/shared/lib/hooks/useReviewActions';
 import {createReviewSchema, replyReviewSchema} from '@/shared/lib/yup/createReview.schema';
 import {ReviewModel} from '@/shared/models/reviewModel';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
-import {CreateReviewI, UpdateReviewI} from '@/shared/types/review';
 import {Form} from '@/shared/ui';
 import {actions as modalActions} from '@/slices/modal';
 
@@ -67,9 +66,9 @@ const CreateReviewForm = ({
 
   const onSubmit = async (data: ReviewModel): Promise<void> => {
     if (isEdit) {
-      await onUpdateReview({_id: reviewId, ...data} as UpdateReviewI);
+      await onUpdateReview({_id: reviewId!, ...data});
     } else {
-      await onCreateReview({productId, parentId: isReply && reviewId, ...data} as CreateReviewI);
+      await onCreateReview({productId, parentId: reviewId, ...data});
     }
     invalidateProduct();
     dispatch(modalActions.closeModal());
