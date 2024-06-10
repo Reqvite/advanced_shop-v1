@@ -1,10 +1,13 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
+import {Messages} from '@/shared/const/messages.const';
 import {NotificationMessage} from '@/shared/const/notificationMessages';
 import {ApiPathEnum} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {onQueryStartedToast} from '@/shared/lib/helpers';
 import {CreateReviewI, ReviewI, UpdateReviewI} from '@/shared/types/review';
+
+const label = 'Review';
 
 export const reviewsApi = createApi({
   reducerPath: 'reviewsApi',
@@ -27,7 +30,7 @@ export const reviewsApi = createApi({
       onQueryStarted: (_, {queryFulfilled}) =>
         onQueryStartedToast(
           {queryFulfilled},
-          NotificationMessage.SUCCESS('Review created successfully.')
+          NotificationMessage.SUCCESS(Messages.CREATED_SUCCESSFULLY(label))
         ),
       invalidatesTags: [RtkApiTagsEnum.Reviews]
     }),
@@ -41,7 +44,7 @@ export const reviewsApi = createApi({
       onQueryStarted: (_, {queryFulfilled}) =>
         onQueryStartedToast(
           {queryFulfilled},
-          NotificationMessage.SUCCESS('Review updated successfully.')
+          NotificationMessage.SUCCESS(Messages.UPDATED_SUCCESSFULLY(label))
         ),
       invalidatesTags: [RtkApiTagsEnum.Reviews]
     }),
@@ -54,7 +57,7 @@ export const reviewsApi = createApi({
       onQueryStarted: (_, {queryFulfilled}) =>
         onQueryStartedToast(
           {queryFulfilled},
-          NotificationMessage.SUCCESS('Review successfully deleted.')
+          NotificationMessage.SUCCESS(Messages.DELETED_SUCCESSFULLY(label))
         ),
       invalidatesTags: [RtkApiTagsEnum.Reviews]
     })
