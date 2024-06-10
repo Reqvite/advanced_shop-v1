@@ -4,14 +4,14 @@ import {getRouteProductDetails} from '@/app/providers/AppRouter/routeConfig';
 import {productCardStyles} from '@/app/theme/styles';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
 import {ProductI, UpdateWishlistMutation} from '@/shared/types/product';
-import {Flex} from '../base/Flex';
-import {NavigateButton} from '../button/NavigateButton';
-import {WishlistButton} from '../button/WishlistButton';
-import {getCharacteristicsWithQuantity} from './model/getCharacteristicsWithQuantity';
-import {CharacteristicList} from './ui/CharacteristicList';
-import {DeliveryText} from './ui/DeliveryText';
-import {PriceText} from './ui/PriceText';
-import {ProductHeading} from './ui/ProductHeading';
+import {Flex} from '../../base/Flex';
+import {NavigateButton} from '../../button/NavigateButton';
+import {WishlistButton} from '../../button/WishlistButton';
+import {CharacteristicList} from '../base/CharacteristicList';
+import {DeliveryText} from '../base/DeliveryText';
+import {PriceText} from '../base/PriceText';
+import {ProductHeading} from '../base/ProductHeading';
+import {getCharacteristicsWithQuantity} from '../model/getCharacteristicsWithQuantity';
 
 export type CardVariants = 'small' | 'medium';
 

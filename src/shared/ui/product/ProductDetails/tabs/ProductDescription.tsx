@@ -1,12 +1,14 @@
 import {ReactElement} from 'react';
 import {LabelOptionsWithId} from '@/shared/types/options';
 import {List} from '@/shared/ui';
-import {DescriptionBlock} from '../DescriptionBlock';
+import {DescriptionBlock} from '../../base/DescriptionBlock';
 
 type Props = {
   description: LabelOptionsWithId[];
 };
 
-export const ProductDescription = ({description}: Props): ReactElement => {
+const ProductDescription = ({description}: Props): ReactElement => {
   return <List<LabelOptionsWithId> items={description} renderItem={DescriptionBlock} />;
 };
+
+export default ProductDescription;

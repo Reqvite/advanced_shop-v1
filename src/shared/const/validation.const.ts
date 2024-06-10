@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import {ErrorMessages} from './errorMessages.const';
+import {maxRating, minRating} from './product.const';
 import {passwordRegex} from './regex.conts';
 
 const labels = {
@@ -8,10 +9,15 @@ const labels = {
   address: 'Address',
   country: 'Country',
   city: 'City',
-  zip: 'Zip code'
+  zip: 'Zip code',
+  rating: 'Rating',
+  review: 'Review'
 };
-
 const lengths = {
+  minRating,
+  maxRating,
+  minMessageLength: 10,
+  maxMessageLength: 100,
   minLength: 3,
   maxLength: 30,
   zipCodeLength: 5,
@@ -26,6 +32,22 @@ const passwordValidationSchema = yup
   .matches(passwordRegex, ErrorMessages.PASSWORD_ERROR_MESSAGE)
   .required(ErrorMessages.PASSWORD_REQUIRED);
 
+const ratingValidation = yup
+  .number()
+  .min(lengths.minRating, ErrorMessages.AT_LEAST_LENGTH(lengths.minRating, labels.rating))
+  .max(lengths.maxRating, ErrorMessages.AT_MOST_LENGTH(lengths.maxRating, labels.rating))
+  .required(ErrorMessages.IS_REQUIRED(labels.rating));
+const messageValidation = yup
+  .string()
+  .min(
+    lengths.minMessageLength,
+    ErrorMessages.AT_LEAST_LENGTH(lengths.minMessageLength, labels.review)
+  )
+  .max(
+    lengths.maxMessageLength,
+    ErrorMessages.AT_MOST_LENGTH(lengths.maxMessageLength, labels.review)
+  )
+  .required();
 const firstNameValidation = yup
   .string()
   .min(lengths.minLength, ErrorMessages.AT_LEAST_LENGTH(lengths.minLength, labels.firstName))
@@ -71,10 +93,12 @@ export {
   emailValidation,
   firstNameValidation,
   lastNameValidation,
+  messageValidation,
   notesValidation,
   passwordValidationSchema,
   phoneNumberValidation,
   phoneRegex,
   privacyPolicyAgreementValidation,
+  ratingValidation,
   zipValidation
 };

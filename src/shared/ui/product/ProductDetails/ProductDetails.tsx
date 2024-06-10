@@ -1,10 +1,6 @@
 import {Stack, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {
-  getRouteProductDetailsReviewsTab,
-  getRouteProductDetailsTab
-} from '@/app/providers/AppRouter/routeConfig';
 import {productDetailsStyles} from '@/app/theme/styles.ts';
 import {tagOptions} from '@/shared/lib/helpers/enumLabelResolver/options';
 import {useAuth, useMediaQuery} from '@/shared/lib/hooks';
@@ -12,32 +8,27 @@ import {UseCartActionsType} from '@/shared/lib/hooks/useCartActions.hook';
 import {useWishlistActionsType} from '@/shared/lib/hooks/useWishlistActions.hook';
 import {maxQuantitySchema} from '@/shared/lib/yup/maxQuantity.schema';
 import {ProductI} from '@/shared/types/product';
-import {Flex} from '../base/Flex';
-import {AddToCartButton} from '../button/AddToCartButton';
-import {DeleteFromCartButton} from '../button/DeleteButton.tsx';
-import {WishlistButton} from '../button/WishlistButton';
-import {Chip} from '../chip/Chip';
-import {Form} from '../form';
-import {ImageGallery} from '../imageGallery/ImageGallery';
-import {List} from '../list/List';
-import {Tabs} from '../tabs/Tabs';
-import {cartProductCardOptions} from './CartProductCard/option';
-import {getCharacteristicsWithQuantity} from './model/getCharacteristicsWithQuantity.ts';
-import {CharacteristicList} from './ui/CharacteristicList';
-import {PriceText} from './ui/PriceText';
-import {ProductHeading} from './ui/ProductHeading';
-import {TabsRouter} from './ui/tabs/ProductTabsRouter';
+import {Flex} from '../../base/Flex.tsx';
+import {AddToCartButton} from '../../button/AddToCartButton.tsx';
+import {DeleteButton} from '../../button/DeleteButton.tsx';
+import {WishlistButton} from '../../button/WishlistButton.tsx';
+import {Chip} from '../../chip/Chip.tsx';
+import {Form} from '../../form/index.ts';
+import {ImageGallery} from '../../imageGallery/ImageGallery.tsx';
+import {List} from '../../list/List.tsx';
+import {Tabs} from '../../tabs/Tabs.tsx';
+import {CharacteristicList} from '../base/CharacteristicList.tsx';
+import {PriceText} from '../base/PriceText.tsx';
+import {ProductHeading} from '../base/ProductHeading.tsx';
+import {cartProductCardOptions} from '../CartProductCard/option.ts';
+import {getCharacteristicsWithQuantity} from '../model/getCharacteristicsWithQuantity.ts';
+import {getTabOptions} from '../model/getTabOptions.ts';
+import {TabsRouter} from './tabs/ProductTabsRouter.tsx';
 
 type Props = ProductI & {
   useCartActions: UseCartActionsType;
   useWishlistActions: useWishlistActionsType;
 };
-
-const tabOptions = [
-  {label: 'Description', value: getRouteProductDetailsTab()},
-  {label: 'Reviews', value: getRouteProductDetailsReviewsTab()},
-  {label: 'Questions', value: 'questions'}
-];
 
 export const ProductDetails = ({
   _id,
@@ -50,6 +41,7 @@ export const ProductDetails = ({
   images,
   tags,
   quantity,
+  reviewCount,
   useCartActions,
   useWishlistActions
 }: Props): ReactElement => {
@@ -72,6 +64,7 @@ export const ProductDetails = ({
   const options = cartProductCardOptions({
     maxQuantity: quantity
   });
+  const tabOptions = getTabOptions({reviewCount});
 
   const onChangeTab = (route: string): void => {
     navigate(route);
@@ -130,7 +123,7 @@ export const ProductDetails = ({
               buttonLabel={product ? 'Update cart' : undefined}
               isLoading={addToCartIsLoading || updateCartIsLoading}
             />
-            {product && <DeleteFromCartButton onClick={() => onConfirmDeleteItem(_id)} />}
+            {product && <DeleteButton onClick={() => onConfirmDeleteItem(_id)} />}
           </Flex>
         </Flex>
         <WishlistButton
@@ -140,7 +133,7 @@ export const ProductDetails = ({
           onClick={() => onClickWishlist({_id})}
         />
         <Tabs options={tabOptions} onChange={onChangeTab} defaultValue={currentTab} />
-        <TabsRouter description={description} />
+        <TabsRouter description={description} id={_id} />
       </Stack>
     </Flex>
   );

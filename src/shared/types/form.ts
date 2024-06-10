@@ -13,7 +13,8 @@ export enum FormVariantsEnum {
   CheckboxGroup = 'checkbox_group',
   SliderWithInput = 'slider-with-input',
   Slider = 'slider',
-  Checkbox = 'checkbox'
+  Checkbox = 'checkbox',
+  Rating = 'rating'
 }
 
 interface BaseFormOption {
@@ -37,6 +38,9 @@ interface FormOptionVariantMapI {
   };
   [FormVariantsEnum.Quantity_Input]: {
     variant: FormVariantsEnum.Quantity_Input;
+  };
+  [FormVariantsEnum.Rating]: {
+    variant: FormVariantsEnum.Rating;
   };
   [FormVariantsEnum.InputWithSelect]: {
     variant: FormVariantsEnum.InputWithSelect;

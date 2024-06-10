@@ -7,6 +7,7 @@ import {reducer as filterReducer} from '@/slices/filter';
 import {locationApi} from '@/slices/location';
 import {reducer as modalReducer} from '@/slices/modal';
 import {productsApi} from '@/slices/products';
+import {reviewsApi} from '@/slices/reviews';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {filterPersistConfig, themePersistConfig, userPersistConfig} from './pesrsistConfig';
@@ -27,6 +28,7 @@ class Store implements StorePackage {
       modal: modalReducer,
       [productsApi.reducerPath]: productsApi.reducer,
       [cartApi.reducerPath]: cartApi.reducer,
+      [reviewsApi.reducerPath]: reviewsApi.reducer,
       [locationApi.reducerPath]: locationApi.reducer
     };
     this.#instance = configureStore({
@@ -41,6 +43,7 @@ class Store implements StorePackage {
           .concat(productsApi.middleware)
           .concat(cartApi.middleware)
           .concat(locationApi.middleware)
+          .concat(reviewsApi.middleware)
     });
   }
 

@@ -11,6 +11,7 @@ const variants = {
   hidden: {opacity: 0, y: 10},
   visible: {opacity: 1, y: 0, transition: {duration: 0.5}}
 };
+const maxRouteLength = 3;
 
 type Props = PropsWithChildren & {
   isLoading?: boolean;
@@ -21,7 +22,9 @@ export const PageWrapper = ({children, isLoading, title}: Props): ReactElement =
   const location = useLocation();
 
   useEffect(() => {
-    scrollToTop();
+    if (location.pathname.split('/').length <= maxRouteLength) {
+      scrollToTop();
+    }
   }, [location]);
 
   if (isLoading) {

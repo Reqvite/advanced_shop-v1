@@ -24,6 +24,7 @@ interface ProductI {
   price: number;
   discount?: number;
   tags?: number[];
+  reviewCount?: number;
 }
 
 interface CartProductI extends ProductI {

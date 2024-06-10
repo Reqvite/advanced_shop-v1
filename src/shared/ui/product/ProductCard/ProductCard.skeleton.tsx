@@ -2,7 +2,7 @@ import {Box, Card, CardActions, CardContent, Skeleton} from '@mui/material';
 import {ReactElement} from 'react';
 import {productCardStyles} from '@/app/theme/styles';
 import {useMediaQuery} from '@/shared/lib/hooks';
-import {Flex} from '../base/Flex';
+import {Flex} from '../../base/Flex';
 import {CardVariants} from './ProductCard';
 
 type Props = {

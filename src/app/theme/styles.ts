@@ -3,6 +3,35 @@ import {CSSProperties} from 'react';
 import {maxPhotos} from '@/shared/ui/imageGallery/ImageGallery';
 import {brand, grey, yellow} from './theme';
 
+export const scrollbarStyles = {
+  '&::-webkit-scrollbar': {
+    width: '8px'
+  },
+  '&::-webkit-scrollbar-track': {
+    backgroundColor: grey[100],
+    borderRadius: '4px'
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: brand[500],
+    borderRadius: '4px'
+  }
+};
+
+export const yellowSliderStyles = {
+  '& .MuiSlider-thumb': {
+    color: yellow[900]
+  },
+  '& .MuiSlider-track': {
+    color: yellow[900]
+  },
+  '& .MuiSlider-rail': {
+    color: 'primary.main'
+  },
+  '& .MuiSlider-active': {
+    color: 'primary.main'
+  }
+};
+
 export const headerStyles = {
   appBar: {boxShadow: 'none'},
   headerContainer: (theme: Theme) => ({
@@ -264,17 +293,7 @@ export const checkoutStyles = {
     maxHeight: '600px',
     flexWrap: 'nowrap',
     overflow: 'auto',
-    '&::-webkit-scrollbar': {
-      width: '8px'
-    },
-    '&::-webkit-scrollbar-track': {
-      backgroundColor: grey[100],
-      borderRadius: '4px'
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: brand[500],
-      borderRadius: '4px'
-    }
+    ...scrollbarStyles
   },
   orderSummaryListItem: {
     padding: 0,
@@ -314,17 +333,10 @@ export const autoCompleteStyles = {
   }
 };
 
-export const yellowSliderStyles = {
-  '& .MuiSlider-thumb': {
-    color: yellow[900]
-  },
-  '& .MuiSlider-track': {
-    color: yellow[900]
-  },
-  '& .MuiSlider-rail': {
-    color: 'primary.main'
-  },
-  '& .MuiSlider-active': {
-    color: 'primary.main'
+export const reviewStyles = {
+  list: {mt: 2, gap: 2, maxHeight: 640, flexWrap: 'nowrap', overflowY: 'auto', ...scrollbarStyles},
+  listItem: {
+    p: 0,
+    pr: 1
   }
 };

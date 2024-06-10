@@ -2,7 +2,7 @@ import {Box, Rating, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {LabelOptionsI} from '@/shared/types/options';
 import {TruncatedTypography} from '../../typography/TruncatedTypography';
-import {CardVariants} from '../ProductCard';
+import {CardVariants} from '../ProductCard/ProductCard';
 
 type Props = {
   title: string;

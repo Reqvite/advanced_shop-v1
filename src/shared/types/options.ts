@@ -6,6 +6,12 @@ export interface LabelOptionsI {
   quantity?: number;
 }
 
+export interface TabOptionsI {
+  label: string;
+  value: string;
+  count?: number;
+}
+
 export interface AutoCompleteOptionsI {
   label: string;
   _id?: string;

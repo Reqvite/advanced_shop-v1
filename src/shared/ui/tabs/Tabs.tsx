@@ -1,12 +1,7 @@
-import {Box, Tab, Tabs as MuiTabs, Typography} from '@mui/material';
-import {ReactElement, ReactNode, SyntheticEvent, useState} from 'react';
-
-interface TabPanelProps {
-  children?: ReactNode;
-  options?: {label: string}[];
-  index: number;
-  value: number;
-}
+import {Box, Tab, Tabs as MuiTabs} from '@mui/material';
+import {ReactElement, SyntheticEvent, useState} from 'react';
+import {TabOptionsI} from '@/shared/types/options';
+import {Chip} from '../chip/Chip';
 
 function appyProps(index: string): {
   id: string;
@@ -18,26 +13,8 @@ function appyProps(index: string): {
   };
 }
 
-export const CustomTabPanel = ({children, value, index, ...other}: TabPanelProps): ReactElement => {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{p: 3}}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-};
-
 type Props = {
-  options: {label: string; value: string}[];
+  options: TabOptionsI[];
   defaultValue?: string;
   onChange: (value: string) => void;
 };
@@ -57,7 +34,14 @@ export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => 
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
         <MuiTabs value={value} onChange={onChangeTab} aria-label="tabs">
           {options?.map((tab) => (
-            <Tab key={tab.label} value={tab.value} label={tab.label} {...appyProps(tab.label)} />
+            <Tab
+              key={tab.value}
+              icon={tab.count ? <Chip label={tab.count} /> : undefined}
+              iconPosition="end"
+              value={tab.value}
+              label={tab.label}
+              {...appyProps(tab.label)}
+            />
           ))}
         </MuiTabs>
       </Box>
