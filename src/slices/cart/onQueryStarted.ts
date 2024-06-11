@@ -27,6 +27,6 @@ export const onQueryCreateSessionStartedToast = async ({
     await stripe?.redirectToCheckout({sessionId: id});
   } catch (error: unknown) {
     const {error: customError} = error as {error: ErrorI};
-    toast.error(customError.message);
+    toast.error(customError?.message);
   }
 };
