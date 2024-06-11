@@ -38,13 +38,14 @@ export const ReviewItem = ({
   const isUsersReview = user?._id === userId;
 
   const onEditReviewClick = (): void => {
+    const isNestedReviewOptions = withReply ? false : true;
     dispatch(
       modalActions.openModal({
         children: (
           <Suspense fallback={<Loader />}>
             <CreateReviewForm
               isEdit
-              isReply={!withReply}
+              isReply={isNestedReviewOptions}
               defaultValues={{rating, message}}
               reviewId={_id}
             />

@@ -77,7 +77,7 @@ const CreateReviewForm = ({
   return (
     <Stack direction="column" gap={2}>
       <Typography component="h5" variant="h5" textAlign="center">
-        {title ? title : isEdit ? 'Edit your review' : 'Write your review'}
+        {title || (isEdit ? 'Edit your review' : 'Write your review')}
       </Typography>
       <Form<ReviewModel>
         options={isReply ? replyOptions : createReviewOptions}
