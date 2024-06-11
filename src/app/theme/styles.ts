@@ -1,7 +1,7 @@
 import {SxProps, Theme} from '@mui/material';
 import {CSSProperties} from 'react';
 import {maxPhotos} from '@/shared/ui/imageGallery/ImageGallery';
-import {brand, grey, yellow} from './theme';
+import {brand, grey, red, yellow} from './theme';
 
 export const scrollbarStyles = {
   '&::-webkit-scrollbar': {
@@ -216,6 +216,37 @@ export const productsListStyles = {
   })
 };
 
+export const messageBoxStyles = {
+  box: () => ({
+    mt: '80px',
+    p: '30px',
+    minWidth: '300px',
+    maxWidth: '600px',
+    background: 'white',
+    justifyContent: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    borderRadius: '10px',
+    position: 'relative'
+  }),
+  iconBox: (isSuccess: boolean) => ({
+    position: 'absolute',
+    top: '-50px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+    backgroundColor: isSuccess ? brand[200] : red[300],
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
+  }),
+  icon: {fontSize: '4rem', color: 'white'}
+};
+
 export const footerStyles = {
   flex: (theme: Theme) => ({
     [theme.breakpoints.down('sm')]: {
@@ -271,10 +302,10 @@ export const checkboxGroupStyles = (showCheckbox: boolean): Record<string, CSSPr
 });
 
 export const checkoutStyles = {
-  orderSummaryBox: (theme: Theme) => ({
+  orderSummaryBox: (theme: Theme, cartIsEmpty: boolean) => ({
     width: '45%',
     padding: '32px 16px',
-    border: `1px solid ${grey[100]}`,
+    border: cartIsEmpty ? 'none' : `1px solid ${grey[100]}`,
     borderRadius: '12px',
     order: 1,
     height: '100%',

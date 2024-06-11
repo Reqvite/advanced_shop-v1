@@ -1,7 +1,6 @@
 export {
   cartApi,
   useAddToCartMutation,
-  useCompleteOrderMutation,
   useDeleteItemByIdMutation,
   useGetCartQuery,
   useGetOrdersQuery,

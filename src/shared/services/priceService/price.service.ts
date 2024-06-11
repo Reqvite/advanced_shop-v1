@@ -24,7 +24,7 @@ class PriceService {
   }
 
   getTax({price, tax = defaultTax}: {price: number; tax?: number}): number {
-    return this.getFixedPrice((price / 100) * tax);
+    return (price / 100) * tax;
   }
 
   getTotal(items: CartProductI[], tax = defaultTax): number {

@@ -105,26 +105,6 @@ export const cartApi = createApi({
         return response;
       },
       onQueryStarted: (_, {queryFulfilled}) => onQueryCreateSessionStartedToast({queryFulfilled})
-    }),
-    completeOrder: builder.mutation<CartItem[], CompleteOrderArgs>({
-      query: (data) => ({
-        url: `${ApiPathEnum.CART}${CartApiPath.COMPLETE}`,
-        method: 'POST',
-        needAuth: true,
-        data
-      }),
-      transformResponse: (response: CartItem[]) => {
-        store.instance.dispatch(userActions.clearCart());
-        return response;
-      },
-      onQueryStarted: (_, {queryFulfilled}) =>
-        onQueryStartedToast(
-          {queryFulfilled},
-          NotificationMessage.SUCCESS(
-            'Order completed successfully. A manager will contact you shortly.'
-          )
-        ),
-      invalidatesTags: [RtkApiTagsEnum.Cart]
     })
   })
 });
@@ -134,7 +114,6 @@ export const {
   useDeleteItemByIdMutation,
   useUpdatedCartMutation,
   useAddToCartMutation,
-  useCompleteOrderMutation,
   useGetOrdersQuery,
   useCreateCheckoutSessionMutation
 } = cartApi;

@@ -69,7 +69,7 @@ export const OrderCard = ({
             <Title
               titleVariant="h6"
               title="Products list"
-              description={`${products.length} items`}
+              description={`${products.length} ${products.length > 1 ? 'items' : 'item'}`}
             />
             <Stack spacing={1}>
               {products.map((product) => (

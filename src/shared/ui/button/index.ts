@@ -6,5 +6,6 @@ export {CloseButton} from './CloseButton';
 export {FilterButton} from './FilterButton';
 export {MobileMenuButton} from './MobileMenuButton';
 export {NavigateButton} from './NavigateButton';
+export {StartShoppingButton} from './StartShoppingButton';
 export {ThemeButton} from './ThemeButton';
 export {WishlistButton} from './WishlistButton';

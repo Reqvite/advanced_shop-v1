@@ -7,7 +7,6 @@ const defaultPrice = [minPrice, maxPrice];
 const defaultRating = [minRating, maxRating];
 const skeletonLength = 5;
 const defaultPage = 1;
-
 const defaultTax = 15;
 
 export {
