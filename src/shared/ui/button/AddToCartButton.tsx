@@ -7,7 +7,7 @@ type Props = ButtonProps;
 
 export const AddToCartButton = (props: Props): ReactElement => {
   return (
-    <Button variant="contained" LeftAddon={AddShoppingCartIcon} {...props}>
+    <Button variant="contained" sx={{minWidth: '150px'}} LeftAddon={AddShoppingCartIcon} {...props}>
       Add to cart
     </Button>
   );
