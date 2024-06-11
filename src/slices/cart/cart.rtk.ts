@@ -5,11 +5,17 @@ import {NotificationMessage} from '@/shared/const/notificationMessages';
 import {ApiPathEnum, CartApiPath} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {forceRefetch, onQueryStartedToast} from '@/shared/lib/helpers';
-import {CartItem, CompleteOrderArgs, GetOrdersResponse} from '@/shared/types/cart';
+import {
+  CartItem,
+  CompleteOrderArgs,
+  CompleteOrderResponse,
+  GetOrdersResponse
+} from '@/shared/types/cart';
 import {RequestFilterParams} from '@/shared/types/filter';
 import {CartProductI} from '@/shared/types/product';
 import {actions as userActions} from '../user';
 import {mergeOrdersResults} from './merges';
+import {onQueryCreateSessionStartedToast} from './onQueryStarted';
 import {getUserOrders} from './queries';
 
 export type GetOrdersQuery = RequestFilterParams | void;
@@ -88,6 +94,18 @@ export const cartApi = createApi({
         ),
       invalidatesTags: [RtkApiTagsEnum.Cart]
     }),
+    createCheckoutSession: builder.mutation<CompleteOrderResponse, CompleteOrderArgs>({
+      query: (data) => ({
+        url: `${ApiPathEnum.STRIPE}${CartApiPath.CREATE_CHECKOUT_SESSION}`,
+        method: 'POST',
+        needAuth: true,
+        data
+      }),
+      transformResponse: (response: CompleteOrderResponse) => {
+        return response;
+      },
+      onQueryStarted: (_, {queryFulfilled}) => onQueryCreateSessionStartedToast({queryFulfilled})
+    }),
     completeOrder: builder.mutation<CartItem[], CompleteOrderArgs>({
       query: (data) => ({
         url: `${ApiPathEnum.CART}${CartApiPath.COMPLETE}`,
@@ -117,5 +135,6 @@ export const {
   useUpdatedCartMutation,
   useAddToCartMutation,
   useCompleteOrderMutation,
-  useGetOrdersQuery
+  useGetOrdersQuery,
+  useCreateCheckoutSessionMutation
 } = cartApi;

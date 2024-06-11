@@ -33,7 +33,7 @@ export const ShoppingCart = ({tax = defaultTax}: Props): ReactElement | null => 
   const {data: products = [], isLoading, isFetching} = useGetCartQuery();
   const {data: countries, isLoading: countriesIsLoading} = useGetCountriesQuery();
   const [getCities, {data: cities, isLoading: citiesIsLoading}] = useGetCountryCityMutation();
-  const {onCompleteOrder, completeOrderIsLoading} = useCartActions();
+  const {onCreateCheckoutSession, createCheckoutSessionIsLoading} = useCartActions();
   const cartIsEmpty = products?.length !== 0;
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const ShoppingCart = ({tax = defaultTax}: Props): ReactElement | null => 
   });
 
   const handleFormSubmit = handleSubmit((data): void => {
-    onCompleteOrder({
+    onCreateCheckoutSession({
       orderInformation: data as ShoppingCartModel,
       products: user?.cart,
       totalPrice: priceService.getTotal(products, tax)
@@ -69,7 +69,7 @@ export const ShoppingCart = ({tax = defaultTax}: Props): ReactElement | null => 
             <Confirmation
               options={confirmationOptions}
               control={control}
-              isLoading={completeOrderIsLoading}
+              isLoading={createCheckoutSessionIsLoading}
               onSubmit={handleFormSubmit}
             />
           </Box>

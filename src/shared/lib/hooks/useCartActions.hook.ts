@@ -6,6 +6,7 @@ import {
   useDeleteItemByIdMutation,
   useUpdatedCartMutation
 } from '@/slices/cart';
+import {useCreateCheckoutSessionMutation} from '@/slices/cart/cart.rtk';
 import {productsApi} from '@/slices/products';
 import {useAppDispatch} from './useAppDispatch.hook';
 import {useConfirm} from './useConfirm.hook';
@@ -17,10 +18,12 @@ type Params = {
 
 type UseCartActionsReturnType = {
   onConfirmDeleteItem: (_id: string) => void;
-  onCompleteOrder: ({orderInformation, products}: CompleteOrderArgs) => void;
+  onCompleteOrder: (data: CompleteOrderArgs) => void;
   invalidateProduct: () => void;
+  onCreateCheckoutSession: (data: CompleteOrderArgs) => void;
   onClickAddToCart: (data: CartItem) => any;
   onUpdateCartQuantity: (data: CartItem) => any;
+  createCheckoutSessionIsLoading: boolean;
   addToCartIsLoading: boolean;
   updateCartIsLoading: boolean;
   deleteIsLoading: boolean;
@@ -38,13 +41,15 @@ export const useCartActions = (
   const [onUpdateCartQuantity, {isLoading: updateCartIsLoading}] = useUpdatedCartMutation();
   const [deleteItem, {isLoading: deleteIsLoading}] = useDeleteItemByIdMutation();
   const [onCompleteOrder, {isLoading: completeOrderIsLoading}] = useCompleteOrderMutation();
+  const [onCreateCheckoutSession, {isLoading: createCheckoutSessionIsLoading}] =
+    useCreateCheckoutSessionMutation();
 
   const onConfirmDeleteItem = async (_id: string): Promise<void> => {
     await confirm();
     deleteItem({_id});
   };
 
-  const invalidateProduct = () => {
+  const invalidateProduct = (): void => {
     dispatch(productsApi.util.invalidateTags([RtkApiTagsEnum.Product]));
   };
 
@@ -54,6 +59,8 @@ export const useCartActions = (
     onClickAddToCart,
     onUpdateCartQuantity,
     onCompleteOrder,
+    onCreateCheckoutSession,
+    createCheckoutSessionIsLoading,
     addToCartIsLoading,
     updateCartIsLoading,
     deleteIsLoading,
