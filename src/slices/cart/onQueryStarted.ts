@@ -2,7 +2,6 @@ import {loadStripe} from '@stripe/stripe-js';
 import {toast} from 'react-toastify';
 import {Messages} from '@/shared/const/messages.const';
 import {CompleteOrderResponse} from '@/shared/types/cart';
-import {ErrorI} from '@/shared/types/error';
 
 export const onQueryCreateSessionStartedToast = async ({
   queryFulfilled
@@ -25,8 +24,7 @@ export const onQueryCreateSessionStartedToast = async ({
     });
 
     await stripe?.redirectToCheckout({sessionId: id});
-  } catch (error: unknown) {
-    const {error: customError} = error as {error: ErrorI};
-    toast.error(customError?.message);
+  } catch {
+    toast.dismiss(toastId);
   }
 };
