@@ -1,14 +1,14 @@
 import confetti from 'canvas-confetti';
 
-export const runConfetti = () => {
+export const runConfetti = (): void => {
   const count = 200;
   const defaults = {
     origin: {y: 0.7}
   };
 
-  function fire(particleRatio: number, opts: any) {
+  function fire(particleRatio: number, options: confetti.Options): void {
     confetti(
-      Object.assign({}, defaults, opts, {
+      Object.assign({}, defaults, options, {
         particleCount: Math.floor(count * particleRatio)
       })
     );
