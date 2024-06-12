@@ -6,6 +6,7 @@ import {
   PrivacyPolicyPage,
   ProductDetailsPage,
   ShoppingCartPage,
+  SuccessPage,
   TermsAndConditionsPage,
   WishlistPage
 } from '@/pages';
@@ -18,6 +19,7 @@ export enum AppRoutes {
   PRIVACY_POLICY = 'privacy-policy',
   TERMS_AND_CONDITIONS = 'terms-and-conditions',
   ORDERS = 'orders',
+  SUCCESS = 'success',
   NOT_FOUND = 'not-found'
 }
 
@@ -37,6 +39,7 @@ export type MatchedRoute = {
 export const getRouteMain = () => '/';
 export const getRouteProductDetails = (id: string) => `/products/${id}`;
 export const getRouteWishlist = () => `/wishlist`;
+export const getRouteSuccess = () => `/success`;
 export const getRoutePrivacyPolicy = () => `/privacy-policy`;
 export const getRouteTermsAndConditions = () => `/terms`;
 export const getRouteOrders = () => `/orders`;
@@ -73,6 +76,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteTermsAndConditions(),
     element: <TermsAndConditionsPage />,
     breadcrumbName: 'Terms and conditions'
+  },
+  [AppRoutes.SUCCESS]: {
+    path: getRouteSuccess(),
+    element: <SuccessPage />,
+    breadcrumbName: 'Success',
+    needAuth: true
   },
   [AppRoutes.SHOPPING_CART]: {
     path: getRouteShoppingCart(),

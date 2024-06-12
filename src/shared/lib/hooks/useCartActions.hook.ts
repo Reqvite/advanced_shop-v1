@@ -2,7 +2,6 @@ import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {CartItem, CompleteOrderArgs} from '@/shared/types/cart';
 import {
   useAddToCartMutation,
-  useCompleteOrderMutation,
   useDeleteItemByIdMutation,
   useUpdatedCartMutation
 } from '@/slices/cart';
@@ -18,7 +17,6 @@ type Params = {
 
 type UseCartActionsReturnType = {
   onConfirmDeleteItem: (_id: string) => void;
-  onCompleteOrder: (data: CompleteOrderArgs) => void;
   invalidateProduct: () => void;
   onCreateCheckoutSession: (data: CompleteOrderArgs) => void;
   onClickAddToCart: (data: CartItem) => any;
@@ -27,7 +25,6 @@ type UseCartActionsReturnType = {
   addToCartIsLoading: boolean;
   updateCartIsLoading: boolean;
   deleteIsLoading: boolean;
-  completeOrderIsLoading: boolean;
 };
 
 export const useCartActions = (
@@ -40,7 +37,6 @@ export const useCartActions = (
   const [onClickAddToCart, {isLoading: addToCartIsLoading}] = useAddToCartMutation();
   const [onUpdateCartQuantity, {isLoading: updateCartIsLoading}] = useUpdatedCartMutation();
   const [deleteItem, {isLoading: deleteIsLoading}] = useDeleteItemByIdMutation();
-  const [onCompleteOrder, {isLoading: completeOrderIsLoading}] = useCompleteOrderMutation();
   const [onCreateCheckoutSession, {isLoading: createCheckoutSessionIsLoading}] =
     useCreateCheckoutSessionMutation();
 
@@ -58,13 +54,11 @@ export const useCartActions = (
     onConfirmDeleteItem,
     onClickAddToCart,
     onUpdateCartQuantity,
-    onCompleteOrder,
     onCreateCheckoutSession,
     createCheckoutSessionIsLoading,
     addToCartIsLoading,
     updateCartIsLoading,
-    deleteIsLoading,
-    completeOrderIsLoading
+    deleteIsLoading
   };
 };
 

@@ -21,7 +21,7 @@ const lengths = {
   minLength: 3,
   maxLength: 30,
   zipCodeLength: 5,
-  maxLengthAddress: 100,
+  maxLengthAddress: 150,
   maxNotesLength: 500
 };
 
@@ -70,7 +70,10 @@ const phoneNumberValidation = yup
 const addressValidation = yup
   .string()
   .min(lengths.minLength, ErrorMessages.AT_LEAST_LENGTH(lengths.minLength, labels.address))
-  .max(lengths.maxLength, ErrorMessages.AT_MOST_LENGTH(lengths.maxLengthAddress, labels.address))
+  .max(
+    lengths.maxLengthAddress,
+    ErrorMessages.AT_MOST_LENGTH(lengths.maxLengthAddress, labels.address)
+  )
   .required(ErrorMessages.IS_REQUIRED(labels.address));
 const countryValidation = yup.string().required(ErrorMessages.IS_REQUIRED(labels.country));
 const cityValidation = yup.string().required(ErrorMessages.IS_REQUIRED(labels.city));
