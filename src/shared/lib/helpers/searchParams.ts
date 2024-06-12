@@ -49,8 +49,7 @@ export const updateQueryParams = (filters: Partial<FilterI>) => {
 };
 
 export const resetQueryParams = () => {
-  const queryParams = new URLSearchParams();
-  window.history.replaceState({}, '', `${window.location.pathname}?${queryParams}`);
+  window.history.replaceState({}, '', window.location.pathname);
 };
 
 export const deleteQueryParamsKey = (key: string) => {

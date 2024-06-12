@@ -18,7 +18,8 @@ export const OrdersList = (): ReactElement => {
             items={data?.results || []}
             renderItem={(order) => <OrderCard {...order} />}
             itemStyle={{
-              justifyContent: 'justify-center',
+              justifyContent: 'center',
+              alignSelf: 'center',
               width: '100%',
               maxWidth: data?.results.length === 1 ? '100%' : '500px',
               mb: 'auto'

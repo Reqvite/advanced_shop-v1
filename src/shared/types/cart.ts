@@ -18,6 +18,10 @@ interface GetOrdersResponse {
   currentPage: number;
 }
 
+type CompleteOrderResponse = {
+  id: string;
+};
+
 type CompleteOrderArgs = {
   orderInformation: ShoppingCartModel;
   products: CartItem[];
@@ -34,6 +38,7 @@ export {
   type AddToCartMutation,
   type CartItem,
   type CompleteOrderArgs,
+  type CompleteOrderResponse,
   type DeleteItemByIdMutation,
   type GetCartResponse,
   type GetOrdersResponse,
