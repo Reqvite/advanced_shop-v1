@@ -2,7 +2,7 @@ import {
   useAddToCartMutation,
   useDeleteItemByIdMutation,
   useUpdatedCartMutation
-} from '@/slices/cart';
+} from '@/slices/cart/cart.rtk';
 import {ShoppingCartModel} from '../models/shoppingCartModel';
 import {OrderI} from './order';
 import {ProductI} from './product';

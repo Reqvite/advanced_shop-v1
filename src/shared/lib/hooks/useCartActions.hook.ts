@@ -2,11 +2,11 @@ import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {CartItem, CompleteOrderArgs} from '@/shared/types/cart';
 import {
   useAddToCartMutation,
+  useCreateCheckoutSessionMutation,
   useDeleteItemByIdMutation,
   useUpdatedCartMutation
-} from '@/slices/cart';
-import {useCreateCheckoutSessionMutation} from '@/slices/cart/cart.rtk';
-import {productsApi} from '@/slices/products';
+} from '@/slices/cart/cart.rtk';
+import {productsApi} from '@/slices/products/products.rtk';
 import {useAppDispatch} from './useAppDispatch.hook';
 import {useConfirm} from './useConfirm.hook';
 

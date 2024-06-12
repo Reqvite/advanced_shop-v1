@@ -2,7 +2,7 @@ import {
   useGetProductsQuery,
   useGetUserWishlistQuery,
   useUpdateWishlistMutation
-} from '@/slices/products';
+} from '@/slices/products/products.rtk';
 import {LabelOptionsWithId} from './options';
 
 interface ImgI {

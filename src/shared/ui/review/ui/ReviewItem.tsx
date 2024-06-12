@@ -1,10 +1,10 @@
 import EditIcon from '@mui/icons-material/Edit';
 import ReplyIcon from '@mui/icons-material/Reply';
 import {Box, IconButton, Typography} from '@mui/material';
-import {ReactElement, Suspense, useCallback} from 'react';
+import {ReactElement, useCallback} from 'react';
 import {reviewStyles} from '@/app/theme/styles';
 import {grey} from '@/app/theme/theme';
-import {CreateReviewForm} from '@/components/modalContent';
+import CreateReviewForm from '@/components/modalContent/CreateReviewForm';
 import {formateDate} from '@/shared/lib/helpers';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
 import {useReviewActions} from '@/shared/lib/hooks/useReviewActions';
@@ -15,7 +15,6 @@ import {Title} from '../../base/Title';
 import {Button} from '../../button';
 import {DeleteButton} from '../../button/DeleteButton';
 import {List} from '../../list/List';
-import {Loader} from '../../loader/Loader';
 import {Rating} from '../../rating/Rating';
 
 type Props = ReviewI & {
@@ -42,14 +41,13 @@ export const ReviewItem = ({
     dispatch(
       modalActions.openModal({
         children: (
-          <Suspense fallback={<Loader />}>
-            <CreateReviewForm
-              isEdit
-              isReply={isNestedReviewOptions}
-              defaultValues={{rating, message}}
-              reviewId={_id}
-            />
-          </Suspense>
+          <CreateReviewForm
+            isEdit
+            useReviewActions={useReviewActions}
+            isReply={isNestedReviewOptions}
+            defaultValues={{rating, message}}
+            reviewId={_id}
+          />
         )
       })
     );
@@ -59,9 +57,12 @@ export const ReviewItem = ({
     dispatch(
       modalActions.openModal({
         children: (
-          <Suspense fallback={<Loader />}>
-            <CreateReviewForm isReply title="Write your reply" reviewId={_id} />
-          </Suspense>
+          <CreateReviewForm
+            useReviewActions={useReviewActions}
+            isReply
+            title="Write your reply"
+            reviewId={_id}
+          />
         )
       })
     );

@@ -7,12 +7,12 @@ import {
 import {PersistPartial} from 'redux-persist/es/persistReducer';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {NotificationService} from '@/shared/services';
-import {cartApi} from '@/slices/cart';
+import {cartApi} from '@/slices/cart/cart.rtk';
 import {reducer as filterReducer} from '@/slices/filter';
 import {locationApi} from '@/slices/location';
 import {reducer as modalReducer} from '@/slices/modal';
-import {productsApi} from '@/slices/products';
-import {reviewsApi} from '@/slices/reviews';
+import {productsApi} from '@/slices/products/products.rtk';
+import {reviewsApi} from '@/slices/reviews/reviews.rtk';
 import {reducer as themeReducer} from '@/slices/theme';
 import {reducer as userReducer} from '@/slices/user';
 import {store} from './store';

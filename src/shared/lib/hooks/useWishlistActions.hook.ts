@@ -1,4 +1,4 @@
-import {useUpdateWishlistMutation} from '@/slices/products';
+import {useUpdateWishlistMutation} from '@/slices/products/products.rtk';
 
 type UseWishlistActionsReturnType = {
   onClickWishlist: ({_id}: {_id: string}) => void;

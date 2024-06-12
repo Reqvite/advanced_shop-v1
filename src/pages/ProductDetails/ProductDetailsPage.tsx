@@ -6,7 +6,7 @@ import {
   useGetProductByIdQuery,
   useGetProductsQuery,
   useUpdateWishlistMutation
-} from '@/slices/products';
+} from '@/slices/products/products.rtk';
 
 const ProductDetailsPage = () => {
   const {id} = useParams();

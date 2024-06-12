@@ -3,7 +3,7 @@ import {useFilter} from '@/shared/lib/hooks';
 import {OrderI} from '@/shared/types/order';
 import {List, PageWrapper, Pagination, StickyContentLayout} from '@/shared/ui';
 import {OrderCard} from '@/shared/ui/order';
-import {useGetOrdersQuery} from '@/slices/cart';
+import {useGetOrdersQuery} from '@/slices/cart/cart.rtk';
 
 export const OrdersList = (): ReactElement => {
   const {params} = useFilter();

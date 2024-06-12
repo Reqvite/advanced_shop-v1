@@ -1,8 +1,10 @@
 import {Box} from '@mui/material';
-import {ReactElement, Suspense} from 'react';
+import {ReactElement} from 'react';
 import {reviewStyles} from '@/app/theme/styles';
-import {AuthForm, CreateReviewForm} from '@/components/modalContent';
+import {AuthForm} from '@/components/modalContent';
+import CreateReviewForm from '@/components/modalContent/CreateReviewForm';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
+import {useReviewActions} from '@/shared/lib/hooks/useReviewActions';
 import {ReviewI} from '@/shared/types/review';
 import {Button, List, Loader} from '@/shared/ui';
 import {ReviewItem} from '@/shared/ui/review/ui/ReviewItem';
@@ -25,13 +27,7 @@ const ProductReviews = ({id}: Props): ReactElement => {
   const onAddReviewClick = (): void => {
     dispatch(
       modalActions.openModal({
-        children: user ? (
-          <Suspense fallback={<Loader />}>
-            <CreateReviewForm />
-          </Suspense>
-        ) : (
-          <AuthForm />
-        )
+        children: user ? <CreateReviewForm useReviewActions={useReviewActions} /> : <AuthForm />
       })
     );
   };

@@ -17,7 +17,7 @@ import {
 import {
   useGetProductsQuantityByCategoriesQuery,
   useUpdateWishlistMutation
-} from '@/slices/products';
+} from '@/slices/products/products.rtk';
 import {getFilterDefaultValues} from '../model/helpers';
 import {filterOptions, sortFilterOptions} from '../model/options';
 import {MobileFilters} from './MobileFilters';

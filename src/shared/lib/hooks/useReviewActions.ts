@@ -1,6 +1,6 @@
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {CreateReviewI, UpdateReviewI} from '@/shared/types/review';
-import {productsApi} from '@/slices/products';
+import {productsApi} from '@/slices/products/products.rtk';
 import {
   useCreateReviewMutation,
   useDeleteReviewMutation,

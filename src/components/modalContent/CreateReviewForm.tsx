@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import {ReactElement} from 'react';
 import {useLocation} from 'react-router-dom';
 import {useAppDispatch} from '@/shared/lib/hooks';
-import {useReviewActions} from '@/shared/lib/hooks/useReviewActions';
+import {UseReviewActionsType} from '@/shared/lib/hooks/useReviewActions';
 import {createReviewSchema, replyReviewSchema} from '@/shared/lib/yup/createReview.schema';
 import {ReviewModel} from '@/shared/models/reviewModel';
 import {FormOption, FormVariantsEnum} from '@/shared/types/form';
@@ -16,6 +16,7 @@ type Props = {
   reviewId?: string;
   title?: string;
   isReply?: boolean;
+  useReviewActions: UseReviewActionsType;
 };
 
 const createReviewOptions: FormOption<FormVariantsEnum>[] = [
@@ -46,12 +47,13 @@ const replyOptions: FormOption<FormVariantsEnum>[] = [
   }
 ];
 
-const CreateReviewForm = ({
+export const CreateReviewForm = ({
   defaultValues,
   title,
   isReply,
   isEdit,
-  reviewId
+  reviewId,
+  useReviewActions
 }: Props): ReactElement => {
   const dispatch = useAppDispatch();
   const {pathname} = useLocation();

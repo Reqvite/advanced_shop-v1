@@ -8,7 +8,7 @@ import {shoppingCartSchema} from '@/shared/lib/yup/shoppingCart.schema';
 import {ShoppingCartModel} from '@/shared/models/shoppingCartModel';
 import {priceService} from '@/shared/services';
 import {Flex, PageWrapper} from '@/shared/ui';
-import {useGetCartQuery} from '@/slices/cart';
+import {useGetCartQuery} from '@/slices/cart/cart.rtk';
 import {useGetCountriesQuery, useGetCountryCityMutation} from '@/slices/location';
 import {additionalInfoOptions, confirmationOptions, getShoppingCartOptions} from '../model/options';
 import {AdditionalInfo} from './AdditionalInfo';
