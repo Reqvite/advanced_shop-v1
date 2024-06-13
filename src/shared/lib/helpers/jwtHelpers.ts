@@ -9,7 +9,7 @@ export const getDecodedToken = (token: string): JwtPayload | undefined => {
       return jwtDecode<JwtPayload>(token);
     }
   } catch {
-    notificationService.error(ErrorMessages.ERROR);
+    notificationService.error(ErrorMessages.AUTHORIZATION_ERROR());
     throw new Error();
   }
 };
