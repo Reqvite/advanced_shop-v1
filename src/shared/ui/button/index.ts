@@ -1,5 +1,5 @@
 export {AddToCartButton} from './AddToCartButton';
-export {AuthMenuButton} from './AuthMenuButton';
+export {AuthMenuButton} from './AuthMenuButton/AuthMenuButton';
 export {Button} from './Button';
 export {CartButton} from './CartButton';
 export {CloseButton} from './CloseButton';

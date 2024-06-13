@@ -1,4 +1,5 @@
 import {createSlice, isAnyOf, PayloadAction} from '@reduxjs/toolkit';
+import {UserRole} from '@/shared/enums/roles.enum';
 import {CartItem} from '@/shared/types/cart';
 import {User, UserWishlistType} from '@/shared/types/user/user';
 import {currentUser, login, logout, refreshToken, register} from './actions';
@@ -7,6 +8,7 @@ type State = {
   user: User | null;
   accessToken: string | null;
   refreshToken: string | null;
+  roles?: UserRole[];
   isLoading: boolean;
 };
 
@@ -14,6 +16,7 @@ const initialState: State = {
   user: null,
   accessToken: null,
   refreshToken: null,
+  roles: undefined,
   isLoading: false
 };
 
@@ -46,16 +49,20 @@ const {reducer, actions, name} = createSlice({
   extraReducers(builder) {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.accessToken = action.payload.tokens.accessToken;
-        state.refreshToken = action.payload.tokens.refreshToken;
+        const {data, decodedToken} = action.payload;
+        state.user = data.user;
+        state.accessToken = data.tokens.accessToken;
+        state.refreshToken = data.tokens.refreshToken;
+        state.roles = decodedToken?.roles;
       })
       .addCase(currentUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
-        state.accessToken = action.payload?.accessToken;
-        state.refreshToken = action.payload?.refreshToken;
+        const {data, decodedToken} = action.payload;
+        state.accessToken = data.accessToken;
+        state.refreshToken = data.refreshToken;
+        state.roles = decodedToken?.roles;
       })
       .addMatcher(
         isAnyOf(login.pending, register.pending, currentUser.pending, logout.pending),

@@ -9,7 +9,7 @@ const themePersistConfig = {
 const userPersistConfig = {
   key: 'user',
   storage,
-  blacklist: ['showModal']
+  blacklist: ['isLoading']
 };
 
 const filterPersistConfig = {
