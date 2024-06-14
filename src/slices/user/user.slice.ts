@@ -60,6 +60,7 @@ const {reducer, actions, name} = createSlice({
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
         const {data, decodedToken} = action.payload;
+        console.log(action.payload);
         state.accessToken = data.accessToken;
         state.refreshToken = data.refreshToken;
         state.roles = decodedToken?.roles;
