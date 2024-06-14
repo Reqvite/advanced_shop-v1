@@ -1,19 +1,21 @@
 import {ReactNode} from 'react';
 import {Navigate, useLocation} from 'react-router-dom';
-import {useAuth} from '@/shared/lib/hooks';
+import {UserRole} from '@/shared/enums/roles.enum';
+import {usePermissions} from '@/shared/lib/hooks';
 import {getRouteMain} from './routeConfig';
 
 interface RequireAuthProps {
   children: ReactNode;
+  roles: UserRole[];
 }
 
-export function ProtectedRoute({children}: RequireAuthProps): ReactNode | null {
+export function ProtectedRoute({children, roles}: RequireAuthProps): ReactNode | null {
   const location = useLocation();
-  const auth = useAuth();
+  const hasAccess = usePermissions(roles);
 
-  if (!auth.user) {
+  if (!hasAccess) {
     return <Navigate to={getRouteMain()} state={{from: location}} replace />;
   }
 
-  return !auth.user ? null : children;
+  return !hasAccess ? null : children;
 }

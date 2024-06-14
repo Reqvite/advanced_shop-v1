@@ -1,6 +1,7 @@
 import {ReactNode} from 'react';
 import {RouteProps} from 'react-router-dom';
 import {
+  DashboardPage,
   MainPage,
   OrdersPage,
   PrivacyPolicyPage,
@@ -10,6 +11,7 @@ import {
   TermsAndConditionsPage,
   WishlistPage
 } from '@/pages';
+import {UserRole} from '@/shared/enums/roles.enum';
 
 export enum AppRoutes {
   MAIN = 'main',
@@ -20,11 +22,12 @@ export enum AppRoutes {
   TERMS_AND_CONDITIONS = 'terms-and-conditions',
   ORDERS = 'orders',
   SUCCESS = 'success',
+  DASHBOARD = 'dashboard',
   NOT_FOUND = 'not-found'
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
-  needAuth?: boolean;
+  rolesWithAccess?: UserRole[];
   children?: {index?: boolean; path: string; element?: ReactNode; breadcrumbName?: string}[];
   breadcrumbName?: string;
 };
@@ -60,13 +63,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteWishlist(),
     element: <WishlistPage />,
     breadcrumbName: 'Wishlist',
-    needAuth: true
+    rolesWithAccess: [UserRole.USER]
   },
   [AppRoutes.ORDERS]: {
     path: getRouteOrders(),
     element: <OrdersPage />,
     breadcrumbName: 'Orders history',
-    needAuth: true
+    rolesWithAccess: [UserRole.USER]
   },
   [AppRoutes.PRIVACY_POLICY]: {
     path: getRoutePrivacyPolicy(),
@@ -82,13 +85,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteSuccess(),
     element: <SuccessPage />,
     breadcrumbName: 'Success',
-    needAuth: true
+    rolesWithAccess: [UserRole.USER]
   },
   [AppRoutes.SHOPPING_CART]: {
     path: getRouteShoppingCart(),
     element: <ShoppingCartPage />,
     breadcrumbName: 'Shopping cart',
-    needAuth: true
+    rolesWithAccess: [UserRole.USER]
   },
   [AppRoutes.PRODUCT_DETAILS]: {
     path: `${getRouteProductDetails(':id')}/*`,
@@ -104,6 +107,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         breadcrumbName: 'Questions'
       }
     ]
+  },
+  [AppRoutes.DASHBOARD]: {
+    path: getRouteDashboard(),
+    element: <DashboardPage />,
+    breadcrumbName: 'Dashboard',
+    rolesWithAccess: [UserRole.ADMIN]
   },
   [AppRoutes.NOT_FOUND]: {
     path: '*',

@@ -11,7 +11,11 @@ export const AppRouter = (): ReactElement => {
       path={route.path}
       element={
         <Suspense fallback={<Loader fullHeight />}>
-          {route.needAuth ? <ProtectedRoute>{route.element}</ProtectedRoute> : route.element}
+          {route.rolesWithAccess ? (
+            <ProtectedRoute roles={route.rolesWithAccess}>{route.element}</ProtectedRoute>
+          ) : (
+            route.element
+          )}
         </Suspense>
       }
     >

@@ -10,4 +10,5 @@ export const TermsAndConditionsPage = lazy(
 export const OrdersPage = lazy(() => import('@/pages/OrdersPage/OrdersPage'));
 export const SuccessPage = lazy(() => import('@/pages/SuccessPage/SuccessPage'));
 export const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage/PrivacyPolicyPage'));
+export const DashboardPage = lazy(() => import('@/pages/Dashboard/DashboardPage'));
 export {ErrorPage} from './ErrorPage/ErrorPage';
