@@ -1,6 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AsyncThunkConfig} from '@/app/providers/StoreProvider/config/types';
 import {UsersApiPath} from '@/shared/enums/apiPath.enum';
+import {getDecodedToken} from '@/shared/lib/helpers/jwtHelpers';
 import {
   User,
   UserLoginRequestDto,
@@ -15,10 +16,11 @@ const login = createAsyncThunk<UserLoginResponseDto, UserLoginRequestDto, AsyncT
   UsersApiPath.LOG_IN,
   async (body, {dispatch, extra: {$publicApi, notificationService}}) => {
     const response = await $publicApi.post(UsersApiPath.LOG_IN, body);
+    const decodedToken = getDecodedToken(response.data.tokens.accessToken);
     notificationService.success('Login successfully.');
     dispatch(modalActions.closeModal());
 
-    return response.data;
+    return {data: response.data, decodedToken};
   }
 );
 
@@ -46,8 +48,9 @@ const refreshToken = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncTh
   UsersApiPath.REFRESH,
   async (_request, {extra: {$refreshApi}}) => {
     const response = await $refreshApi.post(UsersApiPath.REFRESH);
+    const decodedToken = getDecodedToken(response.data.tokens.accessToken);
 
-    return response.data;
+    return {data: response.data, decodedToken};
   }
 );
 

@@ -1,3 +1,4 @@
+import {UserRole} from '@/shared/enums/roles.enum';
 import {CartItem} from '../cart';
 
 export type User = {
@@ -21,16 +22,22 @@ export type UserRegisterRequestDto = {
 export type UserRegisterResponseDto = UserLoginResponseDto;
 
 export type UserLoginResponseDto = {
-  user: User;
-  tokens: {
-    accessToken: string;
-    refreshToken: string;
+  data: {
+    user: User;
+    tokens: {
+      accessToken: string;
+      refreshToken: string;
+    };
   };
+  decodedToken?: JwtPayload;
 };
 
 export type UserRefreshResponseDto = {
-  accessToken: string;
-  refreshToken: string;
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  decodedToken?: JwtPayload;
 };
 
 export type UserLoginRequestDto = {
@@ -39,3 +46,7 @@ export type UserLoginRequestDto = {
 };
 
 export type UserSignUpDto = User & {password: string};
+
+export type JwtPayload = {
+  roles: UserRole[];
+};

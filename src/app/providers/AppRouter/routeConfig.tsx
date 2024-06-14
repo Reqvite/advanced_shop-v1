@@ -42,6 +42,7 @@ export const getRouteWishlist = () => `/wishlist`;
 export const getRouteSuccess = () => `/success`;
 export const getRoutePrivacyPolicy = () => `/privacy-policy`;
 export const getRouteTermsAndConditions = () => `/terms`;
+export const getRouteDashboard = () => `/dashboard`;
 export const getRouteOrders = () => `/orders`;
 export const getRouteShoppingCart = () => `/shopping-cart`;
 export const getRouteProductDetailsReviews = (id: string) => `/products/${id}/reviews`;

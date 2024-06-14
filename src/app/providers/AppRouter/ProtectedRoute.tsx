@@ -7,7 +7,7 @@ interface RequireAuthProps {
   children: ReactNode;
 }
 
-export function ProtectedRoute({children}: RequireAuthProps) {
+export function ProtectedRoute({children}: RequireAuthProps): ReactNode | null {
   const location = useLocation();
   const auth = useAuth();
 

@@ -1,13 +1,13 @@
-import {useSelector} from 'react-redux';
 import {User} from '@/shared/types/user/user';
 import {selectAuthAccessToken, selectAuthUser} from '@/slices/user';
+import {useAppSelector} from './useAppSelector.hook';
 
 export const useAuth = (): {
   user: User | null;
   accessToken: string | null;
 } => {
-  const user = useSelector(selectAuthUser);
-  const accessToken = useSelector(selectAuthAccessToken);
+  const user = useAppSelector(selectAuthUser);
+  const accessToken = useAppSelector(selectAuthAccessToken);
 
   return {
     user,
