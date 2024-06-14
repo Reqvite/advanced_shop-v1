@@ -3,7 +3,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import {Box, IconButton, IconButtonProps} from '@mui/material';
 import {MouseEvent, ReactElement, useState} from 'react';
 import {AuthForm} from '@/components/modalContent';
-import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
+import {UserRole} from '@/shared/enums/roles.enum';
+import {useAppDispatch, useAuth, usePermissions} from '@/shared/lib/hooks';
 import {actions as modalActions} from '@/slices/modal';
 import {actions as userActions} from '@/slices/user';
 import {SubNavItem} from '../../popover/popoverList/PopoverSubNavItem';
@@ -30,7 +31,7 @@ export const AuthMenuButton = (props: Props): ReactElement => {
 
 function UserMenu(): ReactElement {
   const dispatch = useAppDispatch();
-  const {isAdminRole} = useAuth();
+  const hasAccess = usePermissions([UserRole.ADMIN]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const onOpenMenu = (event: MouseEvent<HTMLElement>): void => {
@@ -45,7 +46,7 @@ function UserMenu(): ReactElement {
     dispatch(userActions.logout());
   };
 
-  const menuItems = getMenuOptions({isAdminRole, onLogout});
+  const menuItems = getMenuOptions({isAdminRole: hasAccess, onLogout});
 
   return (
     <Box>
