@@ -48,7 +48,7 @@ const refreshToken = createAsyncThunk<UserRefreshResponseDto, undefined, AsyncTh
   UsersApiPath.REFRESH,
   async (_request, {extra: {$refreshApi}}) => {
     const response = await $refreshApi.post(UsersApiPath.REFRESH);
-    const decodedToken = getDecodedToken(response.data.tokens.accessToken);
+    const decodedToken = getDecodedToken(response.data.accessToken);
 
     return {data: response.data, decodedToken};
   }

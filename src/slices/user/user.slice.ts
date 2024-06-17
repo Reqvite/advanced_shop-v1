@@ -89,6 +89,7 @@ const {reducer, actions, name} = createSlice({
           state.accessToken = null;
           state.refreshToken = null;
           state.isLoading = false;
+          state.roles = undefined;
         }
       );
   }
