@@ -36,13 +36,7 @@ export const Tabs = <T extends string>({
   return (
     <Box width="100%">
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-        <MuiTabs
-          variant="fullWidth"
-          value={value}
-          onChange={onChangeTab}
-          aria-label="tabs"
-          sx={{justifyContent: 'space-around'}}
-        >
+        <MuiTabs variant="fullWidth" value={value} onChange={onChangeTab} aria-label="tabs">
           {options?.map((tab) => (
             <Tab
               key={tab.value}
