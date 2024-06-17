@@ -27,7 +27,7 @@ export enum AppRoutes {
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
-  rolesWithAccess?: UserRole[];
+  auth?: UserRole[];
   children?: {index?: boolean; path: string; element?: ReactNode; breadcrumbName?: string}[];
   breadcrumbName?: string;
 };
@@ -63,13 +63,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteWishlist(),
     element: <WishlistPage />,
     breadcrumbName: 'Wishlist',
-    rolesWithAccess: [UserRole.USER]
+    auth: [UserRole.USER]
   },
   [AppRoutes.ORDERS]: {
     path: getRouteOrders(),
     element: <OrdersPage />,
     breadcrumbName: 'Orders history',
-    rolesWithAccess: [UserRole.USER]
+    auth: [UserRole.USER]
   },
   [AppRoutes.PRIVACY_POLICY]: {
     path: getRoutePrivacyPolicy(),
@@ -85,13 +85,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteSuccess(),
     element: <SuccessPage />,
     breadcrumbName: 'Success',
-    rolesWithAccess: [UserRole.USER]
+    auth: [UserRole.USER]
   },
   [AppRoutes.SHOPPING_CART]: {
     path: getRouteShoppingCart(),
     element: <ShoppingCartPage />,
     breadcrumbName: 'Shopping cart',
-    rolesWithAccess: [UserRole.USER]
+    auth: [UserRole.USER]
   },
   [AppRoutes.PRODUCT_DETAILS]: {
     path: `${getRouteProductDetails(':id')}/*`,
@@ -112,7 +112,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteDashboard(),
     element: <DashboardPage />,
     breadcrumbName: 'Dashboard',
-    rolesWithAccess: [UserRole.ADMIN]
+    auth: [UserRole.ADMIN]
   },
   [AppRoutes.NOT_FOUND]: {
     path: '*',

@@ -17,5 +17,5 @@ export function ProtectedRoute({children, roles}: RequireAuthProps): ReactNode |
     return <Navigate to={getRouteMain()} state={{from: location}} replace />;
   }
 
-  return !hasAccess ? null : children;
+  return hasAccess ? children : null;
 }
