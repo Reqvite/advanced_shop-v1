@@ -24,6 +24,7 @@ const ProductsApiPath = {
 const CartApiPath = {
   COMPLETE: '/complete',
   ORDERS: '/orders',
+  ORDERS_STATISTIC: '/orders-statistic',
   CREATE_CHECKOUT_SESSION: '/create-checkout-session'
 };
 
