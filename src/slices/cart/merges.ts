@@ -1,5 +1,4 @@
-import {GetOrdersResponse} from '@/shared/types/cart';
-import {GetOrdersQuery} from './cart.rtk';
+import {GetOrdersQuery, GetOrdersResponse} from '@/shared/types/cart';
 
 const mergeOrdersResults = (
   currentCache: GetOrdersResponse,
