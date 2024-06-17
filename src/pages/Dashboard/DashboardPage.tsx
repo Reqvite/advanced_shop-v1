@@ -1,12 +1,31 @@
 import {ReactElement} from 'react';
+import {BarTimelineCard} from '@/components/charts';
 import {PageWrapper} from '@/shared/ui';
+import {useGetOrdersStatisticQuery} from '@/slices/dashboard/dashboard.rtk';
+
+const options = [
+  {
+    label: 'Weekly',
+    value: 'week'
+  },
+  {
+    label: 'Monthly',
+    value: 'month'
+  },
+  {
+    label: 'Quarterly',
+    value: 'quarter'
+  }
+];
 
 const DashboardPage = (): ReactElement => {
-  // const {data = [], isLoading} = useGetOrdersStatisticQuery({timeline: TimeLine.Week});
-
   return (
-    <PageWrapper isLoading={isLoading}>
-      {/* <Bar data={data} indexBy={data[0]?.indexBy} /> */}
+    <PageWrapper>
+      <BarTimelineCard
+        tabOptions={options}
+        title="Earnings by period"
+        useQuery={useGetOrdersStatisticQuery}
+      />
     </PageWrapper>
   );
 };

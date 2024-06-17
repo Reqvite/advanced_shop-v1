@@ -13,16 +13,20 @@ function appyProps(index: string): {
   };
 }
 
-type Props = {
+type Props<T> = {
   options: TabOptionsI[];
   defaultValue?: string;
-  onChange: (value: string) => void;
+  onChange: (value: T) => void;
 };
 
-export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => {
+export const Tabs = <T extends string>({
+  options,
+  defaultValue,
+  onChange
+}: Props<T>): ReactElement => {
   const [value, setValue] = useState(defaultValue || options[0].value);
 
-  const onChangeTab = (_: SyntheticEvent, value: string): void => {
+  const onChangeTab = (_: SyntheticEvent, value: T): void => {
     if (onChange) {
       onChange(value);
     }
@@ -32,7 +36,13 @@ export const Tabs = ({options, defaultValue, onChange}: Props): ReactElement => 
   return (
     <Box width="100%">
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-        <MuiTabs value={value} onChange={onChangeTab} aria-label="tabs">
+        <MuiTabs
+          variant="fullWidth"
+          value={value}
+          onChange={onChangeTab}
+          aria-label="tabs"
+          sx={{justifyContent: 'space-around'}}
+        >
           {options?.map((tab) => (
             <Tab
               key={tab.value}

@@ -3,7 +3,8 @@ enum ApiPathEnum {
   PRODUCTS = '/products',
   CART = '/cart',
   REVIEWS = '/reviews',
-  STRIPE = '/stripe'
+  STRIPE = '/stripe',
+  DASHBOARD = '/dashboard'
 }
 
 enum UsersApiPath {
@@ -24,8 +25,11 @@ const ProductsApiPath = {
 const CartApiPath = {
   COMPLETE: '/complete',
   ORDERS: '/orders',
-  ORDERS_STATISTIC: '/orders-statistic',
   CREATE_CHECKOUT_SESSION: '/create-checkout-session'
 };
 
-export {ApiPathEnum, CartApiPath, ProductsApiPath, UsersApiPath};
+const DashboardApiPath = {
+  ORDERS_STATISTIC: '/orders-statistic'
+};
+
+export {ApiPathEnum, CartApiPath, DashboardApiPath, ProductsApiPath, UsersApiPath};

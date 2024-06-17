@@ -1,36 +1,28 @@
-import {BarDatum} from '@nivo/bar';
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {store} from '@/app/providers/StoreProvider/config/store';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {NotificationMessage} from '@/shared/const/notificationMessages';
 import {ApiPathEnum, CartApiPath} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
-import {TimeLine} from '@/shared/enums/timeline.enum';
 import {forceRefetch, onQueryStartedToast} from '@/shared/lib/helpers';
 import {
   CartItem,
   CompleteOrderArgs,
   CompleteOrderResponse,
+  GetOrdersQuery,
   GetOrdersResponse
 } from '@/shared/types/cart';
-import {RequestFilterParams} from '@/shared/types/filter';
 import {CartProductI} from '@/shared/types/product';
 import {actions as userActions} from '../user';
 import {mergeOrdersResults} from './merges';
 import {onQueryCreateSessionStartedToast} from './onQueryStarted';
-import {getOrdersStatistic, getUserOrders} from './queries';
-
-export type GetOrdersQuery = RequestFilterParams | void;
-export type GetOrdersStatisticQuery = {timeline: TimeLine};
+import {getUserOrders} from './queries';
 
 export const cartApi = createApi({
   reducerPath: 'cartApi',
   baseQuery: axiosBaseQuery(),
   tagTypes: [RtkApiTagsEnum.Cart, RtkApiTagsEnum.Orders],
   endpoints: (builder) => ({
-    getOrdersStatistic: builder.query<BarDatum[] & {indexBy: string}, GetOrdersStatisticQuery>({
-      query: (params) => getOrdersStatistic(params)
-    }),
     getOrders: builder.query<GetOrdersResponse, GetOrdersQuery>({
       query: (params) => getUserOrders(params),
       serializeQueryArgs: ({endpointName}) => {
@@ -116,7 +108,6 @@ export const cartApi = createApi({
 });
 
 export const {
-  useGetOrdersStatisticQuery,
   useGetCartQuery,
   useDeleteItemByIdMutation,
   useUpdatedCartMutation,

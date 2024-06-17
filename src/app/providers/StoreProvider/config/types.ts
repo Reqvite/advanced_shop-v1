@@ -8,6 +8,7 @@ import {PersistPartial} from 'redux-persist/es/persistReducer';
 import {$protectedApi, $publicApi, $refreshApi} from '@/shared/api';
 import {NotificationService} from '@/shared/services';
 import {cartApi} from '@/slices/cart/cart.rtk';
+import {dashboardApi} from '@/slices/dashboard/dashboard.rtk';
 import {reducer as filterReducer} from '@/slices/filter';
 import {locationApi} from '@/slices/location';
 import {reducer as modalReducer} from '@/slices/modal';
@@ -26,6 +27,7 @@ type RootReducer = {
   [cartApi.reducerPath]: ReturnType<typeof cartApi.reducer>;
   [reviewsApi.reducerPath]: ReturnType<typeof reviewsApi.reducer>;
   [locationApi.reducerPath]: ReturnType<typeof locationApi.reducer>;
+  [dashboardApi.reducerPath]: ReturnType<typeof dashboardApi.reducer>;
 };
 
 type ExtraArguments = {

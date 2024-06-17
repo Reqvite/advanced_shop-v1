@@ -9,21 +9,6 @@ import {
 } from './model/default.const';
 import {getAxis} from './model/getAxis';
 
-const dataFromAPI = [
-  {month: 'January', sales: 1500, orders: 30},
-  {month: 'February', sales: 1800, orders: 35},
-  {month: 'March', sales: 2200, orders: 40},
-  {month: 'April', sales: 2500, orders: 45},
-  {month: 'May', sales: 2800, orders: 50},
-  {month: 'June', sales: 3000, orders: 55},
-  {month: 'July', sales: 3200, orders: 60},
-  {month: 'August', sales: 3500, orders: 65},
-  {month: 'September', sales: 3800, orders: 70},
-  {month: 'October', sales: 4000, orders: 75},
-  {month: 'November', sales: 4200, orders: 80},
-  {month: 'December', sales: 4500, orders: 85}
-];
-
 const defaultStyles = {
   height: 800,
   width: '100%'
@@ -37,7 +22,7 @@ type Props = ResponsiveBarSvgProps<BarDatum> & {
 };
 
 export const Bar = ({
-  data = dataFromAPI,
+  data,
   sx,
   keys = defaultKeys,
   indexBy = 'month',
@@ -74,6 +59,7 @@ export const Bar = ({
         defs={defs}
         axisBottom={axisBottomOptions}
         axisLeft={axisLeftOptions}
+        enableLabel={false}
         labelSkipWidth={12}
         labelSkipHeight={12}
         legends={defaultLegends}
