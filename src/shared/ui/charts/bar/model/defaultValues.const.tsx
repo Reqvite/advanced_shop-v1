@@ -1,11 +1,12 @@
-import {AxisOptions, BarProps} from '../../types';
+import {BarProps} from '../../types';
 
-const axisOptions: AxisOptions = {
+const axisOptions: BarProps['axisBottom'] = {
   tickSize: 5,
   tickPadding: 5,
-  tickRotation: 0,
+  tickRotation: 10,
   truncateTickAt: 0,
-  legendPosition: 'middle'
+  legendPosition: 'middle',
+  tickValues: 5
 };
 const defaultAxisBottomOptions: BarProps['axisBottom'] = {
   ...axisOptions,
@@ -38,7 +39,6 @@ const defs: BarProps['defs'] = [
     spacing: 10
   }
 ];
-
 const defaultLegends: BarProps['legends'] = [
   {
     dataFrom: 'keys',

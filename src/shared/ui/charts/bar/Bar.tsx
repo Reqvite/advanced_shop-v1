@@ -6,11 +6,11 @@ import {
   defaultKeys,
   defaultLegends,
   defs
-} from './model/default.const';
+} from './model/defaultValues.const';
 import {getAxis} from './model/getAxis';
 
 const defaultStyles = {
-  height: 800,
+  height: 500,
   width: '100%'
 };
 

@@ -1,6 +1,7 @@
 import {ReactElement} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {TimeLine} from '@/shared/enums/timeline.enum';
+import {priceService} from '@/shared/services';
 import {GetOrdersStatistic} from '@/shared/types/dashboard';
 import {TabOptionsI} from '@/shared/types/options';
 import {Loader} from '@/shared/ui';
@@ -31,7 +32,14 @@ export const BarTimelineCard = ({tabOptions, title, useQuery}: Props): ReactElem
       tabOptions={tabOptions}
       onChangeTab={onChangeTab}
       title={title}
-      ChartComponent={<Bar data={data} indexBy={data[0]?.indexBy} />}
+      ChartComponent={
+        <Bar
+          data={data}
+          labelFormat=".0s"
+          valueFormat={(value) => String(priceService.getFixedPrice(value))}
+          indexBy={data[0]?.indexBy}
+        />
+      }
     />
   );
 };
