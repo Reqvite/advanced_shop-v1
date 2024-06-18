@@ -1,5 +1,6 @@
 import {Box, SxProps} from '@mui/material';
 import {BarDatum, ResponsiveBar, ResponsiveBarSvgProps} from '@nivo/bar';
+import {ReactElement} from 'react';
 import {
   defaultAxisBottomOptions,
   defaultAxisLeftOptions,
@@ -31,7 +32,7 @@ export const Bar = ({
   leftLegend = 'count',
   ariaLabel = 'Bar',
   ...otherProps
-}: Props) => {
+}: Props): ReactElement => {
   const axisBottomOptions = getAxis({options: axisBottom, legend: indexBy});
   const axisLeftOptions = getAxis({options: axisLeft, legend: leftLegend});
 
