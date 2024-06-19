@@ -1,5 +1,11 @@
 import {ReactNode} from 'react';
 
+export interface Option {
+  label: string;
+  value: number;
+  _id: string;
+}
+
 export interface LabelOptionsI {
   label: ReactNode;
   value: number | string;

@@ -1,10 +1,5 @@
+import {Option, TabOptionsI} from '@/shared/types/options';
 import {enumLabelResolver} from './enumLabelResolver';
-
-interface Option {
-  label: string;
-  value: number;
-  _id: string;
-}
 
 const sortOptions: Option[] = Object.entries(enumLabelResolver.sortBy).map(([value, label]) => ({
   label,
@@ -32,4 +27,12 @@ const brandsOptions: Option[] = Object.entries(enumLabelResolver.brands).map(([v
   _id: value
 }));
 
-export {brandsOptions, categoriesOptions, sortOptions, tagOptions};
+const timelineOptions: TabOptionsI[] = Object.entries(enumLabelResolver.timeline).map(
+  ([value, label]) => ({
+    label,
+    value,
+    _id: value
+  })
+);
+
+export {brandsOptions, categoriesOptions, sortOptions, tagOptions, timelineOptions};

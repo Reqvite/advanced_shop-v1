@@ -2,8 +2,14 @@ import {BrandsEnum} from '@/shared/enums/brands.enum';
 import {CategoriesEnum} from '@/shared/enums/categories.enum';
 import {SortByEnum} from '@/shared/enums/sortBy.enum';
 import {TagsEnum} from '@/shared/enums/tags.enum';
+import {TimeLine} from '@/shared/enums/timeline.enum';
 
 export const enumLabelResolver = {
+  timeline: {
+    [TimeLine.Month]: 'Monthly',
+    [TimeLine.Week]: 'Weekly',
+    [TimeLine.Quarter]: 'Quarterly'
+  },
   sortBy: {
     [SortByEnum.Newest]: 'Newest',
     [SortByEnum.PRICE_LOW_TO_HIGH]: 'Price - Low to High',
