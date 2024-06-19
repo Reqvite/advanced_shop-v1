@@ -14,7 +14,7 @@ const DashboardPage = (): ReactElement => {
           title="Earnings by"
           useQuery={useGetOrdersStatisticQuery}
         />
-        <ChoroplethCard title="World Purchase Map" sx={{width: '50%'}} />
+        <ChoroplethCard title="Orders Distribution by Country Map" sx={{width: '50%'}} />
       </Flex>
     </PageWrapper>
   );

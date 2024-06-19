@@ -1,10 +1,9 @@
 import {ChoroplethProps} from '@nivo/geo';
 
-export const defaultLegends: ChoroplethProps['legends'] = [
+const defaultLegends: ChoroplethProps['legends'] = [
   {
     anchor: 'bottom-left',
     direction: 'column',
-    justify: true,
     translateX: 20,
     translateY: -100,
     itemsSpacing: 0,
@@ -25,4 +24,7 @@ export const defaultLegends: ChoroplethProps['legends'] = [
     ]
   }
 ];
-export const defaultDomain = [0, 1000000];
+const choroplethDefaultValueFormat = '.0s';
+const defaultDomain = [0, 1000];
+
+export {choroplethDefaultValueFormat, defaultDomain, defaultLegends};

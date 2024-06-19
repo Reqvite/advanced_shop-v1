@@ -3,7 +3,11 @@ import {axiosBaseQuery} from '@/shared/api/baseQuery';
 import {ApiPathEnum, DashboardApiPath} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {TimeLine} from '@/shared/enums/timeline.enum';
-import {BarDatumWithIndex, GetOrdersStatisticQuery} from '@/shared/types/dashboard';
+import {
+  BarDatumWithIndex,
+  GetOrdersGeoResponse,
+  GetOrdersStatisticQuery
+} from '@/shared/types/dashboard';
 import {getOrdersStatistic} from './queries';
 import {transformGetOrdersStatistic} from './transform';
 
@@ -16,7 +20,7 @@ export const dashboardApi = createApi({
       query: (params) => getOrdersStatistic(params),
       transformResponse: transformGetOrdersStatistic
     }),
-    getOrdersGeo: builder.query<BarDatumWithIndex<TimeLine>[], void>({
+    getOrdersGeo: builder.query<GetOrdersGeoResponse, void>({
       query: () => ({
         url: `${ApiPathEnum.DASHBOARD}${DashboardApiPath.ORDERS_GEO}`,
         needAuth: true
