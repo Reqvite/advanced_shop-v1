@@ -11,6 +11,7 @@ export class ShoppingCartModel {
   public zip: string;
   public notes?: string;
   public newsLatterAgreement?: boolean;
+  public iso3?: string;
   public privacyPolicyAgreement: boolean;
 
   constructor({user}: {user?: User | null}) {
@@ -25,5 +26,6 @@ export class ShoppingCartModel {
     this.notes = '';
     this.newsLatterAgreement = false;
     this.privacyPolicyAgreement = false;
+    this.iso3 = '';
   }
 }

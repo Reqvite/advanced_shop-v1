@@ -1,3 +1,4 @@
+import {SxProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {TimeLine} from '@/shared/enums/timeline.enum';
@@ -11,11 +12,12 @@ type Props = {
   title?: string;
   useQuery: GetOrdersStatistic;
   tabOptions?: TabOptionsI[];
+  sx?: SxProps;
 };
 
 const defaultParamName = 'timeline';
 
-export const BarTimelineCard = ({tabOptions, title, useQuery}: Props): ReactElement => {
+export const BarTimelineCard = ({tabOptions, title, useQuery, sx}: Props): ReactElement => {
   const [params, setParams] = useSearchParams();
   const timeline = (params.get(defaultParamName) as TimeLine) || TimeLine.Month;
   const {data = [], isLoading} = useQuery({timeline});
@@ -32,6 +34,7 @@ export const BarTimelineCard = ({tabOptions, title, useQuery}: Props): ReactElem
       tabOptions={tabOptions}
       onChangeTab={onChangeTab}
       title={title}
+      sx={sx}
       ChartComponent={
         <Bar
           data={data}

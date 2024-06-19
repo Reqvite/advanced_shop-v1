@@ -1,5 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
+import {ApiPathEnum, DashboardApiPath} from '@/shared/enums/apiPath.enum';
 import {RtkApiTagsEnum} from '@/shared/enums/rtkTags.enum';
 import {TimeLine} from '@/shared/enums/timeline.enum';
 import {BarDatumWithIndex, GetOrdersStatisticQuery} from '@/shared/types/dashboard';
@@ -14,8 +15,14 @@ export const dashboardApi = createApi({
     getOrdersStatistic: builder.query<BarDatumWithIndex<TimeLine>[], GetOrdersStatisticQuery>({
       query: (params) => getOrdersStatistic(params),
       transformResponse: transformGetOrdersStatistic
+    }),
+    getOrdersGeo: builder.query<BarDatumWithIndex<TimeLine>[], void>({
+      query: () => ({
+        url: `${ApiPathEnum.DASHBOARD}${DashboardApiPath.ORDERS_GEO}`,
+        needAuth: true
+      })
     })
   })
 });
 
-export const {useGetOrdersStatisticQuery} = dashboardApi;
+export const {useGetOrdersStatisticQuery, useGetOrdersGeoQuery} = dashboardApi;

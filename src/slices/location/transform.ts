@@ -7,7 +7,8 @@ export const transformCountriesResponse = (items: CountryI[]): AutoCompleteOptio
   return items
     .map((item) => ({
       label: item.name,
-      _id: item.name
+      _id: item.name,
+      iso3: item.iso3
     }))
     .filter((item) => {
       if (countries.has(item.label)) {

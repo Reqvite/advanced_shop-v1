@@ -12,10 +12,10 @@ interface BarDatumVariantsI {
   [TimeLine.Month]: {
     month: number;
   };
-  [TimeLine.Quarter]: {quarter: number};
   [TimeLine.Week]: {
     week: number;
   };
+  [TimeLine.Quarter]: {quarter: number};
 }
 
 type BarDatumWithIndex<T extends TimeLine> = BaseBarDatum & BarDatumVariantsI[T];

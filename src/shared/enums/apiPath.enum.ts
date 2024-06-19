@@ -29,7 +29,8 @@ const CartApiPath = {
 };
 
 const DashboardApiPath = {
-  ORDERS_STATISTIC: '/orders-statistic'
+  ORDERS_STATISTIC: '/orders-statistic',
+  ORDERS_GEO: '/orders-geo'
 };
 
 export {ApiPathEnum, CartApiPath, DashboardApiPath, ProductsApiPath, UsersApiPath};
