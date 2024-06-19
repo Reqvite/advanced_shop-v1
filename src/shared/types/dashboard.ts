@@ -12,9 +12,11 @@ interface BarDatumVariantsI {
   [TimeLine.Month]: {
     month: number;
   };
-  [TimeLine.Quarter]: {quarter: number};
   [TimeLine.Week]: {
     week: number;
+  };
+  [TimeLine.Quarter]: {
+    quarter: number;
   };
 }
 

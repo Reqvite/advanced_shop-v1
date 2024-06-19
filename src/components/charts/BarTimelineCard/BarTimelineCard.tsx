@@ -14,6 +14,7 @@ type Props = {
 };
 
 const defaultParamName = 'timeline';
+const labelFormat = '.0s';
 
 export const BarTimelineCard = ({tabOptions, title, useQuery}: Props): ReactElement => {
   const [params, setParams] = useSearchParams();
@@ -31,11 +32,11 @@ export const BarTimelineCard = ({tabOptions, title, useQuery}: Props): ReactElem
       tabDefaultValue={timeline}
       tabOptions={tabOptions}
       onChangeTab={onChangeTab}
-      title={title}
+      title={`${title} ${timeline}`}
       ChartComponent={
         <Bar
           data={data}
-          labelFormat=".0s"
+          labelFormat={labelFormat}
           valueFormat={(value) => String(priceService.getFixedPrice(value))}
           indexBy={data[0]?.indexBy}
         />
