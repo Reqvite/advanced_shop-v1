@@ -4,6 +4,7 @@ import {
   useUpdatedCartMutation
 } from '@/slices/cart/cart.rtk';
 import {ShoppingCartModel} from '../models/shoppingCartModel';
+import {RequestFilterParams} from './filter';
 import {OrderI} from './order';
 import {ProductI} from './product';
 
@@ -33,6 +34,7 @@ type UpdateCartMutation = typeof useUpdatedCartMutation;
 type AddToCartMutation = typeof useAddToCartMutation;
 
 type CartItem = {_id: string; quantity: number};
+type GetOrdersQuery = RequestFilterParams | void;
 
 export {
   type AddToCartMutation,
@@ -41,6 +43,7 @@ export {
   type CompleteOrderResponse,
   type DeleteItemByIdMutation,
   type GetCartResponse,
+  type GetOrdersQuery,
   type GetOrdersResponse,
   type UpdateCartMutation
 };

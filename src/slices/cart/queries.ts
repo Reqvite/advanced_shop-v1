@@ -1,28 +1,13 @@
 import {ApiPathEnum, CartApiPath} from '@/shared/enums/apiPath.enum';
-import {encodeSearchParams} from '@/shared/lib/helpers';
+import {buildGetRequestOptions} from '@/shared/lib/helpers/buildGetRequestOptions';
+import {GetOrdersQuery} from '@/shared/types/cart';
 import {RequestOptions} from '@/shared/types/requestOptions';
-import {GetOrdersQuery} from './cart.rtk';
-
-const buildGetCartRequestOptions = ({
-  params,
-  path = '',
-  needAuth
-}: {
-  params: GetOrdersQuery;
-  path?: string;
-  needAuth?: boolean;
-}): RequestOptions => {
-  if (!params) {
-    return {url: ApiPathEnum.CART};
-  }
-
-  return {
-    url: `${ApiPathEnum.CART}${path}`,
-    params: encodeSearchParams(params),
-    needAuth
-  };
-};
 
 export const getUserOrders = (params: GetOrdersQuery): RequestOptions => {
-  return buildGetCartRequestOptions({params, path: CartApiPath.ORDERS, needAuth: true});
+  return buildGetRequestOptions<GetOrdersQuery>({
+    apiPath: ApiPathEnum.CART,
+    params,
+    path: CartApiPath.ORDERS,
+    needAuth: true
+  });
 };

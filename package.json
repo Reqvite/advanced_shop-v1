@@ -19,6 +19,8 @@
     "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
+    "@nivo/bar": "^0.87.0",
+    "@nivo/core": "^0.87.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@stripe/stripe-js": "^3.5.0",
     "axios": "^1.6.8",

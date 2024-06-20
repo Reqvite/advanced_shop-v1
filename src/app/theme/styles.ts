@@ -371,3 +371,12 @@ export const reviewStyles = {
     pr: 1
   }
 };
+
+export const chartCardStyles = {
+  cardBox: {
+    padding: 2,
+    boxShadow: 'rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px',
+    gap: 2,
+    borderRadius: '10px'
+  }
+};

@@ -9,16 +9,14 @@ import {
   CartItem,
   CompleteOrderArgs,
   CompleteOrderResponse,
+  GetOrdersQuery,
   GetOrdersResponse
 } from '@/shared/types/cart';
-import {RequestFilterParams} from '@/shared/types/filter';
 import {CartProductI} from '@/shared/types/product';
 import {actions as userActions} from '../user';
 import {mergeOrdersResults} from './merges';
 import {onQueryCreateSessionStartedToast} from './onQueryStarted';
 import {getUserOrders} from './queries';
-
-export type GetOrdersQuery = RequestFilterParams | void;
 
 export const cartApi = createApi({
   reducerPath: 'cartApi',
