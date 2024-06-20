@@ -16,16 +16,22 @@ const maxRouteLength = 3;
 type Props = PropsWithChildren & {
   isLoading?: boolean;
   title?: string;
+  withScroll?: boolean;
 };
 
-export const PageWrapper = ({children, isLoading, title}: Props): ReactElement => {
+export const PageWrapper = ({
+  children,
+  isLoading,
+  title,
+  withScroll = true
+}: Props): ReactElement => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.split('/').length <= maxRouteLength) {
+    if (location.pathname.split('/').length <= maxRouteLength && withScroll) {
       scrollToTop();
     }
-  }, [location]);
+  }, [location, withScroll]);
 
   if (isLoading) {
     return <Loader fullHeight />;
