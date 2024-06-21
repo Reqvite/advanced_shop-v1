@@ -18,7 +18,6 @@ export const Choropleth = ({
   data,
   sx,
   features = map.features,
-  domain,
   valueFormat = choroplethDefaultValueFormat,
   ...otherProps
 }: Props): ReactElement => {
@@ -28,7 +27,6 @@ export const Choropleth = ({
         data={data}
         margin={{top: 100, right: 0, bottom: 0, left: 0}}
         features={features}
-        domain={domain}
         valueFormat={valueFormat}
         legends={defaultLegends}
         colors="nivo"
@@ -46,10 +44,6 @@ export const Choropleth = ({
         borderColor="#152538"
         fillColor="1"
         role="1"
-        onMouseMove={() => {}}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        onClick={() => {}}
         {...otherProps}
       />
     </Box>
