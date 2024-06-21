@@ -25,6 +25,5 @@ const defaultLegends: ChoroplethProps['legends'] = [
   }
 ];
 const choroplethDefaultValueFormat = '.0s';
-const defaultDomain = [0, 1000];
 
-export {choroplethDefaultValueFormat, defaultDomain, defaultLegends};
+export {choroplethDefaultValueFormat, defaultLegends};
