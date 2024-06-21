@@ -3,7 +3,7 @@ import {BarProps} from '../../types';
 const axisOptions: BarProps['axisBottom'] = {
   tickSize: 5,
   tickPadding: 5,
-  tickRotation: 10,
+  tickRotation: 15,
   truncateTickAt: 0,
   legendPosition: 'middle',
   tickValues: 5
@@ -63,5 +63,15 @@ const defaultLegends: BarProps['legends'] = [
     ]
   }
 ];
+const barLabelFormat = '.0s';
+const barValueFormat = '.2s';
 
-export {defaultAxisBottomOptions, defaultAxisLeftOptions, defaultKeys, defaultLegends, defs};
+export {
+  barLabelFormat,
+  barValueFormat,
+  defaultAxisBottomOptions,
+  defaultAxisLeftOptions,
+  defaultKeys,
+  defaultLegends,
+  defs
+};

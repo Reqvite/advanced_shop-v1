@@ -2,9 +2,11 @@ import {defaultTax} from '@/shared/const/product.const';
 import {PriceI} from '@/shared/types/price';
 import {CartProductI} from '@/shared/types/product';
 
+const defaultFixedValue = 2;
+
 class PriceService {
-  getFixedPrice(price: number): number {
-    return parseFloat(price.toFixed(2));
+  getFixedPrice(price: number, fixedValue = defaultFixedValue): number {
+    return parseFloat(price.toFixed(fixedValue));
   }
 
   getDiscountPrice({discount, price}: PriceI): number {

@@ -2,6 +2,8 @@ import {Box, SxProps} from '@mui/material';
 import {BarDatum, ResponsiveBar, ResponsiveBarSvgProps} from '@nivo/bar';
 import {ReactElement} from 'react';
 import {
+  barLabelFormat,
+  barValueFormat,
   defaultAxisBottomOptions,
   defaultAxisLeftOptions,
   defaultKeys,
@@ -25,12 +27,14 @@ type Props = ResponsiveBarSvgProps<BarDatum> & {
 export const Bar = ({
   data,
   sx,
-  keys = defaultKeys,
   indexBy = 'month',
-  axisBottom = defaultAxisBottomOptions,
-  axisLeft = defaultAxisLeftOptions,
   leftLegend = 'count',
   ariaLabel = 'Bar',
+  keys = defaultKeys,
+  axisBottom = defaultAxisBottomOptions,
+  axisLeft = defaultAxisLeftOptions,
+  labelFormat = barLabelFormat,
+  valueFormat = barValueFormat,
   ...otherProps
 }: Props): ReactElement => {
   const axisBottomOptions = getAxis({options: axisBottom, legend: indexBy});
@@ -46,6 +50,7 @@ export const Bar = ({
         margin={{top: 50, right: 130, bottom: 50, left: 60}}
         padding={0.3}
         valueScale={{type: 'symlog'}}
+        valueFormat={valueFormat}
         indexScale={{type: 'band', round: true}}
         colors={{scheme: 'accent'}}
         borderColor={{
@@ -58,14 +63,15 @@ export const Bar = ({
         }}
         groupMode="grouped"
         defs={defs}
+        labelFormat={labelFormat}
+        legends={defaultLegends}
         axisBottom={axisBottomOptions}
         axisLeft={axisLeftOptions}
+        ariaLabel={ariaLabel}
         enableLabel={false}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        legends={defaultLegends}
         role="application"
-        ariaLabel={ariaLabel}
         barAriaLabel={(e) => e.id + ': ' + e.formattedValue + `In ${indexBy}` + e.indexValue}
         {...otherProps}
       />

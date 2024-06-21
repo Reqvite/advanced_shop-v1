@@ -52,8 +52,10 @@ export const ShoppingCart = ({tax = defaultTax}: Props): ReactElement | null => 
   });
 
   const handleFormSubmit = handleSubmit((data): void => {
+    const foundedCountry = countries?.find((country) => country._id === data.country);
+
     onCreateCheckoutSession({
-      orderInformation: data as ShoppingCartModel,
+      orderInformation: {...data, iso3: foundedCountry?.iso3} as ShoppingCartModel,
       products: user?.cart,
       totalPrice: priceService.getTotal(products, tax)
     });

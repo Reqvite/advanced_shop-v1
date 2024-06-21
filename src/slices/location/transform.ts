@@ -1,13 +1,14 @@
 import {nanoid} from '@reduxjs/toolkit';
-import {CountryI} from '@/shared/types/country';
+import {CountryI, GetCountryResponse} from '@/shared/types/country';
 import {AutoCompleteOptionsI} from '@/shared/types/options';
 
-export const transformCountriesResponse = (items: CountryI[]): AutoCompleteOptionsI[] => {
+export const transformCountriesResponse = (items: CountryI[]): GetCountryResponse[] => {
   const countries = new Set();
   return items
     .map((item) => ({
       label: item.name,
-      _id: item.name
+      _id: item.name,
+      iso3: item.iso3
     }))
     .filter((item) => {
       if (countries.has(item.label)) {

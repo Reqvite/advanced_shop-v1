@@ -1,5 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {axiosBaseQuery} from '@/shared/api/baseQuery';
+import {GetCountryResponse} from '@/shared/types/country';
 import {AutoCompleteOptionsI} from '@/shared/types/options';
 import {transformCountriesResponse, transformCountryCitiesResponse} from './transform';
 
@@ -11,7 +12,7 @@ export const locationApi = createApi({
   tagTypes: [],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
-    getCountries: builder.query<AutoCompleteOptionsI[], void>({
+    getCountries: builder.query<GetCountryResponse[], void>({
       query: () => ({
         url: '/countries/states'
       }),
