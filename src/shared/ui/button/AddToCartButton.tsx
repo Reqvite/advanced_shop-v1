@@ -1,7 +1,7 @@
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import {ButtonProps} from '@mui/material';
 import {ReactElement} from 'react';
-import {Button} from './Button';
+import {Button} from './Button/Button';
 
 type Props = ButtonProps;
 

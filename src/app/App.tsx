@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <Box sx={mainContainer}>
+    <Box data-testid="app" sx={mainContainer}>
       <Header />
       <Container component="main">
         <AppRouter />

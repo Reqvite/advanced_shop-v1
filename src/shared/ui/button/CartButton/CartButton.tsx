@@ -15,7 +15,7 @@ export const CartButton = (props: Props): ReactElement => {
   const dispatch = useAppDispatch();
   const {user} = useAuth();
   const quantity = user?.cart?.reduce((acc, item) => acc + item.quantity, 0);
-
+  console.log(quantity);
   const onClickButton = (): void => {
     if (user) {
       navigate(getRouteShoppingCart());
@@ -33,7 +33,7 @@ export const CartButton = (props: Props): ReactElement => {
       }}
       sx={cartButtonStyles.quantityBade}
     >
-      <IconButton aria-label="Cart" onClick={onClickButton} {...props}>
+      <IconButton data-testid="cart-button" aria-label="Cart" onClick={onClickButton} {...props}>
         <LocalMallIcon fontSize="inherit" />
       </IconButton>
     </Badge>

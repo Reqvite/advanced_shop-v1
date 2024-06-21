@@ -17,7 +17,7 @@ export const Modal = (): ReactElement => {
   };
 
   return (
-    <Dialog fullWidth maxWidth={maxWidth} open={isOpen} onClose={onCloseModal}>
+    <Dialog data-testid="modal" fullWidth maxWidth={maxWidth} open={isOpen} onClose={onCloseModal}>
       <Box sx={modalStyles.logo}>
         <Logo />
       </Box>

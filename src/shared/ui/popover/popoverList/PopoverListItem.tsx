@@ -2,7 +2,7 @@ import {ArrowDropDown} from '@mui/icons-material';
 import {Typography, useTheme} from '@mui/material';
 import {MouseEvent, ReactElement, useState} from 'react';
 import {PopoverItemI} from '@/shared/types/popover';
-import {Button} from '../../button/Button';
+import {Button} from '../../button/Button/Button';
 import {PopoverMenu} from '../popoverMenu/PopoverMenu';
 import {SubNavItem} from './PopoverSubNavItem';
 

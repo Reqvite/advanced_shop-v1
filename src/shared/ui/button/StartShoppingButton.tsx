@@ -2,7 +2,7 @@ import {ButtonProps} from '@mui/material';
 import {ReactElement} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {getRouteMain} from '@/app/providers/AppRouter/routeConfig';
-import {Button} from './Button';
+import {Button} from './Button/Button';
 
 type Props = ButtonProps & {
   title?: string;

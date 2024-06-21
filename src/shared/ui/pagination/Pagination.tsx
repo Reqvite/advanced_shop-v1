@@ -5,7 +5,7 @@ import {defaultPage} from '@/shared/const/product.const';
 import {scrollToTop} from '@/shared/lib/helpers';
 import {useFilter, useMediaQuery} from '@/shared/lib/hooks';
 import {Flex} from '../base/Flex';
-import {Button} from '../button/Button';
+import {Button} from '../button/Button/Button';
 import {Chip} from '../chip/Chip';
 import {toggleActiveClass} from './model/toggleActiveClass';
 
