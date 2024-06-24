@@ -10,7 +10,7 @@ describe('Input Component', () => {
     expect(inputElement.type).toBe('text');
   });
 
-  it('input write', () => {
+  it('test input onChange', () => {
     render(<Input label="Username" />);
     const inputElement = screen.getByLabelText('Username') as HTMLInputElement;
 

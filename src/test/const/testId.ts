@@ -5,5 +5,7 @@ export const testIdValues = {
   listTestId: 'list',
   input: 'input',
   inputErrorMessage: 'input-error-message',
-  passwordInputButton: 'toggle-password-button'
+  passwordInputButton: 'toggle-password-button',
+  quantityInputIncrease: 'quantity-input-increase-button',
+  quantityInputDecrease: 'quantity-input-decrease-button'
 };

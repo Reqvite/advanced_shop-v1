@@ -1,9 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {Box, FormHelperText, IconButton, InputLabel, TextField, Typography} from '@mui/material';
+import {nanoid} from '@reduxjs/toolkit';
 import {ChangeEvent, forwardRef, ReactElement, SetStateAction} from 'react';
-import {Flex} from '../base/Flex';
-import {InputProps} from './Input/Input';
+import {testIdValues} from '@/test/const/testId';
+import {Flex} from '../../base/Flex';
+import {InputProps} from '../Input/Input';
 
 type Props = InputProps & {
   value: number | '';
@@ -48,11 +50,18 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
       }
     };
 
+    const textFieldId = otherProps.id || nanoid();
+
     return (
       <Box>
-        {label && <InputLabel required={required}>{label}</InputLabel>}
+        {label && (
+          <InputLabel htmlFor={textFieldId} required={required}>
+            {label}
+          </InputLabel>
+        )}
         <Flex gap={1} alignItems="center">
           <IconButton
+            data-testid={testIdValues.quantityInputDecrease}
             size="small"
             onClick={onDecrement}
             disabled={numberValue <= min || isDisabled}
@@ -60,6 +69,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
             <RemoveIcon fontSize="small" />
           </IconButton>
           <TextField
+            id={textFieldId}
             type="number"
             value={value ?? String(value)}
             onChange={onInputChange}
@@ -75,6 +85,7 @@ export const QuantityInput = forwardRef<HTMLInputElement, Props>(
             }}
           />
           <IconButton
+            data-testid={testIdValues.quantityInputIncrease}
             size="small"
             onClick={onIncrement}
             disabled={numberValue >= max || isDisabled}
