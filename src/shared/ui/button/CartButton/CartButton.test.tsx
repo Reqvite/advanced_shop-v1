@@ -1,60 +1,40 @@
 import {screen} from '@testing-library/react';
 import {vi} from 'vitest';
 import {useAuth} from '@/shared/lib/hooks';
+import {testIdValues} from '@/test/const/testId';
+import {emptyUser, mockUser} from '@/test/const/user';
 import {renderWithProviders} from '@/test/wrappers/renderWithProviders';
 import {CartButton} from './CartButton';
 
 vi.mock('@/shared/lib/hooks', () => ({
   useAppDispatch: vi.fn(),
-  useAuth: vi.fn(() => ({user: null, accessToken: null})),
+  useAuth: vi.fn(),
   useAppSelector: vi.fn()
 }));
 vi.mock('@/slices/modal', async (importOriginal) => {
-  const actual = await importOriginal();
-  return actual;
+  return await importOriginal();
 });
 
-const cartButtonTestId = 'cart-button';
+const countedQuantityValue = '3';
 
 describe('CartButton component', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
 
-  it('renders correctly with default props', () => {
-    const authData = useAuth();
+  it('renders correctly with not authorized user', () => {
+    useAuth.mockReturnValue(emptyUser);
     renderWithProviders(<CartButton />);
 
-    expect(authData.user).toBeNull();
-    expect(screen.getByTestId(cartButtonTestId)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdValues.cartButtonTestId)).toBeInTheDocument();
   });
 
-  it('displays the correct quantity', () => {
+  it('displays the correct products quantity', () => {
+    useAuth.mockReturnValue(mockUser);
     renderWithProviders(<CartButton />);
-    const mockUser = {
-      cart: [{quantity: 1}, {quantity: 2}]
-    };
-    useAuth.mockReturnValue({user: mockUser});
+
+    const badgeSpan = screen.getByText(countedQuantityValue);
+    expect(badgeSpan).toHaveClass('MuiBadge-badge');
+    expect(badgeSpan).toHaveTextContent(countedQuantityValue);
   });
 });
-
-//   it('navigates to shopping cart when user is logged in', () => {
-//     const mockUser = {cart: []};
-//     (useAuth as vi.Mock).mockReturnValue({user: mockUser});
-
-//     renderButton;
-
-//     fireEvent.click(screen.getByLabelText('Cart'));
-
-//     expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining('/shopping-cart'));
-//   });
-
-//   it('opens login modal when user is not logged in', () => {
-//     (useAuth as vi.Mock).mockReturnValue({user: null});
-
-//     renderButton;
-
-//     fireEvent.click(screen.getByLabelText('Cart'));
-
-//     expect(mockDispatch).toHaveBeenCalledWith(modalActions.openModal({children: <AuthForm />}));
-//   });

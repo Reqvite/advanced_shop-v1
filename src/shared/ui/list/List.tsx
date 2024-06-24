@@ -1,6 +1,7 @@
 import {List as MuiList, ListProps, SxProps} from '@mui/material';
 import {ComponentType, ReactElement} from 'react';
 import {renderListItem} from '@/shared/services';
+import {testIdValues} from '@/test/const/testId';
 import {NoContentBox} from '../base/NoContentBox';
 
 type Props<T> = ListProps & {
@@ -31,6 +32,7 @@ export const List = <T extends {_id: string}>({
 
   return (
     <MuiList
+      data-testid={testIdValues.listTestId}
       sx={{
         display: 'flex',
         justifyContent: row ? 'center' : 'none',

@@ -7,6 +7,7 @@ import {cartButtonStyles} from '@/app/theme/styles';
 import {AuthForm} from '@/components/modalContent';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
 import {actions as modalActions} from '@/slices/modal';
+import {testIdValues} from '@/test/const/testId';
 
 type Props = IconButtonProps;
 
@@ -15,7 +16,7 @@ export const CartButton = (props: Props): ReactElement => {
   const dispatch = useAppDispatch();
   const {user} = useAuth();
   const quantity = user?.cart?.reduce((acc, item) => acc + item.quantity, 0);
-  console.log(quantity);
+
   const onClickButton = (): void => {
     if (user) {
       navigate(getRouteShoppingCart());
@@ -33,7 +34,12 @@ export const CartButton = (props: Props): ReactElement => {
       }}
       sx={cartButtonStyles.quantityBade}
     >
-      <IconButton data-testid="cart-button" aria-label="Cart" onClick={onClickButton} {...props}>
+      <IconButton
+        data-testid={testIdValues.cartButtonTestId}
+        aria-label="Cart"
+        onClick={onClickButton}
+        {...props}
+      >
         <LocalMallIcon fontSize="inherit" />
       </IconButton>
     </Badge>

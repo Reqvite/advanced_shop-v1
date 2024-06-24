@@ -1,6 +1,6 @@
 import {SliderProps, Stack, Typography} from '@mui/material';
 import {ChangeEvent, forwardRef, ReactElement, useEffect, useState} from 'react';
-import {Input} from '../../input/Input';
+import {Input} from '../../input/Input/Input';
 import {Slider} from '../Slider';
 import {calculateNewRangeValue} from './model/calculateNewRangeValue';
 import {Value} from './model/types';

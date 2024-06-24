@@ -1,5 +1,6 @@
 import {Button as MuiButton, ButtonProps, IconProps} from '@mui/material';
 import {ElementType, ReactElement, ReactNode} from 'react';
+import {testIdValues} from '@/test/const/testId';
 import {Loader} from '../../loader/Loader';
 
 type Props = ButtonProps & {
@@ -25,7 +26,7 @@ export const Button = ({
 }: Props): ReactElement => {
   return (
     <MuiButton
-      data-testid="button"
+      data-testid={testIdValues.buttonTestId}
       variant={variant}
       disabled={isLoading || disabled}
       {...otherProps}

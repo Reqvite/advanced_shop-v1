@@ -3,7 +3,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import {Box, FormHelperText, IconButton, InputLabel, TextField, Typography} from '@mui/material';
 import {ChangeEvent, forwardRef, ReactElement, SetStateAction} from 'react';
 import {Flex} from '../base/Flex';
-import {InputProps} from './Input';
+import {InputProps} from './Input/Input';
 
 type Props = InputProps & {
   value: number | '';
