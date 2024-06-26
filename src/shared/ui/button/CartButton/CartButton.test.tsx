@@ -23,14 +23,14 @@ describe('CartButton component', () => {
   });
 
   it('renders correctly with not authorized user', () => {
-    useAuth.mockReturnValue(emptyUser);
+    (useAuth as jest.Mock).mockReturnValue(emptyUser);
     renderWithProviders(<CartButton />);
 
     expect(screen.getByTestId(testIdValues.cartButtonTestId)).toBeInTheDocument();
   });
 
   it('displays the correct products quantity', () => {
-    useAuth.mockReturnValue(mockUser);
+    (useAuth as jest.Mock).mockReturnValue(mockUser);
     renderWithProviders(<CartButton />);
 
     const badgeSpan = screen.getByText(countedQuantityValue);
