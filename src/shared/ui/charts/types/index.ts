@@ -1,6 +1,8 @@
 import {BarDatum, ResponsiveBarSvgProps} from '@nivo/bar';
+import {DefaultRawDatum, PieSvgProps} from '@nivo/pie';
 
 export type BarProps = ResponsiveBarSvgProps<BarDatum>;
+export type PieProps = PieSvgProps<DefaultRawDatum>;
 
 export type AxisOptions = {
   legend?: string;
