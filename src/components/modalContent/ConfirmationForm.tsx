@@ -1,7 +1,7 @@
 import {Stack, Typography} from '@mui/material';
 import {ReactElement} from 'react';
 import {Flex} from '../../shared/ui/base/Flex';
-import {Button} from '../../shared/ui/button/Button';
+import {Button} from '../../shared/ui/button/Button/Button';
 type Props = {
   onConfirm: () => void;
   onCancel: () => void;

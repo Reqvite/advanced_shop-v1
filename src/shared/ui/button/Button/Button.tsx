@@ -1,6 +1,7 @@
 import {Button as MuiButton, ButtonProps, IconProps} from '@mui/material';
 import {ElementType, ReactElement, ReactNode} from 'react';
-import {Loader} from '../loader/Loader';
+import {testIdValues} from '@/test/const/testId';
+import {Loader} from '../../loader/Loader';
 
 type Props = ButtonProps & {
   children?: ReactNode;
@@ -24,10 +25,19 @@ export const Button = ({
   ...otherProps
 }: Props): ReactElement => {
   return (
-    <MuiButton variant={variant} disabled={isLoading || disabled} {...otherProps}>
-      {!isLoading && LeftAddon && <LeftAddon sx={{color: iconColor}} fontSize={iconSize} />}
+    <MuiButton
+      data-testid={testIdValues.buttonTestId}
+      variant={variant}
+      disabled={isLoading || disabled}
+      {...otherProps}
+    >
+      {!isLoading && LeftAddon && (
+        <LeftAddon data-testid="LeftAddon" sx={{color: iconColor}} fontSize={iconSize} />
+      )}
       {isLoading ? <Loader /> : children}
-      {!isLoading && RightAddon && <RightAddon sx={{color: iconColor}} fontSize={iconSize} />}
+      {!isLoading && RightAddon && (
+        <RightAddon data-testid="RightAddon" sx={{color: iconColor}} fontSize={iconSize} />
+      )}
     </MuiButton>
   );
 };

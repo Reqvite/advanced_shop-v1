@@ -3,7 +3,9 @@ import {Box, IconButton, InputLabel, TextField, TextFieldProps, Typography} from
 import {InputAdornment} from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
+import {nanoid} from '@reduxjs/toolkit';
 import {forwardRef, ReactElement, useState} from 'react';
+import {testIdValues} from '@/test/const/testId';
 
 export type InputProps = Omit<TextFieldProps, 'error'> & {
   label?: string;
@@ -35,7 +37,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       if (type === 'password') {
         return (
           <InputAdornment position="end">
-            <IconButton aria-label="toggle password visibility" onClick={togglePasswordVisibility}>
+            <IconButton
+              data-testid={testIdValues.passwordInputButton}
+              aria-label="toggle password visibility"
+              onClick={togglePasswordVisibility}
+            >
               {showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </InputAdornment>
@@ -44,15 +50,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       return null;
     };
 
+    const textFieldId = otherProps.id || nanoid();
+
     return (
-      <Box>
+      <Box data-testid={testIdValues.input}>
         {label && (
-          <InputLabel required={required} sx={{fontSize: 14}}>
+          <InputLabel htmlFor={textFieldId} required={required} sx={{fontSize: 14}}>
             {label}
           </InputLabel>
         )}
         <FormControl fullWidth>
           <TextField
+            id={textFieldId}
             variant={variant}
             inputRef={ref}
             type={showPassword ? 'text' : type}
@@ -65,7 +74,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {helperText && <FormHelperText>{helperText}</FormHelperText>}
           <Box height="6px" mt="1px">
             {error && (
-              <Typography fontSize={12} color="error.light">
+              <Typography
+                data-testid={testIdValues.inputErrorMessage}
+                fontSize={12}
+                color="error.light"
+              >
                 {error}
               </Typography>
             )}

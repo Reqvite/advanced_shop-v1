@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom';
 import {getRouteWishlist} from '@/app/providers/AppRouter/routeConfig';
 import {grey, red} from '@/app/theme/theme';
 import {useAuth} from '@/shared/lib/hooks';
-import {Button} from './Button';
+import {Button} from './Button/Button';
 
 type Props = ButtonProps & {
   withNavigate?: boolean;

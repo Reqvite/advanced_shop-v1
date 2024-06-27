@@ -13,7 +13,7 @@ import {Control, FieldError, useController, useWatch} from 'react-hook-form';
 import {checkboxGroupStyles} from '@/app/theme/styles';
 import {LabelOptionsI} from '@/shared/types/options';
 import {Flex} from '../base/Flex';
-import {Button} from '../button/Button';
+import {Button} from '../button/Button/Button';
 import {Chip} from '../chip/Chip';
 
 interface Props {

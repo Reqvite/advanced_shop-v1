@@ -7,6 +7,7 @@ import {cartButtonStyles} from '@/app/theme/styles';
 import {AuthForm} from '@/components/modalContent';
 import {useAppDispatch, useAuth} from '@/shared/lib/hooks';
 import {actions as modalActions} from '@/slices/modal';
+import {testIdValues} from '@/test/const/testId';
 
 type Props = IconButtonProps;
 
@@ -33,7 +34,12 @@ export const CartButton = (props: Props): ReactElement => {
       }}
       sx={cartButtonStyles.quantityBade}
     >
-      <IconButton aria-label="Cart" onClick={onClickButton} {...props}>
+      <IconButton
+        data-testid={testIdValues.cartButtonTestId}
+        aria-label="Cart"
+        onClick={onClickButton}
+        {...props}
+      >
         <LocalMallIcon fontSize="inherit" />
       </IconButton>
     </Badge>

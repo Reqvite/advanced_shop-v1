@@ -7,6 +7,7 @@ import {useAppDispatch, useAuth, useFilter} from '@/shared/lib/hooks';
 import {Alert, Container, Modal} from '@/shared/ui';
 import {actions as filterActions} from '@/slices/filter';
 import {actions as userActions} from '@/slices/user';
+import {testIdValues} from '@/test/const/testId';
 
 const mainContainer = {display: 'flex', flexDirection: 'column', minHeight: '100vh'};
 
@@ -28,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <Box sx={mainContainer}>
+    <Box data-testid={testIdValues.appId} sx={mainContainer}>
       <Header />
       <Container component="main">
         <AppRouter />
